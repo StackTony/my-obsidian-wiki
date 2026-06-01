@@ -58,6 +58,10 @@ my-obsidian-wiki/
 - 实体：`[[entities/person-name]]`
 - 概念：`[[concepts/topic-name]]`
 - 摘要：`[[summaries/source-name]]`
+- 技巧：`[[skills/how-to-name]]`
+- 综合：`[[synthesis/cross-topic-name]]`
+- 项目：`[[projects/project-name]]`
+- 日志：`[[journal/YYYY-MM-DD-topic]]`
 
 ### Frontmatter（完整版）
 
@@ -256,17 +260,50 @@ source_quality_score = avg(各来源的质量分)
 
 ### 页面模板
 
-创建新 wiki 页面时，使用以下结构：
+创建新 wiki 页面时，所有分类共用同一套 frontmatter schema，但正文结构因分类而异：
 
+**共用 frontmatter**（所有分类）：
+```yaml
+title: 页面标题
+category: <分类>
+tags: [标签1, 标签2]           # 最多5个领域标签
+aliases: [别名]                 # 可选
+relationships:                  # 可选
+  - target: "[[concepts/related-concept]]"
+    type: extends
+source_dir: 来源目录            # summaries/entities/concepts 必填
+source_files: [来源文件.md]     # summaries/entities/concepts 必填
+summary: 一两句摘要，≤200字符
+provenance:                     # 可选
+  extracted: 0.72
+  inferred: 0.25
+  ambiguous: 0.03
+base_confidence: 0.65
+lifecycle: draft
+lifecycle_changed: 2026-06-01
+tier: supporting
+created: 2026-06-01
+updated: 2026-06-01
+```
+
+**分类特定的正文结构**：
+
+| 分类 | 正文模板 | 说明 |
+|------|----------|------|
+| `summaries` | 概述 → 核心观点 → 未解问题 → 来源 | 单个来源文档的蒸馏摘要 |
+| `concepts` | 概述 → 核心观点 → 关键细节 → 未解问题 → 来源 | 跨来源的概念整合页 |
+| `entities` | 简介 → 关键属性 → 与其他实体的关系 → 来源 | 人物/组织/工具的实体页 |
+| `skills` | 概述 → 前置条件 → 步骤 → 常见问题 → 进阶用法 → 来源 | 实操技巧和教程 |
+| `synthesis` | 概述 → 跨领域连接 → 综合洞察 → 开放问题 → 来源 | 跨主题综合分析 |
+| `projects` | 概述 → 架构决策 → 关键模式 → 待办 → 相关概念 | 项目知识枢纽 |
+| `journal` | 背景 → 反思 → 关键收获 → 后续行动 | 时间相关的反思日志 |
+
+**示例**（concepts 分类）：
 ```markdown
 ---
 title: 页面标题
 category: concepts
 tags: [ml, 架构]
-aliases: [别名]
-relationships:
-  - target: "[[concepts/related-concept]]"
-    type: extends
 source_dir: 来源目录
 source_files: [来源文件.md]
 summary: 一两句摘要，≤200字符
@@ -293,6 +330,10 @@ updated: 2026-06-01
 - 两个来源不一致的数字。 ^[ambiguous]
 
 使用 [[wikilinks]] 连接相关页面。
+
+## 关键细节
+
+深入展开核心观点中的重要技术细节。
 
 ## 未解问题
 
@@ -326,19 +367,52 @@ updated: 2026-06-01
 | **Restore** | 需要回退 | 恢复之前的存档 |
 
 ### Ingest（添加新来源）- 自建更新
-1. 对于原始文件是新增的，依次执行下面的动作：
-    1. 从 `raw/sources/` 读取来源文档
-    2. 将摘要写入 `wiki/summaries/[source-name].md`
-    3. 更新 `wiki/index.md` 添加新条目
-    4. 更新/创建 `wiki/entities/` 中的相关实体页面
-    5. 更新/创建 `wiki/concepts/` 中的概念页面
-    6. 在 `wiki/log.md` 中追加条目
-    7. 更新 `wiki/.manifest.json` 记录来源哈希和产出页面
-    8. 更新 `wiki/hot.md` 语义快照
-2. 对于原始文件已经是删除的，对应的相关引用和 summaries 和 concepts 也需要删除掉
-3. 对于原始文件是有修改的，需要分析根据原始文件生成的 summaries 下的文件，summaries 和 concepts 下文件总结出来的内容是否需要优化更新，保持摘要内容和原始文件内容的高度一致性
 
-**核心理念**：ingest 不是只创建来源的摘要——它应该**更新每个相关页面**。合并新信息、解决矛盾、加强交叉引用。
+**核心理念**：ingest 不是只创建来源的摘要——它应该**更新每个相关页面**。合并新信息、解决矛盾、加强交叉引用。跨分类更新是核心——一个来源可能同时影响 summaries、concepts、skills、synthesis 等多个分类。
+
+#### 1. 新增来源（新文件）
+
+依次执行：
+1. 从 `raw/sources/` 读取来源文档
+2. 蒸馏写入 `wiki/summaries/[source-name].md`
+3. 更新/创建 `wiki/entities/` 中的相关实体页面
+4. 更新/创建 `wiki/concepts/` 中的相关概念页面
+5. 跨分类更新——根据来源内容判断是否需要更新/创建以下页面（触发条件见下表）：
+
+| 分类 | 触发条件 | 典型内容 |
+|------|----------|----------|
+| `wiki/skills/` | 来源包含实操步骤、教程、最佳实践、排错指南 | 操作手册、配置教程、调试技巧 |
+| `wiki/synthesis/` | 来源连接了 2+ 个已有概念、或提供跨领域洞察 | 架构对比、设计权衡、跨主题分析 |
+| `wiki/projects/` | 来源是某个具体项目的技术文档 | 项目 README、架构决策记录 |
+| `wiki/journal/` | 来源包含时间相关的反思、里程碑或日志 | 学习进展、阶段性总结 |
+
+   跨分类更新时，确保与已有的 concepts/entities 交叉链接。
+6. 更新 `wiki/index.md` 添加所有新增/修改条目（所有分类均需更新）
+7. 在 `wiki/log.md` 中追加条目
+8. 更新 `wiki/.manifest.json` 记录来源哈希和产出页面
+9. 更新 `wiki/hot.md` 语义快照
+
+#### 2. 删除来源（文件已移除）
+
+级联清理，依次执行：
+1. 删除对应的 `wiki/summaries/` 页面
+2. **清理 wikilinks**：全局搜索指向该 summary 的 `[[wikilinks]]`，移除或替换引用
+3. **传播更新**：更新引用了该 summary 的 concepts/skills/synthesis 页面，移除对该来源的引用段落；检查是否有 concept 页面因来源删除而内容空洞，标记 `disputed` 或降级
+4. 从 `wiki/index.md` 中移除相关条目
+5. 从 `wiki/.manifest.json` 中移除对应记录
+6. 更新 `wiki/log.md` 和 `wiki/hot.md`
+
+#### 3. 修改来源（文件内容有变更）
+
+重新蒸馏而非 diff 比对，依次执行：
+1. 根据 manifest 定位受影响的 summary 页面
+2. **重新蒸馏**：重新读取原始文件，重写 summary 页面，确保与最新原始内容高度一致
+   - 原文新增的内容 → 补充到 summary
+   - 原文修改的数值/结论 → 更新 summary 中对应 claim
+   - 原文删除的内容 → 移除 summary 中对应段落，检查是否需要标注 `^[ambiguous]`
+3. **传播更新**：检查引用该 summary 的 concepts/skills/synthesis 页面，将新洞察传播到相关页面
+4. 更新所有受影响页面的 `updated` 字段
+5. 更新 `wiki/.manifest.json`、`wiki/index.md`、`wiki/log.md`、`wiki/hot.md`
 
 ### Query（回答问题）- 分级检索协议
 
@@ -368,18 +442,19 @@ updated: 2026-06-01
 ### Lint（健康检查）- 自检检查
 
 结合 raw 下原始文件检查 wiki 目录下的内容，按顺序检查：
-1. 孤立页面（零入链）
-2. 断裂的 wikilinks
-3. 缺失 frontmatter 必填字段
-4. 缺失 summary（软警告）
-5. 过期内容（来源比页面更新）
-6. 页面间矛盾
-7. 索引一致性
-8. 来源标记漂移（AMBIGUOUS > 15%，INFERRED > 40% 且无来源）
-9. 离散标签聚类（凝聚力 < 0.15）
-10. 置信度/lifecycle schema 验证
-11. 类型化关系有效性
-12. 可提升页面候选
+1. 过期的内容（来源比页面更新）— manifest 中源文件 SHA-256 与当前不匹配
+2. 孤立页面（零入链）— grep 所有 wikilinks 反向统计入链数，=0 的为孤儿
+3. Summaries 准确性 — 对比每个 summary 与其 raw 原文的关键事实：检查数值/定义/结论是否一致，检查原文新增内容是否遗漏，检查原文已删除内容是否残留在 summary 中。不一致的将页面标记为 `lifecycle: disputed` 并在行内添加过时标注
+4. 页面间矛盾 — 两个页面声称冲突的 claim（如不同数值、对立结论）
+5. 索引一致性 — `index.md` 条目与实际文件是否对应
+6. 断裂的 wikilinks — 检查 `[[...]]` 目标页面是否存在
+7. 缺失 frontmatter 必填字段 — 检查每个页面是否有 `title`、`category`、`tags`、`summary`、`created`、`updated`、`base_confidence`、`lifecycle`
+8. 缺失 summary（软警告）— 检查 `summary:` 字段是否 ≤200 字符且非空
+9. 来源标记漂移（AMBIGUOUS > 15%，INFERRED > 40% 且无来源）
+10. 离散标签聚类（凝聚力 < 0.15）
+11. 置信度/lifecycle schema 验证 — lifecycle 枚举值是否合法、base_confidence 范围 [0,1]、supersession 链完整性
+12. 类型化关系有效性 — 关系类型是否在允许列表中、目标页面是否存在、无自引用
+13. 可提升页面候选 — 入链 ≥5 或桥梁位置 → 建议提升为 core
 
 **合并模式**（`--consolidate`）：修复断裂链接、添加交叉引用、修正 lifecycle 状态、降级过期的 peripheral 页面、规范化标签、添加矛盾标注。
 
@@ -440,7 +515,7 @@ updated: 2026-06-01
 ## 索引格式
 
 `wiki/index.md` 应包含：
-- 分类标题（## Summaries, ## Entities, ## Concepts, ## Synthesis, ## Journal）
+- 分类标题（## Summaries, ## Entities, ## Concepts, ## Skills, ## Synthesis, ## Projects, ## Journal）
 - 每个条目：`[[页面名称]]` — 一行摘要 ( #标签) — 注意标签前有空格
 
 ```markdown
@@ -548,3 +623,17 @@ updated: 2026-06-01
 - Language: Chinese (zh-CN) — 用中文沟通，wiki 内容跟随源语言
 - Permission mode: yolo (agentic, minimal prompting)
 - Model: GLM-5.1 via Anthropic-compatible proxy
+
+## 未来改进候选（参考 obsidian-wiki 框架，暂不引入）
+
+以下特性来自 obsidian-wiki 参考仓库，经过评估后暂不引入，但作为未来扩展的候选记录在此：
+
+| 特性 | 来源 | 说明 | 引入时机 |
+|------|------|------|----------|
+| `visibility/` 标签体系 | wiki-lint / wiki-query | `visibility/public`、`visibility/internal`、`visibility/pii` 分级可见性控制，过滤查询时排除敏感内容 | 当 wiki 规模增长到需要区分公开/私密内容时 |
+| QMD 语义检索 | wiki-query / wiki-ingest | 在索引扫描后增加向量语义搜索层，提升大 vault 的检索精度 | 当 vault 超过 100 页且 Grep 检索开始不够用时 |
+| Projects 子目录结构 | wiki-update | `projects/<name>/<name>.md` + 子目录（concepts/skills/references），而非单一 `projects/<name>.md` | 当 wiki 有 ≥3 个活跃项目且项目知识复杂到需要子分类时 |
+| Config Resolution Protocol | AGENTS.md | 跨项目使用时从 CWD 向上查找 `.env`，支持从任意项目目录工作 | 当需要跨项目 `wiki-update` 时 |
+| `_raw/` 暂存区 Raw Mode | wiki-ingest | 支持将草稿放入 `_raw/`，下次 ingest 自动提升为正式页面 | 当需要快速暂存未经审核的内容时 |
+| Consolidate auto-promote | wiki-lint | `--consolidate` 模式中自动将符合条件的 `draft` 页面提升为 `reviewed`（30天+confidence>0.7） | 当 wiki 积累足够多 draft 页面需要批量审查时 |
+| wiki-update 跨项目同步 | wiki-update / AGENTS.md | 从任意项目目录扫描 README/源码/git log，蒸馏到 wiki projects 页面 | 当开始管理多个代码项目时 |
