@@ -1,7 +1,240 @@
 {
   "version": "1.0",
   "vault_path": "C:\\Users\\23363\\Data\\code\\my-obsidian-wiki",
-  "sources": {},
-  "last_ingest": null,
-  "created": "2026-06-01"
+  "sources": {
+    "Linux 操作系统/Linux 中断系统/Linux IPI 核间中断.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 238,
+      "content_hash": "sha256:6148ae948e1a71e60c7329fec49a1da92c846747b5335fc4ab1ffc73bc70a71e",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-interrupt-system.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 中断系统/Linux ksoftirqd软中断内核线程详解.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 6713,
+      "content_hash": "sha256:d182a772bc500bb0fe6bd8b58a1252ffcd0f1b76ee0b4a3a0b03da288681448a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-softirq-detail.md"],
+      "pages_updated": ["concepts/linux-interrupt-system.md"]
+    },
+    "Linux 操作系统/Linux 中断系统/Linux 硬中断irq + 软中断softirq原理.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 22039,
+      "content_hash": "sha256:e489e18fbda07a2df45633861da92a8c79feebbe1f865f1d777496fec9da35db",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-interrupt-system.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 中断系统/Linux 软中断softirq.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 23290,
+      "content_hash": "sha256:2970b9426a42a7913a67792cf38691220a3f71dab70b8d956df057bcf51495ba",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-softirq-detail.md"],
+      "pages_updated": ["concepts/linux-interrupt-system.md"]
+    },
+    "Linux 操作系统/Linux 内存管理/Linux meminfo参数详细解释.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 35900,
+      "content_hash": "sha256:24ce2b5e29a5cb67bdb760d14d1e7eff27d2bd360e957396abd866310801285b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-meminfo-params.md"],
+      "pages_updated": ["concepts/linux-memory-management.md"]
+    },
+    "Linux 操作系统/Linux 内存管理/Linux 页缓存（Page Cache）.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 18376,
+      "content_hash": "sha256:43692a450a436c6ec858b1ad8eff934cbea3aa97c35aa90103bbca55a8f82d06",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-page-cache.md"],
+      "pages_updated": ["concepts/linux-memory-management.md"]
+    },
+    "Linux 操作系统/Linux 内核 IO 栈/Linux IO全景介绍.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 2595,
+      "content_hash": "sha256:e6a7ff51674de1bd559f6944abaebf155723073ba5a1e6eda1dd96f640d7a8ad",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-io-stack.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 内核 IO 栈/Linux IO调度算法.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 76,
+      "content_hash": "sha256:1522e2a77bdc001ed57f4dc936dc1262ee4d537f40a725217f0b797edbaef29f",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["concepts/linux-io-stack.md"]
+    },
+    "Linux 操作系统/Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 8207,
+      "content_hash": "sha256:252c8685b1896ef371eb2cf8f1873ae06888afb7ee771aa0883ab1312b170d89",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-boot-shutdown.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 系统启动关闭/Linux 启动详细过程（开机启动顺序）.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 4455,
+      "content_hash": "sha256:fd800e7ba2367f1161435106c3c67070ffe7cc2e151a934085f2e9979c55389c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-boot-shutdown.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 网络/Linux TCP - IP协议.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 58589,
+      "content_hash": "sha256:0c26a212cea33bada84a9753dfa04d59dc5546d2adddc13b29aa3932136a31d2",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-network-stack.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 网络/Linux 常见的网络协议.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 2834,
+      "content_hash": "sha256:8a0db716c8aed9ac79a3f121fc38331706cb41ab726632e36e479eea4d3364ee",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-network-stack.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 网络/Linux 网络三张表：ARP表, MAC表, 路由表.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 18035,
+      "content_hash": "sha256:d906b5d7e987e3098c085125d0afd53ae6f2a561375deef2198d49efa1dab466",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-network-stack.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 网络/Linux 网络协议栈.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 20735,
+      "content_hash": "sha256:a1ed39516bb552a738b13c68c8b13c76d4811f1ed009c2b28f758712eb1582ff",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-network-protocol-stack-impl.md"],
+      "pages_updated": ["concepts/linux-network-stack.md"]
+    },
+    "Linux 操作系统/Linux 资源隔离/Linux Namespace与Cgroups介绍.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 14813,
+      "content_hash": "sha256:6072e354f0f94cf96212ec415c5264217e370bd1357e6a534e1c5c549796d677",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-namespace-cgroups.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 资源隔离/System V IPC/Linux Namespace  -  IPC.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 5344,
+      "content_hash": "sha256:65921bbb75948730e5b6d6d37d90223f0796a53cacfe3ad3d4711d95864ae6f5",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-namespace-cgroups.md", "concepts/linux-system-v-ipc.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 资源隔离/System V IPC/System V IPC 之信号量.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 13957,
+      "content_hash": "sha256:8847b5b4a1beac160cb985c118dbb898c151e3b810fbe55264d9881f3a1e5eb3",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-system-v-ipc.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 资源隔离/System V IPC/System V IPC 之共享内存.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 10739,
+      "content_hash": "sha256:ade8ea6e0e802d3dbae2a55e50cb49315669fe31fd3e4d6148bfc32e0936b743",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-system-v-ipc.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 资源隔离/System V IPC/System V IPC 之消息队列.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 9145,
+      "content_hash": "sha256:cc67e75dc31c4f4f2a55e6f3871f749186e6786ebe6d525882d33c60109bb066",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-system-v-ipc.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 进程调度/Linux 进程调度器.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 3104,
+      "content_hash": "sha256:7f13edad0039f4174b17f2e6c748bd516ae542d4d1370a3793d06205cf824a31",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-process-scheduling.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 进程调度/Linux 进程调度策略.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 491,
+      "content_hash": "sha256:e6979a28ca5a360ad942629c92cc7d7f58e65c635fcd742cb3c594f22df4b07e",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-process-scheduling.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 锁机制/Linux Mutex锁.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 17259,
+      "content_hash": "sha256:128312db88a55bdb0e2934e9ada08ac5c50e2bf3817a74cbeb0d07670b745400",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-lock-mechanisms.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 锁机制/Linux RCU锁.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 78013,
+      "content_hash": "sha256:00052ff35c3d327237844006c374b786ec3debd729ff3d472d758710cb909198",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-rcu-lock.md"],
+      "pages_updated": ["concepts/linux-lock-mechanisms.md"]
+    },
+    "Linux 操作系统/Linux 锁机制/Linux SpinLock锁.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 28664,
+      "content_hash": "sha256:61bb220539216ab7567cc7b52fbec17e4ac90ba86e045dbe01dd6a4c9abc81c5",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-lock-mechanisms.md"],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 锁机制/Linux 锁机制全景介绍.md": {
+      "ingested_at": "2026-06-01",
+      "size_bytes": 76280,
+      "content_hash": "sha256:4afa25fc7ffa82b7c23aab687954839ec30a8d1d8ec3877936d1d0d55a8085c6",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-lock-mechanisms.md"],
+      "pages_updated": []
+    }
+  },
+  "last_ingest": "2026-06-01",
+  "created": "2026-06-01",
+  "stats": {
+    "total_sources_ingested": 25,
+    "total_pages": 14,
+    "total_concepts": 9,
+    "total_summaries": 5,
+    "total_entities": 0
+  }
 }
