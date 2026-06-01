@@ -9,24 +9,24 @@ updated: 2026-06-01
 
 ## Recent Activity
 
-- [2026-06-01] INGEST — 首批 Linux 操作系统源文件消化完成，25个原始文档蒸馏为14个wiki页面（9个概念+5个摘要）
-- [2026-06-01] INIT — vault 创建，目录结构搭建
-- [2026-06-01] RESTRUCTURE — wiki/ 成为 AI 自治区，raw/ 为只读源
+- [2026-06-01] INGEST — Linux虚拟化源文件消化完成，13个原始文档蒸馏为10个新wiki页面+3个已有页面更新。首次覆盖skills、entities、synthesis分类
+- [2026-06-01] INGEST — 首批Linux操作系统源文件消化完成，25个原始文档蒸馏为14个wiki页面
 
 ## Active Threads
 
-- **Linux 内核知识网络**：中断系统、内存管理、IO栈、网络栈、锁机制、资源隔离、进程调度、IPC 八大领域概念页已建立，交叉引用链初步搭建
+- **Linux虚拟化知识网络**：virtio框架(virtio→vhost→vhost-user→vDPA四种演进)、中断虚拟化(VGIC/KVM注入)、设备直通(IOMMU/SR-IOV/VFIO)、热迁移三大领域概念页已建立，与已有内核知识交叉链接
+- **跨分类首次扩展**：skills分类（virsh操作手册）、entities分类（libvirt/virsh）、synthesis分类（virtio架构演进分析）首次写入内容
 - **下一步可扩展方向**：云原生（Kubernetes）、数据结构与算法、消息队列等主题尚待消化
 
 ## Key Takeaways
 
-- Linux 中断采用 ISR + softirq 两阶段设计，preempt_count 是防抢占的核心机制
-- 内存管理有"黑洞"问题：alloc_pages 分配的内存不被 /proc/meminfo 追踪
-- Page Cache = Buffers + Cached + SwapCached，Write Back 是默认一致性方案
-- 锁选择遵循决策树：中断上下文→Spinlock，进程上下文看持锁时间，读极多写极少→RCU
-- Namespace+Cgroups 是容器技术的双引擎：一个管"看什么"，一个管"用多少"
+- Virtio核心是前后端分离+共享内存(vring)+零拷贝通知(ioeventfd/irqfd)，数据面演进从全软件模拟到硬件直通
+- 中断虚拟化分三种场景：物理设备→vCPU、虚拟外设→vCPU、Guest IPI
+- 热迁移三阶段：内存迭代拷贝→停机拷贝→网络恢复，脏页检测(getdirty)有性能开销
+- 设备直通三大技术：IOMMU(DMA翻译+隔离)、SR-IOV(PF/VF)、VFIO(用户态驱动)
 
 ## Flagged Contradictions
 
-- Linux 进程调度源文件较简略（2个文件共~3.5KB），概念页面推断比例偏高
-- IO调度算法源文件仅为 stub（76字节），该领域信息可能不完整
+- 中断虚拟化源文件偏简略（VGIC仅为片段），概念页面推断比例偏高(provenance: inferred 0.30)
+- 设备直通源文件内容不完整（仅概念介绍，缺乏VFIO group/container/device三层抽象细节）
+- 网络虚拟化源文件virtio-net为极简stub(168字节)，virtio-net内核态转发流程未详细展开

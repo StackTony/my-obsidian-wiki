@@ -8,6 +8,8 @@ relationships:
     type: uses
   - target: "[[concepts/linux-lock-mechanisms]]"
     type: related_to
+  - target: "[[concepts/linux-virtio-architecture]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 内核 IO 栈
 source_files: [Linux IO全景介绍.md, Linux IO调度算法.md]
 summary: Linux IO栈分层架构：VFS→Block层→SCSI/NVMe层→驱动→硬件。Block层请求排队调度，Write Through/Back缓存模式，设备发现从pci_device_probe开始。
@@ -22,6 +24,8 @@ tier: supporting
 created: 2026-06-01
 updated: 2026-06-01
 ---
+
+> 虚拟化环境下的IO栈见[[concepts/linux-virtio-architecture]]——virtio是物理IO栈在虚拟化环境中的半虚拟化替代方案。
 
 # Linux IO栈
 

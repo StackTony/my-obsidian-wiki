@@ -10,6 +10,8 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-network-stack]]"
     type: uses
+  - target: "[[concepts/linux-interrupt-virtualization]]"
+    type: extends
 source_dir: Linux 操作系统/Linux 中断系统
 source_files: [Linux 硬中断irq + 软中断softirq原理.md, Linux 软中断softirq.md, Linux ksoftirqd软中断内核线程详解.md, Linux IPI 核间中断.md]
 summary: Linux中断分上下半部：硬中断(IRQ)上半部快速响应，软中断(softirq)下半部延迟处理。三种延迟机制对比及preempt_count跟踪中断上下文。
@@ -24,6 +26,8 @@ tier: supporting
 created: 2026-06-01
 updated: 2026-06-01
 ---
+
+> 虚拟化环境下的中断机制见[[concepts/linux-interrupt-virtualization]]——中断虚拟化是本页中断系统在虚拟化场景的自然延伸。
 
 # Linux中断系统
 

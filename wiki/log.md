@@ -51,3 +51,25 @@ title: Wiki Log
   - linux-network-protocol-stack-impl — 网络协议栈实现
   - linux-rcu-lock — RCU锁详解
 - 所有25个源文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-01] ingest | Linux 虚拟化（13个原始文件 → 10个新wiki页面 + 3个更新）
+- INGEST mode=append source_dir="Linux 虚拟化" pages_created=10 pages_updated=3
+- 概念页面（3个新建）：
+  - linux-virtio-architecture — Virtio半虚拟化IO框架：前后端分离+四种架构演进
+  - linux-interrupt-virtualization — 中断虚拟化三种场景+VGIC/KVM中断注入
+  - linux-device-passthrough — IOMMU+SR-IOV+VFIO设备直通三大技术
+- 概念页面（3个更新）：
+  - linux-interrupt-system — 新增中断虚拟化交叉链接
+  - linux-io-stack — 新增virtio架构交叉链接
+  - linux-network-stack — 新增virtio-net/vhost交叉链接
+- 摘要页面（3个新建）：
+  - virtio-io-notification-mechanism — ioeventfd/irqfd双向零拷贝通知机制
+  - virtio-vring-data-sharing — vring三大表生产者-消费者数据共享
+  - linux-live-migration-flow — 热迁移三阶段流程+关键参数
+- 实体页面（1个新建）：
+  - libvirt-virsh — libvirt命令行管理工具
+- 技巧页面（1个新建）：
+  - virsh-vm-management — virsh虚拟机管理操作手册
+- 综合页面（1个新建）：
+  - virtio-architecture-evolution — Virtio四种架构演进跨领域分析
+- 所有13个源文件已登记SHA-256哈希到 .manifest.json

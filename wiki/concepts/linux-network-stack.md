@@ -8,6 +8,8 @@ relationships:
     type: uses
   - target: "[[concepts/linux-lock-mechanisms]]"
     type: related_to
+  - target: "[[concepts/linux-virtio-architecture]]"
+    type: uses
 source_dir: Linux 操作系统/Linux 网络
 source_files: [Linux TCP - IP协议.md, Linux 常见的网络协议.md, Linux 网络三张表：ARP表, MAC表, 路由表.md, Linux 网络协议栈.md]
 summary: Linux网络协议栈：TCP/IP四层模型。三张核心表——ARP表(IP→MAC)、MAC表(MAC→端口)、路由表(子网→下一跳)。传输中IP不变、MAC逐跳变。sk_buff零拷贝数据结构。
@@ -22,6 +24,8 @@ tier: supporting
 created: 2026-06-01
 updated: 2026-06-01
 ---
+
+> 虚拟化网络栈的实现见[[concepts/linux-virtio-architecture]]——virtio-net和vhost-net是物理网络栈在虚拟化环境中的高性能替代。
 
 # Linux网络协议栈
 
