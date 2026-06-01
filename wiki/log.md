@@ -73,3 +73,34 @@ title: Wiki Log
 - 综合页面（1个新建）：
   - virtio-architecture-evolution — Virtio四种架构演进跨领域分析
 - 所有13个源文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-01] rebuild | Linux 操作系统重建（旧14页面归档 → 新14页面重蒸馏）
+- REBUILD mode=rebuild source_dir="Linux 操作系统" pages_recreated=14 pages_archived=14
+- 旧页面已归档至 wiki/_archives/2026-06-01-rebuild/
+- 概念页面（9个重建）：
+  - linux-interrupt-system — 重建：7个wikilinks、4个provenance标记、中断系统全景+软中断预算+延迟机制
+  - linux-memory-management — 重建：5个wikilinks、5个provenance标记、内存管理+Page Cache+LRU+内存黑洞
+  - linux-io-stack — 重建：7个wikilinks、IO栈五层+调度器+gendisk（源文件稀疏，confidence=0.571）
+  - linux-boot-shutdown — 重建：5个wikilinks、10步启动+多子系统关机协调
+  - linux-network-stack — 重建：7个wikilinks、TCP/IP+三表+sk_buff+NAPI+virtio交叉链接
+  - linux-lock-mechanisms — 重建：7个wikilinks、Spinlock→RCU演进全景+选择指南
+  - linux-namespace-cgroups — 重建：6个wikilinks、Namespace+Cgroups双引擎+System V IPC交叉
+  - linux-process-scheduling — 重建：5个wikilinks、CFS红黑树+调度策略（源文件稀疏，confidence=0.538）
+  - linux-system-v-ipc — 重建：5个wikilinks、三大IPC机制对比+API+内核实现
+- 摘要页面（5个重建）：
+  - linux-softirq-detail — 重建：softirq预算+preempt_count+ksoftirqd
+  - linux-meminfo-params — 重建：meminfo字段+关键公式+内存黑洞
+  - linux-page-cache — 重建：基数树+预读+Write Through/Back
+  - linux-network-protocol-stack-impl — 重建：收发路径+sk_buff+NAPI
+  - linux-rcu-lock — 重建：读零开销+宽限期+变体对比
+- .manifest.json 已更新：25个源文件SHA-256哈希刷新
+
+## [2026-06-01] ingest-step5 | Ingest第5步跨分类更新（补做）
+- INGEST step=5 source_dir="Linux 操作系统" pages_created=4 pages_updated=0
+- 技巧页面（3个新建）：
+  - linux-kernel-debugging — 内核调试/监控实操手册（7类场景监控命令+排查路径）
+  - linux-ipc-programming — System V IPC 编程教程（信号量/共享内存/消息队列C代码demo）
+  - linux-lock-selection — 内核锁选择指南（决策树+API速查+常见陷阱）
+- 综合页面（1个新建）：
+  - linux-kernel-subsystem-interactions — 内核子系统交互全景（6大交互模式：preempt_count/softirq/Page Cache/锁/关机/容器）
+- 触发依据：Ingest流程第5步触发条件表——skills(实操步骤+教程+排错指南)、synthesis(连接2+概念+跨领域洞察)

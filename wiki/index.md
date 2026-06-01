@@ -40,9 +40,13 @@ updated: 2026-06-01
 ## Skills
 
 - [virsh-vm-management](skills/virsh-vm-management.md) — virsh管理KVM虚拟机的实操指南：生命周期、热迁移、CPU绑定等常用命令组合 — `linux` `虚拟化` `virsh` `运维` `操作手册`
+- [linux-kernel-debugging](skills/linux-kernel-debugging.md) — 内核各子系统监控命令、常见问题排查路径与调试技巧：softirq/meminfo/Page Cache/IO/关机/cgroup/IPC — `linux` `内核` `调试` `监控` `性能分析`
+- [linux-ipc-programming](skills/linux-ipc-programming.md) — System V IPC三大机制C编程实操：信号量集合+共享内存+消息队列的API速查与demo — `linux` `ipc` `编程` `信号量` `共享内存` `消息队列`
+- [linux-lock-selection](skills/linux-lock-selection.md) — 内核锁类型选择决策树与API速查：Spinlock/Mutex/RCU等10种锁的适用场景与常见陷阱 — `linux` `内核` `锁` `spinlock` `mutex` `rcu` `同步`
 
 ## Synthesis
 
 - [virtio-architecture-evolution](synthesis/virtio-architecture-evolution.md) — Virtio四种架构演进分析：数据面从软件模拟到硬件直通，性能与灵活性的核心矛盾 — `linux` `虚拟化` `virtio` `vhost` `DPDK` `vDPA`
+- [linux-kernel-subsystem-interactions](synthesis/linux-kernel-subsystem-interactions.md) — Linux内核六大子系统交互机制：preempt_count统一上下文追踪、softirq跨子系统分发、Page Cache交汇点、锁跨上下文协调 — `linux` `内核` `子系统交互` `preempt_count` `softirq` `page-cache` `锁`
 
 ## Journal

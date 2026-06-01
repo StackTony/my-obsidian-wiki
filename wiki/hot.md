@@ -9,24 +9,27 @@ updated: 2026-06-01
 
 ## Recent Activity
 
-- [2026-06-01] INGEST — Linux虚拟化源文件消化完成，13个原始文档蒸馏为10个新wiki页面+3个已有页面更新。首次覆盖skills、entities、synthesis分类
-- [2026-06-01] INGEST — 首批Linux操作系统源文件消化完成，25个原始文档蒸馏为14个wiki页面
+- [2026-06-01] INGEST-STEP5 — 补做Ingest第5步跨分类更新，新增3个skills页面(kernel-debugging/ipc-programming/lock-selection)和1个synthesis页面(kernel-subsystem-interactions)
+- [2026-06-01] REBUILD — Linux操作系统14个旧wiki页面归档重建，25个源文件重新蒸馏为14个新页面
+- [2026-06-01] INGEST — Linux虚拟化13个源文件蒸馏为10个新页面+3个更新
 
 ## Active Threads
 
-- **Linux虚拟化知识网络**：virtio框架(virtio→vhost→vhost-user→vDPA四种演进)、中断虚拟化(VGIC/KVM注入)、设备直通(IOMMU/SR-IOV/VFIO)、热迁移三大领域概念页已建立，与已有内核知识交叉链接
-- **跨分类首次扩展**：skills分类（virsh操作手册）、entities分类（libvirt/virsh）、synthesis分类（virtio架构演进分析）首次写入内容
-- **下一步可扩展方向**：云原生（Kubernetes）、数据结构与算法、消息队列等主题尚待消化
+- **Linux内核知识网络完整成型**：9个OS概念页 + 3个虚拟化概念页 + 4个skills实操页 + 2个synthesis综合页，覆盖从理论→实操→跨领域洞察的完整链条
+- **跨分类覆盖扩展**：skills从1个(virsh)增至4个(新增kernel-debugging/ipc-programming/lock-selection)；synthesis从1个增至2个(新增kernel-subsystem-interactions)
+- **下一步可扩展方向**：云原生(Kubernetes)、数据结构与算法、消息队列、AI、DFX工具等主题尚待消化
 
 ## Key Takeaways
 
-- Virtio核心是前后端分离+共享内存(vring)+零拷贝通知(ioeventfd/irqfd)，数据面演进从全软件模拟到硬件直通
-- 中断虚拟化分三种场景：物理设备→vCPU、虚拟外设→vCPU、Guest IPI
-- 热迁移三阶段：内存迭代拷贝→停机拷贝→网络恢复，脏页检测(getdirty)有性能开销
-- 设备直通三大技术：IOMMU(DMA翻译+隔离)、SR-IOV(PF/VF)、VFIO(用户态驱动)
+- Ingest第5步触发条件表真正有用：16个源文件触发skills、12个触发synthesis——远远不是"没有机会"
+- preempt_count是内核最核心的跨子系统共享机制：一个32-bit整数同时约束中断/软中断/调度三种行为
+- softirq枚举本身就是跨子系统地图：NET_RX/BLOCK/SCHED/RCU_SOFTIRQ分别是网络/IO/调度/锁子系统的延迟入口
+- Page Cache是IO+MM+文件系统+IPC的四子系统交汇点（Shmem的双重归属最典型）
+- 内核设计偏好"共享机制"：preempt_count/softirq/Page Cache分别服务3+、6+、4+子系统
 
 ## Flagged Contradictions
 
-- 中断虚拟化源文件偏简略（VGIC仅为片段），概念页面推断比例偏高(provenance: inferred 0.30)
-- 设备直通源文件内容不完整（仅概念介绍，缺乏VFIO group/container/device三层抽象细节）
-- 网络虚拟化源文件virtio-net为极简stub(168字节)，virtio-net内核态转发流程未详细展开
+- 中断虚拟化源文件偏简略（VGIC仅为片段），推断比例偏高(inferred 0.30)
+- 设备直通源文件缺乏VFIO group/container/device三层抽象细节
+- 网络虚拟化virtio-net为极简stub(168字节)
+- 进程调度仅有2个简短源文件，概念页推断比例高(inferred 0.35)

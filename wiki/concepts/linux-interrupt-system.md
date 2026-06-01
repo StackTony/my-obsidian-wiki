@@ -1,8 +1,8 @@
 ---
 title: Linux中断系统
 category: concepts
-tags: [linux, 中断, 内核, softirq]
-aliases: [Linux IRQ, Linux软中断]
+tags: [linux, 内核, 中断, softirq, IRQ]
+aliases: [Linux中断, 内核中断机制, IRQ与softirq]
 relationships:
   - target: "[[concepts/linux-lock-mechanisms]]"
     type: uses
@@ -14,77 +14,108 @@ relationships:
     type: extends
 source_dir: Linux 操作系统/Linux 中断系统
 source_files: [Linux 硬中断irq + 软中断softirq原理.md, Linux 软中断softirq.md, Linux ksoftirqd软中断内核线程详解.md, Linux IPI 核间中断.md]
-summary: Linux中断分上下半部：硬中断(IRQ)上半部快速响应，软中断(softirq)下半部延迟处理。三种延迟机制对比及preempt_count跟踪中断上下文。
+summary: Linux中断分上下半部：硬中断(IRQ)上半部快速响应、软中断(softirq)下半部延迟处理。preempt_count跟踪中断上下文，三种延迟机制对比，ksoftirqd兜底。
 provenance:
   extracted: 0.75
   inferred: 0.20
   ambiguous: 0.05
-base_confidence: 0.775
+base_confidence: 0.75
 lifecycle: draft
 lifecycle_changed: 2026-06-01
-tier: supporting
+tier: core
 created: 2026-06-01
 updated: 2026-06-01
 ---
 
-> 虚拟化环境下的中断机制见[[concepts/linux-interrupt-virtualization]]——中断虚拟化是本页中断系统在虚拟化场景的自然延伸。
-
 # Linux中断系统
+
+Linux中断系统是内核响应硬件事件的核心机制，采用上下半部设计将快速响应与延迟处理解耦，确保系统在处理外部事件时既能及时响应又不阻塞其他关键路径。
 
 ## 核心观点
 
-### 中断上下半部设计
+- 中断分上下半部：硬中断(IRQ)上半部在关中断状态下快速响应，只做最紧急的工作；软中断(softirq)下半部在开中断状态下延迟处理耗时操作。
+- `preempt_count` 是内核跟踪当前执行上下文的关键机制，通过 HARDIRQ_OFFSET 和 SOFTIRQ_OFFSET 嵌入 `thread_info.preempt_count`，任何代码都可判断自己是否在中断上下文中。 ^[inferred]
+- 三种延迟机制各有适用场景：softirq 适合高频率网络收包，tasklet 适合低频率驱动回调，workqueue 适合可睡眠的耗时操作。
+- ksoftirqd 是每个CPU的内核线程，当 softirq 持续触发超出 MAX_SOFTIRQ_TIME 或 MAX_SOFTIRQ_RESTART 限制时，由 ksoftirqd 在进程上下文中兜底处理。
 
-Linux中断处理分为两个阶段以平衡响应速度和处理复杂度：
+## 关键细节
 
-- **硬中断(IRQ/ISR)上半部**：由GIC触发，CPU硬件跳转到固定地址执行，期间关本地中断响应，仅处理寄存器设置等关键操作，必须快速完成^[inferred]
-- **软中断(softirq)下半部**：ISR执行完后进入，此时开本地中断响应，可被新硬件中断打断，但不会被本CPU上其他任务抢占
+### 上下半部机制
 
-这种设计解决了传统中断处理"执行要快"与"逻辑复杂"的内在矛盾。
+上半部（硬中断 ISR）的设计原则：
+- 执行时间极短，关中断运行
+- 只做最紧急的硬件响应（如从网卡DMA缓冲区拷贝数据到sk_buff）
+- 将耗时的后续工作推迟到下半部
 
-### preempt_count机制
+下半部（softirq/tasklet/workqueue）的设计原则：
+- 开中断运行，允许新中断嵌套
+- 执行网络协议栈处理、块设备完成回调等较耗时的工作
 
-`current_thread_info()->preempt_count`变量跟踪当前运行上下文，是理解中断系统的关键：
+### preempt_count 跟踪机制
 
-| 值 | 上下文 | 抢占性 |
-|---|---|---|
-| 0 | 进程上下文 | 可抢占 |
-| HARDIRQ_OFFSET | 硬中断上下文 | 不可抢占 |
-| SOFTIRQ_OFFSET | 软中断上下文 | 不可抢占 |
+`thread_info.preempt_count` 是一个 32 位字段，划分为多个区段：
 
-在中断返回时(`__irq_svc`)，内核检查`preempt_count==0`且`flags==TIF_NEED_RESCHED`才执行调度切换。软中断通过`add_preempt_count(SOFTIRQ_OFFSET)`保证在本CPU不被抢占。
+| 区段 | 偏移 | 含义 |
+|------|------|------|
+| PREEMPT_MASK | 0-7 | 抢占计数 |
+| SOFTIRQ_MASK | 8-15 | 软中断计数 |
+| HARDIRQ_MASK | 16-27 | 硬中断计数 |
+| NMI_MASK | 28-31 | NMI计数 |
+
+关键宏：
+- `in_irq()` / `in_hardirq()` — 检查是否在硬中断上下文（HARDIRQ_OFFSET 非零）
+- `in_softirq()` — 检查是否在软中断上下文（SOFTIRQ_OFFSET 非零）
+- `in_interrupt()` — 检查是否在任何中断上下文
+- `in_task()` — 检查是否在普通进程上下文
 
 ### 三种延迟机制对比
 
 | 特性 | softirq | tasklet | workqueue |
-|---|---|---|---|
-| 机制类型 | 静态(编译期确定) | 动态(基于softirq) | 动态(内核进程) |
-| 运行上下文 | 软中断上下文 | 软中断上下文 | 进程上下文(可睡眠) |
-| 并行性 | 可多核并行 | 同类型串行 | 可配置 |
-| 使用场景 | 网络收发、定时器等高频 | 驱动中断延迟处理 | 需要睡眠的复杂处理 |
+|------|---------|---------|-----------|
+| 执行上下文 | 软中断上下文 | 软中断上下文 | 进程上下文 |
+| 可睡眠 | 否 | 否 | 是 |
+| 并行性 | 同类型可多CPU并行 | 同类型不可并行 | 完全并行 |
+| 开销 | 最低 | 中等 | 较高 |
+| 适用场景 | 网络收包等高频率 | 驱动回调等低频率 | 需睡眠的耗时操作 |
+| 定义方式 | 静态编译(HI_SOFTIRQ等) | 动态注册 | 动态创建kworker |
 
-内核仅9种静态softirq(HI_SOFTIRQ/TIMER_SOFTIRQ/NET_TX_SOFTIRQ/NET_RX_SOFTIRQ/BLOCK_SOFTIRQ等)，通过`open_softirq()`注册handler。
+### 9种静态 softirq 类型
 
-### ksoftirqd兜底与限制机制
+内核定义了 9 种静态 softirq，优先级从高到低：
 
-每个CPU一个ksoftirqd内核线程，当软中断过多时兜底处理：
+1. HI_SOFTIRQ — 高优先级tasklet
+2. TIMER_SOFTIRQ — 定时器
+3. NET_TX_SOFTIRQ — 网络发送
+4. NET_RX_SOFTIRQ — 网络接收
+5. BLOCK_SOFTIRQ — 块设备
+6. IRQ_POLL_SOFTIRQ — IO轮询
+7. TASKLET_SOFTIRQ — 低优先级tasklet
+8. SCHED_SOFTIRQ — 调度类
+9. HRTIMER_SOFTIRQ — 高精度定时器
+10. RCU_SOFTIRQ — RCU回调 ^[inferred]（RCU后来改为使用RCU nocb线程处理回调，softirq只是触发入口）
 
-- **MAX_SOFTIRQ_TIME**：软中断处理不超过2 jiffies(约10ms)
-- **MAX_SOFTIRQ_RESTART**：循环重启不超过10次
-- 超过限制则唤醒ksoftirqd在进程上下文处理，避免软中断霸占CPU^[inferred]
+### ksoftirqd 内核线程
 
-### 核间中断(IPI)
+每个CPU有一个 ksoftirqd/%u 内核线程：
+- 触发条件：`__do_softirq()` 在处理 softirq 时，如果重启次数超过 MAX_SOFTIRQ_RESTART（通常10次），或执行时间超过 MAX_SOFTIRQ_TIME（2ms），则唤醒 ksoftirqd
+- 运行方式：在进程上下文中作为 SCHED_OTHER 级别线程运行，可被抢占
+- 设计意图：防止 softirq 连续触发导致普通进程长时间无法获得CPU
 
-IPI用于多核通信，通过ICR寄存器发起，典型场景包括：调度迁移、缓存同步、TLB刷新等^[ambiguous]。
+### IPI 核间中断
+
+IPI（Inter-Processor Interrupt）是跨核通信机制：
+- 通过 ICR（Interrupt Command Register）寄存器发送
+- 目标可以是特定CPU、所有CPU或除自身外的所有CPU
+- x86 通过 `apic->send_IPI()` 接口实现
+- 常见用途：TLB flush、reschedule interrupt（唤醒其他CPU上的调度器）、stop CPU等
 
 ## 未解问题
 
-- 不同架构(x86/ARM)的中断控制器实现差异如何影响softirq行为？
-- RTLinux实时补丁对中断处理的改进机制？
+- PREEMPT_RT 补丁对中断上下文的影响——实时内核将部分中断处理线程化，这对 softirq 的执行语义有何改变？ ^[inferred]
+- tasklet 是否应该被逐步废弃（内核社区有此倾向），统一迁移到 workqueue？ ^[ambiguous]
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 中断系统/Linux 硬中断irq + 软中断softirq原理.md` — preempt_count机制、tasklet串行原理
-- `raw/sources/Linux 操作系统/Linux 中断系统/Linux 软中断softirq.md` — 三种延迟机制对比、ksoftirqd设计
-- `raw/sources/Linux 操作系统/Linux 中断系统/Linux ksoftirqd软中断内核线程详解.md` — MAX_SOFTIRQ_TIME限制、__do_softirq流程
-- `raw/sources/Linux 操作系统/Linux 中断系统/Linux IPI 核间中断.md` — ICR寄存器
+- [[summaries/linux-softirq-detail]] — softirq原理与ksoftirqd详解
+- [[summaries/linux-rcu-lock]] — RCU softirq相关
+- [[summaries/linux-network-protocol-stack-impl]] — NET_RX_SOFTIRQ在网络收包中的应用

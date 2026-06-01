@@ -1,83 +1,129 @@
 ---
-title: Linux 进程调度
-created: 2026-06-01
-updated: 2026-06-01
-tags: [linux, kernel, scheduler, CFS, process, scheduling]
+title: Linux进程调度
 category: concepts
-source_dir: Linux 操作系统/Linux 进程调度
-source_files: [Linux 进程调度器.md, Linux 进程调度策略.md]
-summary: Linux内核进程调度核心：CFS完全公平调度器的红黑树机制与三种调度策略
-base_confidence: 0.7
-lifecycle: draft
-lifecycle_changed: "2026-06-01"
-tier: supporting
-provenance:
-  extracted: 0.6
-  inferred: 0.3
-  ambiguous: 0.1
+tags: [linux, 内核, 调度器, CFS, 进程, 调度]
+aliases: [CFS调度器, 进程调度器, vruntime, Linux调度]
 relationships:
-  - target: "[[concepts/linux-interrupt-system]]"
-    type: uses
   - target: "[[concepts/linux-lock-mechanisms]]"
     type: uses
+  - target: "[[concepts/linux-interrupt-system]]"
+    type: related_to
+  - target: "[[concepts/linux-namespace-cgroups]]"
+    type: related_to
+source_dir: Linux 操作系统/Linux 进程调度
+source_files: [Linux 进程调度器.md, Linux 进程调度策略.md]
+summary: Linux内核进程调度核心：CFS完全公平调度器使用红黑树按vruntime排序选择下一个进程。三种调度策略(SCHED_OTHER/FIFO/RR)，实时进程绝对优先于普通进程。
+provenance:
+  extracted: 0.60
+  inferred: 0.30
+  ambiguous: 0.10
+base_confidence: 0.538
+lifecycle: draft
+lifecycle_changed: 2026-06-01
+tier: supporting
+created: 2026-06-01
+updated: 2026-06-01
 ---
 
-# Linux 进程调度
+# Linux进程调度
 
-Linux 内核进程调度器负责决定哪个进程获得 CPU 时间以及何时进行进程切换，是多任务操作系统的核心组件。
+Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核心的决策引擎。CFS（完全公平调度器）自2.6.23引入后成为默认调度策略，用红黑树按vruntime排序实现"完全公平"的时间分配。三种调度策略覆盖不同场景，实时进程绝对优先于普通进程。
 
-## 两种调度器类型
+### 重要说明
 
-- **主调度器**：进程因睡眠或其他原因主动放弃 CPU 时触发
-- **周期性调度器**：以固定频率运行，检测是否有必要进行进程切换
+来源文件总量约3.5KB，内容极为稀疏。本文推断比例（0.30）较高，部分内容基于对CFS原理的推断而非来源直接描述，置信度较低（base_confidence=0.538）。
 
-两种调度器协同工作，前者响应主动让出，后者保证公平性。 ^[inferred]
+## 核心观点
 
-## CFS 完全公平调度器
+- CFS的核心思想是"完全公平"：所有进程应获得均等的CPU时间，用vruntime（加权虚拟运行时间）衡量进程已获得的CPU时间份额。
+- CFS使用红黑树管理所有可运行进程，按vruntime排序，每次选择vruntime最小的进程投入运行——这保证了"最吃亏"的进程优先获得CPU。 ^[inferred]
+- 三种调度策略覆盖不同需求：SCHED_OTHER（时间分享，普通进程）、SCHED_FIFO（实时无时间片，运行到主动让出）、SCHED_RR（实时有时间片，轮转）。
+- 实时进程（SCHED_FIFO/RR）绝对优先于普通进程（SCHED_OTHER），只要有实时进程可运行，普通进程就无法获得CPU。 ^[inferred]
 
-CFS（Completely Fair Scheduler）是 Linux 默认的调度策略，核心机制：
+## 关键细节
 
-- **红黑树**：所有可运行进程按 `vruntime` 排序，树中最左节点即为下一个调度目标
-- **vruntime（虚拟运行时间）**：综合考虑进程执行时间和优先级，nice 值越小权重越高，vruntime 增长越慢
-- **调度策略**：选择 `vruntime` 最小的进程运行，实现"公平"分配 CPU 时间
+### CFS 完全公平调度器
 
-nice 值影响权重，高优先级进程的 vruntime 增长更慢，从而获得更多 CPU 时间。 ^[inferred]
+**核心设计原则**：
+- 不使用固定时间片，而是通过vruntime追踪每个进程已获得的"加权CPU时间"
+- 目标：让所有进程的vruntime尽可能接近——越接近越"公平"
+- 实现：红黑树按键vruntime排序，O(log n)插入和查找最小值
 
-## 三种主要调度策略
+**vruntime 计算**：
+- `vruntime += 实际运行时间 × (NICE_0_LOAD / 进程权重)`
+- nice值为0的进程权重为NICE_0_LOAD（1024），作为基准
+- nice值越低（优先级越高）→ 权重越大 → 实际运行时间对vruntime贡献越小 → 在红黑树中位置越靠左 → 获得更多CPU时间
+- nice值每变化1，权重变化约25%（非线性） ^[inferred]
 
-| 策略 | 类型 | 特点 |
-|------|------|------|
-| SCHED_OTHER | 分时调度 | 普通进程默认策略，基于 nice 和 counter 值决定权值 |
-| SCHED_FIFO | 实时调度 | 先到先服务，一直运行直到主动让出或被更高优先级抢占 |
-| SCHED_RR | 实时调度 | 时间片轮转，每个进程分配固定时间片 |
+**调度决策**：
+1. 时钟中断触发 scheduler_tick()
+2. 更新当前进程的vruntime
+3. 如果当前进程的vruntime不再是红黑树中最小的，或已运行超过ideal_runtime
+4. 触发抢占：选择红黑树中vruntime最小的进程投入运行
 
-实时进程优先于分时进程，实时优先级决定调度顺序；分时进程通过 nice（越小优先级越高）和 counter（曾使用 CPU 越少优先级越高）决定权值。
+### 三种调度策略
 
-## 调度类层次结构
+| 策略 | 类别 | 时间片 | 适用场景 | 优先级范围 |
+|------|------|--------|---------|-----------|
+| SCHED_OTHER | 普通 | CFS动态分配 | 日常应用 | nice -20~19 (0~139映射) |
+| SCHED_FIFO | 实时 | 无（运行到让出） | 紧急任务、不可中断 | 1~99 |
+| SCHED_RR | 实时 | 固定（默认100ms） | 实时但需轮转 | 1~99 |
 
-内核定义多种调度类，按优先级从高到低：实时调度类 > 公平调度类（CFS）> 空闲调度类。每个调度类有自己的调度策略和数据结构。 ^[inferred]
+**SCHED_FIFO 行为**：
+- 选择优先级最高的FIFO进程运行
+- 该进程运行直到：主动调用sched_yield()、被更高优先级抢占、或阻塞等待IO
+- 同优先级FIFO进程：当前进程让出后，按先进先出顺序选择下一个
 
-## 抢占与上下文切换
+**SCHED_RR 行为**：
+- 与FIFO类似，但增加了时间片轮转
+- 同优先级RR进程：时间片耗尽后轮转到下一个
+- 时间片长度可通过 /proc/sys/kernel/sched_rr_timeslice_ms 配置
 
-Linux 是可抢占操作系统，高优先级进程可中断低优先级进程执行。当调度器决定切换进程时：
-1. 保存当前进程上下文（寄存器状态）
-2. 加载新进程上下文
-3. 跳转到新进程执行
+### 实时进程绝对优先
 
-调度依赖 [[concepts/linux-interrupt-system]] 实现定时触发，并使用 [[concepts/linux-lock-mechanisms]] 保护调度数据结构。系统启动时 [[concepts/linux-boot-shutdown]] 创建 init 进程（PID=1），这是调度器管理的第一个用户空间进程。
+Linux的优先级体系：
+- 实时优先级1~99（映射到内核优先级0~98）
+- 普通优先级nice -20~19（映射到内核优先级100~139）
+- 数值越小→优先级越高
+- **关键规则**：只要存在可运行的实时进程（优先级<100），调度器绝不会选择普通进程运行 ^[inferred]
 
-## 关键数据结构
+这意味着一个SCHED_FIFO优先级1的进程，即使nice=-20的普通进程也无法与之竞争CPU。
 
-- **调度实体**：`task_struct`，包含调度策略、优先级、vruntime 等信息
-- **等待队列**：管理等待特定事件的进程，事件发生时唤醒并加入调度
-- **调度域**：一组共享相同调度策略的 CPU，用于跨 CPU 负载均衡
+### 进程状态
+
+| 状态 | 标识 | 含义 | 可调度 |
+|------|------|------|--------|
+| R (Running) | TASK_RUNNING | 正在运行或等待CPU | 是 |
+| D (Disk sleep) | TASK_UNINTERRUPTIBLE | 不可中断的IO等待 | 否 |
+| T (Stopped) | TASK_STOPPED | 被信号停止 | 否 |
+| Z (Zombie) | TASK_DEAD - EXIT_ZOMBIE | 已退出但父进程未回收 | 否 |
+| S (Sleeping) | TASK_INTERRUPTIBLE | 可中断的睡眠等待 | 否 |
+
+### 上下文切换
+
+上下文切换是调度器执行"进程换人"的核心操作：
+- 保存当前进程的寄存器状态到其task_struct的内核栈
+- 从新进程的内核栈恢复寄存器状态
+- 切换地址空间（mm_struct，用户态进程）
+- 更新TLS和FPU状态
+
+上下文切换的开销通常在1-10微秒之间，频繁切换会显著降低系统性能。 ^[inferred]
+
+### 调度域（Scheduling Domains）
+
+调度域是多核系统中的调度层次结构：
+- 每个调度域包含一组共享调度策略的CPU
+- 域之间有层次关系：单核域 → 多核域 → NUMA域
+- 负载均衡在域内优先进行，跨域负载均衡开销更大
+- SMT（超线程）核被组织在最底层域中
 
 ## 未解问题
 
-- CFS 在 NUMA 架构下的调度域如何优化？
-- 实时调度策略的截止时间保证如何实现？
+- CFS在极端负载（数千可运行进程）下的红黑树性能是否仍是瓶颈？O(log n)在n很大时开销可能显著。 ^[inferred]
+- EEVDF（Earliest Eligible Virtual Deadline First）调度器是否会在未来版本中替代CFS？内核社区正在讨论。 ^[ambiguous]
+- 组调度（group scheduling）与cgroups的交互——如何确保cgroup内的公平性与跨cgroup的公平性？ ^[ambiguous]
 
 ## 来源
 
-- Linux 进程调度器.md — CFS 机制与调度器组件
-- Linux 进程调度策略.md — 三种调度策略详解
+- [[summaries/linux-softirq-detail]] — softirq与调度器的交互（scheduler_tick触发调度）
+- [[summaries/linux-rcu-lock]] — RCU-sched基于调度上下文切换检测宽限期
