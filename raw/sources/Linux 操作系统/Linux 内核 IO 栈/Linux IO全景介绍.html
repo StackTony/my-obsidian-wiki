@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux IO全景介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header .tags {
+            margin-top: 15px;
+        }
+        .header .tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 0 5px;
+        }
+        .content {
+            padding: 40px;
+        }
+        h2 {
+            color: #1a1a2e;
+            font-size: 1.8em;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        h3 {
+            color: #16213e;
+            font-size: 1.4em;
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid #764ba2;
+        }
+        h4 {
+            color: #444;
+            font-size: 1.2em;
+            margin: 20px 0 10px;
+        }
+        p {
+            margin: 15px 0;
+            text-align: justify;
+        }
+        .image-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+        .image-container .caption {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        pre {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: "Fira Code", "Consolas", monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: "Fira Code", "Consolas", monospace;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .flowchart {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+        .flowchart pre {
+            background: #2d2d2d;
+            margin: 0;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        .link-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .link-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .link-section li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        .link-section li:last-child {
+            border-bottom: none;
+        }
+        .link-section li::before {
+            content: "🔗 ";
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+        }
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 40px 0;
+        }
+        strong {
+            color: #1a1a2e;
+        }
+        .emoji-bullet {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐧 Linux IO全景介绍</h1>
+            <div class="tags">
+                <span class="tag"># IO</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>Linux的IO栈</h2>
+
+            <p>参考文章: <a href="https://zhuanlan.zhihu.com/p/39721251" target="_blank">Linux的IO栈详解</a></p>
+
+            <div class="image-container">
+                <img src="../../resources/Pasted image 20260424165505.png" alt="Linux IO栈架构图">
+                <div class="caption">Linux IO栈整体架构</div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>缓存模式确认命令：</strong></p>
+                <pre><code>cat /sys/class/scsi_disk/0\:2\:0\:0/cache_type</code></pre>
+                <p>当选用 <strong>write through</strong> 方式时，系统的写磁盘操作并不利用阵列卡的Cache，而是直接与磁盘进行数据的交互。而 <strong>write Back</strong> 方式则利用阵列Cache作为系统与磁盘间的二传手，系统先将数据交给Cache，然后再由Cache将数据传给磁盘。</p>
+            </div>
+
+            <div class="image-container">
+                <img src="../../resources/Pasted image 20260430114122.png" alt="IO缓存模式示意图">
+                <div class="caption">IO缓存模式对比</div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>IO下发流程</h2>
+
+            <h3>简易流程</h3>
+
+            <p>参考文章: <a href="https://blog.csdn.net/invaders/article/details/126449378" target="_blank">Linux本地IO下发过程</a></p>
+
+            <div class="flowchart">
+                <h4 style="margin-bottom: 15px;">📊 IO下发层级流程：</h4>
+                <pre><code><strong>P层 --> Block层 --> SCSI层 --> 驱动 --> 硬件</strong></code></pre>
+            </div>
+
+            <h4>详细步骤说明：</h4>
+            <ol style="margin-left: 20px; line-height: 2;">
+                <li><strong>通用BLOCK层</strong> - 把请求排队，进入调度层</li>
+                <li><strong>SCSI层</strong> - 提交给驱动层等待返回</li>
+                <li><strong>硬件</strong> - 返回处理成功或超时</li>
+            </ol>
+
+            <div class="image-container">
+                <img src="../../resources/Diagram 2.svg" alt="IO流程图">
+                <div class="caption">IO下发简易流程图</div>
+            </div>
+
+            <h3>详细流程</h3>
+
+            <p>参考文章: <a href="https://gmd20.github.io/blog/linux%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B-%E4%BB%8Evfs%E5%B1%82%E9%80%9A%E7%94%A8block%E5%B1%82%E5%88%B0scsi%E7%A3%81%E7%9B%98%E9%A9%B1%E5%8A%A8/" target="_blank">Linux文件写入流程-从VFS层通用Block层到SCSI磁盘驱动</a></p>
+
+            <div class="section-divider"></div>
+
+            <h3>磁盘设备上报识别流程</h3>
+
+            <div class="flowchart">
+                <pre><code>硬件枚举
+    │
+    ▼
+pci_device_probe()                    # PCI 驱动匹配
+    │
+    ▼
+xxx_probe()                           # 存储驱动 probe (ahci_init_one/nvme_probe)
+    │
+    ▼
+控制器初始化 + 设备发现
+    │
+    ▼
+xxx_scan()                            # 扫描设备 (scsi_scan_host/nvme_scan_ns)
+    │
+    ▼
+设备识别                               # 获取设备信息
+    │
+    ▼
+块设备注册
+    │
+    ├── alloc_disk()                  # 分配 gendisk
+    ├── 设置容量、队列、操作函数
+    └── add_disk()                    # 注册到内核
+    │
+    ▼
+device_add() + kobject_uevent()       # 发送到用户空间
+    │
+    ▼
+用户空间可见: /dev/sda, /sys/block/sda</code></pre>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2>相关链接</h2>
+
+            <div class="link-section">
+                <ul>
+                    <li><a href="#">virtio整体介绍</a></li>
+                    <li><a href="#">Linux IO调度算法</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Linux IO全景介绍 | Generated from Obsidian Note</p>
+        </div>
+    </div>
+</body>
+</html>
