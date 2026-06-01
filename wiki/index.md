@@ -1,20 +1,19 @@
 ---
 title: Wiki Index
+updated: 2026-06-01
 ---
 
 # Wiki Index
 
-*This index is automatically maintained. Last updated: 2026-06-01T17:11*
+*自动维护。上次更新：2026-06-01*
 
-## Concepts
+## Summaries
 
-*No pages yet. Use `wiki-ingest` to add your first source.*
+*暂无页面。运行 `/wiki-ingest` 添加第一批来源。*
 
 ## Entities
 
-## Skills
-
-## References
+## Concepts
 
 ## Synthesis
 
