@@ -115,6 +115,7 @@ relationships:
 | `source_files` | 具体文件列表 | 带 `.md` 后缀，相对于 `raw/sources/<source_dir>/` |
 
 **示例**：
+
 ```yaml
 # 单文件来源
 source_dir: 数据结构与算法/树
@@ -140,6 +141,7 @@ source_files: [==CPU==/perf工具分析虚拟机的性能事件.md, ==设置trac
 | **有争议** | `^[ambiguous]` 后缀 | 来源不一致或原文模糊 |
 
 **示例**：
+
 ```markdown
 - Transformer 可以跨位置并行计算，不同于 RNN。
 - 这是它在现代硬件上扩展性更好的原因。 ^[inferred]
@@ -152,12 +154,14 @@ source_files: [==CPU==/perf工具分析虚拟机的性能事件.md, ==设置trac
 - 默认 = 提取，所以没有标记的现有页面仍然有效
 
 **frontmatter 概览**：可选在页面级别展示大致比例，便于扫描推测过多的页面：
+
 ```yaml
 provenance:
   extracted: 0.72   # 大致的无标记句子比例
   inferred: 0.25
   ambiguous: 0.03
 ```
+
 这些是 ingest 时写入的最佳估计值。`wiki-lint` 会重新计算并标记偏差。
 
 ### 类型化关系（Typed Relationships）
@@ -203,6 +207,7 @@ lifecycle_changed: 2026-06-01
 ```
 
 **置信度公式**：
+
 ```
 base_confidence = source_count_score × 0.5 + source_quality_score × 0.5
 source_count_score   = min(distinct_sources / 3, 1.0)
@@ -263,6 +268,7 @@ source_quality_score = avg(各来源的质量分)
 创建新 wiki 页面时，所有分类共用同一套 frontmatter schema，但正文结构因分类而异：
 
 **共用 frontmatter**（所有分类）：
+
 ```yaml
 title: 页面标题
 category: <分类>
@@ -299,6 +305,7 @@ updated: 2026-06-01
 | `journal` | 背景 → 反思 → 关键收获 → 后续行动 | 时间相关的反思日志 |
 
 **示例**（concepts 分类）：
+
 ```markdown
 ---
 title: 页面标题
@@ -559,20 +566,6 @@ updated: 2026-06-01
 | `WIKI_TOKEN_WARN_THRESHOLD` | `100000` | 全 wiki 读取超 100K token 时警告 |
 | `WIKI_STAGED_WRITES` | `false` | 直接写入，不经过审核队列 |
 
-## Source Topics
-
-`raw/sources/` 包含 231 个 markdown 文件，按主题组织：
-
-- `AI 人工智能/` — AI infra, Agent架构, 大模型LLM
-- `DFX工具/` — Development tools
-- `Linux 操作系统/` — Linux OS knowledge
-- `Linux 蛛拟化/` — Virtualization
-- `Obsidian使用/` — Obsidian usage tips
-- `Self learn/` — Self-study notes（图论等，低可信度）
-- `云原生/` — Cloud native / Kubernetes
-- `数据结构与算法/` — Data structures & algorithms
-- `消息队列/` — Message queues
-- `软件工程/` — Software engineering
 
 ## 最根本必须遵守的原则
 
