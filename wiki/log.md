@@ -104,3 +104,35 @@ title: Wiki Log
 - 综合页面（1个新建）：
   - linux-kernel-subsystem-interactions — 内核子系统交互全景（6大交互模式：preempt_count/softirq/Page Cache/锁/关机/容器）
 - 触发依据：Ingest流程第5步触发条件表——skills(实操步骤+教程+排错指南)、synthesis(连接2+概念+跨领域洞察)
+
+## [2026-06-02] ingest | DFX工具（29个原始文件 → 16个新wiki页面 + 1个更新）
+- INGEST mode=append source_dir="DFX工具" pages_created=16 pages_updated=1
+- 概念页面（4个新建）：
+  - linux-tracing-frameworks — 内核追踪四大框架对比：ftrace/kprobe/perf/bpftrace
+  - linux-cpu-performance-analysis — CPU性能分析：perf采样/kvmtop EXT/%ST抢占
+  - linux-vmcore-analysis — vmcore崩溃分析：crash工具/寄存器/task/mm结构体
+  - linux-io-performance-analysis — IO性能分析：iostat/fio/dd/blktrace/block_dump
+- 实体页面（4个新建）：
+  - perf-tool — perf性能分析工具（core tier：7个wikilinks）
+  - crash-tool — crash vmcore分析工具
+  - gdb-tool — GDB调试器（core tier：7个wikilinks）
+  - flamegraph-tool — 火焰图可视化工具
+- 摘要页面（7个新建）：
+  - gdb-common-commands — GDB常用命令速查指南
+  - linux-task-struct-mm-struct — task/mm/VMA/pgd四级链式结构
+  - crash-register-address — x86_64/ARM64寄存器体系与调用约定
+  - crash-vmcore-analysis — crash工具基本操作方法
+  - linux-interrupt-monitoring-script — 中断数实时观测bash脚本
+  - linux-ftrace-kprobe-overview — ftrace/kprobe/bpftrace框架概述
+- 技巧页面（6个新建）：
+  - linux-kernel-tracing — 内核追踪实操手册（ftrace→kprobe→perf→火焰图）
+  - linux-vm-debugging — 虚拟机调试与监控实操手册（kvmtop/ST/D状态/中断/NUMA/QEMU gdb）
+  - linux-vmcore-debugging — vmcore崩溃分析实操手册
+  - linux-io-debugging — IO性能排查与压测实操手册
+  - linux-network-debugging — 网络调试实操手册（tcpdump+iperf）
+  - gdb-debugging-guide — GDB调试实操速查手册
+- 综合页面（1个新建）：
+  - linux-dfx-tool-landscape — DFX调试工具全景图（六领域×三模式矩阵+工具互补关系）
+- 已有页面更新（1个）：
+  - linux-kernel-debugging — 新增追踪框架和vmcore分析交叉链接+中断观测脚本引用
+- 所有29个源文件已登记SHA-256哈希到 .manifest.json

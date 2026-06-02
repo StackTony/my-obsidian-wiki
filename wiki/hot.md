@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-06-01
+updated: 2026-06-02
 ---
 
 # Hot Cache
@@ -9,27 +9,26 @@ updated: 2026-06-01
 
 ## Recent Activity
 
-- [2026-06-01] INGEST-STEP5 — 补做Ingest第5步跨分类更新，新增3个skills页面(kernel-debugging/ipc-programming/lock-selection)和1个synthesis页面(kernel-subsystem-interactions)
-- [2026-06-01] REBUILD — Linux操作系统14个旧wiki页面归档重建，25个源文件重新蒸馏为14个新页面
-- [2026-06-01] INGEST — Linux虚拟化13个源文件蒸馏为10个新页面+3个更新
+- [2026-06-02] INGEST — DFX工具29个源文件蒸馏为16个新wiki页面+1个更新，覆盖CPU/IO/内存/网络/追踪/vmcore/gdb六大调试领域
+- [2026-06-01] INGEST-STEP5 — 补做Ingest第5步跨分类更新，新增3个skills页面和1个synthesis页面
 
 ## Active Threads
 
-- **Linux内核知识网络完整成型**：9个OS概念页 + 3个虚拟化概念页 + 4个skills实操页 + 2个synthesis综合页，覆盖从理论→实操→跨领域洞察的完整链条
-- **跨分类覆盖扩展**：skills从1个(virsh)增至4个(新增kernel-debugging/ipc-programming/lock-selection)；synthesis从1个增至2个(新增kernel-subsystem-interactions)
-- **下一步可扩展方向**：云原生(Kubernetes)、数据结构与算法、消息队列、AI、DFX工具等主题尚待消化
+- **DFX调试知识网络成型**：4个概念页 + 4个实体页 + 7个摘要页 + 6个技巧页 + 1个综合页，覆盖从工具属性到实操场景到全景图的三层架构
+- **工具实体化趋势**：perf-tool、crash-tool、gdb-tool、flamegraph-tool四个实体页建立工具身份，概念页和技巧页引用实体而非直接描述工具属性
+- **跨领域连接发现**：DFX工具全景图(synthesis)揭示了六大领域×三种模式的分析矩阵，以及perf↔火焰图、ftrace↔kprobe、perf↔crash等工具互补关系
 
 ## Key Takeaways
 
-- Ingest第5步触发条件表真正有用：16个源文件触发skills、12个触发synthesis——远远不是"没有机会"
-- preempt_count是内核最核心的跨子系统共享机制：一个32-bit整数同时约束中断/软中断/调度三种行为
-- softirq枚举本身就是跨子系统地图：NET_RX/BLOCK/SCHED/RCU_SOFTIRQ分别是网络/IO/调度/锁子系统的延迟入口
-- Page Cache是IO+MM+文件系统+IPC的四子系统交汇点（Shmem的双重归属最典型）
-- 内核设计偏好"共享机制"：preempt_count/softirq/Page Cache分别服务3+、6+、4+子系统
+- 寄存器是崩溃分析的起点：RIP/PC定位崩溃指令、RDI/X0解析函数入参、RBP/X29回溯调用栈——x86和ARM64完全不同的调用约定体系
+- VM-Exit是虚拟化CPU性能问题的核心诊断入口：EXTirq(中断退出)最常见性能问题源，可通过VM内irqtop对比问题期与非问题期
+- %ST双维度：top的Steal(物理机) vs kvmtop的ST(虚拟机)——阈值不同(10% vs 20%)，采集原理不同
+- DFX工具设计遵循"分层递进"哲学：监控→追踪→深入三级工具，先量化再定性
+- ftrace和kprobe通过`/sys/kernel/debug/tracing/`统一接口操作，但定位完全不同——ftrace是广角镜头，kprobe是显微镜
 
 ## Flagged Contradictions
 
-- 中断虚拟化源文件偏简略（VGIC仅为片段），推断比例偏高(inferred 0.30)
-- 设备直通源文件缺乏VFIO group/container/device三层抽象细节
-- 网络虚拟化virtio-net为极简stub(168字节)
-- 进程调度仅有2个简短源文件，概念页推断比例高(inferred 0.35)
+- bpftrace在源文件中仅简略提及(树状图)，缺少详细使用方式，概念页推断比例偏高(inferred 0.30)
+- 调度sched源文件仅描述概念缺少结构体字段，vmcore中调度分析需要更多资料
+- iotop和blktrace的详细使用方法在源文件中缺失
+- IO领域源文件仅1篇(iostat为主)，confidence偏低(0.55)

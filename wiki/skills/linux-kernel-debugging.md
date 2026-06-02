@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-02
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: uses
@@ -22,6 +22,10 @@ relationships:
     type: uses
   - target: "[[concepts/linux-io-stack]]"
     type: uses
+  - target: "[[concepts/linux-tracing-frameworks]]"
+    type: uses
+  - target: "[[concepts/linux-vmcore-analysis]]"
+    type: related_to
 ---
 
 # Linux内核调试与监控实操手册
@@ -172,6 +176,7 @@ sudo nsenter -t <PID> -i       # 进入目标进程的 IPC namespace
 - **RCU Stall**：`echo 120 > /sys/module/rcupdate/parameters/rcu_cpu_stall_timeout` 调整 stall 检测超时
 - **Ftrace**：`echo function_graph > current_tracer` + `echo <func> > set_graph_function` — 函数调用图追踪
 - **Crash 工具**：`crash> struct mutex <addr>` → 解析 mutex 状态、owner、waiter 队列
+- **中断数实时观测**：参考 [[summaries/linux-interrupt-monitoring-script]] 的bash脚本，不依赖额外模块
 
 ## 来源
 

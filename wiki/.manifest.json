@@ -449,17 +449,269 @@
       "pages_updated": [
         "synthesis/linux-kernel-subsystem-interactions.md"
       ]
+    },
+    "DFX工具/==CPU==/kprobe抓CPU单核调度轨迹.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 540,
+      "content_hash": "sha256:5ad3eef1af060c9c4026d5661bba0cf45b912ae6726f96f72347016c7aab7a3c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-tracing-frameworks.md"],
+      "pages_updated": ["skills/linux-kernel-tracing.md"]
+    },
+    "DFX工具/==CPU==/kvmtop的 EXT 各项的理解.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 1303,
+      "content_hash": "sha256:b20d56ca3f32f0d901b78638753a20a9119b3921106d09abca4cacc4e0711556",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
+      "pages_updated": ["skills/linux-vm-debugging.md"]
+    },
+    "DFX工具/==CPU==/perf工具分析虚拟机的性能事件.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 125,
+      "content_hash": "sha256:2c8bcf60bf2d789dd23a0dbf2cc2ff187c9d5bf2c484188d5c6367265691c815",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
+      "pages_updated": ["entities/perf-tool.md"]
+    },
+    "DFX工具/==CPU==/perf工具抓取CPU使用率情况.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 127,
+      "content_hash": "sha256:88ad8200277352b24a0f9f2ffb81cf54a64f1351d6e3c12c4db5bcd84ce15dc0",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
+      "pages_updated": ["entities/perf-tool.md"]
+    },
+    "DFX工具/==CPU==/perf工具抓取单核CPU的进程调度轨迹.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 137,
+      "content_hash": "sha256:7fdfd0b24c895189dfb3abdfa21e1f330b9b72a6e3d6a72b553993fdcbb3ada1",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
+      "pages_updated": ["entities/perf-tool.md"]
+    },
+    "DFX工具/==CPU==/分析虚拟机的%ST抢占.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 2974,
+      "content_hash": "sha256:c3edf954e76ce4c7bf864953fb8eb759702cecf0d5579d844b3d7753f60c170c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
+      "pages_updated": ["skills/linux-vm-debugging.md"]
+    },
+    "DFX工具/==CPU==/查看当前某些CPU上跑的哪些进程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 184,
+      "content_hash": "sha256:913f3c239419cd30b5f65e25ece8eaf04153598721c88b93fd3d2ac604f63799",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["skills/linux-vm-debugging.md"]
+    },
+    "DFX工具/==CPU==/火焰图抓取CPU占用情况.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 785,
+      "content_hash": "sha256:cb6a6b18e2d0ac3fd057c0236f5e57cb67292a180a7af223879e3a1d93add07b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["entities/flamegraph-tool.md"],
+      "pages_updated": ["skills/linux-kernel-tracing.md"]
+    },
+    "DFX工具/==CPU==/获取qemu所有处于D状态的vcpu和线程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 147,
+      "content_hash": "sha256:321f659042f870fb8c1eb40c9bf72a33907980bd8921a420a142a99dcc69a40f",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["skills/linux-vm-debugging.md"]
+    },
+    "DFX工具/==IO==/IO常用工具.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 3814,
+      "content_hash": "sha256:0b7c1ca1a48a7077c15d08d1993843a4a7bc48d916248316382996ad6c353e58",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/linux-io-performance-analysis.md"],
+      "pages_updated": ["skills/linux-io-debugging.md"]
+    },
+    "DFX工具/==gdb调试==/gdb常用命令.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 9678,
+      "content_hash": "sha256:c59a8a6bceb82ffbd23310fc2e4b7797ceac4633635f9ef28778b1270a3e0a14",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["entities/gdb-tool.md", "summaries/gdb-common-commands.md"],
+      "pages_updated": ["skills/gdb-debugging-guide.md"]
+    },
+    "DFX工具/==gdb调试==/gdb调试qemu初始化流程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 1327,
+      "content_hash": "sha256:297d5d533686fcfbf02d7cb5271852b956f0c227008cd7bde992851e61f827f7",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["entities/gdb-tool.md", "skills/gdb-debugging-guide.md", "skills/linux-vm-debugging.md"]
+    },
+    "DFX工具/==vmcore解析==/vmcore解析.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 1571,
+      "content_hash": "sha256:33da2ed8ecbfc7a3e6ce1480409dc9aa13eed07a6b9e14ed611e0b87a0ddc1a7",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["entities/crash-tool.md", "summaries/crash-vmcore-analysis.md"],
+      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+    },
+    "DFX工具/==vmcore解析==/寄存器和地址分布.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 8293,
+      "content_hash": "sha256:c7c4a86ee060ff86759c299e49c9e7a79e55e349f8e0c8ea4355ea8aa5e27ea3",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/crash-register-address.md"],
+      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+    },
+    "DFX工具/==vmcore解析==/开源crash网站.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 170,
+      "content_hash": "sha256:eb00679e8b6829639e889915de0a04ff826e249afda72f3e5b9d5e0437ad257d",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["entities/crash-tool.md"]
+    },
+    "DFX工具/==vmcore解析==/调度sched.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 363,
+      "content_hash": "sha256:ce9f0821bce2e4346560741c10f89df6d00351602f803dcc493ad4546c8e848f",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+    },
+    "DFX工具/==vmcore解析==/进程结构task_struct和mm_struct.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 11159,
+      "content_hash": "sha256:c462208dbf07310d2c92a49f972e4d14223139864aa46240611fbb0365510131",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-task-struct-mm-struct.md"],
+      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+    },
+    "DFX工具/==中断==/中断数变化实时观测脚本.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 2095,
+      "content_hash": "sha256:e122e4dd39dd4db4a71f6b370a7f48c753110796229d4a05c2119c99616e8ebe",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-interrupt-monitoring-script.md"],
+      "pages_updated": ["skills/linux-vm-debugging.md", "skills/linux-kernel-debugging.md"]
+    },
+    "DFX工具/==内存==/perf工具分析slab内存占用.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 462,
+      "content_hash": "sha256:9023864fcd575a8770abd73357ec17f73692fd39c4602deec8e1f161de92d9c6",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["entities/perf-tool.md"]
+    },
+    "DFX工具/==内存==/各node上进程内存（含qemu）占用情况.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 702,
+      "content_hash": "sha256:554905a5f0908a0560e7adb1450d0271d0b25253a16f3a4f6661f1fa02a1e169",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["skills/linux-vm-debugging.md"]
+    },
+    "DFX工具/==内存==/查看虚拟机OS预占的内存情况.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 856,
+      "content_hash": "sha256:cd324c79e6b92d7cd183cb4abef445403e29fc2db3d4a26cbea54b46a6d3b2fb",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["skills/linux-vm-debugging.md"]
+    },
+    "DFX工具/==网络==/iperf打流.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 165,
+      "content_hash": "sha256:85cfc6aaf9e941cde2862d04cad03feab6f1feb7ca874eb7e07acba826fc37be",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["skills/linux-network-debugging.md"]
+    },
+    "DFX工具/==网络==/网络分析工具tcpdump.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 7064,
+      "content_hash": "sha256:dd8071dd0a64d295736a1bb6684044c7c130e88da823e8e189b1f158cec55290",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["skills/linux-network-debugging.md"]
+    },
+    "DFX工具/==设置trace点==/1 ftrace和kprobe和bpftrace.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 545,
+      "content_hash": "sha256:5c497c4837167ada787dd7f4c6844ff52d306b11dae1b380a145b99e2b039a66",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/linux-ftrace-kprobe-overview.md"],
+      "pages_updated": ["concepts/linux-tracing-frameworks.md"]
+    },
+    "DFX工具/==设置trace点==/2 perf工具.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 5749,
+      "content_hash": "sha256:dbfe77c5dcf579188a4f92098e85d27e4a6dbb088b5521377aec24631f20a0ff",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["entities/perf-tool.md"],
+      "pages_updated": ["concepts/linux-tracing-frameworks.md"]
+    },
+    "DFX工具/==设置trace点==/3 火焰图.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 2405,
+      "content_hash": "sha256:37f8e45052ea21954b7733b1d04a883d3d11fb99fef1a5f501fa80450b68bfb2",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["entities/flamegraph-tool.md"],
+      "pages_updated": ["skills/linux-kernel-tracing.md"]
+    },
+    "DFX工具/==设置trace点==/trace：ftrace使用方法.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 1818,
+      "content_hash": "sha256:be216283c986641f5bbc38306eea148654bbc52362c92d2839d71abf8e63d0c9",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["concepts/linux-tracing-frameworks.md", "skills/linux-kernel-tracing.md"]
+    },
+    "DFX工具/==设置trace点==/trace：kprobe使用方式.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 986,
+      "content_hash": "sha256:2c300a6d12baca100e6ab5d2b355ad802120f89881933e4163af21996b572f71",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["concepts/linux-tracing-frameworks.md", "skills/linux-kernel-tracing.md"]
     }
   },
-  "last_ingest": "2026-06-01",
+  "last_ingest": "2026-06-02",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 38,
-    "total_pages": 27,
-    "total_concepts": 12,
-    "total_summaries": 8,
-    "total_entities": 1,
-    "total_skills": 4,
-    "total_synthesis": 2
+    "total_sources_ingested": 67,
+    "total_pages": 43,
+    "total_concepts": 16,
+    "total_summaries": 14,
+    "total_entities": 5,
+    "total_skills": 10,
+    "total_synthesis": 3
   }
 }
