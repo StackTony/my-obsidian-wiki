@@ -1296,17 +1296,322 @@
       "project": null,
       "pages_created": [],
       "pages_updated": []
+    },
+    "消息队列/Kafka 设计架构原理详细解析（超详细图解）.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 28866,
+      "content_hash": "sha256:90d992f25da334edcf7e88bcca94a3cc1b6a7683d1545ac771bbf4dd4b902627",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/kafka-architecture.md"
+      ],
+      "pages_updated": []
+    },
+    "消息队列/三大MQ选型对比-博客园.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 10933,
+      "content_hash": "sha256:2496129f5df65423c83f10068df2f873ae59e9489c93a4acb8ea1557befecd90",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/mq-selection-comparison.md"
+      ],
+      "pages_updated": []
+    },
+    "消息队列/深入解读基于 Kafka 和 ZooKeeper 的分布式消息队列原理.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 43683,
+      "content_hash": "sha256:f8d5998965808f5e1cfd323fab93c1d9e9af21966819dd812bc22a95266024f7",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/kafka-architecture.md"
+      ],
+      "pages_updated": []
+    },
+    "消息队列/零拷贝与内存映射-数据搬运极致优化.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 48732,
+      "content_hash": "sha256:a1967e5f432e1fdc5f68fa93a3721a691d586cd64bca93ca2eb018f4d4fe09fa",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/zero-copy-memory-mapping.md"
+      ],
+      "pages_updated": [
+        "concepts/kafka-architecture.md"
+      ]
+    },
+    "云原生/Kubernetes（K8s）/1-K8s 核心术语速查表.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 17514,
+      "content_hash": "sha256:fb2afc7403a23be599d0f9c4a057a0e1ddafe246af01fc4e435945d362928489",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/k8s-terminology-cheatsheet.md"
+      ],
+      "pages_updated": [
+        "concepts/k8s-architecture.md",
+        "concepts/k8s-cni-comparison.md"
+      ]
+    },
+    "云原生/Kubernetes（K8s）/K8s云原生-官方文档-K8s架构.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 14649,
+      "content_hash": "sha256:87bfbd395139bf3679be261e77ac02f7fc28d2e4db40a7cbfc6392c3346b420b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/k8s-official-architecture.md"
+      ],
+      "pages_updated": [
+        "concepts/k8s-architecture.md"
+      ]
+    },
+    "云原生/Kubernetes（K8s）/K8s云原生-阿里云-K8S技术原理.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 36824,
+      "content_hash": "sha256:f1603d0c5b5715cd6ab59d47ce17b6700d33122b2c1642df0e0427072692cb3d",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/k8s-alibaba-cloud-principles.md"
+      ],
+      "pages_updated": [
+        "concepts/k8s-architecture.md",
+        "concepts/k8s-cni-comparison.md"
+      ]
+    },
+    "云原生/Kubernetes（K8s）/K8s安全加固完全指南.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 4667,
+      "content_hash": "sha256:bf225dd77adde605577e0b5a6b29b48f500254466c64d03a494d9febf7085d0a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/k8s-security.md",
+        "skills/k8s-security-hardening.md"
+      ],
+      "pages_updated": []
+    },
+    "云原生/Kubernetes（K8s）/Kubernetes网络/K8s网络整体架构-腾讯云.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 17648,
+      "content_hash": "sha256:8815b3292520aa20261eacf1d1f6d776347c66a5b10406deba73a1a55b9a79c4",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/k8s-networking.md"
+      ],
+      "pages_updated": [
+        "concepts/k8s-cni-comparison.md"
+      ]
+    },
+    "云原生/Kubernetes（K8s）/Kubernetes（K8s）全面解析：核心概念、架构与实践.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 15015,
+      "content_hash": "sha256:3deba9f9fef5c12939dd126f0b8f25ff1a8ebd32a3567f123be7c1bf355eec87",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/k8s-architecture.md"
+      ]
+    },
+    "云原生/Prometheus/Prometheus-博客园-原理详解.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 33725,
+      "content_hash": "sha256:90099e78542c5b9d1caeecc0ae2c1bc38eaeb90b39918fddb05fa15d734683a3",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/prometheus-architecture.md"
+      ],
+      "pages_updated": []
+    },
+    "云原生/容器运行时/容器运行时 containerd.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 42294,
+      "content_hash": "sha256:6a730e583e7923e908947878355e4339da4aa636ea814d06fe72600ceb16744b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/containerd-runtime.md"
+      ],
+      "pages_updated": [
+        "synthesis/cloud-native-infrastructure-landscape.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】1 Linux Namespaces：用 50 行 C 隔离一个进程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 16475,
+      "content_hash": "sha256:9e6725b13a8f135df0f0e3b7d44e2b150541a9d33c2b3506e4115ba620d4f85b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/container-runtime-deep-dive.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-namespace-cgroups.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】2 Network Namespace：给你的进程接上质拟网线.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 22594,
+      "content_hash": "sha256:74484ef044b09ffab0bfec50fd0f7235067c759526f838fac3b29f05fc64362c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】3 Mount Namespace 与 pivot_root：构建容器文件系统.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 21980,
+      "content_hash": "sha256:da0e01a29b0e90be37acd9f0456b2ba81efd52406d7577cb196da205940e52a7",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】4 Cgroups v2：让容器不能吃掉整台机器.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 31093,
+      "content_hash": "sha256:36ceaf39dc20b6468ef5296a3c1e99bf585475de33bb09ada82c06c81b30f80b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/cgroups-v2-deep-dive.md"
+      ],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】5 OverlayFS：一层一层像淋襃.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 14309,
+      "content_hash": "sha256:f77657d7f831d39e4243667617de17498cc654b8e915e966115a78f6986737d0",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/overlayfs-container-images.md"
+      ],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】6 用 Go 组装迷你容器运行时：把积木拼起来.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 13959,
+      "content_hash": "sha256:37e48327b97821a512548ed8e02fea6dae4022857b046048abb5fbc13e3053b9",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】7 OCI 规范兼容：让迷你运行时说标准语言.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 22064,
+      "content_hash": "sha256:7b13093d152b48ec1f61f51167fce21463306e9d517438132e3c5dc8d4cf6083",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】8 Seccomp-BPF 与 Capabilities：容器安全的两道防线.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 24301,
+      "content_hash": "sha256:8f126e4902073c44bedc6d6821b63accede9181c026512fafdb6c79f314cf54d",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/seccomp-capabilities.md"
+      ],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】9 User Namespace 与 Rootless 容器：不需要 root 也能跑.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 11587,
+      "content_hash": "sha256:9a1ccc38471d3f50766b47b6ce7aab702a1a06daa27ad11fa5a4d4c922eb801d",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】10 容器 vs microVM：Firecracker 凭什乕 125ms 启动.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 11855,
+      "content_hash": "sha256:95d6b626c961d5a3f71513da17aa8ef08a57bb0fc88afe88fbbbbd0bcfc8a2d0",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/container-vs-microvm.md"
+      ],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】11 容器网络性能真相：veth vs macvlan vs eBPF 数据面.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 12114,
+      "content_hash": "sha256:40ab090dcbf010cd0a437213c8114f5d378fe30138abd8f44a4ebe24d9e9eefb",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/container-network-benchmarking.md",
+        "skills/container-network-benchmarking-skill.md"
+      ],
+      "pages_updated": [
+        "concepts/k8s-cni-comparison.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零买容器】12 runc 源码考古：OCI 参考实现到底长什乛样.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 14997,
+      "content_hash": "sha256:a452da4ebc40f960a5f20ae2901d8fb99c09c3cba2f7f51bb179f6a497acc4af",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/runc-oci-reference.md"
+      ],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/从零造容器系列文章.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 6845,
+      "content_hash": "sha256:d8073de2553d1186386c892e80c08f9d8d67d3cf95ddc6c8d4cb8b6cec66cdf8",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
     }
   },
   "last_ingest": "2026-06-02",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 117,
-    "total_pages": 59,
-    "total_concepts": 28,
-    "total_summaries": 14,
-    "total_entities": 10,
-    "total_skills": 10,
-    "total_synthesis": 4
+    "total_sources_ingested": 142,
+    "total_pages": 79,
+    "total_concepts": 41,
+    "total_summaries": 17,
+    "total_entities": 12,
+    "total_skills": 12,
+    "total_synthesis": 5
   }
 }

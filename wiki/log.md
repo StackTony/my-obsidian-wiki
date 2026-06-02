@@ -166,3 +166,41 @@ title: Wiki Log
 - 综合页面（1个新建）：
   - llm-infra-evolution-2022-2026 — 大模型基础设施四年四轮范式转移+DeepSeek-V4工程密度案例
 - 所有50个源文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-02] ingest | 消息队列（4个原始文件 → 3个新wiki页面）
+- INGEST mode=append source_dir="消息队列" pages_created=3 pages_updated=0
+- 概念页面（3个新建）：
+  - kafka-architecture — Kafka架构与高性能：ISR/HW/LEO可靠性+PageCache+零拷贝+顺序追加+稀疏索引+多Reactor
+  - mq-selection-comparison — 三大MQ选型对比：Kafka(高吞吐低可靠)/RocketMQ(高可靠事务5万队列)/RabbitMQ(低延迟灵活路由)
+  - zero-copy-memory-mapping — 零拷贝与内存映射技术全景：sendfile/splice/mmap/io_uring/DPDK工具组+Kafka+Nginx工程案例+数据库mmap争议
+- 所有4个源文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-02] ingest | 云原生（21个原始文件 → 17个新wiki页面 + 1个更新）
+- INGEST mode=append source_dir="云原生" pages_created=17 pages_updated=1
+- 概念页面（10个新建）：
+  - k8s-architecture — K8s声明式API+协调循环+控制面/数据面+Pod/Deployment/Service+架构变体+高级形态（core tier）
+  - k8s-networking — K8s网络四层模型+五大CNI对比+iptables→IPVS→eBPF演进
+  - k8s-security — K8s安全五维度加固+检查清单
+  - k8s-cni-comparison — Flannel/Calico/Cilium/Weave/Kube-router选型决策树
+  - container-runtime-deep-dive — 容器=拼装(8种Namespace+PID1陷阱+chroot逃逸+pivot_root+OCI规范)（core tier）
+  - cgroups-v2-deep-dive — v2统一层级+memory三道防线+writeback-aware IO+PSI+CFS throttle
+  - overlayfs-container-images — OverlayFS+Copy-on-Write(263倍差)+overlay2驱动+数据库放volume
+  - seccomp-capabilities — Seccomp-BPF+Capabilities纵深防御+--privileged拆防线+cBPF vs eBPF
+  - container-vs-microvm — 容器共享内核vs microVM独立内核+Firecracker 125ms+Kata Containers
+  - container-network-benchmarking — veth+bridge吞吐-20%P99 4.4x+macvlan近裸机+Cilium不受规则影响
+  - prometheus-architecture — Pull模型+ServiceMonitor CRD+Histogram vs Summary+TSDB
+- 实体页面（2个新建）：
+  - containerd-runtime — containerd三层类比(Nova/libvirtd/QEMU)+CRI内置+shim解耦（core tier）
+  - runc-oci-reference — nsenter C代码+三次clone+两阶段init+exec FIFO+cgroup manager
+- 摘要页面（3个新建）：
+  - k8s-terminology-cheatsheet — K8s核心术语13类速查
+  - k8s-official-architecture — K8s官方文档架构蒸馏
+  - k8s-alibaba-cloud-principles — 阿里云K8S技术原理深度解读
+- 技巧页面（2个新建）：
+  - k8s-security-hardening — K8s安全加固实操指南(RBAC+NetworkPolicy+PSS+加密+API Server)
+  - container-network-benchmarking-skill — 容器网络性能测试实操(iperf3+sockperf方法论)
+- 综合页面（1个新建）：
+  - cloud-native-infrastructure-landscape — 云原生三层架构全景图(底层内核→中间运行时→上层编排+可观测)
+- 已有页面更新（1个）：
+  - linux-namespace-cgroups — 新增容器运行时/Cgroups v2/Seccomp交叉链接
+- 所有21个源文件已登记SHA-256哈希到 .manifest.json

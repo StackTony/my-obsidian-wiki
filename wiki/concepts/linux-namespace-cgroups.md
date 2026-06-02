@@ -12,6 +12,12 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-network-stack]]"
     type: related_to
+  - target: "[[concepts/container-runtime-deep-dive]]"
+    type: related_to
+  - target: "[[concepts/cgroups-v2-deep-dive]]"
+    type: related_to
+  - target: "[[concepts/seccomp-capabilities]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 资源隔离
 source_files: [Linux Namespace与Cgroups介绍.md, "System V IPC/Linux Namespace  -  IPC.md"]
 summary: Linux内核资源隔离双引擎：Namespace实现视图隔离(6种类型-PID/Net/UTS/IPC/Mount/User)、Cgroups实现资源限制(CPU/内存/IO/网络)。两者组合构成容器技术基础。
@@ -24,7 +30,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-02
 ---
 
 # Linux资源隔离：Namespace与Cgroups

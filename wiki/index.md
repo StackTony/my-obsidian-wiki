@@ -5,7 +5,7 @@ updated: 2026-06-02
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-02*
+*自动维护。上次更新：2026-06-02 (云原生)*
 
 ## Summaries
 
@@ -50,6 +50,12 @@ updated: 2026-06-02
 - [linux-virtio-architecture](concepts/linux-virtio-architecture.md) — Virtio半虚拟化IO框架：前后端分离+四种架构演进(传统→vhost→vhost-user→vDPA) — `linux` `虚拟化` `virtio` `IO虚拟化` `半虚拟化`
 - [linux-interrupt-virtualization](concepts/linux-interrupt-virtualization.md) — 中断虚拟化三种场景：物理设备中断→vCPU、虚拟外设中断→vCPU、Guest IPI — `linux` `虚拟化` `中断` `VGIC` `KVM`
 - [linux-device-passthrough](concepts/linux-device-passthrough.md) — 设备直通三大技术：IOMMU(DMA翻译+隔离)、SR-IOV(PF/VF)、VFIO(用户态驱动) — `linux` `虚拟化` `直通` `IOMMU` `SR-IOV` `VFIO`
+
+## Concepts (消息队列 & IO优化)
+
+- [kafka-architecture](concepts/kafka-architecture.md) — Kafka分布式消息队列完整架构：ISR/HW/LEO可靠性+PageCache+零拷贝+顺序追加高性能三板斧 — `消息队列` `Kafka` `分布式` `高性能` `零拷贝`
+- [mq-selection-comparison](concepts/mq-selection-comparison.md) — 三大MQ选型对比：Kafka(高吞吐低可靠)/RocketMQ(高可靠事务)/RabbitMQ(低延迟灵活路由) — `消息队列` `Kafka` `RocketMQ` `RabbitMQ` `选型`
+- [zero-copy-memory-mapping](concepts/zero-copy-memory-mapping.md) — 零拷贝工具组：sendfile/splice/mmap/io_uring/DPDK各自解决不同瓶颈，选型先确认瓶颈再选工具 — `零拷贝` `sendfile` `mmap` `io_uring` `DPDK` `性能优化`
 
 ## Skills
 
@@ -98,5 +104,39 @@ updated: 2026-06-02
 - [linux-kernel-subsystem-interactions](synthesis/linux-kernel-subsystem-interactions.md) — Linux内核六大子系统交互机制：preempt_count统一上下文追踪、softirq跨子系统分发、Page Cache交汇点、锁跨上下文协调 — `linux` `内核` `子系统交互` `preempt_count` `softirq` `page-cache` `锁`
 - [linux-dfx-tool-landscape](synthesis/linux-dfx-tool-landscape.md) — DFX调试工具全景图：六大领域(CPU/IO/内存/网络/追踪/vmcore)×三种模式(监控/追踪/事后)的工具矩阵与互补关系 — `linux` `DFX` `调试` `工具全景` `性能分析`
 - [llm-infra-evolution-2022-2026](synthesis/llm-infra-evolution-2022-2026.md) — 大模型基础设施四年四轮范式转移：推理确立→开源爆发→引擎革命→成本革命，工程密度>硬件堆量 — `AI` `LLM` `基础设施` `演进` `DeepSeek`
+
+## Concepts (云原生)
+
+- [k8s-architecture](concepts/k8s-architecture.md) — K8s声明式API+协调循环驱动自愈/弹性/滚动更新；控制面+数据面核心组件；Pod/Deployment/Service核心抽象 — `云原生` `Kubernetes` `容器编排` `分布式系统` `声明式API`
+- [k8s-networking](concepts/k8s-networking.md) — K8s网络四层模型：容器内localhost→Pod间CNI→Service ClusterIP+CoreDNS→Ingress L7路由 — `云原生` `Kubernetes` `网络` `CNI` `Service`
+- [k8s-security](concepts/k8s-security.md) — K8s安全五维度加固：RBAC+NetworkPolicy+PSS restricted+Secret加密+API Server管控 — `云原生` `Kubernetes` `安全` `RBAC` `NetworkPolicy`
+- [k8s-cni-comparison](concepts/k8s-cni-comparison.md) — 五大CNI对比：Flannel VXLAN/Calico BGP/Cilium eBPF/Weave Net/Kube-router；iptables O(n)→IPVS→eBPF三代演进 — `云原生` `Kubernetes` `CNI` `网络` `eBPF`
+- [container-runtime-deep-dive](concepts/container-runtime-deep-dive.md) — 容器=Namespace+Cgroup+pivot_root+OverlayFS+Seccomp拼装；8种Namespace+PID1陷阱+chroot逃逸+OCI规范 — `云原生` `容器` `运行时` `Linux内核` `OCI`
+- [cgroups-v2-deep-dive](concepts/cgroups-v2-deep-dive.md) — Cgroups v2统一层级：cpu.max/weight+memory low/high/max三道防线+writeback-aware IO+PSI压力指标 — `云原生` `Linux` `Cgroups` `容器` `资源限制`
+- [overlayfs-container-images](concepts/overlayfs-container-images.md) — OverlayFS联合挂载+Copy-on-Write(100MB文件首次写慢263倍)+overlay2 Docker默认驱动+数据库必须放volume — `云原生` `OverlayFS` `容器` `存储` `Copy-on-Write`
+- [seccomp-capabilities](concepts/seccomp-capabilities.md) — Seccomp-BPF syscall拦截+Capabilities权限拆分=容器安全纵深防御两道防线；Docker --privileged拆掉两道防线 — `云原生` `Linux` `安全` `Seccomp` `Capabilities` `容器安全`
+- [container-vs-microvm](concepts/container-vs-microvm.md) — 容器共享内核vs microVM独立内核；Firecracker 125ms启动与容器同量级；Kata Containers=OCI接口+microVM隔离 — `云原生` `容器` `microVM` `Firecracker` `KVM` `安全`
+- [container-network-benchmarking](concepts/container-network-benchmarking.md) — 容器网络实测：veth+bridge吞吐-20%/P99 4.4x；macvlan近裸机；Cilium eBPF不受iptables规则影响 — `云原生` `容器` `网络` `性能` `eBPF`
+- [prometheus-architecture](concepts/prometheus-architecture.md) — Prometheus Pull模型+ServiceDiscovery+PromQL；每样本~3.5字节；Histogram可聚合Summary不可；ServiceMonitor CRD — `云原生` `Prometheus` `监控` `TSDB` `可观测性`
+
+## Entities (云原生)
+
+- [containerd-runtime](entities/containerd-runtime.md) — containerd容器生命周期管理器：K8s≈Nova/containerd≈libvirtd/runc≈QEMU三层类比；CRI内置+shim解耦 — `云原生` `containerd` `容器运行时` `CRI` `Kubernetes`
+- [runc-oci-reference](entities/runc-oci-reference.md) — OCI Runtime Spec参考实现(~15000行Go+C)；nsenter C代码+三次clone+两阶段init+exec FIFO同步 — `云原生` `runc` `OCI` `容器运行时` `Go`
+
+## Summaries (云原生)
+
+- [k8s-terminology-cheatsheet](summaries/k8s-terminology-cheatsheet.md) — K8s集群13类核心术语中文速查：声明式API/协调循环/控制面/数据面/etcd/Raft/Pod/Deployment/Service/CNI/RBAC — `云原生` `Kubernetes` `术语` `速查表`
+- [k8s-official-architecture](summaries/k8s-official-architecture.md) — K8s官方文档架构蒸馏：控制面+数据面+四种架构变体+kube-proxy可选 — `云原生` `Kubernetes` `架构` `官方文档`
+- [k8s-alibaba-cloud-principles](summaries/k8s-alibaba-cloud-principles.md) — 阿里云K8S技术原理深度解读：声明式API+协调循环+网络三铁律+CNI三强+Service Mesh+GitOps+Operator — `云原生` `Kubernetes` `技术原理` `阿里云`
+
+## Skills (云原生)
+
+- [k8s-security-hardening](skills/k8s-security-hardening.md) — K8s安全五维度实操：RBAC+NetworkPolicy默认拒绝+PSS restricted+Secret加密+API Server匿名禁用 — `云原生` `Kubernetes` `安全` `RBAC` `NetworkPolicy`
+- [container-network-benchmarking-skill](skills/container-network-benchmarking-skill.md) — 容器网络性能测试方法论：iperf3测吞吐+sockperf测P99+关闭TCP offload；六种方案实测数据 — `云原生` `容器` `网络` `性能测试` `iperf3`
+
+## Synthesis (云原生)
+
+- [cloud-native-infrastructure-landscape](synthesis/cloud-native-infrastructure-landscape.md) — 云原生三层架构全景：底层Linux内核特性→中间containerd/shim/runc→上层K8s编排+Service Mesh+GitOps+可观测 — `云原生` `Kubernetes` `容器` `全景图` `架构`
 
 ## Journal

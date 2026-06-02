@@ -9,26 +9,27 @@ updated: 2026-06-02
 
 ## Recent Activity
 
-- [2026-06-02] INGEST — AI 人工智能50个源文件蒸馏为17个新wiki页面，覆盖大模型基础设施全景（GPU→CUDA→训练→推理→RAG→Agent→服务化→网关→观测）和Agent架构（LangChain/LangGraph/RAG/知识图谱）
-- [2026-06-02] INGEST — DFX工具29个源文件蒸馏为16个新wiki页面+1个更新
+- [2026-06-02] INGEST — 云原生21个源文件蒸馏为17个新wiki页面 + 1个更新：K8s架构+网络+安全+CNI+容器运行时+Cgroups v2+OverlayFS+Seccomp+microVM对比+网络性能实测+Prometheus+containerd+runc，覆盖云原生三层架构体系
+- [2026-06-02] INGEST — 消息队列4个源文件蒸馏为3个新wiki页面
+- [2026-06-02] INGEST — AI 人工智能50个源文件蒸馏为17个wiki页面
 
 ## Active Threads
 
-- **LLM基础设施知识网络成型**：12个概念页+5个实体页+1个综合页，从GPU底层到服务上层形成五层知识栈
-- **Agent/RAG知识栈建立**：RAG五代演进→分块策略→Agent框架→工具调用/MCP→知识图谱工具，从检索到编排的完整链条
-- **DeepSeek-V4工程密度**：MLA+MoE+FP8+DualPipe+磁盘KV cache+专家蒸馏的组合创新案例
+- **云原生知识网络成型**：10个概念页+2个实体页+3个摘要页+2个技巧页+1个综合页，从Linux内核特性到K8s编排到可观测的完整链条
+- **容器→microVM隔离模型讨论**：容器共享内核vs microVM独立内核，信任边界驱动选择，Firecracker 125ms与容器同量级
+- **跨域连接发现**：云原生全景页连接LLM基础设施全景（三层架构结构相似性）、Linux内核已有页面（Namespace/Cgroup/IO栈/网络栈/锁机制容器视角）
 
 ## Key Takeaways
 
-- GPU架构决定了推理优化空间：HBM带宽限制Decode吞吐、Tensor Core加速Prefill，同一GPU上两阶段不能共用调参逻辑
-- 3D并行不是越多越好：DP/TP/PP/EP各有切分对象和通信开销，组合需按瓶颈算账而非全开
-- PagedAttention+Continuous Batching是推理引擎的现代范式——所有主流引擎都已采纳
-- RAG效果差不能只怪大模型或Prompt——需要沿流水线逐层排查（解析→切片→检索→重排→组装→评估）
-- 可靠Agent=可观测状态机，而非自由聊天循环——LangGraph将行为建模为有向图
-- DeepSeek-V4展示了"工程密度>硬件堆量"的完整路径：10倍成本下降来自架构创新而非GPU堆量
+- 容器不是发明是拼装：8种Namespace(2002-2020)+Cgroup+pivot_root+OverlayFS+Seccomp+Capabilities的组合拳
+- K8s声明式API+协调循环是一切能力的驱动机制——自愈、弹性、滚动更新、GitOps偏移纠正都从同一个循环推导
+- Cilium eBPF可完全替换kube-proxy：iptables O(n)→IPVS O(1)→eBPF三代演进，规模是换代的驱动力
+- Cgroups v2三道防线：memory.low保底→memory.high预警→memory.max兜底；CFS throttle尾延迟问题让K8s社区争论是否该设CPU limit
+- Copy-on-Write是OverlayFS性能杀手：100MB文件首次写47.32ms vs 第二次0.18ms，263倍差距——数据库必须放volume
+- containerd-shim是关键解耦：即使containerd崩溃容器继续运行，防止级联故障
 
 ## Flagged Contradictions
 
-- GPU互联与网络（04篇）、Checkpoint与故障容忍（10篇）、长上下文工程（16篇）、成本合规安全（24篇）、未来展望（25篇）、评测基准汇总尚未创建独立页面——内容被整合到相关概念页中
-- Ollama本地运行工具和Transformer模型源文件为空/极短链接索引，未产生独立wiki页面
-- 推测解码与MTP（15篇）内容被整合到推理引擎概念页，未创建独立页面
+- Prometheus"开源版BorgMon"说法在社区有争议——原文明确声称但更准确说是"受BorgMon启发"
+- Prometheus原文声称使用LevelDB引擎，但这可能反映v1.x；现代v2.x使用自定义TSDB实现
+- K8s安全加固指南用aescbc做EncryptionConfiguration示例，但未明确推荐最优加密provider
