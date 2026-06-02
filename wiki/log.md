@@ -136,3 +136,33 @@ title: Wiki Log
 - 已有页面更新（1个）：
   - linux-kernel-debugging — 新增追踪框架和vmcore分析交叉链接+中断观测脚本引用
 - 所有29个源文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-02] ingest | AI 人工智能（50个原始文件 → 17个新wiki页面）
+- INGEST mode=append source_dir="AI 人工智能" pages_created=17 pages_updated=0
+- 概念页面（12个新建）：
+  - llm-infra-landscape — 大模型基础设施全景：五层工程栈+四个分水岭+中国全球两条栈
+  - gpu-computing-architecture — GPU计算架构：CPU vs GPU本质差异+SM/Tensor Core/HBM+Roofline模型
+  - cuda-software-stack — CUDA软件栈：cuBLAS/cuDNN/NCCL/Triton/CUTLASS分工
+  - llm-training-pipeline — LLM训练流水线：四阶段训练栈（Pre-train→SFT→对齐→蒸馏）
+  - llm-parallelism-strategies — 3D并行策略：DP/TP/PP/SP/EP/ZeRO按瓶颈组合
+  - llm-inference-engine — LLM推理引擎基础：Prefill vs Decode+KV Cache+Continuous Batching
+  - paged-attention-continuous-batching — PagedAttention+Continuous Batching：vLLM核心设计
+  - llm-quantization-engineering — LLM量化工程：FP8/INT8/AWQ/GPTQ精度/成本/硬件权衡
+  - moe-training-engineering — MoE训练工程：路由均衡+EP+All-to-All工程难点
+  - rlhf-alignment-pipeline — RLHF与对齐：PPO/DPO/GRPO对比
+  - rag-engineering — RAG工程全景：五代演进+完整流水线+GraphRAG
+  - rag-chunking-strategies — RAG分块策略：21种方法从基础到语义驱动
+  - agent-framework-engineering — Agent框架工程：五大支柱+ReAct vs LangGraph对比
+  - tool-calling-mcp — 工具调用与MCP协议：Function Call+MCP统一生态+安全边界
+  - llm-serving-infrastructure — 推理服务化：Triton/Ray Serve/PD分离+SLO管理
+  - llm-gateway — 大模型网关：LiteLLM/OneAPI+路由/配额/缓存/Guardrails
+  - llm-observability — LLM可观测性：性能/语义质量/成本三维+Langfuse/OpenLLMetry
+- 实体页面（5个新建）：
+  - langchain-framework — LangChain框架：Runnable+LCEL+六大包分离
+  - langgraph-framework — LangGraph工作流编排：StateGraph+Checkpoint+Memory架构
+  - vllm-sglang-tensorrt — 推理引擎四强对比：生态/延迟/吞吐/运维四维度选型
+  - megatron-deepspeed — Megatron vs DeepSpeed：高性能内核 vs 显存优化易用性
+  - graphify-gitnexus — Graphify vs GitNexus：认知整合 vs 工程执行
+- 综合页面（1个新建）：
+  - llm-infra-evolution-2022-2026 — 大模型基础设施四年四轮范式转移+DeepSeek-V4工程密度案例
+- 所有50个源文件已登记SHA-256哈希到 .manifest.json

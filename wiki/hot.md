@@ -9,26 +9,26 @@ updated: 2026-06-02
 
 ## Recent Activity
 
-- [2026-06-02] INGEST — DFX工具29个源文件蒸馏为16个新wiki页面+1个更新，覆盖CPU/IO/内存/网络/追踪/vmcore/gdb六大调试领域
-- [2026-06-01] INGEST-STEP5 — 补做Ingest第5步跨分类更新，新增3个skills页面和1个synthesis页面
+- [2026-06-02] INGEST — AI 人工智能50个源文件蒸馏为17个新wiki页面，覆盖大模型基础设施全景（GPU→CUDA→训练→推理→RAG→Agent→服务化→网关→观测）和Agent架构（LangChain/LangGraph/RAG/知识图谱）
+- [2026-06-02] INGEST — DFX工具29个源文件蒸馏为16个新wiki页面+1个更新
 
 ## Active Threads
 
-- **DFX调试知识网络成型**：4个概念页 + 4个实体页 + 7个摘要页 + 6个技巧页 + 1个综合页，覆盖从工具属性到实操场景到全景图的三层架构
-- **工具实体化趋势**：perf-tool、crash-tool、gdb-tool、flamegraph-tool四个实体页建立工具身份，概念页和技巧页引用实体而非直接描述工具属性
-- **跨领域连接发现**：DFX工具全景图(synthesis)揭示了六大领域×三种模式的分析矩阵，以及perf↔火焰图、ftrace↔kprobe、perf↔crash等工具互补关系
+- **LLM基础设施知识网络成型**：12个概念页+5个实体页+1个综合页，从GPU底层到服务上层形成五层知识栈
+- **Agent/RAG知识栈建立**：RAG五代演进→分块策略→Agent框架→工具调用/MCP→知识图谱工具，从检索到编排的完整链条
+- **DeepSeek-V4工程密度**：MLA+MoE+FP8+DualPipe+磁盘KV cache+专家蒸馏的组合创新案例
 
 ## Key Takeaways
 
-- 寄存器是崩溃分析的起点：RIP/PC定位崩溃指令、RDI/X0解析函数入参、RBP/X29回溯调用栈——x86和ARM64完全不同的调用约定体系
-- VM-Exit是虚拟化CPU性能问题的核心诊断入口：EXTirq(中断退出)最常见性能问题源，可通过VM内irqtop对比问题期与非问题期
-- %ST双维度：top的Steal(物理机) vs kvmtop的ST(虚拟机)——阈值不同(10% vs 20%)，采集原理不同
-- DFX工具设计遵循"分层递进"哲学：监控→追踪→深入三级工具，先量化再定性
-- ftrace和kprobe通过`/sys/kernel/debug/tracing/`统一接口操作，但定位完全不同——ftrace是广角镜头，kprobe是显微镜
+- GPU架构决定了推理优化空间：HBM带宽限制Decode吞吐、Tensor Core加速Prefill，同一GPU上两阶段不能共用调参逻辑
+- 3D并行不是越多越好：DP/TP/PP/EP各有切分对象和通信开销，组合需按瓶颈算账而非全开
+- PagedAttention+Continuous Batching是推理引擎的现代范式——所有主流引擎都已采纳
+- RAG效果差不能只怪大模型或Prompt——需要沿流水线逐层排查（解析→切片→检索→重排→组装→评估）
+- 可靠Agent=可观测状态机，而非自由聊天循环——LangGraph将行为建模为有向图
+- DeepSeek-V4展示了"工程密度>硬件堆量"的完整路径：10倍成本下降来自架构创新而非GPU堆量
 
 ## Flagged Contradictions
 
-- bpftrace在源文件中仅简略提及(树状图)，缺少详细使用方式，概念页推断比例偏高(inferred 0.30)
-- 调度sched源文件仅描述概念缺少结构体字段，vmcore中调度分析需要更多资料
-- iotop和blktrace的详细使用方法在源文件中缺失
-- IO领域源文件仅1篇(iostat为主)，confidence偏低(0.55)
+- GPU互联与网络（04篇）、Checkpoint与故障容忍（10篇）、长上下文工程（16篇）、成本合规安全（24篇）、未来展望（25篇）、评测基准汇总尚未创建独立页面——内容被整合到相关概念页中
+- Ollama本地运行工具和Transformer模型源文件为空/极短链接索引，未产生独立wiki页面
+- 推测解码与MTP（15篇）内容被整合到推理引擎概念页，未创建独立页面

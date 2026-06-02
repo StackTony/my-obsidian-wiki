@@ -456,8 +456,12 @@
       "content_hash": "sha256:5ad3eef1af060c9c4026d5661bba0cf45b912ae6726f96f72347016c7aab7a3c",
       "source_type": "document",
       "project": null,
-      "pages_created": ["concepts/linux-tracing-frameworks.md"],
-      "pages_updated": ["skills/linux-kernel-tracing.md"]
+      "pages_created": [
+        "concepts/linux-tracing-frameworks.md"
+      ],
+      "pages_updated": [
+        "skills/linux-kernel-tracing.md"
+      ]
     },
     "DFX工具/==CPU==/kvmtop的 EXT 各项的理解.md": {
       "ingested_at": "2026-06-02",
@@ -465,8 +469,12 @@
       "content_hash": "sha256:b20d56ca3f32f0d901b78638753a20a9119b3921106d09abca4cacc4e0711556",
       "source_type": "document",
       "project": null,
-      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
-      "pages_updated": ["skills/linux-vm-debugging.md"]
+      "pages_created": [
+        "concepts/linux-cpu-performance-analysis.md"
+      ],
+      "pages_updated": [
+        "skills/linux-vm-debugging.md"
+      ]
     },
     "DFX工具/==CPU==/perf工具分析虚拟机的性能事件.md": {
       "ingested_at": "2026-06-02",
@@ -474,8 +482,12 @@
       "content_hash": "sha256:2c8bcf60bf2d789dd23a0dbf2cc2ff187c9d5bf2c484188d5c6367265691c815",
       "source_type": "document",
       "project": null,
-      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
-      "pages_updated": ["entities/perf-tool.md"]
+      "pages_created": [
+        "concepts/linux-cpu-performance-analysis.md"
+      ],
+      "pages_updated": [
+        "entities/perf-tool.md"
+      ]
     },
     "DFX工具/==CPU==/perf工具抓取CPU使用率情况.md": {
       "ingested_at": "2026-06-02",
@@ -483,8 +495,12 @@
       "content_hash": "sha256:88ad8200277352b24a0f9f2ffb81cf54a64f1351d6e3c12c4db5bcd84ce15dc0",
       "source_type": "document",
       "project": null,
-      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
-      "pages_updated": ["entities/perf-tool.md"]
+      "pages_created": [
+        "concepts/linux-cpu-performance-analysis.md"
+      ],
+      "pages_updated": [
+        "entities/perf-tool.md"
+      ]
     },
     "DFX工具/==CPU==/perf工具抓取单核CPU的进程调度轨迹.md": {
       "ingested_at": "2026-06-02",
@@ -492,8 +508,12 @@
       "content_hash": "sha256:7fdfd0b24c895189dfb3abdfa21e1f330b9b72a6e3d6a72b553993fdcbb3ada1",
       "source_type": "document",
       "project": null,
-      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
-      "pages_updated": ["entities/perf-tool.md"]
+      "pages_created": [
+        "concepts/linux-cpu-performance-analysis.md"
+      ],
+      "pages_updated": [
+        "entities/perf-tool.md"
+      ]
     },
     "DFX工具/==CPU==/分析虚拟机的%ST抢占.md": {
       "ingested_at": "2026-06-02",
@@ -501,8 +521,12 @@
       "content_hash": "sha256:c3edf954e76ce4c7bf864953fb8eb759702cecf0d5579d844b3d7753f60c170c",
       "source_type": "document",
       "project": null,
-      "pages_created": ["concepts/linux-cpu-performance-analysis.md"],
-      "pages_updated": ["skills/linux-vm-debugging.md"]
+      "pages_created": [
+        "concepts/linux-cpu-performance-analysis.md"
+      ],
+      "pages_updated": [
+        "skills/linux-vm-debugging.md"
+      ]
     },
     "DFX工具/==CPU==/查看当前某些CPU上跑的哪些进程.md": {
       "ingested_at": "2026-06-02",
@@ -511,7 +535,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["skills/linux-vm-debugging.md"]
+      "pages_updated": [
+        "skills/linux-vm-debugging.md"
+      ]
     },
     "DFX工具/==CPU==/火焰图抓取CPU占用情况.md": {
       "ingested_at": "2026-06-02",
@@ -519,8 +545,12 @@
       "content_hash": "sha256:cb6a6b18e2d0ac3fd057c0236f5e57cb67292a180a7af223879e3a1d93add07b",
       "source_type": "document",
       "project": null,
-      "pages_created": ["entities/flamegraph-tool.md"],
-      "pages_updated": ["skills/linux-kernel-tracing.md"]
+      "pages_created": [
+        "entities/flamegraph-tool.md"
+      ],
+      "pages_updated": [
+        "skills/linux-kernel-tracing.md"
+      ]
     },
     "DFX工具/==CPU==/获取qemu所有处于D状态的vcpu和线程.md": {
       "ingested_at": "2026-06-02",
@@ -529,7 +559,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["skills/linux-vm-debugging.md"]
+      "pages_updated": [
+        "skills/linux-vm-debugging.md"
+      ]
     },
     "DFX工具/==IO==/IO常用工具.md": {
       "ingested_at": "2026-06-02",
@@ -537,8 +569,12 @@
       "content_hash": "sha256:0b7c1ca1a48a7077c15d08d1993843a4a7bc48d916248316382996ad6c353e58",
       "source_type": "document",
       "project": null,
-      "pages_created": ["concepts/linux-io-performance-analysis.md"],
-      "pages_updated": ["skills/linux-io-debugging.md"]
+      "pages_created": [
+        "concepts/linux-io-performance-analysis.md"
+      ],
+      "pages_updated": [
+        "skills/linux-io-debugging.md"
+      ]
     },
     "DFX工具/==gdb调试==/gdb常用命令.md": {
       "ingested_at": "2026-06-02",
@@ -546,8 +582,13 @@
       "content_hash": "sha256:c59a8a6bceb82ffbd23310fc2e4b7797ceac4633635f9ef28778b1270a3e0a14",
       "source_type": "document",
       "project": null,
-      "pages_created": ["entities/gdb-tool.md", "summaries/gdb-common-commands.md"],
-      "pages_updated": ["skills/gdb-debugging-guide.md"]
+      "pages_created": [
+        "entities/gdb-tool.md",
+        "summaries/gdb-common-commands.md"
+      ],
+      "pages_updated": [
+        "skills/gdb-debugging-guide.md"
+      ]
     },
     "DFX工具/==gdb调试==/gdb调试qemu初始化流程.md": {
       "ingested_at": "2026-06-02",
@@ -556,7 +597,11 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["entities/gdb-tool.md", "skills/gdb-debugging-guide.md", "skills/linux-vm-debugging.md"]
+      "pages_updated": [
+        "entities/gdb-tool.md",
+        "skills/gdb-debugging-guide.md",
+        "skills/linux-vm-debugging.md"
+      ]
     },
     "DFX工具/==vmcore解析==/vmcore解析.md": {
       "ingested_at": "2026-06-02",
@@ -564,8 +609,13 @@
       "content_hash": "sha256:33da2ed8ecbfc7a3e6ce1480409dc9aa13eed07a6b9e14ed611e0b87a0ddc1a7",
       "source_type": "document",
       "project": null,
-      "pages_created": ["entities/crash-tool.md", "summaries/crash-vmcore-analysis.md"],
-      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+      "pages_created": [
+        "entities/crash-tool.md",
+        "summaries/crash-vmcore-analysis.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-vmcore-analysis.md"
+      ]
     },
     "DFX工具/==vmcore解析==/寄存器和地址分布.md": {
       "ingested_at": "2026-06-02",
@@ -573,8 +623,12 @@
       "content_hash": "sha256:c7c4a86ee060ff86759c299e49c9e7a79e55e349f8e0c8ea4355ea8aa5e27ea3",
       "source_type": "document",
       "project": null,
-      "pages_created": ["summaries/crash-register-address.md"],
-      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+      "pages_created": [
+        "summaries/crash-register-address.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-vmcore-analysis.md"
+      ]
     },
     "DFX工具/==vmcore解析==/开源crash网站.md": {
       "ingested_at": "2026-06-02",
@@ -583,7 +637,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["entities/crash-tool.md"]
+      "pages_updated": [
+        "entities/crash-tool.md"
+      ]
     },
     "DFX工具/==vmcore解析==/调度sched.md": {
       "ingested_at": "2026-06-02",
@@ -592,7 +648,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+      "pages_updated": [
+        "concepts/linux-vmcore-analysis.md"
+      ]
     },
     "DFX工具/==vmcore解析==/进程结构task_struct和mm_struct.md": {
       "ingested_at": "2026-06-02",
@@ -600,8 +658,12 @@
       "content_hash": "sha256:c462208dbf07310d2c92a49f972e4d14223139864aa46240611fbb0365510131",
       "source_type": "document",
       "project": null,
-      "pages_created": ["summaries/linux-task-struct-mm-struct.md"],
-      "pages_updated": ["concepts/linux-vmcore-analysis.md"]
+      "pages_created": [
+        "summaries/linux-task-struct-mm-struct.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-vmcore-analysis.md"
+      ]
     },
     "DFX工具/==中断==/中断数变化实时观测脚本.md": {
       "ingested_at": "2026-06-02",
@@ -609,8 +671,13 @@
       "content_hash": "sha256:e122e4dd39dd4db4a71f6b370a7f48c753110796229d4a05c2119c99616e8ebe",
       "source_type": "document",
       "project": null,
-      "pages_created": ["summaries/linux-interrupt-monitoring-script.md"],
-      "pages_updated": ["skills/linux-vm-debugging.md", "skills/linux-kernel-debugging.md"]
+      "pages_created": [
+        "summaries/linux-interrupt-monitoring-script.md"
+      ],
+      "pages_updated": [
+        "skills/linux-vm-debugging.md",
+        "skills/linux-kernel-debugging.md"
+      ]
     },
     "DFX工具/==内存==/perf工具分析slab内存占用.md": {
       "ingested_at": "2026-06-02",
@@ -619,7 +686,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["entities/perf-tool.md"]
+      "pages_updated": [
+        "entities/perf-tool.md"
+      ]
     },
     "DFX工具/==内存==/各node上进程内存（含qemu）占用情况.md": {
       "ingested_at": "2026-06-02",
@@ -628,7 +697,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["skills/linux-vm-debugging.md"]
+      "pages_updated": [
+        "skills/linux-vm-debugging.md"
+      ]
     },
     "DFX工具/==内存==/查看虚拟机OS预占的内存情况.md": {
       "ingested_at": "2026-06-02",
@@ -637,7 +708,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["skills/linux-vm-debugging.md"]
+      "pages_updated": [
+        "skills/linux-vm-debugging.md"
+      ]
     },
     "DFX工具/==网络==/iperf打流.md": {
       "ingested_at": "2026-06-02",
@@ -646,7 +719,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["skills/linux-network-debugging.md"]
+      "pages_updated": [
+        "skills/linux-network-debugging.md"
+      ]
     },
     "DFX工具/==网络==/网络分析工具tcpdump.md": {
       "ingested_at": "2026-06-02",
@@ -655,7 +730,9 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["skills/linux-network-debugging.md"]
+      "pages_updated": [
+        "skills/linux-network-debugging.md"
+      ]
     },
     "DFX工具/==设置trace点==/1 ftrace和kprobe和bpftrace.md": {
       "ingested_at": "2026-06-02",
@@ -663,8 +740,12 @@
       "content_hash": "sha256:5c497c4837167ada787dd7f4c6844ff52d306b11dae1b380a145b99e2b039a66",
       "source_type": "document",
       "project": null,
-      "pages_created": ["summaries/linux-ftrace-kprobe-overview.md"],
-      "pages_updated": ["concepts/linux-tracing-frameworks.md"]
+      "pages_created": [
+        "summaries/linux-ftrace-kprobe-overview.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-tracing-frameworks.md"
+      ]
     },
     "DFX工具/==设置trace点==/2 perf工具.md": {
       "ingested_at": "2026-06-02",
@@ -672,8 +753,12 @@
       "content_hash": "sha256:dbfe77c5dcf579188a4f92098e85d27e4a6dbb088b5521377aec24631f20a0ff",
       "source_type": "document",
       "project": null,
-      "pages_created": ["entities/perf-tool.md"],
-      "pages_updated": ["concepts/linux-tracing-frameworks.md"]
+      "pages_created": [
+        "entities/perf-tool.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-tracing-frameworks.md"
+      ]
     },
     "DFX工具/==设置trace点==/3 火焰图.md": {
       "ingested_at": "2026-06-02",
@@ -681,8 +766,12 @@
       "content_hash": "sha256:37f8e45052ea21954b7733b1d04a883d3d11fb99fef1a5f501fa80450b68bfb2",
       "source_type": "document",
       "project": null,
-      "pages_created": ["entities/flamegraph-tool.md"],
-      "pages_updated": ["skills/linux-kernel-tracing.md"]
+      "pages_created": [
+        "entities/flamegraph-tool.md"
+      ],
+      "pages_updated": [
+        "skills/linux-kernel-tracing.md"
+      ]
     },
     "DFX工具/==设置trace点==/trace：ftrace使用方法.md": {
       "ingested_at": "2026-06-02",
@@ -691,7 +780,10 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["concepts/linux-tracing-frameworks.md", "skills/linux-kernel-tracing.md"]
+      "pages_updated": [
+        "concepts/linux-tracing-frameworks.md",
+        "skills/linux-kernel-tracing.md"
+      ]
     },
     "DFX工具/==设置trace点==/trace：kprobe使用方式.md": {
       "ingested_at": "2026-06-02",
@@ -700,18 +792,521 @@
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": ["concepts/linux-tracing-frameworks.md", "skills/linux-kernel-tracing.md"]
+      "pages_updated": [
+        "concepts/linux-tracing-frameworks.md",
+        "skills/linux-kernel-tracing.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Agent智能体/入门级Agent 智能体.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 283,
+      "content_hash": "sha256:2123e1b154ab7666dc7925e6292a070aee21c240434c1d7aaaa7a6e56f29aaa3",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/LangChain/1-LangChain 核心术语速查表.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 15162,
+      "content_hash": "sha256:6237d89426be0082879ffe78baac5c2d4ac339a91076fdb4d56f782515d77c12",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/LangChain/2-LangChain 架构.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 22818,
+      "content_hash": "sha256:b383ee9c4a120bdd99d89089b659272e67cc03bf209fc5835f0054ed39530a14",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/langchain-framework.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/LangChain/LangChain 解决的核心问题.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 395,
+      "content_hash": "sha256:f01022a00c0091171a418e3933be3a1c7a6a20d5c551ff826610a9c4129888fb",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/LangChain/LangChain 递归字符文本分割器原理、源码分析和实践.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 19293,
+      "content_hash": "sha256:80a3468e121bf7fa63be75ae09b3b6d6cfbd77f99cd74ec9f208b4b2a7053c1e",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/LangChain/LangGraph-工作流编排原理.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 51928,
+      "content_hash": "sha256:138553f435124a291ddf0f01300ebe29dc7994d759450d85b77bf38d05123b49",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/langgraph-framework.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/LangChain/LangGraph-状态-状态图-工作流.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 13883,
+      "content_hash": "sha256:c1c3b371a5f5367e465d5d853259ab6e8ed76217b151b8fe95f6eb9f9eda5887",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "entities/langgraph-framework.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Memory记忆/Agent记忆-LangGraph官方-Memory架构.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 26722,
+      "content_hash": "sha256:9d21a15732a998bf00d57f4c598d9038e24345fab1871f55981c213cd0e551bf",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "entities/langgraph-framework.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Prompt + RAG/1-RAG 核心术语速查表.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 9927,
+      "content_hash": "sha256:fa4477b79165d6f30a5b1ed3236576fc68de0ba2915797954ac37e199e3c18c4",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Prompt + RAG/2-RAG 全栈介绍.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 30595,
+      "content_hash": "sha256:8a8db4030564b3f157a2feeaec39d8328701354ce2802f76e66f30830cebc081",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/rag-engineering.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Prompt + RAG/Prompt 提示词.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 312,
+      "content_hash": "sha256:59d133321e56feb823ae9566ed838ad82267da89951d4495413060bcc3fe8562",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Prompt + RAG/RAG Chunk分块策略.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 37101,
+      "content_hash": "sha256:4461e3280d213cefdd671be2a17098a08a6977167697cbd4d27b65ac65ff96b9",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/rag-chunking-strategies.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Prompt + RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 86043,
+      "content_hash": "sha256:794389f05c9c7a94d50cdab28517a53a0fafabfc6f447090d0c2a15a0def238f",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Prompt + RAG/RAG RRF算法 倒数排名融合（Reciprocal Rank Fusion）.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 6285,
+      "content_hash": "sha256:ecd398c510c0555e3892cdffaddc35fc10e9bfdfef808dbf6eca91e9f0157fc1",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Prompt + RAG/RAG 搭建研究.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 8111,
+      "content_hash": "sha256:d38edb673510eec4327285de9469abb8558ad9c3a639d1437c4d285e772d18d9",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Skills/my-skills.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 134,
+      "content_hash": "sha256:dfe801150fcd2459aa883c870f5ec918d24dbb6d87ee3fb5fce3d3d743668bba",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Skills/开源skills库.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 20,
+      "content_hash": "sha256:f25d6df3af8e1884bbe06efc496bea3a8a40689efbf105922b5095fa8e9b9dd0",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/知识图谱/Deepwiki.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 92,
+      "content_hash": "sha256:9950bef7b17fc0c267a3b4e04abebdc8bb5df580fa8009cf01ec8cb2079409bb",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/知识图谱/Graphify和Gitnexus.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 7377,
+      "content_hash": "sha256:6c3801355ffbc839e2a048fa5795bc36287dacf634059e3712f5131959251023",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/graphify-gitnexus.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】01：大模型基础设施全景 —— 训练、推理、RAG、Agent、观测.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 43518,
+      "content_hash": "sha256:c3d7a0009a636457cb19662578924feb3ecbc1a9dc90568d04f75dda96a1ef7e",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-infra-landscape.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】02：GPU 计算入门——SM、Tensor Core、HBM、NVLink.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 45278,
+      "content_hash": "sha256:7f6cc241e4207298a1c8e39cf843268ef84c162e25f24369f883cbdb23c75355",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/gpu-computing-architecture.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】03：CUDA 生态——cuBLAS、cuDNN、NCCL、Triton、CUTLASS.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 46278,
+      "content_hash": "sha256:31e3e74f39257ec3d3595607215fbf4400f7144df270e2a17f93a4bb5e97016b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/cuda-software-stack.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】04：互联与网络——NVLink、InfiniBand、RoCE 与国产替代.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 35600,
+      "content_hash": "sha256:47441da52dd7c9c7a0cf7450b918a612a7502369df000585bb9d24318657b48a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】05：训练全景：Pre-train、SFT、RLHF、DPO、蒸馏.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 50344,
+      "content_hash": "sha256:b611b19a8e4c706e69e0e69a52d75b8c5470920586a6898c3eaa83e859d7c670",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-training-pipeline.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】06：3D 并行深度——数据  -  张量  -  流水  -  序列  -  ZeRO.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 46181,
+      "content_hash": "sha256:ee4d0131c2dccf15cbb70fb4a122618359d6fc15a78a62211f24de7d0eca1f77",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-parallelism-strategies.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】07：Megatron-LM 与 DeepSpeed.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 48355,
+      "content_hash": "sha256:001fb772b66520c6cbf2b712c3f2fd0b345a62aa96c1f150e45324d30fa2df9c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/megatron-deepspeed.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】08：MoE 训练工程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 42654,
+      "content_hash": "sha256:99a5a8dad7309e86c3a971dc4fb3c7867272a53cabdc7c399092cfdfe82c9e5e",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/moe-training-engineering.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】09：RLHF 与对齐流水线.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 45114,
+      "content_hash": "sha256:db12f2052d358de74531f8068c95427bcc542a84d088abd832ac604de968c3bc",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/rlhf-alignment-pipeline.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】10：Checkpoint 与故障容忍.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 58081,
+      "content_hash": "sha256:7fec5fe99cdcc217a82fa75fbab6d56bf976e2fbc73c7b129a7ec7a9dca0680a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】11：推理引擎基础.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 46699,
+      "content_hash": "sha256:2ccb89708e185ec6a65e560f0ff7bc64a9245a1e3214fd2d9745b052eab7382b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-inference-engine.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】12：PagedAttention 与 Continuous Batching.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 46151,
+      "content_hash": "sha256:db7785c81534ab03c91da0aea498a4ac04503167f192131d1b897e85649784da",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/paged-attention-continuous-batching.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】13：vLLM  -  SGLang  -  TensorRT-LLM  -  TGI 对比.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 40041,
+      "content_hash": "sha256:33febd76f537b77d83a826e2b8fe92bd502481d8f8f2a6fd106372bf5c3856ee",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/vllm-sglang-tensorrt.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】14：量化工程 —— INT8  -  FP8  -  FP4  -  AWQ  -  GPTQ.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 25040,
+      "content_hash": "sha256:8a28fbc6c32f37bf313dac2ab77e29d24b0232e60ca9b8547a511a34592a0dae",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-quantization-engineering.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】15：推测解码与 MTP.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 24729,
+      "content_hash": "sha256:591d4fd00478531c4524d26c24561f7babd7cf70b45b4af089f2cf0a842b06ca",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】16：长上下文工程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 30689,
+      "content_hash": "sha256:015991d1aa54964bf438c512671b8d3affc7bdb47dc4730cc9bcb73fa3ddf51c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】17：RAG 工程全景.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 45157,
+      "content_hash": "sha256:008035d125c9f37ccf712890a41523c5546182fc102e77d349307b56e2bacfdc",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】18：向量库与图 RAG.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 46676,
+      "content_hash": "sha256:82a1557fa89380594b621d2c257d57ba56eec76e4f433bc5aede3fc75a2adb77",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】19：Agent 框架工程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 46406,
+      "content_hash": "sha256:399aa15ef94e62cb6adb88cb3c055b43fc34c557fd9713081b7060dba89a9c27",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/agent-framework-engineering.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】20：工具调用与 MCP.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 43002,
+      "content_hash": "sha256:c61eb96c44b3bdd8fe1314901ae88780ea01841428af86d504c84b55fc6b7913",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/tool-calling-mcp.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】21：推理服务化.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 45784,
+      "content_hash": "sha256:81dc983490b5eb2f205ef1afdbbb9cc7378f432acef08c2042e0ac23836d84ea",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-serving-infrastructure.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】22：大模型网关.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 44065,
+      "content_hash": "sha256:538594ba1d8ce3212dffeb0e850571e20ae057f678274162c7dc20a060e5b5a5",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-gateway.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】23：LLM 可观测性.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 41047,
+      "content_hash": "sha256:f6b56db515d476965fbc81b306a2f53b2cb7bc99db8b035856b6aa9b0828b909",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/llm-observability.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】24：成本、合规与安全.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 44132,
+      "content_hash": "sha256:0d78c9abb7cfb44894471cceeba58e314554cfc3da37f4c2ed84339d1e29a5fb",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】25：大模型基础设施未来.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 56271,
+      "content_hash": "sha256:202730163f295c8c5e1a5c0390b0a97951e1b8edf76bfbe6d64ce982d45513db",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】26：特别篇 DeepSeek-V4 与国产芯片：从备份路线到主路径.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 19227,
+      "content_hash": "sha256:f1347cee6df84df3f8004b4ce9d0705ff472d296831f3ba20e08649e277e6e3a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】27：特别篇 DeepSeek-V4 的极致性价比从哪来.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 31662,
+      "content_hash": "sha256:f6ce238c5aec2ddd662bf5d679ee7aa8924ce5db1bc2af4f867abdbf21fcd0dc",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大模型基础设施工程系列/大模型基础设施工程.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 14473,
+      "content_hash": "sha256:77cebab5c42ac21656da959d4965d0f21a791bc6a697ddcaae8ce4318aa0e1bf",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "synthesis/llm-infra-evolution-2022-2026.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/AI infra/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 19571,
+      "content_hash": "sha256:6f473f2aa44b6c41e75cf8dc05ed45126ce954e31af5380c75a6ac87fdb390d2",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/大模型LLM/Ollma 本地运行大模型的工具.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 0,
+      "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "AI 人工智能/大模型LLM/Transformer模型.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 67,
+      "content_hash": "sha256:8196b6afd310f7b54b84ab1c0d8ad7fbb52158b1664f5248bbe27a58d5d0d014",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
     }
   },
   "last_ingest": "2026-06-02",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 67,
-    "total_pages": 43,
-    "total_concepts": 16,
+    "total_sources_ingested": 117,
+    "total_pages": 59,
+    "total_concepts": 28,
     "total_summaries": 14,
-    "total_entities": 5,
+    "total_entities": 10,
     "total_skills": 10,
-    "total_synthesis": 3
+    "total_synthesis": 4
   }
 }
