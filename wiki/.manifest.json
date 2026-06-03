@@ -157,7 +157,7 @@
     "Linux 操作系统/Linux 中断系统/Linux IPI 核间中断.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 238,
-      "content_hash": "sha256:6eb932ccfea9e1787d64324ce32ebf8e4bb3ca9fc6f3f33c8534cc137b7f3249",
+      "content_hash": "sha256:6148ae948e1a71e60c7329fec49a1da92c846747b5335fc4ab1ffc73bc70a71e",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -168,7 +168,7 @@
     "Linux 操作系统/Linux 中断系统/Linux ksoftirqd软中断内核线程详解.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 6713,
-      "content_hash": "sha256:c0a7cd5d6fe8f66a5dfc5545619daf5721ed3f023137402464059f4fcb0d6cf7",
+      "content_hash": "sha256:d182a772bc500bb0fe6bd8b58a1252ffcd0f1b76ee0b4a3a0b03da288681448a",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -182,7 +182,7 @@
     "Linux 操作系统/Linux 中断系统/Linux 硬中断irq + 软中断softirq原理.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 22039,
-      "content_hash": "sha256:419f803247e2e1a991ace62e3e61532d5ddc811ddf077a70a3d6d6dcde08f03c",
+      "content_hash": "sha256:e489e18fbda07a2df45633861da92a8c79feebbe1f865f1d777496fec9da35db",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -193,7 +193,7 @@
     "Linux 操作系统/Linux 中断系统/Linux 软中断softirq.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 23290,
-      "content_hash": "sha256:d9e841e292c49e86ecf2fd2c7f4f267aad89976d31990fc11f3e35f97f3afd92",
+      "content_hash": "sha256:2970b9426a42a7913a67792cf38691220a3f71dab70b8d956df057bcf51495ba",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -233,7 +233,7 @@
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO全景介绍.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 2595,
-      "content_hash": "sha256:e179a191e808e6b1ff0b274c8ae82f25cc985b7513acaf351878038ea1e33677",
+      "content_hash": "sha256:e6a7ff51674de1bd559f6944abaebf155723073ba5a1e6eda1dd96f640d7a8ad",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -244,7 +244,7 @@
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO调度算法.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 76,
-      "content_hash": "sha256:9d662b12888896a687a036e7b8f4fdd8f5a326433e033c9ed43bd7be8a861dd8",
+      "content_hash": "sha256:1522e2a77bdc001ed57f4dc936dc1262ee4d537f40a725217f0b797edbaef29f",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -255,7 +255,7 @@
     "Linux 操作系统/Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 8207,
-      "content_hash": "sha256:7486eba47ee80619a6105144ce9e569d031df5605f5c05fa7c97b3548bda7d46",
+      "content_hash": "sha256:252c8685b1896ef371eb2cf8f1873ae06888afb7ee771aa0883ab1312b170d89",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -266,7 +266,7 @@
     "Linux 操作系统/Linux 系统启动关闭/Linux 启动详细过程（开机启动顺序）.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 4455,
-      "content_hash": "sha256:e7ef419125fcd305a9816a735ebee570250c26d6c550f91113af414ba662f67f",
+      "content_hash": "sha256:fd800e7ba2367f1161435106c3c67070ffe7cc2e151a934085f2e9979c55389c",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -404,7 +404,7 @@
     "Linux 操作系统/Linux 锁机制/Linux Mutex锁.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 17259,
-      "content_hash": "sha256:cb940fd0f88fb176b7aefd87565ffebfe50a6119f45d0550f1900cb497b19222",
+      "content_hash": "sha256:128312db88a55bdb0e2934e9ada08ac5c50e2bf3817a74cbeb0d07670b745400",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -415,7 +415,7 @@
     "Linux 操作系统/Linux 锁机制/Linux RCU锁.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 78013,
-      "content_hash": "sha256:06986ef916174cddbfd0ed46516e2fffbb63a0b85cfaf46327c974519cb61dd9",
+      "content_hash": "sha256:00052ff35c3d327237844006c374b786ec3debd729ff3d472d758710cb909198",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -428,7 +428,7 @@
     "Linux 操作系统/Linux 锁机制/Linux SpinLock锁.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 28664,
-      "content_hash": "sha256:4bed937c8f40b32af3f2095f4db7e324d5a09b3aa8d66487db3f55a01f2723ae",
+      "content_hash": "sha256:61bb220539216ab7567cc7b52fbec17e4ac90ba86e045dbe01dd6a4c9abc81c5",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -439,7 +439,7 @@
     "Linux 操作系统/Linux 锁机制/Linux 锁机制全景介绍.md": {
       "ingested_at": "2026-06-01",
       "size_bytes": 76280,
-      "content_hash": "sha256:4a41ba371c872b81f5c14037b3c13321503922ee43bbf7885221a7674bc69523",
+      "content_hash": "sha256:4afa25fc7ffa82b7c23aab687954839ec30a8d1d8ec3877936d1d0d55a8085c6",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1021,8 +1021,13 @@
       "content_hash": "sha256:47441da52dd7c9c7a0cf7450b918a612a7502369df000585bb9d24318657b48a",
       "source_type": "document",
       "project": null,
-      "pages_created": [],
-      "pages_updated": []
+      "pages_created": [
+        "concepts/gpu-interconnect-networks.md"
+      ],
+      "pages_updated": [
+        "concepts/gpu-computing-architecture.md",
+        "concepts/llm-parallelism-strategies.md"
+      ]
     },
     "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】05：训练全景：Pre-train、SFT、RLHF、DPO、蒸馏.md": {
       "ingested_at": "2026-06-02",
@@ -1138,8 +1143,12 @@
       "content_hash": "sha256:591d4fd00478531c4524d26c24561f7babd7cf70b45b4af089f2cf0a842b06ca",
       "source_type": "document",
       "project": null,
-      "pages_created": [],
-      "pages_updated": []
+      "pages_created": [
+        "concepts/speculative-decoding-mtp.md"
+      ],
+      "pages_updated": [
+        "concepts/llm-inference-engine.md"
+      ]
     },
     "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】16：长上下文工程.md": {
       "ingested_at": "2026-06-02",
@@ -1165,8 +1174,12 @@
       "content_hash": "sha256:82a1557fa89380594b621d2c257d57ba56eec76e4f433bc5aede3fc75a2adb77",
       "source_type": "document",
       "project": null,
-      "pages_created": [],
-      "pages_updated": []
+      "pages_created": [
+        "entities/vector-database-comparison.md"
+      ],
+      "pages_updated": [
+        "concepts/rag-engineering.md"
+      ]
     },
     "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】19：Agent 框架工程.md": {
       "ingested_at": "2026-06-02",
@@ -1423,7 +1436,7 @@
     "云原生/Prometheus/Prometheus-博客园-原理详解.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 33725,
-      "content_hash": "sha256:90099e78542c5b9d1caeecc0ae2c1bc38eaeb90b39918fddb05fa15d734683a3",
+      "content_hash": "sha256:90099e78542c5b9d1caeecc0ae2c1bc38eaeb90b39918fddb05fa15d734683b3",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1444,7 +1457,18 @@
         "synthesis/cloud-native-infrastructure-landscape.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】1 Linux Namespaces：用 50 行 C 隔离一个进程.md": {
+    "云原生/容器运行时/从零造容器系列/从零造容器系列文章.md": {
+      "ingested_at": "2026-06-02",
+      "size_bytes": 6845,
+      "content_hash": "sha256:d8073de2553d1186386c892e80c08f9d8d67d3cf95ddc6c8d4cb8b6cec66cdf8",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/container-runtime-deep-dive.md"
+      ]
+    },
+    "云原生/容器运行时/从零造容器系列/【从零造容器】1 Linux Namespaces：用 50 行 C 隔离一个进程.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 16475,
       "content_hash": "sha256:9e6725b13a8f135df0f0e3b7d44e2b150541a9d33c2b3506e4115ba620d4f85b",
@@ -1457,7 +1481,7 @@
         "concepts/linux-namespace-cgroups.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】2 Network Namespace：给你的进程接上质拟网线.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】2 Network Namespace：给你的进程接上虚拟网线.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 22594,
       "content_hash": "sha256:74484ef044b09ffab0bfec50fd0f7235067c759526f838fac3b29f05fc64362c",
@@ -1468,7 +1492,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】3 Mount Namespace 与 pivot_root：构建容器文件系统.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】3 Mount Namespace 与 pivot_root：构建容器文件系统.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 21980,
       "content_hash": "sha256:da0e01a29b0e90be37acd9f0456b2ba81efd52406d7577cb196da205940e52a7",
@@ -1479,7 +1503,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】4 Cgroups v2：让容器不能吃掉整台机器.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】4 Cgroups v2：让容器不能吃掉整台机器.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 31093,
       "content_hash": "sha256:36ceaf39dc20b6468ef5296a3c1e99bf585475de33bb09ada82c06c81b30f80b",
@@ -1492,7 +1516,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】5 OverlayFS：一层一层像淋襃.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】5 OverlayFS：一层一层像洋葱.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 14309,
       "content_hash": "sha256:f77657d7f831d39e4243667617de17498cc654b8e915e966115a78f6986737d0",
@@ -1505,7 +1529,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】6 用 Go 组装迷你容器运行时：把积木拼起来.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】6 用 Go 组装迷你容器运行时：把积木拼起来.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 13959,
       "content_hash": "sha256:37e48327b97821a512548ed8e02fea6dae4022857b046048abb5fbc13e3053b9",
@@ -1516,7 +1540,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】7 OCI 规范兼容：让迷你运行时说标准语言.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】7 OCI 规范兼容：让迷你运行时说标准语言.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 22064,
       "content_hash": "sha256:7b13093d152b48ec1f61f51167fce21463306e9d517438132e3c5dc8d4cf6083",
@@ -1527,7 +1551,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】8 Seccomp-BPF 与 Capabilities：容器安全的两道防线.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】8 Seccomp-BPF 与 Capabilities：容器安全的两道防线.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 24301,
       "content_hash": "sha256:8f126e4902073c44bedc6d6821b63accede9181c026512fafdb6c79f314cf54d",
@@ -1540,7 +1564,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】9 User Namespace 与 Rootless 容器：不需要 root 也能跑.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】9 User Namespace 与 Rootless 容器：不需要 root 也能跑.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 11587,
       "content_hash": "sha256:9a1ccc38471d3f50766b47b6ce7aab702a1a06daa27ad11fa5a4d4c922eb801d",
@@ -1551,7 +1575,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】10 容器 vs microVM：Firecracker 凭什乕 125ms 启动.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】10 容器 vs microVM：Firecracker 凭什么 125ms 启动.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 11855,
       "content_hash": "sha256:95d6b626c961d5a3f71513da17aa8ef08a57bb0fc88afe88fbbbbd0bcfc8a2d0",
@@ -1564,7 +1588,7 @@
         "concepts/container-runtime-deep-dive.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】11 容器网络性能真相：veth vs macvlan vs eBPF 数据面.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】11 容器网络性能真相：veth vs macvlan vs eBPF 数据面.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 12114,
       "content_hash": "sha256:40ab090dcbf010cd0a437213c8114f5d378fe30138abd8f44a4ebe24d9e9eefb",
@@ -1578,7 +1602,7 @@
         "concepts/k8s-cni-comparison.md"
       ]
     },
-    "云原生/容器运行时/从零造容器系列/【从零买容器】12 runc 源码考古：OCI 参考实现到底长什乛样.md": {
+    "云原生/容器运行时/从零造容器系列/【从零造容器】12 runc 源码考古：OCI 参考实现到底长什么样.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 14997,
       "content_hash": "sha256:a452da4ebc40f960a5f20ae2901d8fb99c09c3cba2f7f51bb179f6a497acc4af",
@@ -1590,27 +1614,16 @@
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
       ]
-    },
-    "云原生/容器运行时/从零造容器系列/从零造容器系列文章.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 6845,
-      "content_hash": "sha256:d8073de2553d1186386c892e80c08f9d8d67d3cf95ddc6c8d4cb8b6cec66cdf8",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [],
-      "pages_updated": [
-        "concepts/container-runtime-deep-dive.md"
-      ]
     }
   },
   "last_ingest": "2026-06-02",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 142,
-    "total_pages": 79,
-    "total_concepts": 41,
+    "total_sources_ingested": 141,
+    "total_pages": 82,
+    "total_concepts": 43,
     "total_summaries": 17,
-    "total_entities": 12,
+    "total_entities": 13,
     "total_skills": 12,
     "total_synthesis": 5
   }

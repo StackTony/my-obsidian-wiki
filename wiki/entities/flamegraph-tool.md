@@ -84,6 +84,13 @@ perf script > out.perf
 - **平顶山(plateau)** = 宽大且顶部平坦的函数 → **性能瓶颈嫌疑**
 - X轴不代表时间，而是所有调用栈合并后按字母排序的统计视图
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-kernel-tracing]]
+
+综合分析：[[synthesis/linux-dfx-tool-landscape]]
+
 ## 来源
 
 - [[entities/perf-tool]] — perf性能分析工具

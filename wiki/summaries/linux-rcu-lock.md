@@ -71,6 +71,11 @@ rcu_read_unlock()  // preempt_enable
 
 VFS dentry/inode查找、路由表、设备列表、task_struct字段、LSM hooks、SELinux策略^[inferred]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-lock-selection]]
+
 ## 来源
 
 - [[concepts/linux-lock-mechanisms]] — 锁机制全景框架

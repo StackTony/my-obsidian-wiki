@@ -159,6 +159,13 @@ NAPI（New API）是 Linux 网络设备驱动的中断+轮询混合模式：
 - eBPF/XDP 在网络栈中的位置——在 skb 创建之前介入，理论上可以跳过大部分协议栈处理。 ^[inferred]
 - TCP拥塞控制算法的选择对协议栈性能的影响，来源中未深入展开。 ^[ambiguous]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-network-debugging]]
+
+综合分析：[[synthesis/linux-kernel-subsystem-interactions]], [[synthesis/virtio-architecture-evolution]]
+
 ## 来源
 
 - [[summaries/linux-network-protocol-stack-impl]] — 网络协议栈实现细节

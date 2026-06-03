@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-06-02
+updated: 2026-06-03
 ---
 
 # Hot Cache
@@ -9,27 +9,26 @@ updated: 2026-06-02
 
 ## Recent Activity
 
-- [2026-06-02] INGEST — 云原生21个源文件蒸馏为17个新wiki页面 + 1个更新：K8s架构+网络+安全+CNI+容器运行时+Cgroups v2+OverlayFS+Seccomp+microVM对比+网络性能实测+Prometheus+containerd+runc，覆盖云原生三层架构体系
-- [2026-06-02] INGEST — 消息队列4个源文件蒸馏为3个新wiki页面
-- [2026-06-02] INGEST — AI 人工智能50个源文件蒸馏为17个wiki页面
+- [2026-06-03] LINT-FIX P1 — 15个orphan页面全部救援（0个剩余）：从41个concept/summary/entity页面添加反向wikilinks到9个skills+5个synthesis+1个entity
+- [2026-06-03] LINT-FIX P1 — 3个矛盾标注完成：aescbc安全风险⚠️、CPU limit争论^[ambiguous]、seccomp/microVM关系类型修正(contradicts→related_to/replaces)
+- [2026-06-03] LINT-FIX P2 — 3个缺失目标页面创建（4个broken wikilinks修复）
+- [2026-06-03] LINT-FIX P3 — 26个manifest修正（0 stale, 0 missing）
 
 ## Active Threads
 
-- **云原生知识网络成型**：10个概念页+2个实体页+3个摘要页+2个技巧页+1个综合页，从Linux内核特性到K8s编排到可观测的完整链条
-- **容器→microVM隔离模型讨论**：容器共享内核vs microVM独立内核，信任边界驱动选择，Firecracker 125ms与容器同量级
-- **跨域连接发现**：云原生全景页连接LLM基础设施全景（三层架构结构相似性）、Linux内核已有页面（Namespace/Cgroup/IO栈/网络栈/锁机制容器视角）
+- **Lint修复已完成P1-P3**：P2(broken links)✅、P3(stale sources)✅、P1(orphans+contradictions)✅。仅剩P0(provenance drift 15页)
+- **知识网络连接密度大幅提升**：41个页面新增延伸阅读段落，每个orphan获得1-4个入链
+- **云原生知识链成型**：从Linux内核到容器运行时到K8s编排+可观测的完整链条
 
 ## Key Takeaways
 
-- 容器不是发明是拼装：8种Namespace(2002-2020)+Cgroup+pivot_root+OverlayFS+Seccomp+Capabilities的组合拳
-- K8s声明式API+协调循环是一切能力的驱动机制——自愈、弹性、滚动更新、GitOps偏移纠正都从同一个循环推导
-- Cilium eBPF可完全替换kube-proxy：iptables O(n)→IPVS O(1)→eBPF三代演进，规模是换代的驱动力
-- Cgroups v2三道防线：memory.low保底→memory.high预警→memory.max兜底；CFS throttle尾延迟问题让K8s社区争论是否该设CPU limit
-- Copy-on-Write是OverlayFS性能杀手：100MB文件首次写47.32ms vs 第二次0.18ms，263倍差距——数据库必须放volume
-- containerd-shim是关键解耦：即使containerd崩溃容器继续运行，防止级联故障
+- Orphan救援不是给orphan自身加链接，而是从**引用它的页面**加反向链接——skills implements concepts，所以concepts应该链接回skills
+- `contradicts`关系类型慎用：seccomp(加固容器)和microVM(替代容器)是同一问题的不同路线，不是矛盾——误用`contradicts`会误导读者以为两个方案不可共存
+- aescbc是K8s Secret加密的常见错误：CBC模式padding oracle风险，生产应选aesgcm或kms
+- CPU limit争论的共识倾向：生产只用CPU requests(weight)不设limits(quota)
 
 ## Flagged Contradictions
 
-- Prometheus"开源版BorgMon"说法在社区有争议——原文明确声称但更准确说是"受BorgMon启发"
-- Prometheus原文声称使用LevelDB引擎，但这可能反映v1.x；现代v2.x使用自定义TSDB实现
-- K8s安全加固指南用aescbc做EncryptionConfiguration示例，但未明确推荐最优加密provider
+- aescbc EncryptionConfiguration示例不够安全 → 已标注⚠️推荐aesgcm/kms
+- CPU limit双面争论 → 已标注^[ambiguous]共识倾向不设limit
+- seccomp↔microVM关系 → 已修正contradicts为related_to/replaces

@@ -50,6 +50,11 @@ updated: 2026-06-02
 | Self-hosted | 集群内Pod | — |
 | 托管K8s | 云平台抽象 | EKS/AKS/GKE |
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - 原文：K8s云原生-官方文档-K8s架构.md（kubernetes.io/zh-cn翻译）

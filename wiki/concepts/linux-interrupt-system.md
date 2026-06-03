@@ -114,6 +114,13 @@ IPI（Inter-Processor Interrupt）是跨核通信机制：
 - PREEMPT_RT 补丁对中断上下文的影响——实时内核将部分中断处理线程化，这对 softirq 的执行语义有何改变？ ^[inferred]
 - tasklet 是否应该被逐步废弃（内核社区有此倾向），统一迁移到 workqueue？ ^[ambiguous]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-lock-selection]], [[skills/linux-kernel-tracing]], [[skills/linux-vm-debugging]]
+
+综合分析：[[synthesis/linux-kernel-subsystem-interactions]]
+
 ## 来源
 
 - [[summaries/linux-softirq-detail]] — softirq原理与ksoftirqd详解

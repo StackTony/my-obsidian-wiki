@@ -59,6 +59,11 @@ VGIC(Virtual GIC)是ARM架构的中断虚拟化实现：
 - GICV3/GICV4相比GICV2的改进？
 - x86 vs ARM中断虚拟化的架构差异对性能的影响？
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/virtio-architecture-evolution]]
+
 ## 来源
 
 - `raw/sources/Linux 虚拟化/中断虚拟化/KVM中断注入机制.md` — LAPIC/IOAPIC概念、ICR寄存器

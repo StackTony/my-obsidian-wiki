@@ -41,6 +41,11 @@ updated: 2026-06-02
 4. `diff pre cur` — 计算差值
 5. 对每个中断类型按CPU核计算 delta，超过阈值时输出 `cpuN: delta/s old→new` 格式
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-vm-debugging]]
+
 ## 来源
 
 - 原始文档：`DFX工具/==中断==/中断数变化实时观测脚本.md`

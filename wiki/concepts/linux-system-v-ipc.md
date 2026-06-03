@@ -210,6 +210,13 @@ IPC资源的生命周期独立于创建进程：
 - System V IPC 与 POSIX IPC 的选择指南——在什么场景下应该优先选择POSIX IPC？ ^[inferred] POSIX IPC接口更简洁、与文件系统统一、但System V IPC功能更丰富（如信号量集合操作）。
 - 大量共享内存段导致的内存碎片管理问题，来源中未涉及。 ^[ambiguous]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-ipc-programming]]
+
+综合分析：[[synthesis/linux-kernel-subsystem-interactions]]
+
 ## 来源
 
 - [[summaries/linux-meminfo-params]] — 共享内存与meminfo中Shmem字段的关系

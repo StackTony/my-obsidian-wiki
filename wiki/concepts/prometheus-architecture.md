@@ -146,6 +146,11 @@ node-exporter用DaemonSet部署（每Node一个）；Prometheus Operator（kube-
 - Pushgateway陈旧数据自动清理机制？
 - Histogram bucket边界的最佳选择策略？
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - Prometheus-博客园-原理详解 — 架构+数据模型+K8s部署+ServiceMonitor

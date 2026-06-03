@@ -115,6 +115,13 @@ vmcore是内核崩溃时生成的内存转储文件。通过crash工具加载vmc
 - 调度sched源文件仅提到主/周期调度器的概念，缺少具体结构体字段说明
 - ARM64 EL2(虚拟化)和EL3(Secure Monitor)在崩溃分析中的具体应用场景
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-vmcore-debugging]]
+
+综合分析：[[synthesis/linux-dfx-tool-landscape]]
+
 ## 来源
 
 - [[entities/crash-tool]] — crash工具实体页

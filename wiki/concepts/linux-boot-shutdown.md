@@ -126,6 +126,11 @@ systemd 用 target 替代 runlevel，支持更多粒度的状态定义。
 - 快速启动技术（如 systemd-analyze blame 分析慢服务）的优化策略，本文未深入展开。 ^[inferred]
 - kexec 跳过BIOS直接加载新内核的快速重启机制，来源中未涉及。 ^[ambiguous]
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/linux-kernel-subsystem-interactions]]
+
 ## 来源
 
 - [[summaries/linux-meminfo-params]] — 启动过程中内存管理器初始化的背景

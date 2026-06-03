@@ -138,6 +138,13 @@ IO栈与 [[concepts/linux-memory-management]] 的 Page Cache 紧密交互，Writ
 - NVMe多队列调度器（blk-mq）与传统单队列调度器的完整对比仍缺少源文件支撑。 ^[inferred]
 - io_uring 对传统IO栈路径的绕过程度——是否完全跳过Block层调度？ ^[ambiguous]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-io-debugging]]
+
+综合分析：[[synthesis/linux-kernel-subsystem-interactions]]
+
 ## 来源
 
 - [[summaries/linux-page-cache]] — Page Cache与IO路径的交互

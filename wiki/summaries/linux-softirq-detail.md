@@ -55,6 +55,11 @@ tasklet基于softirq(HI_SOFTIRQ/TASKLET_SOFTIRQ)实现，关键串行保证：
 | 跨核共享数据 | `spin_lock` |
 | 同核进程上下文 | `spin_lock_bh`（禁止softirq，允许硬中断） |
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-ipc-programming]]
+
 ## 来源
 
 - [[concepts/linux-interrupt-system]] — 中断系统整体框架

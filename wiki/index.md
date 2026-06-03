@@ -74,16 +74,19 @@ updated: 2026-06-02
 
 - [llm-infra-landscape](concepts/llm-infra-landscape.md) — 大模型基础设施五层工程栈：硬件、系统软件、框架、应用、运营的系统化视角 — `AI` `LLM` `基础设施` `训练` `推理` `Agent`
 - [gpu-computing-architecture](concepts/gpu-computing-architecture.md) — GPU与CPU架构差异：海量弱核+延迟隐藏，Roofline模型解释Prefill/Decode瓶颈 — `AI` `GPU` `CUDA` `HBM` `NVLink`
+- [gpu-interconnect-networks](concepts/gpu-interconnect-networks.md) — GPU互联两层架构：Scale-up(NVLink/NVSwitch/NVL72)+Scale-out(IB/RoCEv2)；NVLink5达1.8TB/s；GPUDirect RDMA带宽增30-50% — `AI` `GPU` `NVLink` `InfiniBand` `RoCE` `网络`
 - [cuda-software-stack](concepts/cuda-software-stack.md) — CUDA栈分工：cuBLAS/cuDNN/NCCL/Triton/CUTLASS，上层框架性能最终落到kernel和算子库 — `AI` `CUDA` `GPU` `cuBLAS` `cuDNN` `NCCL`
 - [llm-training-pipeline](concepts/llm-training-pipeline.md) — LLM四阶段训练栈：Pre-train→中训→SFT→对齐，数据是第一生产力 — `AI` `LLM` `训练` `Pre-train` `SFT` `RLHF`
 - [llm-parallelism-strategies](concepts/llm-parallelism-strategies.md) — 3D并行策略组合：DP/TP/PP/SP/EP/ZeRO按瓶颈组合——内存、计算、通信三个约束 — `AI` `LLM` `并行` `3D并行` `ZeRO` `训练`
 - [llm-inference-engine](concepts/llm-inference-engine.md) — 推理两阶段(Prefill+Decode)心智模型：推理优化首先是资源调度问题 — `AI` `LLM` `推理` `KV cache` `batching`
+- [speculative-decoding-mtp](concepts/speculative-decoding-mtp.md) — 推测解码：draft生成K候选+target单次验证；EAGLE-3达3.5-6.5x加速；batch增大加速递减；MTP训练范式变革 — `AI` `LLM` `推理` `推测解码` `MTP`
 - [paged-attention-continuous-batching](concepts/paged-attention-continuous-batching.md) — PagedAttention+Continuous Batching：OS式内存管理+请求级动态调度，vLLM核心设计 — `AI` `LLM` `推理` `PagedAttention` `vLLM`
 - [llm-quantization-engineering](concepts/llm-quantization-engineering.md) — LLM量化：精度/指令能力/服务成本三方博弈，FP8/INT8/AWQ/GPTQ方案对比 — `AI` `LLM` `量化` `FP8` `AWQ` `GPTQ`
 - [moe-training-engineering](concepts/moe-training-engineering.md) — MoE稀疏激活：路由均衡+Expert Parallel+All-to-All才是工程难点 — `AI` `LLM` `MoE` `稀疏激活` `专家混合`
 - [rlhf-alignment-pipeline](concepts/rlhf-alignment-pipeline.md) — 对齐流水线：PPO/DPO/GRPO在数据/奖励/采样/稳定性间做工程取舍 — `AI` `LLM` `RLHF` `DPO` `对齐` `PPO`
 - [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线，数据质量决定上限 — `AI` `RAG` `检索` `向量库` `知识图谱`
 - [rag-chunking-strategies](concepts/rag-chunking-strategies.md) — 21种RAG分块策略：基础→结构感知→语义驱动，分块决定检索质量 — `AI` `RAG` `Chunking` `分块` `文本分割`
+- [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW默认+DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；混合检索是生产标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`
 - [tool-calling-mcp](concepts/tool-calling-mcp.md) — 工具调用与MCP：JSON Schema+结构化输出+MCP统一工具生态，协议与安全边界 — `AI` `Agent` `MCP` `Function Call` `工具调用`
 - [llm-serving-infrastructure](concepts/llm-serving-infrastructure.md) — 推理服务化：Triton/Ray Serve/PD分离，围绕SLO/资源隔离/弹性伸缩组织系统 — `AI` `LLM` `服务化` `Triton` `PD分离`

@@ -119,6 +119,11 @@ vDPA(vhost Data Path Acceleration)让virtio数据平面不需主机干预：
 - vDPA在实际云环境中的部署成熟度？
 - virtio设备初始化的realize流程细节？
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/virtio-architecture-evolution]]
+
 ## 来源
 
 - [[summaries/virtio-io-notification-mechanism]] — ioeventfd/irqfd机制详解

@@ -73,6 +73,11 @@ relationships:
 - **RAG/Agent路线** → RAG全景 → 向量库/GraphRAG → Agent框架 → 工具调用/MCP
 - **平台与运营** → 服务化 → 网关 → 可观测 → 成本/合规/安全 → 未来展望
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/llm-infra-evolution-2022-2026]], [[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - 大模型基础设施工程系列01：大模型基础设施全景（raw/sources/AI 人工智能/AI infra/大模型基础设施工程系列/）

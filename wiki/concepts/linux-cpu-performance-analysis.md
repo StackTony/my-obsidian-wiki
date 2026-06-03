@@ -94,6 +94,13 @@ ps -eL -o pid,tid,psr,pcpu,comm --sort=-pcpu | awk 'NR==1 || $3==64'
 - kvmtop %ST 在ARM和x86的采集路径差异是否影响阈值判断
 - halt-polling 特性对 EXTwfe/EXTwfi 的影响机制
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-vm-debugging]]
+
+综合分析：[[synthesis/linux-dfx-tool-landscape]]
+
 ## 来源
 
 - [[entities/perf-tool]] — perf性能分析工具

@@ -101,6 +101,11 @@ conntrack是Docker默认网络路径上的"隐形杀手"——表满后新连接
 - **sockperf**：测P99延迟（ping-pong模式）
 - 关闭TCP offload比较公平（硬件offload掩盖软件差异）
 
+
+## 延伸阅读
+
+实操指南：[[skills/container-network-benchmarking-skill]]
+
 ## 来源
 
 - 从零造容器系列 #11 — 六种网络方案实测数据+iptables规则影响+conntrack分析

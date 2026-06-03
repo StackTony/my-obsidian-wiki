@@ -123,6 +123,13 @@ Linux的优先级体系：
 - EEVDF（Earliest Eligible Virtual Deadline First）调度器是否会在未来版本中替代CFS？内核社区正在讨论。 ^[ambiguous]
 - 组调度（group scheduling）与cgroups的交互——如何确保cgroup内的公平性与跨cgroup的公平性？ ^[ambiguous]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-lock-selection]]
+
+综合分析：[[synthesis/linux-kernel-subsystem-interactions]]
+
 ## 来源
 
 - [[summaries/linux-softirq-detail]] — softirq与调度器的交互（scheduler_tick触发调度）

@@ -83,6 +83,11 @@ updated: 2026-06-02
 | 线程共享 | 同线程组共享mm_struct |
 | 内核线程 | mm=NULL，借用active_mm |
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-vmcore-debugging]]
+
 ## 来源
 
 - 原始文档：`DFX工具/==vmcore解析==/进程结构task_struct和mm_struct.md`

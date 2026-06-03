@@ -5,7 +5,7 @@ tags: [云原生, 容器, microVM, Firecracker, KVM, 安全]
 aliases: [容器与microVM, Firecracker]
 relationships:
   - target: "[[concepts/container-runtime-deep-dive]]"
-    type: contradicts
+    type: replaces  # 修正：原为contradicts，microVM是容器的替代隔离方案而非矛盾 ^[inferred]
   - target: "[[concepts/seccomp-capabilities]]"
     type: related_to
   - target: "[[concepts/linux-virtio-architecture]]"

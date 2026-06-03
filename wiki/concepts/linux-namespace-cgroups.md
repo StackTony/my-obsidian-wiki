@@ -172,6 +172,13 @@ memory.memsw.limit_in_bytes = 1G  # 内存+swap最大1GB
 - Cgroups v2 的完整迁移路径——v1到v2的兼容性和迁移策略仍有争议。 ^[ambiguous]
 - Namespace嵌套的安全边界——多层namespace嵌套下的capability传递和边界安全尚未完全明确。 ^[inferred]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-ipc-programming]]
+
+综合分析：[[synthesis/linux-kernel-subsystem-interactions]], [[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - [[summaries/linux-meminfo-params]] — Cgroups memory子系统与meminfo的关系

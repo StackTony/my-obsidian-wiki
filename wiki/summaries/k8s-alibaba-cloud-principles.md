@@ -71,6 +71,11 @@ Scale-to-Zero + Activator拦截首请求触发Pod启动（冷启动）。KPA从0
 
 Pod中运行QEMU+libvirt → VM共享K8s CNI和CSI → "万物皆K8s"统一管理。
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - 原文：K8s云原生-阿里云-K8S技术原理.md（阿里云开发者社区）

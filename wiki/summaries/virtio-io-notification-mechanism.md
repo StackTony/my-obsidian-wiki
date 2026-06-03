@@ -73,6 +73,11 @@ irqfd_wakeup() → kvm_arch_set_irq_inatomic()（尝试原子注入）
 - Packed Ring的event suppression机制与Split Ring的EVENT_IDX有何具体差异？
 - irqfd Resampler模式的适用场景和实现细节？
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/virtio-architecture-evolution]]
+
 ## 来源
 
 - `raw/sources/Linux 虚拟化/IO虚拟化/2）消息通知机制（ioeventfd和irqfd）.md` — ioeventfd/irqfd完整代码流程、QEMU+KVM双侧分析、数据结构

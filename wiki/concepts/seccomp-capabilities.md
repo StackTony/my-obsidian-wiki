@@ -11,7 +11,7 @@ relationships:
   - target: "[[concepts/k8s-security]]"
     type: related_to
   - target: "[[concepts/container-vs-microvm]]"
-    type: contradicts
+    type: related_to  # 修正：原为contradicts，但seccomp加固容器 vs microVM替代容器并非矛盾，而是同一安全问题不同路线 ^[inferred]
 source_dir: 容器运行时/从零造容器系列
 source_files: [【从零造容器】8 Seccomp-BPF 与 Capabilities：容器安全的两道防线.md]
 summary: Seccomp-BPF在syscall入口拦截+Capabilities在各子系统检查权限=容器安全纵深防御两道防线；Docker默认14个capability+44个syscall阻止；--privileged等于拆掉两道防线；cBPF与eBPF同源不同命

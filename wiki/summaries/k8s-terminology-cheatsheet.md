@@ -82,6 +82,11 @@ updated: 2026-06-02
 - **Knative**：Serverless框架，Scale-to-Zero+冷启动
 - **KubeVirt**：在Pod中运行VM（QEMU+libvirt）
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - 原文：1-K8s 核心术语速查表.md — 13类术语完整速查表

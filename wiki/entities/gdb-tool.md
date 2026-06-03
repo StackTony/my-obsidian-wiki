@@ -107,6 +107,13 @@ gcore <pid>                  # 对运行中进程生成core dump
 4. `break main` + `handle SIGKILL/SIGTERM nopass noprint nostop` + `set follow-fork-mode child` + `cont`
 5. 进入QEMU main函数，开始调试初始化流程
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-vm-debugging]]
+
+综合分析：[[synthesis/linux-dfx-tool-landscape]]
+
 ## 来源
 
 - [[skills/gdb-debugging-guide]] — GDB调试实操速查手册

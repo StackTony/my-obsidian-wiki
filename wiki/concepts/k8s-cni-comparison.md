@@ -117,6 +117,13 @@ CNI（Container Network Interface）是 K8s 定义的网络标准，插件实现
 └── 跨子网 → Calico IP-in-IP 或 Cilium
 ```
 
+
+## 延伸阅读
+
+实操指南：[[skills/container-network-benchmarking-skill]]
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - [[summaries/k8s-terminology-cheatsheet]] — CNI术语定义

@@ -39,6 +39,11 @@ virsh是libvirt项目提供的命令行虚拟机管理工具，是与KVM/QEMU虚
 - 依赖libvirt作为中间管理层
 - 热迁移命令与[[summaries/linux-live-migration-flow]]的流程直接对应
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-vm-debugging]]
+
 ## 来源
 
 - `raw/sources/Linux 虚拟化/libvirt/virsh 常用命令汇总表.md` — 全部virsh命令分类汇总

@@ -86,6 +86,11 @@ struct vring_used {
 4. 将链表头位置存入vring_used→ring[idx].id，idx++
 5. 前端根据used表信息释放desc表相应表项
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/virtio-architecture-evolution]]
+
 ## 来源
 
 - `raw/sources/Linux 虚拟化/IO虚拟化/3）数据共享机制（vring环）.md` — vring三大表数据结构、add_buf/get_buf操作流程、生产者-消费者模型

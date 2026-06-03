@@ -90,6 +90,8 @@ resources:
       - identity: {}
 ```
 
+> ⚠️ **矛盾标注**：原文示例使用 `aescbc` provider，但K8s官方推荐生产环境使用 `aesgcm` 或 `kms` provider。`aescbc` 因CBC模式的padding oracle攻击风险已被认为不够安全。^[ambiguous] ^[inferred]
+
 **密钥轮换流程**：
 1. 新增新密钥为第一provider
 2. 所有Secret重加密：`kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
@@ -143,6 +145,13 @@ Seccomp 限制容器系统调用访问（RuntimeDefault 是推荐 profile）；C
 - aescbc之外哪种加密provider最适合生产？
 - 大规模密钥轮换的自动化方案？
 - RBAC权限的持续审计和监控机制？
+
+
+## 延伸阅读
+
+实操指南：[[skills/k8s-security-hardening]]
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
 
 ## 来源
 

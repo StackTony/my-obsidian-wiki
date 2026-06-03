@@ -139,6 +139,11 @@ Namespace(视图隔离) + Cgroup(资源限制) + Capabilities(权限拆分) + Se
 - PID 1的信号处理和zombie回收在不同语言runtime中的行为差异？
 - pivot_root失败但bind mount已完成时的"幽灵挂载点"如何自动恢复？
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - 从零造容器系列 #01-07 — 内核积木到OCI规范的递进教学

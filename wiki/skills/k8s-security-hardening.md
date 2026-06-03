@@ -146,6 +146,8 @@ resources:
       - identity: {}
 ```
 
+> ⚠️ `aescbc` 因CBC模式padding oracle风险不够安全，K8s官方推荐生产使用 `aesgcm` 或 `kms` provider。^[ambiguous]
+
 API Server启动参数：`--encryption-provider-config=/etc/kubernetes/encryption-config.yaml`
 
 密钥轮换：`kubectl get secrets --all-namespaces -o json | kubectl replace -f -`

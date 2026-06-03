@@ -161,6 +161,11 @@ RCU（Read-Copy-Update）是读侧零开销的同步机制：
 - PREEMPT_RT 对 spinlock 转换为 rt_mutex 的完整影响——是否所有spinlock都应被转换？ ^[ambiguous]
 - RCU宽限期的精确延迟在不同负载下的表现——高负载下宽限期可能显著延长。 ^[inferred]
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-lock-selection]]
+
 ## 来源
 
 - [[summaries/linux-rcu-lock]] — RCU机制详解

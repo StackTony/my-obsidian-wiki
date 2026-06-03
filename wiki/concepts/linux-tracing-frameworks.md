@@ -101,6 +101,13 @@ echo > trace
 - ftrace 的 `function_graph` 模式开销较大，生产环境是否需要替代方案
 - kprobe 对不支持的函数会 echo 失败，如何判断哪些函数可用
 
+
+## 延伸阅读
+
+实操指南：[[skills/linux-kernel-tracing]]
+
+综合分析：[[synthesis/linux-dfx-tool-landscape]]
+
 ## 来源
 
 - [[summaries/linux-ftrace-kprobe-overview]] — ftrace/kprobe/bpftrace框架概述

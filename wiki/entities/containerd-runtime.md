@@ -118,6 +118,11 @@ KillMode=process  # 升级/重启containerd不杀现有容器
 - containerd-shim **解耦** containerd与容器进程
 - CRI **标准化** K8s与运行时交互
 
+
+## 延伸阅读
+
+综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
+
 ## 来源
 
 - 容器运行时 containerd.md — 架构/演变/配置/使用

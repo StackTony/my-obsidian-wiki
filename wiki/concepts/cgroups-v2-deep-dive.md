@@ -34,7 +34,7 @@ Cgroups v1 的设计缺陷被其维护者 Tejun Heo 在2012年公开承认是错
 - **v2 替代 v1 的核心理由**：统一层级消除进程位置不一致和竞争条件；writeback-aware IO控制器解决v1 buffered write不受控问题。
 - **"low 保底，high 预警，max 兜底。三道防线，层层递进。"** — memory.low/high/max 构成容器内存管理三层防御体系。
 - **CFS 带宽节流的尾延迟问题**：quota用完后即使CPU空闲也被throttle，P99延迟暴涨。`nr_throttled / nr_periods > 5-10%`就该放宽限制或只用weight。
-- **Kubernetes 社区长期争论是否该设 CPU limit**——因为CFS throttle的P99问题。
+- **Kubernetes 社区长期争论是否该设 CPU limit**——因为CFS throttle的P99问题。^[ambiguous] 一方认为不设limit导致邻居干扰（CPU饥饿），另一方认为设limit导致P99尾延迟暴涨。目前共识倾向：生产环境只用CPU requests（weight）不设limits（quota），除非有严格SLA要求。
 - **systemd 和手动运行时可能打架**：互相覆盖 `subtree_control`。
 
 ## v1 vs v2 设计对比

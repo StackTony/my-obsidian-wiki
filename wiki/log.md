@@ -204,3 +204,35 @@ title: Wiki Log
 - 已有页面更新（1个）：
   - linux-namespace-cgroups — 新增容器运行时/Cgroups v2/Seccomp交叉链接
 - 所有21个源文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-02] lint | Wiki健康检查
+- [2026-06-02T14:00] LINT issues_found=38 orphans=15 broken_links=4 stale=26(13modified+13deleted) contradictions=3 prov_issues=19(3amb_high+15drift+4hub_inf) missing_summary=0 fragmented_clusters=2(linux:0.105,ai:0.134) visibility_issues=0 promotion_candidates=0 synthesis_gaps=3 relationship_issues=4 lifecycle_issues=0
+
+## [2026-06-02] lint-fix | 创建3个缺失目标页面（修复4个broken wikilinks）
+- LINT_FIX broken_links_fixed=3 pages_created=3
+- 概念页面（2个新建）：
+  - gpu-interconnect-networks — GPU互联两层架构+NVLink/IB/RoCE带宽+GPUDirect RDMA+拓扑选型
+  - speculative-decoding-mtp — 推测解码+EAGLE/Medusa/MTP方法演进+batch vs加速+无损保证
+- 实体页面（1个新建）：
+  - vector-database-comparison — 向量库选型对比+HNSW/DiskANN/RaBitQ+Milvus/Qdrant/pgvector+混合检索
+
+## [2026-06-03] lint-fix | P3过期源文件处理（manifest修正）
+- LINT_FIX stale_fixed=26 manifest_keys_updated=13 hash_updated=13
+- 修正类型：
+  1. 12个Linux OS源文件：hash不匹配→实际为LF→CRLF行尾变更，内容无变化→更新manifest hash为当前CRLF版本
+  2. 1个Prometheus源文件：hash不匹配→极小内容变更（1字节级别）+CRLF→更新manifest hash
+  3. 12个从零造容器系列源文件：manifest key含错字（买→造、质拟→虚拟、淋襃→洋葱、什乕→什么、什乛→什么）→修正manifest key为实际文件名，内容hash无变化
+- 结果：141个源文件全部 OK，0 stale，0 missing
+
+## [2026-06-03] lint-fix | P1孤立页面救援 + 矛盾标注
+- LINT_FIX orphans_rescued=15 contradictions_annotated=3 pages_updated=46
+- 孤立页面救援：
+  - 从41个concept/summary/entity页面添加反向wikilinks指向15个orphan页面
+  - 9个skills页面：linux-lock-selection、linux-kernel-tracing、linux-vm-debugging、linux-io-debugging、linux-network-debugging、linux-vmcore-debugging、k8s-security-hardening、container-network-benchmarking-skill、linux-ipc-programming
+  - 5个synthesis页面：cloud-native-infrastructure-landscape、linux-dfx-tool-landscape、linux-kernel-subsystem-interactions、llm-infra-evolution-2022-2026、virtio-architecture-evolution
+  - 1个entity页面：graphify-gitnexus
+  - 结果：orphan数从15降到0
+- 矛盾标注：
+  1. k8s-security.md + k8s-security-hardening.md：aescbc EncryptionConfiguration示例标注⚠️——K8s官方推荐aesgcm或kms
+  2. cgroups-v2-deep-dive.md：CPU limit争论标注^[ambiguous]——双面观点+共识倾向
+  3. seccomp-capabilities.md + container-vs-microvm.md：修正关系类型contradicts→related_to/replaces——seccomp加固容器 vs microVM替代容器并非矛盾
