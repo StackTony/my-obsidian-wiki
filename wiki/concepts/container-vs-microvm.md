@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # 容器 vs microVM
@@ -37,7 +37,7 @@ updated: 2026-06-02
 - **Firecracker 125ms启动与容器同一量级**：VMM初始化~5ms + 加载kernel~10ms + guest kernel boot~80ms + init~30ms = ~125ms。Docker冷启动~300ms，镜像缓存~100ms，crun~50ms。
 - **Firecracker用Rust是因为安全**：内存安全 + 更少代码 = 更小攻击面。unsafe代码约占总代码2%，限于KVM ioctl和MMIO映射。
 - **Kata Containers = OCI容器接口 + microVM隔离**：外部看起来是容器，内部是VM。
-- **VM exit代价~1-5μs**：对高频小包场景（Redis）影响显著。
+- **[[concepts/linux-interrupt-virtualization|中断虚拟化]] exit代价~1-5μs**：对高频小包场景（Redis）影响显著。
 
 ## 隔离模型对比
 
@@ -48,7 +48,7 @@ updated: 2026-06-02
 | **攻击面** | 内核syscall路径数百万行 | KVM ~5万行 |
 | **故障传播** | 容器bug可影响宿主机 | VM故障不影响宿主机 |
 | **启动时间** | 50-300ms | 125ms (Firecracker) |
-| **性能损耗** | 低（共享内核无虚拟化开销） | VM exit ~1-5μs |
+| **性能损耗** | 低（共享内核无虚拟化开销） | [[concepts/linux-interrupt-virtualization|VM exit]] ~1-5μs |
 | **适用场景** | 可信代码/企业内部 | 多租户/不可信代码 |
 
 ## Firecracker 极简设计
@@ -59,7 +59,7 @@ AWS Lambda 的 microVM。去掉QEMU中不需要的：BIOS/UEFI/ACPI/PCI/VGA/USB/
 
 | QEMU保留 | Firecracker去掉 | 原因 |
 |----------|-----------------|------|
-| virtio-mmio | PCI总线 | 跳过PCI枚举，设备直接映射固定内存地址 |
+| [[concepts/linux-virtio-architecture|virtio]]-mmio | PCI总线 | 跳过PCI枚举，设备直接映射固定内存地址 |
 | 串口 | VGA/USB/audio | 不需要图形和多媒体 |
 | 网络设备 | 硬盘控制器的复杂模拟 | 极简IO |
 | balloon driver | 大量设备模拟 | 减少攻击面 |

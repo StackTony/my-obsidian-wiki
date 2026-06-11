@@ -23,7 +23,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-11
 ---
 
 # Virtio架构演进：从软件模拟到硬件直通
@@ -39,7 +39,7 @@ Virtio的演进本质上是**数据面逐步脱离QEMU用户态**的过程——
 - **高性能**要求：数据面尽可能贴近硬件，减少软件介入
 - **灵活性**要求：VM可迁移、可管理、可共享资源、可快照
 
-传统virtio在灵活性端最优（纯软件模拟，完全可迁移），直通在性能端最优（硬件直接通信）但不可迁移。vDPA试图在保留virtio标准接口的前提下达到直通性能——这是当前架构演进的前沿^[inferred]。
+传统virtio在灵活性端最优（纯软件模拟，完全可迁移），[[concepts/linux-device-passthrough|设备直通]]在性能端最优（硬件直接通信）但不可迁移。vDPA试图在保留virtio标准接口的前提下达到[[concepts/linux-device-passthrough|设备直通]]性能——这是当前架构演进的前沿^[inferred]。
 
 ### 四步演进的数据面路径
 
@@ -48,7 +48,7 @@ Virtio的演进本质上是**数据面逐步脱离QEMU用户态**的过程——
 | 传统virtio | Guest→KVM exit→QEMU→TAP→内核→硬件 | 4+ | 无 |
 | vhost-net | Guest→KVM exit→内核vhost→TAP→硬件 | 2+ | QEMU数据面offload到内核 |
 | vhost-user | Guest→KVM exit→DPDK用户态→硬件 | 1+ | QEMU数据面offload到DPDK |
-| vDPA | Guest→硬件直通 | 0 | 数据面完全offload到硬件 |
+| vDPA | Guest→硬件[[concepts/linux-device-passthrough|设备直通]] | 0 | 数据面完全offload到硬件 |
 
 ### 与中断系统的交叉
 

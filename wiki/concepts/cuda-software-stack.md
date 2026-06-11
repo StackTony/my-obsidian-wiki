@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/gpu-computing-architecture]]"
     type: derived_from
@@ -71,7 +71,7 @@ OpenAI开发的Python-level GPU编程语言：
 NVIDIA的GEMM模板库：
 - 提供矩阵乘的各种切分策略（thread tile、warp tile、block tile）
 - 支持混合精度（FP16 input → FP32 accumulate）
-- Megatron-LM的kernel大量使用CUTLASS
+- [[entities/megatron-deepspeed|Megatron-LM]]的kernel大量使用CUTLASS
 
 ## 工程要点
 

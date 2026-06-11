@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/llm-inference-engine]]"
     type: extends
@@ -62,7 +62,7 @@ relationships:
 
 - Prefill节点和Decode节点独立部署
 - Prefill节点：高MFU、大batch、FlashAttention
-- Decode节点：高带宽利用、小batch、PagedAttention
+- Decode节点：高带宽利用、小batch、[[concepts/paged-attention-continuous-batching|PagedAttention]]
 - KV cache通过网络传递（RDMA/InfiniBand）
 - 代表方案：Mooncake（清华）、DistServe
 - 优势：各阶段独立优化→整体吞吐更高 ^[inferred]

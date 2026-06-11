@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/gpu-computing-architecture]]"
     type: uses
@@ -38,9 +38,9 @@ relationships:
 
 | 层级 | 覆盖内容 | 代表组件 |
 |------|----------|----------|
-| **硬件** | GPU/TPU、HBM、NVLink、InfiniBand | H100、A100、昇腾910B |
-| **系统软件** | CUDA、cuBLAS/cuDNN/NCCL、Triton、CUTLASS | CUDA 12、NCCL 2 |
-| **框架** | 训练框架、推理引擎、RAG/Agent SDK | Megatron-LM、vLLM、LangGraph |
+| **硬件** | GPU/TPU、HBM、[[concepts/gpu-interconnect-networks|GPU互联]] | H100、A100、昇腾910B |
+| **系统软件** | [[concepts/cuda-software-stack|CUDA软件栈]]、Triton、CUTLASS | CUDA 12、NCCL 2 |
+| **框架** | 训练框架、推理引擎、RAG/Agent SDK | [[entities/megatron-deepspeed|Megatron-LM]]、[[entities/vllm-sglang-tensorrt|推理引擎对比]]、[[entities/langgraph-framework|LangGraph]] |
 | **应用** | 训练流水线、推理服务、RAG系统、Agent应用 | RLHF pipeline、PD分离、GraphRAG |
 | **运营** | 网关、可观测、成本、合规与安全 | LiteLLM、Langfuse、AI Act |
 
@@ -48,7 +48,7 @@ relationships:
 
 1. **ChatGPT（2022.11）**：确立了LLM推理SaaS的工程范式——流式返回、速率限制、多租户
 2. **LLaMA + HuggingFace（2023.2）**：确立了模型分发与微调的工程栈——llama.cpp、LoRA/QLoRA
-3. **vLLM + PagedAttention（2023.6）**：确立了推理引擎的现代范式——PagedAttention消除碎片、Continuous Batching提升吞吐2-4倍
+3. **[[entities/vllm-sglang-tensorrt|推理引擎对比]] + [[concepts/paged-attention-continuous-batching|PagedAttention]]（2023.6）**：确立了推理引擎的现代范式——[[concepts/paged-attention-continuous-batching|PagedAttention]]消除碎片、Continuous Batching提升吞吐2-4倍
 4. **DeepSeek-V3 + FP8 + MLA（2024末-2026）**：确立了"工程创新降低10倍成本"的范式——MLA压缩KV缓存一个数量级、FP8训练全流程落地 ^[inferred]
 
 ## 大模型的工程特征
@@ -63,7 +63,7 @@ relationships:
 - **全球**：OpenAI、Anthropic、Meta、Google、xAI、Mistral → NVIDIA GPU生态 → CUDA/TensorRT
 - **中国**：DeepSeek、Qwen、GLM、Kimi、豆包、文心、盘古 → 昇腾/海光/摩尔线程国产替代路线 → 自研训练框架 ^[inferred]
 
-开源（vLLM/SGLang/Megatron/DeepSpeed/Ray/LangGraph）与商业（TensorRT-LLM/Triton/Bedrock/PAI/veMLP/千帆）并重，各有不可替代场景。
+开源（[[entities/vllm-sglang-tensorrt|推理引擎对比]]/SGLang/[[entities/megatron-deepspeed|Megatron-LM]]/DeepSpeed/Ray/[[entities/langgraph-framework|LangGraph]]）与商业（TensorRT-LLM/Triton/Bedrock/PAI/veMLP/千帆）并重，各有不可替代场景。
 
 ## 推荐阅读路径
 

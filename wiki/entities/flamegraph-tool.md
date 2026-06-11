@@ -20,7 +20,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # 火焰图工具
@@ -47,7 +47,7 @@ GitHub 项目：https://github.com/brendangregg/FlameGraph
 ## 与其他实体的关系
 
 - **perf** — 火焰图依赖 perf record 采集调用栈数据，是 perf 的可视化前端
-- **ftrace/kprobe** — ftrace 的 function_graph 也能生成调用栈，但火焰图通常与 perf 配合 ^[inferred]
+- **[[concepts/linux-tracing-frameworks|ftrace/kprobe]]** — ftrace 的 function_graph 也能生成调用栈，但火焰图通常与 perf 配合 ^[inferred]
 
 ## 使用流程
 

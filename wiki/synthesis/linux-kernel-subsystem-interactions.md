@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: extends
@@ -163,7 +163,7 @@ Cgroup:   你能用多少  ← 资源限制(CPU/内存/blkIO/设备/net_cls)
 
 **Cgroup 子系统映射到内核子系统**：每个 cgroup 控制器直接约束一个内核子系统——`cpu` 约束调度器、`memory` 约束 MM、`blkio` 约束 Block 层、`cpuset` 约束 CPU 亲和性和内存节点 ^[inferred]。
 
-**IPC namespace 连接 IPC 和 Namespace**：IPC namespace 隔离 System V IPC 对象和 POSIX 消息队列——它把 IPC 子系统纳入 Namespace 的隔离框架 ^[inferred]。
+**IPC namespace 连接 IPC 和 Namespace**：IPC namespace 隔离 [[concepts/linux-system-v-ipc|System V IPC]] 对象和 POSIX 消息队列——它把 IPC 子系统纳入 Namespace 的隔离框架 ^[inferred]。
 
 **Shmem 在容器中的双重身份**：共享内存既是 IPC 子系统的一部分，又是 Page Cache（tmpfs 实现）——在容器中，IPC namespace 隔离了 IPC 对象，但内存限制由 memory cgroup 控制 ^[inferred]。
 

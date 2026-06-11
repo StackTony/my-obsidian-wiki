@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-02 (云原生)*
+*自动维护。上次更新：2026-06-11 (数据结构与算法)*
 
 ## Summaries
 
@@ -23,6 +23,10 @@ updated: 2026-06-02
 - [crash-register-address](summaries/crash-register-address.md) — x86_64和ARM64寄存器体系、函数调用约定、栈回溯原理、常见崩溃场景分析 — `linux` `寄存器` `x86` `ARM64` `崩溃分析` `调用约定`
 - [linux-interrupt-monitoring-script](summaries/linux-interrupt-monitoring-script.md) — 不依赖额外模块的bash脚本：基于/proc/interrupts两次采样的每秒中断增量观测 — `linux` `中断` `监控脚本` `/proc/interrupts`
 - [linux-ftrace-kprobe-overview](summaries/linux-ftrace-kprobe-overview.md) — ftrace(静态/开销大) vs kprobe(动态/灵活) vs bpftrace(eBPF)三大追踪框架概览 — `linux` `tracing` `ftrace` `kprobe` `bpftrace`
+- [binary-tree-basics](summaries/binary-tree-basics.md) — 二叉树核心概念、三种形态、五个性质、四种遍历、链式/顺序存储与高频面试题原文摘要 — `数据结构` `二叉树` `遍历` `BST`
+- [red-black-tree-detail](summaries/red-black-tree-detail.md) — 红黑树五大性质、与4阶B树等价、12种插入情况、5类删除修复、AVL vs红黑树完整对比原文摘要 — `数据结构` `红黑树` `AVL` `平衡树`
+- [avl-redblack-btree-intro](summaries/avl-redblack-btree-intro.md) — BST→AVL→红黑树→B/B+树演进路线、各树特性对比、B+树更适合数据库索引的两大原因 — `数据结构` `AVL` `红黑树` `B树` `B+树`
+- [graph-algorithms-overview](summaries/graph-algorithms-overview.md) — 图论算法学习路线全景图：BFS/DFS→并查集→最短路→拓扑→MST→强连通→二分图→网络流 — `数据结构` `图论` `BFS` `DFS` `最短路`
 
 ## Entities
 
@@ -51,6 +55,13 @@ updated: 2026-06-02
 - [linux-interrupt-virtualization](concepts/linux-interrupt-virtualization.md) — 中断虚拟化三种场景：物理设备中断→vCPU、虚拟外设中断→vCPU、Guest IPI — `linux` `虚拟化` `中断` `VGIC` `KVM`
 - [linux-device-passthrough](concepts/linux-device-passthrough.md) — 设备直通三大技术：IOMMU(DMA翻译+隔离)、SR-IOV(PF/VF)、VFIO(用户态驱动) — `linux` `虚拟化` `直通` `IOMMU` `SR-IOV` `VFIO`
 
+## Concepts (数据结构与算法)
+
+- [binary-tree-basics](concepts/binary-tree-basics.md) — 二叉树核心概念：三种形态、五个性质、链式/顺序存储、四种遍历方式与高频面试题型 — `数据结构` `二叉树` `遍历` `递归` `BST`
+- [red-black-tree](concepts/red-black-tree.md) — 红黑树五大性质、与4阶B树等价性、12种插入+5类删除修复策略、AVL vs红黑树选型指南 — `数据结构` `红黑树` `AVL` `平衡树` `B树`
+- [b-tree-bplus-tree](concepts/b-tree-bplus-tree.md) — B树与B+树的多路搜索结构、B+树更适合数据库索引的两大原因、B树vsB+树关键差异 — `数据结构` `B树` `B+树` `数据库索引` `磁盘IO`
+- [graph-algorithms](concepts/graph-algorithms.md) — 图论核心算法全景：BFS/DFS遍历、最短路(Dijkstra/SPFA/Floyd)、拓扑排序、MST、并查集、Tarjan SCC、二分图匹配、网络流 — `数据结构` `图论` `BFS` `DFS` `最短路` `拓扑排序`
+
 ## Concepts (消息队列 & IO优化)
 
 - [kafka-architecture](concepts/kafka-architecture.md) — Kafka分布式消息队列完整架构：ISR/HW/LEO可靠性+PageCache+零拷贝+顺序追加高性能三板斧 — `消息队列` `Kafka` `分布式` `高性能` `零拷贝`
@@ -69,6 +80,7 @@ updated: 2026-06-02
 - [linux-io-debugging](skills/linux-io-debugging.md) — IO性能排查与压测实操：iostat→fio→dd→blktrace→block_dump四步流程 — `linux` `io` `iostat` `fio` `blktrace` `dd` `性能分析`
 - [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包分析（参数/表达式/实例）+ iperf打流测试 — `linux` `网络` `tcpdump` `iperf` `网络分析`
 - [gdb-debugging-guide](skills/gdb-debugging-guide.md) — GDB调试实操速查：断点/观察点/执行控制/内存查看/多线程/多进程/Core Dump/QEMU调试 — `linux` `gdb` `调试` `QEMU` `断点` `观察点`
+- [graph-algorithm-learning-path](skills/graph-algorithm-learning-path.md) — 图论算法从入门到进阶的学习路线、代码模板清单和经典模型映射 — `数据结构` `图论` `学习路线` `算法`
 
 ## Concepts (AI)
 
@@ -107,6 +119,7 @@ updated: 2026-06-02
 - [linux-kernel-subsystem-interactions](synthesis/linux-kernel-subsystem-interactions.md) — Linux内核六大子系统交互机制：preempt_count统一上下文追踪、softirq跨子系统分发、Page Cache交汇点、锁跨上下文协调 — `linux` `内核` `子系统交互` `preempt_count` `softirq` `page-cache` `锁`
 - [linux-dfx-tool-landscape](synthesis/linux-dfx-tool-landscape.md) — DFX调试工具全景图：六大领域(CPU/IO/内存/网络/追踪/vmcore)×三种模式(监控/追踪/事后)的工具矩阵与互补关系 — `linux` `DFX` `调试` `工具全景` `性能分析`
 - [llm-infra-evolution-2022-2026](synthesis/llm-infra-evolution-2022-2026.md) — 大模型基础设施四年四轮范式转移：推理确立→开源爆发→引擎革命→成本革命，工程密度>硬件堆量 — `AI` `LLM` `基础设施` `演进` `DeepSeek`
+- [balanced-tree-evolution](synthesis/balanced-tree-evolution.md) — BST→AVL→红黑树→B/B+树平衡策略演进：严格平衡→弱平衡→多路矮胖，每种放松换取不同场景的性能收益 — `数据结构` `平衡树` `BST` `AVL` `红黑树`
 
 ## Concepts (云原生)
 

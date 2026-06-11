@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: uses
@@ -175,7 +175,7 @@ sudo nsenter -t <PID> -i       # 进入目标进程的 IPC namespace
 - **Lock 统计**：`CONFIG_LOCK_STAT=y` → `cat /proc/lock_stat` 查锁持有时间、等待时间、竞争次数
 - **RCU Stall**：`echo 120 > /sys/module/rcupdate/parameters/rcu_cpu_stall_timeout` 调整 stall 检测超时
 - **Ftrace**：`echo function_graph > current_tracer` + `echo <func> > set_graph_function` — 函数调用图追踪
-- **Crash 工具**：`crash> struct mutex <addr>` → 解析 mutex 状态、owner、waiter 队列
+- **[[entities/crash-tool|crash]] 工具**：`crash> struct mutex <addr>` → 解析 mutex 状态、owner、waiter 队列
 - **中断数实时观测**：参考 [[summaries/linux-interrupt-monitoring-script]] 的bash脚本，不依赖额外模块
 
 ## 来源

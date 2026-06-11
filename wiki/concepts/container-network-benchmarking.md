@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # 容器网络性能实测
@@ -78,7 +78,7 @@ updated: 2026-06-02
 
 ### Cilium eBPF
 
-eBPF map做O(1)路由查找，跳过整个netfilter栈。支持L3-L7网络策略。可完全替换kube-proxy。
+eBPF map做O(1)路由查找，跳过整个[[concepts/linux-network-stack|Linux网络栈]]的netfilter栈。支持L3-L7网络策略。可完全替换kube-proxy。
 
 ### XDP (eXpress Data Path)
 

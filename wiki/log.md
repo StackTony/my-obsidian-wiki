@@ -224,6 +224,34 @@ title: Wiki Log
   3. 12个从零造容器系列源文件：manifest key含错字（买→造、质拟→虚拟、淋襃→洋葱、什乕→什么、什乛→什么）→修正manifest key为实际文件名，内容hash无变化
 - 结果：141个源文件全部 OK，0 stale，0 missing
 
+## [2026-06-11] ingest | 数据结构与算法（6个原始文件 → 9个新wiki页面）
+
+- INGEST mode=append source_dir="数据结构与算法" pages_created=9 pages_updated=0
+- 概念页面（4个新建）：
+  - binary-tree-basics — 二叉树核心：三种形态+五个性质+链式/顺序存储+四种遍历+面试题型
+  - red-black-tree — 红黑树五大性质+4阶B树等价+12种插入+5类删除+AVL vs红黑树选型
+  - b-tree-bplus-tree — B树/B+树多路搜索+数据库索引选型+B+两大优势
+  - graph-algorithms — 图论算法全景：BFS/DFS→最短路→拓扑→MST→并查集→Tarjan→二分图→网络流
+- 摘要页面（4个新建）：
+  - binary-tree-basics-summary — 二叉树基础原文摘要
+  - red-black-tree-detail — 红黑树详解原文摘要
+  - avl-redblack-btree-intro — AVL/红黑树/B树介绍原文摘要
+  - graph-algorithms-overview — 图论算法全景原文摘要
+- 技巧页面（1个新建）：
+  - graph-algorithm-learning-path — 图论算法学习路线与代码模板清单
+- 综合页面（1个新建）：
+  - balanced-tree-evolution — BST→AVL→红黑树→B+树平衡策略演进路线与选型决策树
+- 跳过2个空/无实质内容文件：有向无环图.md(0 bytes)、算法合集.md(仅链接)
+- 4个有实质内容文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-11] cross-link-fix | 系统性跨页面链接遗漏修复
+
+- CROSS_LINK_FIX files_updated=35 wikilinks_added=~60
+- 扫描全部106个wiki页面，识别正文提及另一页面核心主题但缺wikilink的遗漏
+- LLM基础设施链接网（10个文件，~29个链接）：infra-landscape/inference-engine/serving-infrastructure/observability/speculative-decoding/moe/cuda/vllm/langchain/llm-infra-evolution
+- Linux内核跨子系统链接（25个文件，~31个链接）：network-stack→零拷贝/virtio→设备直通+cgroups→CFS/seccomp→eBPF/k8s-networking→Linux网络栈/kafka→Page Cache+工具实体交叉链接
+- 所有35个文件updated字段已更新为2026-06-11
+
 ## [2026-06-03] lint-fix | P1孤立页面救援 + 矛盾标注
 - LINT_FIX orphans_rescued=15 contradictions_annotated=3 pages_updated=46
 - 孤立页面救援：

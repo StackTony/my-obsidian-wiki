@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-11
 ---
 
 # Linux网络协议栈
@@ -36,7 +36,7 @@ Linux网络协议栈是内核最庞大也是最性能关键的子系统之一，
 - TCP/IP四层模型是对OSI七层的工程简化：应用层/传输层/网络层/链路层，内核中每层有明确的入口函数和数据结构。
 - 网络数据传输的核心规则：IP地址端到端不变（标识通信端点），MAC地址逐跳变化（标识链路层转发节点）。
 - 三张核心表支撑路由决策：ARP表（IP→MAC映射）、MAC表（MAC→端口映射）、路由表（子网→下一跳映射）。
-- sk_buff 是网络栈的核心数据结构，采用零拷贝设计——metadata与data分离、各层header用union共享空间，避免数据拷贝开销。
+- sk_buff 是网络栈的核心数据结构，采用[[concepts/zero-copy-memory-mapping|零拷贝]]设计——metadata与data分离、各层header用union共享空间，避免数据拷贝开销。
 - NAPI 混合模式在中流量时用中断通知、高流量时自动切换到轮询，是性能与延迟的平衡方案。
 
 ## 关键细节

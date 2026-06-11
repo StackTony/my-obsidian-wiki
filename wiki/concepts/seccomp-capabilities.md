@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # Seccomp-BPF 与 Linux Capabilities
@@ -34,7 +34,7 @@ updated: 2026-06-02
 ## 核心观点
 
 - **Docker `--privileged` 等于拆掉两道防线**：把所有capability全加回来并禁用seccomp。
-- **Seccomp-BPF 与 eBPF 同源不同命**：cBPF（2寄存器、~30指令）vs eBPF（11寄存器、~100+指令、maps）。内核内部已把cBPF翻译成eBPF执行，但seccomp用户态API只接受cBPF。
+- **Seccomp-BPF 与 [[concepts/linux-tracing-frameworks|eBPF]] 同源不同命**：cBPF（2寄存器、~30指令）vs eBPF（11寄存器、~100+指令、maps）。内核内部已把cBPF翻译成eBPF执行，但seccomp用户态API只接受cBPF。
 - **容器安全五层防线**：Namespace + Cgroup + Capabilities + Seccomp + AppArmor/SELinux。
 - **`PR_SET_NO_NEW_PRIVS` 必须**：防止先设过滤器再exec setuid程序提权。
 - **Docker默认seccomp profile性能开销约1-2% CPU**（240条规则）。

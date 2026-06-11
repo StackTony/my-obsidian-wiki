@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # Kubernetes CNI 插件对比
@@ -97,7 +97,7 @@ CNI（Container Network Interface）是 K8s 定义的网络标准，插件实现
 | 第二代 | IPVS | O(1) | 不受影响 | kube-proxy IPVS mode |
 | 第三代 | eBPF | O(1) | 几乎不受影响 | Cilium替换kube-proxy |
 
-**Cilium eBPF 替换 kube-proxy 的理由**：官方文档指出kube-proxy是可选的——当CNI插件提供等效Service流量代理行为时。Cilium用eBPF map做O(1)路由查找，跳过整个netfilter栈。 ^[inferred]
+**Cilium eBPF 替换 kube-proxy 的理由**：官方文档指出kube-proxy是可选的——当CNI插件提供等效Service流量代理行为时。Cilium用eBPF map做O(1)路由查找，跳过整个[[concepts/linux-network-stack|Linux网络协议栈]]的netfilter栈。 ^[inferred]
 
 ## 选型决策树
 

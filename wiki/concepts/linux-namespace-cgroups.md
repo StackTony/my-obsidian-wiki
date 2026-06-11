@@ -30,7 +30,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # Linux资源隔离：Namespace与Cgroups
@@ -116,7 +116,7 @@ User namespace 是实现无特权容器（rootless containers）的关键：
 
 | 子系统 | 功能 | 配置文件示例 |
 |--------|------|-------------|
-| cpu | CPU时间限制和分配 | cpu.cfs_quota_us, cpu.shares |
+| cpu | CPU时间限制和分配 | cpu.cfs_quota_us, cpu.shares（[[concepts/linux-process-scheduling|CFS调度器]]） |
 | memory | 内存使用限制 | memory.limit_in_bytes |
 | blkio | 块设备IO限制 | blkio.throttle.read_bps_device |
 | cpuset | CPU核和内存节点绑定 | cpuset.cpus, cpuset.mems |

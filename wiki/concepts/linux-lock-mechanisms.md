@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-11
 ---
 
 # Linux锁机制全景

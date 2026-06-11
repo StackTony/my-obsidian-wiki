@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/llm-inference-engine]]"
     type: implements
@@ -44,7 +44,7 @@ relationships:
 | KV缓存管理 | PagedAttention | RadixAttention | 连续分配+量化 | FlashAttention |
 | Batching | Continuous | Continuous | Continuous | Continuous |
 | 前缀缓存 | 支持 | 自动RadixTree | 支持 | 支持 |
-| 量化 | FP8/AWQ/GPTQ | FP8/AWQ/GPTQ | FP8/INT8/INT4 | bitsandbytes/GPTQ |
+| 量化 | [[concepts/llm-quantization-engineering|FP8/AWQ/GPTQ]] | [[concepts/llm-quantization-engineering|FP8/AWQ/GPTQ]] | FP8/INT8/INT4 | bitsandbytes/GPTQ |
 | PD分离 | 支持 | 支持 | 支持 | 不支持 |
 | 多LoRA | 实验性 | 实验性 | 支持 | 支持 |
 | 流式输出 | 支持 | 支持 | 支持 | 支持 |

@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: derived_from
@@ -28,7 +28,7 @@ relationships:
 
 # LLM推理引擎基础
 
-推理优化的第一要义不是"让计算更快"，而是**让GPU资源（HBM带宽、SM算力、显存空间）在动态请求流中被持续高效利用**。
+推理优化的第一要义不是"让计算更快"，而是**让[[concepts/gpu-computing-architecture|GPU计算架构]]的资源（HBM带宽、SM算力、显存空间）在动态请求流中被持续高效利用**。
 
 ## Prefill vs Decode：两种截然不同的负载
 
@@ -67,7 +67,7 @@ Continuous Batching是推理引擎的现代范式——所有主流引擎（vLLM
 | **TPOT（每token延迟）** | 生成每个后续token的时间 | Decode阶段决定，影响用户感知 |
 | **吞吐** | 单GPU每秒生成的token总数 | 并发×TPOT的优化目标 |
 
-## PD分离（Prefill-Decode Disaggregation）
+## [[concepts/llm-serving-infrastructure|推理服务化]]中的PD分离（Prefill-Decode Disaggregation）
 
 - 将Prefill和Decode放在不同GPU上独立优化
 - Prefill节点：大batch、高MFU、FlashAttention

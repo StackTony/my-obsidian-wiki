@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-11
 ---
 
 # Linux启动与关机
@@ -33,7 +33,7 @@ Linux的启动与关机是内核生命周期中最复杂的多子系统协调过
 
 - Linux启动遵循10步链式流程：BIOS → MBR → GRUB → Kernel → init → rc.sysinit → modules → runlevel → rc.local → login，每一步依赖前一步的正确完成。
 - 关机流程是一个多子系统协调过程：用户空间发起 → SIGTERM广播 → SIGKILL强制 → sync刷盘 → 依赖序卸载文件系统 → 驱动shutdown回调 → ACPI电源管理 → 架构特定停机指令。
-- systemd 对传统 SysVinit 的关键改进：并行启动服务、cgroups 资源追踪、journal 日志系统、target 替代 runlevel。 ^[inferred]
+- systemd 对传统 SysVinit 的关键改进：并行启动服务、[[concepts/cgroups-v2-deep-dive|Cgroups v2]] 资源追踪、journal 日志系统、target 替代 runlevel。 ^[inferred]
 - ACPI 是关机的最终执行者，通过 DSDT 表中的 _PTS/_GTS 方法通知硬件即将断电，最终触发架构特定的停机指令。
 
 ## 关键细节
@@ -56,7 +56,7 @@ Linux的启动与关机是内核生命周期中最复杂的多子系统协调过
 **内核初始化（步骤4）详细过程**：
 - 内核解压到内存合适位置
 - 检测CPU类型和内存布局
-- 初始化中断控制器、时钟、内存管理器
+- 初始化中断控制器、时钟、[[concepts/linux-memory-management|Linux内存管理]]
 - 加载initrd中的必要驱动（如存储驱动）
 - mount rootfs（根文件系统）
 - 启动 init 进程（PID=1）

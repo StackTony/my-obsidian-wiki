@@ -10,6 +10,8 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-namespace-cgroups]]"
     type: related_to
+  - target: "[[concepts/red-black-tree]]"
+    type: uses
 source_dir: Linux 操作系统/Linux 进程调度
 source_files: [Linux 进程调度器.md, Linux 进程调度策略.md]
 summary: Linux内核进程调度核心：CFS完全公平调度器使用红黑树按vruntime排序选择下一个进程。三种调度策略(SCHED_OTHER/FIFO/RR)，实时进程绝对优先于普通进程。
@@ -22,12 +24,12 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-11
 ---
 
 # Linux进程调度
 
-Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核心的决策引擎。CFS（完全公平调度器）自2.6.23引入后成为默认调度策略，用红黑树按vruntime排序实现"完全公平"的时间分配。三种调度策略覆盖不同场景，实时进程绝对优先于普通进程。
+Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核心的决策引擎。CFS（完全公平调度器）自2.6.23引入后成为默认调度策略，用[[concepts/red-black-tree|红黑树]]按vruntime排序实现"完全公平"的时间分配。三种调度策略覆盖不同场景，实时进程绝对优先于普通进程。
 
 ### 重要说明
 

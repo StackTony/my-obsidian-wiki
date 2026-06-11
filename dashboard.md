@@ -18,10 +18,6 @@ columns:
 
 ## 树洞
 
-### 2026-05-26 备忘录
-id: demo-memo-1
-参考git的文件变更管理方式，生成一个脚本可以通过例如进行sha256值比较来获取列出跟上次执行时的文件变更差异列表
-
 ### 2026-05-27 备忘录
 id: card-mpo4g1fu
 博客：
@@ -37,7 +33,6 @@ claude_doctor
 ### 2026-05-29 备忘录
 id: card-mpq7inrk
 调用一次rag结果与llm wiki结果比对直到差异很小？
-
 Hermes Agent
 
 ## 事项跟踪

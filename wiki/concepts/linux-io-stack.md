@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-11
 ---
 
 # Linux IO栈
@@ -35,7 +35,7 @@ Linux IO栈是内核从用户态读写请求到硬件存储设备的完整数据
 
 - IO栈采用五层分层架构：VFS → Block层 → SCSI/NVMe → 驱动 → 硬件，每层通过标准化接口解耦上下层。 ^[inferred]
 - Block层是IO栈的核心枢纽，bio/request_queue/IO调度器三者协作完成请求排队和优化。
-- IO调度器根据场景选择：noop适合SSD/NVMe（设备自带调度）、CFQ适合桌面多任务（公平性）、deadline适合数据库（延迟保证）。 ^[inferred]
+- IO调度器根据场景选择：noop适合SSD/NVMe（设备自带调度）、CFQ适合桌面多任务（公平性）、deadline适合数据库（延迟保证）。详见[[concepts/linux-io-performance-analysis|IO性能分析]] ^[inferred]
 - 设备发现流程从 pci_device_probe 开始，经过驱动probe→scan→add_disk 最终在 /dev 下暴露设备节点。
 - gendisk 是Block层的核心数据结构，承载 major/minor 编号、操作函数表、请求队列和容量信息。
 

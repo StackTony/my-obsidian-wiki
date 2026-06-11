@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 ---
 
 # Linux虚拟机调试与监控实操手册
@@ -34,7 +34,7 @@ updated: 2026-06-02
 ## 前置条件
 
 - 有宿主机 root 权限
-- 安装 kvmtop、perf、crash、gdb 工具
+- 安装 kvmtop、[[entities/perf-tool|perf]]、[[entities/crash-tool|crash]]、gdb 工具
 - 理解 [[concepts/linux-cpu-performance-analysis]] 基础概念
 
 ## 步骤

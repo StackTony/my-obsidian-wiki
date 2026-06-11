@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/llm-gateway]]"
     type: related_to
@@ -30,7 +30,7 @@ LLM系统的可观测性不只是"监控GPU利用率"——它必须同时观测
 
 | 维度 | 指标 | 工具 |
 |------|------|------|
-| **性能** | TTFT、TPOT、吞吐、GPU利用率 | Prometheus、Grafana |
+| **性能** | TTFT、TPOT、吞吐、GPU利用率 | [[concepts/prometheus-architecture|Prometheus]]、Grafana |
 | **语义质量** | 幻觉率、引用准确率、答案相关性 | RAGAS、人工评测 |
 | **成本** | token消耗、模型调用费用、GPU卡时 | Langfuse、OpenLLMetry |
 
@@ -55,8 +55,8 @@ LLM系统的可观测性不只是"监控GPU利用率"——它必须同时观测
 - 适合：RAG/Agent应用的深度可观测
 
 ### LangSmith
-- LangChain生态的可观测+评测平台
-- 与LangChain/LangGraph深度集成
+- [[entities/langchain-framework|LangChain]]生态的可观测+评测平台
+- 与[[entities/langchain-framework|LangChain]]/[[entities/langgraph-framework|LangGraph]]深度集成
 - Trace、Eval、Dataset管理一体化
 - 适合：LangChain生态用户
 

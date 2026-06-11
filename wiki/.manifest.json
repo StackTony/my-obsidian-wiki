@@ -1616,15 +1616,84 @@
       ]
     }
   },
-  "last_ingest": "2026-06-02",
+  "数据结构与算法/树/二叉树基础.md": {
+    "ingested_at": "2026-06-11",
+    "size_bytes": 12882,
+    "content_hash": "sha256:e2640b52aded77b1528fb90f0b9c4c2baeb96a36145c8ad8e6f4aa416e549e72",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [
+      "concepts/binary-tree-basics.md",
+      "summaries/binary-tree-basics.md"
+    ],
+    "pages_updated": []
+  },
+  "数据结构与算法/树/红黑树详解.md": {
+    "ingested_at": "2026-06-11",
+    "size_bytes": 37606,
+    "content_hash": "sha256:940de1780c4dbd7395743a8c5a81733a0394334897d0b5024bb5fdb798c59f6c",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [
+      "concepts/red-black-tree.md",
+      "summaries/red-black-tree-detail.md"
+    ],
+    "pages_updated": []
+  },
+  "数据结构与算法/树/AVL树、红黑树以及B树介绍.md": {
+    "ingested_at": "2026-06-11",
+    "size_bytes": 10396,
+    "content_hash": "sha256:6be8c7fe6ce62cb99090c68a20edeab2926b72c616a6ea3ce0bffe4d18156765",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [
+      "concepts/b-tree-bplus-tree.md",
+      "summaries/avl-redblack-btree-intro.md"
+    ],
+    "pages_updated": [
+      "concepts/red-black-tree.md"
+    ]
+  },
+  "数据结构与算法/图/图 合集.md": {
+    "ingested_at": "2026-06-11",
+    "size_bytes": 2186,
+    "content_hash": "sha256:8364bc3dd6d983290510074ecb3aee95ef085e4019de6c341bdf1cd93a6c12b8",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [
+      "concepts/graph-algorithms.md",
+      "summaries/graph-algorithms-overview.md",
+      "skills/graph-algorithm-learning-path.md"
+    ],
+    "pages_updated": []
+  },
+  "数据结构与算法/图/有向无环图.md": {
+    "ingested_at": "2026-06-11",
+    "size_bytes": 0,
+    "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": []
+  },
+  "数据结构与算法/算法合集.md": {
+    "ingested_at": "2026-06-11",
+    "size_bytes": 84,
+    "content_hash": "sha256:3a1f99ad714fa55003703d9055fb70988d1a7818f04fce1728989598ee540dae",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": []
+  },
+  "last_ingest": "2026-06-11",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 141,
-    "total_pages": 82,
-    "total_concepts": 43,
-    "total_summaries": 17,
+    "total_sources_ingested": 147,
+    "total_pages": 91,
+    "total_concepts": 47,
+    "total_summaries": 21,
     "total_entities": 13,
-    "total_skills": 12,
-    "total_synthesis": 5
+    "total_skills": 13,
+    "total_synthesis": 6
   }
 }

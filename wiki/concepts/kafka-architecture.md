@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/zero-copy-memory-mapping]]"
     type: uses
@@ -26,7 +26,7 @@ relationships:
 
 # Kafka架构与高性能原理
 
-Apache Kafka是分布式事件流平台，核心设计用"顺序追加+PageCache+零拷贝"三板斧实现高吞吐，用ISR机制在可靠性和吞吐之间取得平衡。
+Apache Kafka是分布式事件流平台，核心设计用"顺序追加+[[concepts/linux-memory-management|Page Cache]]+零拷贝"三板斧实现高吞吐，用ISR机制在可靠性和吞吐之间取得平衡。
 
 ## 核心架构组件
 
@@ -97,8 +97,8 @@ HW可能导致数据丢失或不一致（Leader/Follower同时宕机→不同消
 - 批量发送：`batch.size`（默认16KB）控制批次大小，`linger.ms`（默认0）控制等待时间
 - 消息累加器：每个Partition对应一个队列，ProducerBatch批量发送减少带宽消耗
 
-### 2. PageCache + 顺序追加落盘
-- Broker接收消息写入PageCache即认为成功，Linux flusher程序异步刷盘
+### 2. [[concepts/linux-memory-management|Page Cache]] + 顺序追加落盘
+- Broker接收消息写入[[concepts/linux-memory-management|Page Cache]]即认为成功，Linux flusher程序异步刷盘
 - 顺序追加写：避免随机I/O，充分利用磁盘顺序写性能
 - 消费者跟得上生产者时，数据仍在PageCache中 → sendfile零磁盘I/O ^[inferred]
 

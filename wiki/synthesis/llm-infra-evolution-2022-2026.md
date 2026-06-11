@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-11
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: derived_from
@@ -40,14 +40,14 @@ relationships:
 - 催生技术：llama.cpp（消费级推理）、LoRA/QLoRA（单卡微调）、HuggingFace（模型分发中心）
 - 确立认知：**开源模型可以逼近闭源水平**
 
-### 第三轮：推理引擎革命（2023.6 - vLLM/PagedAttention）
+### 第三轮：推理引擎革命（2023.6 - [[entities/vllm-sglang-tensorrt|推理引擎对比]]/[[concepts/paged-attention-continuous-batching|PagedAttention]]）
 - 工程意义：推理引擎的现代范式确立
-- 催生技术：PagedAttention（消除碎片）、Continuous Batching（吞吐2-4倍）、KV cache按页管理
+- 催生技术：[[concepts/paged-attention-continuous-batching|PagedAttention]]（消除碎片）、Continuous Batching（吞吐2-4倍）、KV cache按页管理
 - 确立认知：**推理优化首先是资源调度问题，而非算法优化**
 
 ### 第四轮：成本革命（2024末-2026 - DeepSeek-V3/V4）
 - 工程意义：通过工程创新而非硬件堆量降低10倍成本
-- 催生技术：MLA（KV压缩数量级级）、细粒度MoE+共享专家、FP8全流程训练、DualPipe并行
+- 催生技术：MLA（KV压缩数量级级）、细粒度[[concepts/moe-training-engineering|MoE训练工程]]+共享专家、[[concepts/llm-quantization-engineering|FP8全流程训练]]、DualPipe[[concepts/llm-parallelism-strategies|并行]]
 - 确立认知：**工程密度 > 硬件堆量**
 
 ## 跨领域连接
@@ -59,15 +59,15 @@ relationships:
 | 算术强度 | 高（矩阵乘密集） | 低（权重+KV逐token读） |
 | 瓶颈 | 计算MFU | HBM带宽利用率 |
 | 状态 | TB级checkpoint | KV缓存动态增长 |
-| 扩展策略 | 3D并行+ZeRO | Continuous Batching+PD分离 |
+| 扩展策略 | [[concepts/llm-parallelism-strategies|3D并行]]+ZeRO | Continuous Batching+PD分离 |
 | 容错 | 必须容错（故障常态） | 请求级容错（单请求重试） |
 
 训练和推理不能共享调参逻辑——同一个GPU上，Prefill和Decode的性能特征完全不同。 ^[inferred]
 
 ### GPU硬件→推理策略→成本曲线
 
-GPU架构决定了推理优化空间：
-- HBM带宽限制Decode吞吐 → PagedAttention管理碎片、量化压缩KV
+[[concepts/gpu-computing-architecture|GPU计算架构]]决定了推理优化空间：
+- HBM带宽限制Decode吞吐 → [[concepts/paged-attention-continuous-batching|PagedAttention]]管理碎片、量化压缩KV
 - Tensor Core加速Prefill → FlashAttention减少内存、Chunked Prefill混合调度
 - NVLink带宽限制TP通信 → TP放节点内、PD分离把Prefill和Decode分开
 
@@ -85,9 +85,9 @@ GPU架构决定了推理优化空间：
 
 DeepSeek-V4展示了"工程创新降低10倍成本"的完整路径：
 - **MLA**：KV缓存压缩一个数量级 → 推理显存瓶颈解绑
-- **MoE+共享专家**：细粒度专家+1-2个共享专家 → 激活比极低但能力不降
-- **FP8训练**：全流程BF16→FP8 → 训练吞吐翻倍、显存减半
-- **DualPipe**：PP+EP并行通信重叠 → 万卡利用率更高
+- **[[concepts/moe-training-engineering|MoE训练工程]]+共享专家**：细粒度专家+1-2个共享专家 → 激活比极低但能力不降
+- **[[concepts/llm-quantization-engineering|FP8训练]]**：全流程BF16→FP8 → 训练吞吐翻倍、显存减半
+- **DualPipe**：PP+EP[[concepts/llm-parallelism-strategies|并行]]通信重叠 → 万卡利用率更高
 - **磁盘级KV cache**：冷KV offload到NVMe → 长上下文推理成本可控 ^[inferred]
 - **FP4 QAT**：量化感知训练到4bit → 推理成本再降
 - **专家蒸馏**：大专家→小专家 → 保持能力但减少激活参数

@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-06-03
+updated: 2026-06-11
 ---
 
 # Hot Cache
@@ -9,26 +9,23 @@ updated: 2026-06-03
 
 ## Recent Activity
 
-- [2026-06-03] LINT-FIX P1 — 15个orphan页面全部救援（0个剩余）：从41个concept/summary/entity页面添加反向wikilinks到9个skills+5个synthesis+1个entity
-- [2026-06-03] LINT-FIX P1 — 3个矛盾标注完成：aescbc安全风险⚠️、CPU limit争论^[ambiguous]、seccomp/microVM关系类型修正(contradicts→related_to/replaces)
-- [2026-06-03] LINT-FIX P2 — 3个缺失目标页面创建（4个broken wikilinks修复）
-- [2026-06-03] LINT-FIX P3 — 26个manifest修正（0 stale, 0 missing）
+- [2026-06-11] INGEST — 数据结构与算法 → 9个新wiki页面（4 concepts + 4 summaries + 1 skill + 1 synthesis）
+- [2026-06-11] CROSS-LINK FIX — 系统性扫描全部wiki页面，修复35个文件中共约60处缺失行内wikilink
 
 ## Active Threads
 
-- **Lint修复已完成P1-P3**：P2(broken links)✅、P3(stale sources)✅、P1(orphans+contradictions)✅。仅剩P0(provenance drift 15页)
-- **知识网络连接密度大幅提升**：41个页面新增延伸阅读段落，每个orphan获得1-4个入链
-- **云原生知识链成型**：从Linux内核到容器运行时到K8s编排+可观测的完整链条
+- **数据结构与算法知识链成型**：二叉树 → 红黑树 → B/B+树 → 图论算法
+- **平衡树演进视角**：BST→AVL→红黑树→B+树是逐步放松平衡约束的路线
+- **LLM基础设施链接网补全**：infra-landscape、inference-engine、serving-infrastructure、observability 页面间的核心子概念（PagedAttention、量化、并行策略、推理引擎对比）现在都有行内wikilink
 
 ## Key Takeaways
 
-- Orphan救援不是给orphan自身加链接，而是从**引用它的页面**加反向链接——skills implements concepts，所以concepts应该链接回skills
-- `contradicts`关系类型慎用：seccomp(加固容器)和microVM(替代容器)是同一问题的不同路线，不是矛盾——误用`contradicts`会误导读者以为两个方案不可共存
-- aescbc是K8s Secret加密的常见错误：CBC模式padding oracle风险，生产应选aesgcm或kms
-- CPU limit争论的共识倾向：生产只用CPU requests(weight)不设limits(quota)
+- 最常见的链接遗漏模式：**页面在relationships块中声明了类型化关系但正文无行内链接**——读者必须看frontmatter才能发现关联
+- LLM基础设施页面尤其容易遗漏：全景页提及6+个子概念但只通过relationships连接
+- Linux内核页面：跨子系统讨论（如网络栈→零拷贝、锁→追踪框架、cgroup→CFS调度）最易遗漏交叉链接
+- Summaries按设计不含wikilinks（它们是被引用的源文档蒸馏），不视为链接遗漏
 
 ## Flagged Contradictions
 
-- aescbc EncryptionConfiguration示例不够安全 → 已标注⚠️推荐aesgcm/kms
-- CPU limit双面争论 → 已标注^[ambiguous]共识倾向不设limit
-- seccomp↔microVM关系 → 已修正contradicts为related_to/replaces
+- Windows进程地址空间用AVL而非红黑树——原因未说明 ^[ambiguous]
+- SPFA可能被特殊构造数据卡到O(nm)退化 ^[ambiguous]
