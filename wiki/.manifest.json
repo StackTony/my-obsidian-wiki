@@ -866,6 +866,15 @@
         "entities/langgraph-framework.md"
       ]
     },
+    "AI 人工智能/Agent架构/Memory记忆/Prompt 提示词.md": {
+      "ingested_at": "2026-06-11",
+      "size_bytes": 312,
+      "content_hash": "sha256:59d133321e56feb823ae9566ed838ad82267da89951d4495413060bcc3fe8562",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": []
+    },
     "AI 人工智能/Agent架构/Memory记忆/Agent记忆-LangGraph官方-Memory架构.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 26722,
@@ -877,7 +886,7 @@
         "entities/langgraph-framework.md"
       ]
     },
-    "AI 人工智能/Agent架构/Prompt + RAG/1-RAG 核心术语速查表.md": {
+    "AI 人工智能/Agent架构/RAG/1-RAG 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 9927,
       "content_hash": "sha256:fa4477b79165d6f30a5b1ed3236576fc68de0ba2915797954ac37e199e3c18c4",
@@ -886,7 +895,16 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Prompt + RAG/2-RAG 全栈介绍.md": {
+    "AI 人工智能/Agent架构/RAG/3-RAG 工程全景.md": {
+      "ingested_at": "2026-06-11",
+      "size_bytes": 45157,
+      "content_hash": "sha256:008035d125c9f37ccf712890a41523c5546182fc102e77d349307b56e2bacfdc",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": ["concepts/rag-engineering.md"]
+    },
+    "AI 人工智能/Agent架构/RAG/2-RAG 全栈介绍.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 30595,
       "content_hash": "sha256:8a8db4030564b3f157a2feeaec39d8328701354ce2802f76e66f30830cebc081",
@@ -897,16 +915,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Prompt + RAG/Prompt 提示词.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 312,
-      "content_hash": "sha256:59d133321e56feb823ae9566ed838ad82267da89951d4495413060bcc3fe8562",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [],
-      "pages_updated": []
-    },
-    "AI 人工智能/Agent架构/Prompt + RAG/RAG Chunk分块策略.md": {
+    "AI 人工智能/Agent架构/RAG/RAG Chunk分块策略.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 37101,
       "content_hash": "sha256:4461e3280d213cefdd671be2a17098a08a6977167697cbd4d27b65ac65ff96b9",
@@ -917,7 +926,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Prompt + RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
+    "AI 人工智能/Agent架构/RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 86043,
       "content_hash": "sha256:794389f05c9c7a94d50cdab28517a53a0fafabfc6f447090d0c2a15a0def238f",
@@ -926,7 +935,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Prompt + RAG/RAG RRF算法 倒数排名融合（Reciprocal Rank Fusion）.md": {
+    "AI 人工智能/Agent架构/RAG/RAG RRF算法 倒数排名融合（Reciprocal Rank Fusion）.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 6285,
       "content_hash": "sha256:ecd398c510c0555e3892cdffaddc35fc10e9bfdfef808dbf6eca91e9f0157fc1",
@@ -935,7 +944,25 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Prompt + RAG/RAG 搭建研究.md": {
+    "AI 人工智能/Agent架构/数据飞轮/AI时代如何构建数据飞轮.md": {
+      "ingested_at": "2026-06-11",
+      "size_bytes": 20745,
+      "content_hash": "sha256:879c4a0b41879f8c96cbfecb6971257f3fb4c937870d45b8394da280a97f400c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/data-flywheel.md"],
+      "pages_updated": ["concepts/rag-engineering.md", "concepts/agent-framework-engineering.md"]
+    },
+    "AI 人工智能/Agent架构/评估系统/如何理解准确率、精确率和召回率.md": {
+      "ingested_at": "2026-06-11",
+      "size_bytes": 6334,
+      "content_hash": "sha256:cc37cd93f55da0b51d93c12f200918d85a605257e95db295c1f69cfbe43be6b6",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/evaluation-metrics.md"],
+      "pages_updated": ["concepts/rag-engineering.md"]
+    },
+    "AI 人工智能/Agent架构/RAG/RAG 搭建研究.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 8111,
       "content_hash": "sha256:d38edb673510eec4327285de9469abb8558ad9c3a639d1437c4d285e772d18d9",
@@ -1283,7 +1310,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/AI infra/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md": {
+    "AI 人工智能/Agent架构/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 19571,
       "content_hash": "sha256:6f473f2aa44b6c41e75cf8dc05ed45126ce954e31af5380c75a6ac87fdb390d2",
@@ -1688,9 +1715,9 @@
   "last_ingest": "2026-06-11",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 147,
-    "total_pages": 91,
-    "total_concepts": 47,
+    "total_sources_ingested": 149,
+    "total_pages": 94,
+    "total_concepts": 49,
     "total_summaries": 21,
     "total_entities": 13,
     "total_skills": 13,

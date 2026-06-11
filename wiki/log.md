@@ -244,6 +244,22 @@ title: Wiki Log
 - 跳过2个空/无实质内容文件：有向无环图.md(0 bytes)、算法合集.md(仅链接)
 - 4个有实质内容文件已登记SHA-256哈希到 .manifest.json
 
+- [2026-06-11T14:30] INGEST source="AI 人工智能/Agent架构/评估系统/如何理解准确率、精确率和召回率.md" pages_created=1 pages_updated=1 mode=append
+
+## [2026-06-11] ingest | AI 人工智能增量（1新来源 + 3路径变更 + 2页面更新）
+
+- INGEST mode=append source_dir="AI 人工智能" pages_created=1 pages_updated=2
+- 概念页面（1个新建）：
+  - data-flywheel — 数据飞轮：数据和业务正反馈循环，从知识循环进化到数据飞轮的五步构建法
+- 已有页面更新（2个）：
+  - rag-engineering — 大幅扩充：文档解析7类工具对比+Chunking工程细节+Embedding模型选型+混合检索融合方法+Rerank模型对比+三级漏斗+Query改写(HyDE/Multi-Query)5种方法+高级RAG范式(Self-RAG/CRAG/Adaptive/GraphRAG/Agentic)5种对比+评估两层指标+生产架构延迟预算+国内外生态对比+数据飞轮交叉链接
+  - agent-framework-engineering — 新增数据飞轮交叉链接
+- 文件路径变更（manifest key更新3个）：
+  - Prompt 提示词.md：Prompt + RAG/ → Memory记忆/
+  - BenchMarks汇总.md：AI infra/ → Agent架构/评估系统/
+  - 新增 3-RAG 工程全景.md副本条目（与已有【17】RAG工程全景内容相同）
+- 1个新源文件已登记SHA-256哈希到 .manifest.json
+
 ## [2026-06-11] cross-link-fix | 系统性跨页面链接遗漏修复
 
 - CROSS_LINK_FIX files_updated=35 wikilinks_added=~60

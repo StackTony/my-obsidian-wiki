@@ -5,7 +5,7 @@ updated: 2026-06-11
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-11 (数据结构与算法)*
+*自动维护。上次更新：2026-06-11 (AI 人工智能增量)*
 
 ## Summaries
 
@@ -96,7 +96,7 @@ updated: 2026-06-11
 - [llm-quantization-engineering](concepts/llm-quantization-engineering.md) — LLM量化：精度/指令能力/服务成本三方博弈，FP8/INT8/AWQ/GPTQ方案对比 — `AI` `LLM` `量化` `FP8` `AWQ` `GPTQ`
 - [moe-training-engineering](concepts/moe-training-engineering.md) — MoE稀疏激活：路由均衡+Expert Parallel+All-to-All才是工程难点 — `AI` `LLM` `MoE` `稀疏激活` `专家混合`
 - [rlhf-alignment-pipeline](concepts/rlhf-alignment-pipeline.md) — 对齐流水线：PPO/DPO/GRPO在数据/奖励/采样/稳定性间做工程取舍 — `AI` `LLM` `RLHF` `DPO` `对齐` `PPO`
-- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线，数据质量决定上限 — `AI` `RAG` `检索` `向量库` `知识图谱`
+- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线，数据质量决定上限；文档解析7类工具+Chunking+Embedding+混合检索+Rerank+5种高级范式+评估 — `AI` `RAG` `检索` `向量库` `知识图谱`
 - [rag-chunking-strategies](concepts/rag-chunking-strategies.md) — 21种RAG分块策略：基础→结构感知→语义驱动，分块决定检索质量 — `AI` `RAG` `Chunking` `分块` `文本分割`
 - [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW默认+DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；混合检索是生产标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`
@@ -104,6 +104,8 @@ updated: 2026-06-11
 - [llm-serving-infrastructure](concepts/llm-serving-infrastructure.md) — 推理服务化：Triton/Ray Serve/PD分离，围绕SLO/资源隔离/弹性伸缩组织系统 — `AI` `LLM` `服务化` `Triton` `PD分离`
 - [llm-gateway](concepts/llm-gateway.md) — 大模型网关：多供应商路由/配额/计费/语义缓存/Guardrails/可观测的统一入口 — `AI` `LLM` `网关` `LiteLLM` `路由`
 - [llm-observability](concepts/llm-observability.md) — LLM可观测性：性能/语义质量/成本三维观测，Langfuse/OpenLLMetry — `AI` `LLM` `可观测` `Langfuse` `OpenTelemetry`
+- [data-flywheel](concepts/data-flywheel.md) — 数据飞轮：数据和业务间的正反馈循环——AI辅助决策产出更多数据，更多数据强化AI决策，飞轮越转越快 — `AI` `数据飞轮` `数据要素` `知识管理` `企业数字化`
+- [evaluation-metrics](concepts/evaluation-metrics.md) — 分类评估指标核心：混淆矩阵→准确率/精确率/召回率/F1；类别不平衡时准确率失效，精确率防错报、召回率防漏报 — `AI` `评估` `混淆矩阵` `准确率` `精确率` `召回率`
 
 ## Entities (AI)
 
