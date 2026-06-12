@@ -2,6 +2,9 @@
 ## Graphify
 Graphify是一个将任意语料（代码、文档、论文、图片）转化为持久化、可查询、带审计轨迹的知识图谱引擎，**不只限于代码**。
 
+github仓地址：
+https://github.com/safishamsi/graphify
+
 使用指导：
 https://zhuanlan.zhihu.com/p/2031821942278369991
 
