@@ -1,6 +1,6 @@
 ---
 title: Wiki Index
-updated: 2026-06-11
+updated: 2026-06-12
 ---
 
 # Wiki Index
@@ -106,6 +106,7 @@ updated: 2026-06-11
 - [llm-observability](concepts/llm-observability.md) — LLM可观测性：性能/语义质量/成本三维观测，Langfuse/OpenLLMetry — `AI` `LLM` `可观测` `Langfuse` `OpenTelemetry`
 - [data-flywheel](concepts/data-flywheel.md) — 数据飞轮：数据和业务间的正反馈循环——AI辅助决策产出更多数据，更多数据强化AI决策，飞轮越转越快 — `AI` `数据飞轮` `数据要素` `知识管理` `企业数字化`
 - [evaluation-metrics](concepts/evaluation-metrics.md) — 分类评估指标核心：混淆矩阵→准确率/精确率/召回率/F1；类别不平衡时准确率失效，精确率防错报、召回率防漏报 — `AI` `评估` `混淆矩阵` `准确率` `精确率` `召回率`
+- [llm-benchmarks](concepts/llm-benchmarks.md) — LLM评测基准六大维度：知识(MMLU/ARC)、推理(GSM8K/DROP/BBH)、对话(MT-bench)、抽取(MS-MARCO)、安全(TruthfulQA/HHH)、编程(HumanEval/MBPP) — `AI` `LLM` `评测` `Benchmark` `基准`
 
 ## Entities (AI)
 
@@ -114,6 +115,7 @@ updated: 2026-06-11
 - [vllm-sglang-tensorrt](entities/vllm-sglang-tensorrt.md) — 推理引擎四强对比：vLLM生态最强/SGLang延迟最优/TensorRT吞吐最高/TGI最稳 — `AI` `vLLM` `SGLang` `TensorRT-LLM` `推理引擎`
 - [megatron-deepspeed](entities/megatron-deepspeed.md) — Megatron偏高性能内核/DeepSpeed偏显存优化易用性，选型取决于规模拓扑维护能力 — `AI` `Megatron` `DeepSpeed` `训练框架`
 - [graphify-gitnexus](entities/graphify-gitnexus.md) — Graphify偏认知整合/GitNexus偏工程执行，两种知识图谱工具的设计哲学差异 — `AI` `知识图谱` `Graphify` `GitNexus` `MCP`
+- [ragas-framework](entities/ragas-framework.md) — RAGAS RAG量化评估框架：Context Precision/Recall检索层+Faithfulness/Answer Relevancy生成层，把"感觉对"变成"数据证明对" — `AI` `RAG` `评估` `RAGAS` `量化评估`
 
 ## Synthesis
 

@@ -280,3 +280,12 @@ title: Wiki Log
   1. k8s-security.md + k8s-security-hardening.md：aescbc EncryptionConfiguration示例标注⚠️——K8s官方推荐aesgcm或kms
   2. cgroups-v2-deep-dive.md：CPU limit争论标注^[ambiguous]——双面观点+共识倾向
   3. seccomp-capabilities.md + container-vs-microvm.md：修正关系类型contradicts→related_to/replaces——seccomp加固容器 vs microVM替代容器并非矛盾
+
+## [2026-06-12] INGEST | 评估系统增量
+
+- [2026-06-12T17:12] INGEST source="AI 人工智能/Agent架构/评估系统/RAGAS 评估框架.md" pages_created=1 pages_updated=1 mode=append
+  - 新增：entities/ragas-framework.md — RAGAS RAG量化评估框架（4核心指标+自动造测试集+框架集成）
+  - 更新：concepts/evaluation-metrics.md — 补充LLM评测基准和RAGAS的连接
+- [2026-06-12T17:12] INGEST source="AI 人工智能/Agent架构/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md" pages_created=1 pages_updated=1 mode=append
+  - 新增：concepts/llm-benchmarks.md — LLM评测基准六大维度全景（知识/推理/对话/抽取/安全/编程共20+基准）
+  - 更新：concepts/evaluation-metrics.md — 补充LLM评测基准和RAGAS的连接

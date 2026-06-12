@@ -1311,13 +1311,22 @@
       "pages_updated": []
     },
     "AI 人工智能/Agent架构/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md": {
-      "ingested_at": "2026-06-02",
+      "ingested_at": "2026-06-12",
       "size_bytes": 19571,
       "content_hash": "sha256:6f473f2aa44b6c41e75cf8dc05ed45126ce954e31af5380c75a6ac87fdb390d2",
       "source_type": "document",
       "project": null,
-      "pages_created": [],
-      "pages_updated": []
+      "pages_created": ["concepts/llm-benchmarks.md"],
+      "pages_updated": ["concepts/evaluation-metrics.md"]
+    },
+    "AI 人工智能/Agent架构/评估系统/RAGAS 评估框架.md": {
+      "ingested_at": "2026-06-12",
+      "size_bytes": 3699,
+      "content_hash": "sha256:52a56b57490dd2f081f6e8d67c030f818d0afd943ef964a845fd3062f25cfa6d",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["entities/ragas-framework.md"],
+      "pages_updated": ["concepts/evaluation-metrics.md", "concepts/rag-engineering.md"]
     },
     "AI 人工智能/大模型LLM/Ollma 本地运行大模型的工具.md": {
       "ingested_at": "2026-06-02",
@@ -1712,14 +1721,14 @@
     "pages_created": [],
     "pages_updated": []
   },
-  "last_ingest": "2026-06-11",
+  "last_ingest": "2026-06-12",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 149,
-    "total_pages": 94,
-    "total_concepts": 49,
+    "total_sources_ingested": 150,
+    "total_pages": 96,
+    "total_concepts": 50,
     "total_summaries": 21,
-    "total_entities": 13,
+    "total_entities": 14,
     "total_skills": 13,
     "total_synthesis": 6
   }

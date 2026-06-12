@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-06-11
+updated: 2026-06-12
 ---
 
 # Hot Cache
@@ -9,25 +9,24 @@ updated: 2026-06-11
 
 ## Recent Activity
 
-- [2026-06-11] INGEST — 分类评估指标(evaluation-metrics)：混淆矩阵→准确率/精确率/召回率/F1 + 与RAG评估的连接
-- [2026-06-11] INGEST — AI 人工智能增量：data-flywheel + rag-engineering大幅扩充 + 3路径变更
-- [2026-06-11] INGEST — 数据结构与算法 → 9个新wiki页面
+- [2026-06-12] INGEST — 评估系统增量：RAGAS评估框架+LLM评测基准六维全景，补全AI评估知识链
+- [2026-06-12] LEARN — 自学推荐执行：LangGraph+GraphRAG 15篇博客推荐+12篇下载完成
+- [2026-06-11] INGEST — 分类评估指标+数据飞轮+RAG工程扩充+数据结构与算法9页
 
 ## Active Threads
 
-- **RAG工程知识深度大幅提升**：从概述→完整流水线细节(解析/切片/Embedding/检索/重排/改写/组装/评估/生产架构)
-- **数据飞轮概念引入**：清华经管学院视角——知识循环→数据飞轮的进化，连接了RAG和Agent的数据基础
-- **AI知识库与业务循环的闭环**：数据飞轮→RAG→Agent形成"数据→AI→业务→数据"正反馈链 ^[inferred]
+- **AI评估知识链成型**：evaluation-metrics(底层指标)→llm-benchmarks(评测数据集)→ragas-framework(RAG专用评估)→rag-engineering(评估层)→llm-observability(可观测性)——五层评估栈逐步补全
+- **GraphRAG知识即将构建**：自学推荐已下载9篇GraphRAG博客，等待ingest蒸馏
+- **LangGraph高级特性待补**：SubGraph/Command/Send/并行流已在自学推荐中，等待ingest
 
 ## Key Takeaways
 
-- RAG工程70%的准确率取决于文档解析质量——没有单一工具能打通所有文档
-- ColBERT的Late Interaction在召回和重排之间提供"准Rerank"精度，但存储膨胀30倍
-- CRAG(检索评估器+Web搜索兜底)是性价比最高的RAG纠偏方案，比Self-RAG(需微调)更易落地
-- 数据飞轮核心洞察：记录内容从"提炼过的知识"转为"未经提炼的底层数据"，知识专家从"提炼"转为"原理级思考"
-- 三级漏斗(向量Top-200→ColBERT Top-50→cross-encoder Top-5)是精度与延迟的最佳平衡
+- RAGAS四个核心指标是精确率/召回率思想在RAG领域的具体实现：Context Precision=检索精确率、Context Recall=检索召回率
+- LLM评测基准按六大维度组织：知识(MMLU)→推理(GSM8K)→对话(MT-bench)→抽取(MS-MARCO)→安全(TruthfulQA)→编程(HumanEval)
+- GraphRAG vs Vector RAG实测：80% vs 50.83%正确率（AWS Lettria数据）；关联型问题召回率70%→99%+
+- GraphRAG开源生态四框架定位：MS=摘要生成、LightRAG=增量更新、KAG=逻辑推理、HippoRAG=事实问答
 
 ## Flagged Contradictions
 
 - 3-RAG工程全景与【17】RAG工程全景内容完全相同（同一文件出现在两个路径），不是矛盾而是副本
-- Prompt提示词.md从RAG目录移到Memory目录，暗示它更属于Agent记忆而非检索增强范畴
+- KAG"以推理为始" vs GraphRAG"以检索为始"——不同范式而非矛盾，取决于应用场景

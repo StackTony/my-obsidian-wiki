@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-11
 tier: supporting
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-06-12
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: related_to
@@ -61,6 +61,12 @@ relationships:
 - 生成层（RAGAS）：Context Precision（召回文档中真正被用到的比例）对应精确率思想，Context Recall（参考答案涉及的事实是否被召回）对应召回率思想 ^[inferred]
 
 [[concepts/llm-observability]] 的语义质量维度同样需要精确率/召回率来判断LLM输出是否准确、是否遗漏关键信息 ^[inferred]。
+
+## LLM评测基准的连接
+
+[[concepts/llm-benchmarks]] 按六大能力维度组织评测数据集（知识理解/推理/对话/抽取/安全/编程），本页的底层指标体系是评测基准的**计算基础** ^[inferred]。
+
+[[entities/ragas-framework]] 的四个核心指标是精确率/召回率思想在RAG领域的具体实现：Context Precision=检索精确率、Context Recall=检索召回率、Faithfulness=生成精确率（防幻觉）、Answer Relevancy=生成召回率（防偏题） ^[inferred]。
 
 ## 来源
 
