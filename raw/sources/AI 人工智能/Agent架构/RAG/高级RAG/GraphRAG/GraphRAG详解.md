@@ -97,8 +97,3 @@ GraphRAG依赖于向量数据库来实现检索。步骤包括：
 ## 总结
 
 GraphRAG是一种通过整合知识图谱来增强RAG技术的创新方法。与Milvus向量数据库结合使用时，GraphRAG可以驾驭大型数据集中复杂的语义关系，提供更准确的结果。
-
-## 更多资源
-
-- GraphRAG论文: From Local to Global: A Graph RAG Approach to Query-Focused Summarization
-- GraphRAG GitHub: https://github.com/microsoft/graphrag

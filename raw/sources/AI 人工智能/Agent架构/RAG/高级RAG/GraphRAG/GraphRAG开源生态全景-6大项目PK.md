@@ -1,13 +1,4 @@
 原文: [https://mp.weixin.qq.com/s/f8AZoxRMoXefedbnPzNBIQ](https://mp.weixin.qq.com/s/f8AZoxRMoXefedbnPzNBIQ)  
-欢迎关注公zh: AI-Frontiers
-
-**RAG往期文章推荐**
-
-[RAG效果差？7个指标让你的准确率大幅提升](https://mp.weixin.qq.com/s/VV29xpdOMEkbz4iXmD_szg)
-
-[RAG评测完整指南：指标、测试和最佳实践](https://mp.weixin.qq.com/s/am89yasxAvuYUToEAWNyTA)
-
-[收藏！RAG核心工具大全: 7大解析工具+向量模型+数据库+检索排序](https://mp.weixin.qq.com/s/5XAWHqjZspU9xtC_CckV3w)
 
 在LLM的应用落地进程中，RAG技术已成为解决模型幻觉、提升垂直领域专业性的重要手段。然而，传统的RAG系统在以下场景会表现出明显的局限性: ① 处理需要跨文档合成信息; ② 理解全局主题; ③ 执行复杂多跳推理的任务时。
 
