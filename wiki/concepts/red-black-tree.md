@@ -24,7 +24,7 @@ relationships:
 
 # 红黑树
 
-红黑树是一种自平衡的二叉查找树，由 Rudolf Bayer 于1978年发明（当时称"平衡二叉B树"），后被 Guibas 和 Sedgewick 修改为红黑树。它在 O(logN) 时间内完成查找、插入、删除，广泛应用于 Java TreeMap、JDK1.8 HashMap、C++ STL map、Linux CFS 进程调度、epoll sockfd 管理、nginx timer。
+红黑树是一种自平衡的二叉查找树，由 Rudolf Bayer 于1978年发明（当时称"平衡二叉B树"），后被 Guibas 和 Sedgewick 修改为红黑树。它在 O(logN) 时间内完成查找、插入、删除，广泛应用于 Java TreeMap、JDK1.8 HashMap、C++ STL map、Linux CFS 进程调度、epoll sockfd 管理、nginx timer。参见 [[synthesis/balanced-tree-evolution|平衡树演进]] 分析红黑树在平衡策略演进中的位置。
 
 ## 为什么需要红黑树
 

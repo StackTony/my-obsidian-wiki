@@ -43,7 +43,7 @@ relationships:
     type: extends
   - target: "[[synthesis/virtio-architecture-evolution]]"
     type: extends
-  - target: "[[concepts/cloud-native-infrastructure-landscape]]"
+  - target: "[[synthesis/cloud-native-infrastructure-landscape]]"
     type: related_to
 ---
 

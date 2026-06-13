@@ -24,7 +24,7 @@ relationships:
 
 # 工具调用与MCP协议
 
-工具调用（Tool/Function Call）让LLM从"纯文本生成器"升级为"可执行动作的Agent"。但工具调用不仅是技术问题——它是**协议边界和安全边界**。
+工具调用（Tool/Function Call）让LLM从"纯文本生成器"升级为"可执行动作的Agent"。但工具调用不仅是技术问题——它是**协议边界和安全边界**。详见 [[concepts/agent-architecture-landscape|Agent架构全景]] 导航页。
 
 ## Function Call机制
 

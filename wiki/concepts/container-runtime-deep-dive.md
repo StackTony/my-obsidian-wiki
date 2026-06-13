@@ -35,7 +35,7 @@ updated: 2026-06-13
 
 # 容器运行时深度解析
 
-"容器不是魔法，它是一堆 Linux 内核特性的组合拳。"——Mount Namespace 2002年就有了，比 Docker (2013) 早11年。容器技术不是发明，是**拼装**。
+"容器不是魔法，它是一堆 Linux 内核特性的组合拳。"——Mount Namespace 2002年就有了，比 Docker (2013) 早11年。容器技术不是发明，是**拼装**。详见 [[concepts/k8s-cloud-native-landscape|云原生全景导航]]。
 
 ## 核心观点
 

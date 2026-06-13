@@ -27,7 +27,7 @@ updated: 2026-06-01
 
 # Linux内存管理
 
-Linux内存管理是内核最复杂的子系统之一，涵盖物理内存分配、Page Cache缓存、LRU回收以及 /proc/meminfo 参数体系。理解这些参数和机制是排查内存问题的基础。
+Linux内存管理是内核最复杂的子系统之一，涵盖物理内存分配、Page Cache缓存、LRU回收以及 /proc/meminfo 参数体系。理解这些参数和机制是排查内存问题的基础。详见 [[concepts/linux-os-virtualization-landscape|Linux全景]]。
 
 ## 核心观点
 

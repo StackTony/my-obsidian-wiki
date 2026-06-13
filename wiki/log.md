@@ -346,6 +346,18 @@ title: Wiki Log
   - 新：7个专用分组（Summaries(Linux) 14条、Entities(Linux) 5条、Concepts(Linux操作系统) 14条含landscape、Concepts(Linux虚拟化) 3条、Skills(Linux操作系统) 8条、Skills(Linux虚拟化) 2条、Synthesis(Linux) 4条含landscape）
   - 通用分组只保留数据结构与算法（Summaries 4条、Concepts 4条、Skills 1条、Synthesis 1条）
 
+## [2026-06-13] LINT_FIX | Orphan救援 + Broken wikilink修复
+
+- LINT_FIX orphans_rescued=5 broken_links_fixed=1 pages_updated=7
+- Orphan修复（5个页面添加入链）：
+  - agent-architecture-landscape ← tool-calling-mcp, llm-infra-landscape, agent-framework-engineering（从0到3入链）
+  - k8s-cloud-native-landscape ← k8s-architecture, container-runtime-deep-dive（从0到2入链）
+  - linux-os-virtualization-landscape ← linux-interrupt-system, linux-memory-management（从2到4入链）
+  - balanced-tree-evolution ← red-black-tree（从0到1入链）
+  - graph-algorithm-learning-path ← graph-algorithms（从0到1入链）
+- Broken wikilink修复（1个）：
+  - linux-os-virtualization-landscape relationships中 `[[concepts/cloud-native-infrastructure-landscape]]` → `[[synthesis/cloud-native-infrastructure-landscape]]`（frontmatter agent已修复）
+
 ## [2026-06-13] STRUCTURE | 云原生领域分类显式化
 
 - STRUCTURE pages_created=1 pages_updated=1 (index.md云原生部分重构)

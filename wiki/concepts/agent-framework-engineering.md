@@ -35,7 +35,7 @@ relationships:
 
 # Agent框架工程
 
-Agent的核心挑战不是"让模型更聪明"，而是**让模型在结构化流程中可靠执行**。可靠Agent更像可观测状态机，而不是自由聊天循环。
+Agent的核心挑战不是"让模型更聪明"，而是**让模型在结构化流程中可靠执行**。可靠Agent更像可观测状态机，而不是自由聊天循环。详见 [[concepts/agent-architecture-landscape|Agent架构全景]] 导航页。
 
 ## Agent的五大支柱
 
