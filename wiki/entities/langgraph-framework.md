@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 relationships:
   - target: "[[entities/langchain-framework]]"
     type: extends

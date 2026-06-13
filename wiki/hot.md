@@ -9,24 +9,25 @@ updated: 2026-06-13
 
 ## Recent Activity
 
-- [2026-06-13] PATH_FIX — 全量路径引用修复：21个wiki页面source_dir/source_files + 7个manifest键 + 1个JSON结构修复，零mismatch验证通过
-- [2026-06-13] INGEST — RAG目录变动：2-RAG全栈介绍SHA-256变更，更新rag-engineering（补充m3e+落地路径+避坑清单）
-- [2026-06-12] INGEST — 评估系统增量：RAGAS+LLM评测基准，补全AI评估知识链
+- [2026-06-13] INGEST — Agent架构增量：15新来源→5新概念页面(GraphRAG工程+RAG存储+RAG工具+Multi-Agent对比+Agent安全)+7已有页面更新
+- [2026-06-13] PATH_FIX — 全量路径引用修复：21个wiki页面source_dir/source_files修复
+- [2026-06-13] INGEST — RAG目录变动：2-RAG全栈介绍SHA-256变更
 
 ## Active Threads
 
-- **路径一致性完成**：全量审计raw/sources实际路径与wiki引用的匹配，三类系统性错误（缺云原生/前缀、Linux操作系统过浅、大小写）全部修复，manifest和wiki零mismatch
-- **RAG工程实践链充实**：rag-engineering现已包含三阶段落地路径和避坑清单
-- **GraphRAG知识即将构建**：自学推荐已下载9篇GraphRAG博客，等待ingest蒸馏
-- **101个新文件未ingest**：Self learn(84)+Obsidian使用(10)+软件工程(3)+Agent智能体1+知识图谱2+安全性2——需后续ingest
+- **GraphRAG知识链构建完成**：6个GraphRAG源文件蒸馏为完整的concepts/graphrag-engineering页面（微软14步管线+蚂蚁统一架构+6大项目PK+3种搜索模式+部署实践）
+- **RAG存储与工具全景充实**：新增2个概念页面覆盖四层存储架构和核心工具链
+- **Agent安全与Multi-Agent进入知识库**：Claude Fable 5破解事件和四大框架对比已入库
+- **评估指标体系补全**：RAG检索排序7指标(P@K/MRR/MAP/nDCG等)补充到evaluation-metrics
 
 ## Key Takeaways
 
-- 路径引用最常见错误：顶级目录名缺前缀（K8s→云原生/K8s，容器运行时→云原生/容器运行时）
-- 跨目录整合的source_files必须含子目录路径前缀，否则无法解析
-- Manifest JSON结构问题：数据结构与算法条目在sources对象外部（已修复）
+- GraphRAG不是替代传统RAG而是补充——局部型问题仍用向量检索，全局型/多跳型用GraphRAG
+- RAG存储是四层架构而非"一个向量库"，缺一层功能失能
+- Agent安全是动态对抗：字符混淆+上下文稀释+学术伪装+解构重组4类绕过手法
+- Multi-Agent生产首选LangGraph（可靠性+可调试性），CrewAI适合快速验证
 
 ## Flagged Contradictions
 
+- GraphRAG"以检索为始" vs KAG"以推理为始"——不同范式而非矛盾
 - 3-RAG工程全景与【17】RAG工程全景内容完全相同（同一文件出现在两个路径），不是矛盾而是副本
-- KAG"以推理为始" vs GraphRAG"以检索为始"——不同范式而非矛盾

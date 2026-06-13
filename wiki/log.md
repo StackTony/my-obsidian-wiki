@@ -305,3 +305,23 @@ title: Wiki Log
 - 模式E(JSON结构)：数据结构与算法6个条目从sources对象外部移入内部
 - RAG路径迁移（上次已完成）：7个manifest键 + 2个wiki页面frontmatter + 6处prose来源
 - 验证结果：manifest 0 mismatch, wiki source_ref 0 mismatch ✅
+
+## [2026-06-13] INGEST | Agent架构增量（15新来源 + 1空文件 → 5新页面 + 7更新）
+
+- INGEST mode=append source_dir="AI 人工智能/Agent架构" pages_created=5 pages_updated=7
+- 概念页面（5个新建）：
+  - graphrag-engineering — GraphRAG工程：6个源文件蒸馏，微软14步管线+蚂蚁统一架构+6大项目PK+全局/局部/DRIFT搜索
+  - rag-storage-technology — RAG存储四层架构：原始文件+元数据+切片+向量，缺一层功能失能
+  - rag-tools-landscape — RAG工具全景：7类解析+分块+Embedding+向量库+重排序
+  - multi-agent-framework-comparison — 四大Multi-Agent对比：LangGraph/CrewAI/AutoGen/AgentX
+  - agent-security — Agent安全与对抗：Claude Fable 5破解4类手法+纵深防御
+- 已有页面更新（7个）：
+  - rag-engineering — 新增GraphRAG/存储/工具交叉链接+来源文件
+  - rag-chunking-strategies — 新增图解11种策略+代码示例21种方法
+  - evaluation-metrics — 新增RAG检索排序7指标+评测完整指南
+  - agent-framework-engineering — 新增Multi-Agent对比交叉链接
+  - graphify-gitnexus — 新增Graphify原理7步流程+God Nodes/Surprising Connections
+  - langgraph-framework — updated字段更新
+  - ragas-framework — updated字段更新
+- 跳过1个空文件：ACL访问控制.md(0 bytes)
+- 15个有实质内容文件已登记SHA-256哈希到 .manifest.json

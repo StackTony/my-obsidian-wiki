@@ -5,7 +5,7 @@ updated: 2026-06-13
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-11 (AI 人工智能增量)*
+*自动维护。上次更新：2026-06-13 (Agent架构增量)*
 
 ## Summaries
 
@@ -105,8 +105,13 @@ updated: 2026-06-13
 - [llm-gateway](concepts/llm-gateway.md) — 大模型网关：多供应商路由/配额/计费/语义缓存/Guardrails/可观测的统一入口 — `AI` `LLM` `网关` `LiteLLM` `路由`
 - [llm-observability](concepts/llm-observability.md) — LLM可观测性：性能/语义质量/成本三维观测，Langfuse/OpenLLMetry — `AI` `LLM` `可观测` `Langfuse` `OpenTelemetry`
 - [data-flywheel](concepts/data-flywheel.md) — 数据飞轮：数据和业务间的正反馈循环——AI辅助决策产出更多数据，更多数据强化AI决策，飞轮越转越快 — `AI` `数据飞轮` `数据要素` `知识管理` `企业数字化`
-- [evaluation-metrics](concepts/evaluation-metrics.md) — 分类评估指标核心：混淆矩阵→准确率/精确率/召回率/F1；类别不平衡时准确率失效，精确率防错报、召回率防漏报 — `AI` `评估` `混淆矩阵` `准确率` `精确率` `召回率`
+- [evaluation-metrics](concepts/evaluation-metrics.md) — 分类评估指标核心：混淆矩阵→准确率/精确率/召回率/F1；类别不平衡时准确率失效；7个RAG检索排序指标(P@K/MRR/MAP/nDCG) — `AI` `评估` `混淆矩阵` `准确率` `精确率` `召回率`
 - [llm-benchmarks](concepts/llm-benchmarks.md) — LLM评测基准六大维度：知识(MMLU/ARC)、推理(GSM8K/DROP/BBH)、对话(MT-bench)、抽取(MS-MARCO)、安全(TruthfulQA/HHH)、编程(HumanEval/MBPP) — `AI` `LLM` `评测` `Benchmark` `基准`
+- [graphrag-engineering](concepts/graphrag-engineering.md) — GraphRAG用知识图谱解决全局型问题：实体→关系→Leiden社区摘要→全局/局部/DRIFT三种搜索，代价是LLM调用量大 — `AI` `RAG` `知识图谱` `GraphRAG` `社区检测`
+- [rag-storage-technology](concepts/rag-storage-technology.md) — RAG存储四层架构：原始文件→元数据→切片(ES)→向量(Milvus/Qdrant/pgvector)，缺一层则功能失能 — `AI` `RAG` `存储` `向量库` `Elasticsearch`
+- [rag-tools-landscape](concepts/rag-tools-landscape.md) — RAG工具链全景：7类解析工具+分块策略+Embedding选型+向量库+重排序——选型先确认瓶颈再选工具 — `AI` `RAG` `工具` `解析` `向量模型`
+- [multi-agent-framework-comparison](concepts/multi-agent-framework-comparison.md) — 四大Multi-Agent框架对比：LangGraph(可靠)/CrewAI(简单)/AutoGen(灵活)/AgentX(安全) — `AI` `Agent` `LangGraph` `CrewAI` `AutoGen`
+- [agent-security](concepts/agent-security.md) — Claude Fable 5破解事件揭示LLM安全分类器4类绕过手法——安全是动态对抗而非静态防御 — `AI` `安全` `Agent` `对抗攻击`
 
 ## Entities (AI)
 

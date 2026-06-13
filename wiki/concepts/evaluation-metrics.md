@@ -5,7 +5,7 @@ tags: [AI, 评估, 混淆矩阵, 准确率, 精确率, 召回率, F1]
 aliases: [混淆矩阵, accuracy precision recall, 准确率精确率召回率]
 summary: 分类评估指标的核心：混淆矩阵导出准确率/精确率/召回率/F1——类别不平衡时准确率失效，精确率防错报、召回率防漏报、F1兼顾两者
 source_dir: AI 人工智能/Agent架构/评估系统
-source_files: [如何理解准确率、精确率和召回率.md]
+source_files: [如何理解准确率、精确率和召回率.md, RAG评测完整指南：指标、测试和最佳实践.md, RAG效果差？7个指标让你的准确率大幅提升.md]
 provenance:
   extracted: 0.85
   inferred: 0.12
@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-11
 tier: supporting
 created: 2026-06-11
-updated: 2026-06-12
+updated: 2026-06-13
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: related_to
@@ -68,6 +68,34 @@ relationships:
 
 [[entities/ragas-framework]] 的四个核心指标是精确率/召回率思想在RAG领域的具体实现：Context Precision=检索精确率、Context Recall=检索召回率、Faithfulness=生成精确率（防幻觉）、Answer Relevancy=生成召回率（防偏题） ^[inferred]。
 
+## RAG检索排序指标
+
+RAG检索层的7个核心排序指标（来自"RAG效果差？7个指标让你的准确率大幅提升"）：
+
+| 指标 | 公式/定义 | 含义 | 类别 |
+|------|-----------|------|------|
+| **Precision@K** | 前K个结果中相关文档数/K | 检索前K个有多准 | 预测指标 |
+| **Recall@K** | 前K个结果中相关文档数/所有相关文档数 | 相关文档被检索到多少 | 预测指标 |
+| **F-score@K** | P@K和R@K的调和平均 | 兼顾准确和全面 | 预测指标 |
+| **MRR** | 第一个相关文档排名倒数的平均值 | 第一个正确答案排多前 | 排序指标 |
+| **MAP** | 各query的AP平均值 | 所有位置的平均精确率 | 排序指标 |
+| **Hit Rate** | 至少1个相关文档出现在Top-K的比例 | 能否找到任何相关 | 预测指标 |
+| **nDCG@K** | 归一化折扣累积增益 | 高相关排前面得高分 | 排序指标 |
+
+**预测指标vs排序指标**：Precision@K只关心"前K有没有"，不关心顺序；nDCG/MRR关心"正确的排多前面"。生产上两者都要看 ^[inferred]。
+
+### RAG评测完整指南补充要点
+
+来自"RAG评测完整指南"的分层评估体系：
+
+- **检索评估**：ground truth标注+人工/LLM-as-judge判定相关性
+- **生成评估**：基于参考(reference-based)和无参考(reference-free)两种模式
+- **合成测试数据**：LLM自动生成测试集（详见 [[entities/ragas-framework]]）
+- **鲁棒性测试**：对抗性输入、噪声数据、边界case
+- **对话级评估**：多轮对话的一致性和上下文连贯性
+
 ## 来源
 
 - 如何理解准确率、精确率和召回率（raw/sources/AI 人工智能/Agent架构/评估系统/）
+- RAG评测完整指南：指标、测试和最佳实践（raw/sources/AI 人工智能/Agent架构/评估系统/）
+- RAG效果差？7个指标让你的准确率大幅提升（raw/sources/AI 人工智能/Agent架构/评估系统/）

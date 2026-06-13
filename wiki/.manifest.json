@@ -1719,14 +1719,158 @@
     "project": null,
     "pages_created": [],
     "pages_updated": []
+  },
+  "AI 人工智能/Agent架构/知识图谱/Graphify原理.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 11463,
+    "content_hash": "sha256:0e2fb54e060a661d69b924a9db085c143205824e590316fee0b8de5022772032",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["entities/graphify-gitnexus.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG微软源代码理解.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 4292,
+    "content_hash": "sha256:242179e2184b13d31c0360c82e4f4e692901bcd615b64cff0c71d18a36aea788",
+    "source_type": "document",
+    "project": null,
+    "pages_created": ["concepts/graphrag-engineering.md"],
+    "pages_updated": []
+  },
+  "AI 人工智能/Agent架构/Agent智能体/Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 10072,
+    "content_hash": "sha256:8c5194c41abad4fe3cb57c3a4ab1b9c810318d5274c5d203ce104523c3e2335d",
+    "source_type": "document",
+    "project": null,
+    "pages_created": ["concepts/multi-agent-framework-comparison.md"],
+    "pages_updated": ["concepts/agent-framework-engineering.md", "entities/langgraph-framework.md"]
+  },
+  "AI 人工智能/Agent架构/安全性/ACL访问控制.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 0,
+    "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": []
+  },
+  "AI 人工智能/Agent架构/安全性/Claude Fable 5被破解的启示录.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 6049,
+    "content_hash": "sha256:83a48d4630d55c6102f893c738dd463d3a3c42eaa5345d8e59d4d7749164f8d7",
+    "source_type": "document",
+    "project": null,
+    "pages_created": ["concepts/agent-security.md"],
+    "pages_updated": ["concepts/agent-framework-engineering.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG详解.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 5776,
+    "content_hash": "sha256:5e0f1225dbb5f351c4c9837c0a1aa3280c089d028cf530a62cb0690f7f621aa0",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/graphrag-engineering.md"]
+  },
+  "AI 人工智能/Agent架构/评估系统/RAG评测完整指南：指标、测试和最佳实践.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 27911,
+    "content_hash": "sha256:b32d47f04b6147ed7c039ad392c15665bb546791e9b2d9165d5e2580b4f7fbd2",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/evaluation-metrics.md"]
+  },
+  "AI 人工智能/Agent架构/评估系统/RAG效果差？7个指标让你的准确率大幅提升.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 13883,
+    "content_hash": "sha256:8649c000516f713568be131e706caaa437ea20fe8c0dfea22812a43589586335",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/evaluation-metrics.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略-图解.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 16083,
+    "content_hash": "sha256:1482e4d15a18a904681696456309d9b52fd222f6809a2e09c9f9c296317ecc15",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/rag-chunking-strategies.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略-代码示例.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 36156,
+    "content_hash": "sha256:37c40ee5f9bf8964e87dc3ba3b4708af71add020f0273c2d16c0c1a37c7336e4",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/rag-chunking-strategies.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/传统RAG/RAG 存储技术：文件、元数据、切片、向量.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 27857,
+    "content_hash": "sha256:66ac8fededf1b7e82b665920cb22627efff7ea08f50d1c533d8a55dccd41f4ee",
+    "source_type": "document",
+    "project": null,
+    "pages_created": ["concepts/rag-storage-technology.md"],
+    "pages_updated": ["concepts/rag-engineering.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG开源生态全景-6大项目PK.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 11400,
+    "content_hash": "sha256:40bd0c37e71b8a77620228d32371d5f8b069a590a32288577b2322103c99e3cd",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/graphrag-engineering.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/传统RAG/RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 25810,
+    "content_hash": "sha256:e01aa91656a25f0168a9e804275939e29201440d12fb58fa856dfa682ac14189",
+    "source_type": "document",
+    "project": null,
+    "pages_created": ["concepts/rag-tools-landscape.md"],
+    "pages_updated": ["concepts/rag-engineering.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG设计解读.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 36149,
+    "content_hash": "sha256:cb8ad22ca38b32da000b6b3ecc5960d098d5347e2b4294c5f856772cc6d35349",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/graphrag-engineering.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG原理及部署实战-博客园.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 7317,
+    "content_hash": "sha256:831d8b7d1b9db1a81a1b7c5e75e440943846d477c1d70bd513bced51f149827a",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/graphrag-engineering.md"]
+  },
+  "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG知识图谱全流程解析.md": {
+    "ingested_at": "2026-06-13",
+    "size_bytes": 45055,
+    "content_hash": "sha256:03c2322ff8538fb794e6d8ebdd83a6462d0f5a5b36f0fe0d7309d372db9fb4e1",
+    "source_type": "document",
+    "project": null,
+    "pages_created": [],
+    "pages_updated": ["concepts/graphrag-engineering.md"]
   }
   },
   "last_ingest": "2026-06-13",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 150,
-    "total_pages": 96,
-    "total_concepts": 50,
+    "total_sources_ingested": 166,
+    "total_pages": 101,
+    "total_concepts": 54,
     "total_summaries": 21,
     "total_entities": 14,
     "total_skills": 13,

@@ -4,7 +4,7 @@ category: entities
 tags: [AI, 知识图谱, Graphify, GitNexus, MCP]
 summary: Graphify偏"认知整合"（多源知识整合），GitNexus偏"工程执行"（代码索引+影响分析+MCP接入）——两种知识图谱工具的设计哲学差异
 source_dir: AI 人工智能/Agent架构/知识图谱
-source_files: [Graphify和Gitnexus.md, Deepwiki.md]
+source_files: [Graphify和Gitnexus.md, Deepwiki.md, Graphify原理.md]
 provenance:
   extracted: 0.70
   inferred: 0.25
@@ -14,12 +14,14 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: related_to
   - target: "[[concepts/agent-framework-engineering]]"
     type: uses
+  - target: "[[concepts/graphrag-engineering]]"
+    type: related_to
 ---
 
 # Graphify与GitNexus知识图谱工具
@@ -38,6 +40,22 @@ relationships:
   - AMBIGUOUS：有歧义需要复核（低置信度）
 - **偏"认知整合"**：把项目看成多源知识集合，而非单一代码仓库
 - **适合**：理解复杂知识域、组织研究材料、长期会话中复用结构化上下文
+
+### Graphify核心流程（来自Graphify原理）
+
+| 步骤 | 名称 | 输入→输出 |
+|------|------|-----------|
+| 1 | **检测(Detection)** | 源文件 → 识别文档类型和结构 |
+| 2 | **提取(Extraction)** | 结构文档 → AST分析 + 语义提取 → 实体/关系三元组 |
+| 3 | **构建图谱(Build Graph)** | 三元组 → 图数据结构（节点+边+属性） |
+| 4 | **聚类(Clustering)** | 图 → Leiden/Louvain社区检测 → 功能模块分组 |
+| 5 | **分析(Analysis)** | 社区结构 → 桥梁节点识别 + 主题发现 |
+| 6 | **报告(Report)** | 分析结果 → SKILL.md文档 + 可读报告 |
+| 7 | **导出(Export)** | 全量图谱 → 查询接口 + 可视化 + MCP接入 |
+
+**两种特殊分析**：
+- **God Nodes**：入链/出链极高的枢纽节点——连接多个社区，是知识图谱的桥梁
+- **Surprising Connections**：看似无关的实体间出现了强连接——揭示隐性知识关联
 
 ## GitNexus
 
@@ -84,3 +102,4 @@ DeepWiki是另一个代码库分析工具，主要用来分析GitHub上的开源
 
 - Graphify和Gitnexus（raw/sources/AI 人工智能/Agent架构/知识图谱/）
 - Deepwiki（raw/sources/AI 人工智能/Agent架构/知识图谱/）
+- Graphify原理（raw/sources/AI 人工智能/Agent架构/知识图谱/）
