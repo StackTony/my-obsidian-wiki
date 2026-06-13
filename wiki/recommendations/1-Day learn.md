@@ -1,7 +1,6 @@
 ### 优先了解
 ##### 1、内容方向
-LangGraph
-GraphRAG
+Harness Engineering
 
 
 ##### 2、博客类别
