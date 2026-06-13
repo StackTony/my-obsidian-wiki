@@ -289,3 +289,19 @@ title: Wiki Log
 - [2026-06-12T17:12] INGEST source="AI 人工智能/Agent架构/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md" pages_created=1 pages_updated=1 mode=append
   - 新增：concepts/llm-benchmarks.md — LLM评测基准六大维度全景（知识/推理/对话/抽取/安全/编程共20+基准）
   - 更新：concepts/evaluation-metrics.md — 补充LLM评测基准和RAGAS的连接
+
+## [2026-06-13] INGEST | RAG目录变动更新
+
+- [2026-06-13] INGEST source="AI 人工智能/Agent架构/RAG/传统RAG/2-RAG 全栈介绍.md" pages_created=0 pages_updated=1 mode=append
+  - 变动：原文SHA-256变更(8a8db40→20cbef0)，文件大小从30595→29737 bytes
+  - 更新：concepts/rag-engineering.md — 补充m3e Embedding模型、三阶段落地路径、避坑清单
+
+## [2026-06-13] PATH_FIX | 全量路径引用修复
+
+- [2026-06-13] 全量审计raw/sources路径一致性，修复21个wiki页面的source_dir/source_files引用
+- 模式A(缺少云原生/前缀)：8个K8s页面 + 9个容器运行时页面 + 1个Prometheus页面 = 18页
+- 模式B(Linux操作系统过浅)：2个跨目录整合页面(linux-kernel-debugging/linux-kernel-subsystem-interactions)，source_files补充子目录路径
+- 模式D(大小写)：llm-benchmarks.md的Benchmarks→BenchMarks
+- 模式E(JSON结构)：数据结构与算法6个条目从sources对象外部移入内部
+- RAG路径迁移（上次已完成）：7个manifest键 + 2个wiki页面frontmatter + 6处prose来源
+- 验证结果：manifest 0 mismatch, wiki source_ref 0 mismatch ✅

@@ -18,7 +18,7 @@ relationships:
     type: contradicts
   - target: "[[concepts/container-network-benchmarking]]"
     type: uses
-source_dir: 容器运行时/从零造容器系列
+source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】1 Linux Namespaces：用 50 行 C 隔离一个进程.md, 【从零造容器】2 Network Namespace：给你的进程接上虚拟网线.md, 【从零造容器】3 Mount Namespace 与 pivot_root：构建容器文件系统.md, 【从零造容器】6 用 Go 组装迷你容器运行时：把积木拼起来.md, 【从零造容器】7 OCI 规范兼容：让迷你运行时说标准语言.md, 从零造容器系列文章.md]
 summary: 容器不是发明而是拼装——8种Namespace隔离视图+pivot_root构建独立rootfs+veth/bridge/NAT组网+cgroups限制资源+OverlayFS分层镜像+Go组装运行时+OCI规范标准化接口；四阶段递进：内核积木→存储组装→安全加固→性能对比
 provenance:
@@ -30,7 +30,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # 容器运行时深度解析

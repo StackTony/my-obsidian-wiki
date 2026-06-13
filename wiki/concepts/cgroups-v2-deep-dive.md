@@ -10,7 +10,7 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-memory-management]]"
     type: related_to
-source_dir: 容器运行时/从零造容器系列
+source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】4 Cgroups v2：让容器不能吃掉整台机器.md]
 summary: Cgroups v2统一层级替代v1：cpu.max硬上限+cpu.weight相对权重+memory.low/high/max三道防线+io.max writeback-aware IO控制+PSI压力指标；K8s社区长期争论是否该设CPU limit
 provenance:
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-13
 ---
 
 # Cgroups v2 深度解析

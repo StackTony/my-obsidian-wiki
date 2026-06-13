@@ -10,7 +10,7 @@ relationships:
     type: related_to
   - target: "[[concepts/seccomp-capabilities]]"
     type: implements
-source_dir: 容器运行时/从零造容器系列
+source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】12 runc 源码考古：OCI 参考实现到底长什么样.md]
 summary: runc是OCI Runtime Spec参考实现(~15000行Go+C)；nsenter C代码解决Go runtime fork不安全；三次clone+两阶段init(Bootstrap C+Standard Go)；exec FIFO同步create/start；cgroupfs vs systemd driver
 provenance:
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # runc — OCI 参考实现

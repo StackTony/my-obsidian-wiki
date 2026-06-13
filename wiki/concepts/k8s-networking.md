@@ -12,7 +12,7 @@ relationships:
     type: derived_from
   - target: "[[concepts/container-network-benchmarking]]"
     type: related_to
-source_dir: Kubernetes（K8s）/Kubernetes网络
+source_dir: 云原生/Kubernetes（K8s）/Kubernetes网络
 source_files: [K8s网络整体架构-腾讯云.md]
 summary: K8s网络四层模型：容器内localhost→Pod间CNI→Service ClusterIP+CoreDNS→Ingress L7路由；CNI插件(Flannel VXLAN/Calico BGP/Cilium eBPF)各解决不同瓶颈
 provenance:
@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-13
 ---
 
 # Kubernetes 网络架构

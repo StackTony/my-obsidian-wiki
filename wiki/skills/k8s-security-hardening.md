@@ -2,7 +2,7 @@
 title: K8s 安全加固实操指南
 category: skills
 tags: [云原生, Kubernetes, 安全, RBAC, NetworkPolicy]
-source_dir: Kubernetes（K8s）
+source_dir: 云原生/Kubernetes（K8s）
 source_files: [K8s安全加固完全指南.md]
 summary: K8s安全五维度实操：RBAC最小权限配置+NetworkPolicy默认拒绝+PSS restricted级+Secret EncryptionConfiguration+API Server匿名禁用；八项检查清单
 provenance:
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # K8s 安全加固实操指南

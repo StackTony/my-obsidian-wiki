@@ -10,7 +10,7 @@ relationships:
     type: uses
   - target: "[[concepts/linux-memory-management]]"
     type: uses
-source_dir: 容器运行时/从零造容器系列
+source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】5 OverlayFS：一层一层像洋葱.md]
 summary: OverlayFS联合挂载四目录(lowerdir+upperdir+workdir+merged)；Copy-on-Write首次写100MB文件慢263倍(47.32ms vs 0.18ms)；overlay2是Docker默认驱动；数据库文件必须放在volume上
 provenance:
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # OverlayFS 与容器镜像分层

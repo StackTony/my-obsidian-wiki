@@ -10,7 +10,7 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-tracing-frameworks]]"
     type: related_to
-source_dir: Prometheus
+source_dir: 云原生/Prometheus
 source_files: [Prometheus-博客园-原理详解.md]
 summary: Prometheus是Google BorgMon开源版+K8s标配监控；Pull模型+ServiceDiscovery+PromQL查询；每样本~3.5字节存储；Histogram可聚合但Summary不可聚合；ServiceMonitor CRD实现K8s自动发现
 provenance:
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # Prometheus 监控架构

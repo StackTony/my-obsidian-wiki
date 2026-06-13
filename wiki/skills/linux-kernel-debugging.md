@@ -3,7 +3,7 @@ title: Linux内核调试与监控实操手册
 category: skills
 tags: [linux, 内核, 调试, 监控, 性能分析]
 source_dir: Linux 操作系统
-source_files: [Linux ksoftirqd软中断内核线程详解.md, "Linux 硬中断irq + 软中断softirq原理.md", Linux 软中断softirq.md, Linux meminfo参数详细解释.md, "Linux 页缓存（Page Cache）.md", Linux IO全景介绍.md, "Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md", Linux 网络协议栈.md, Linux Namespace与Cgroups介绍.md, "Linux Namespace  -  IPC.md"]
+source_files: [Linux 中断系统/Linux ksoftirqd软中断内核线程详解.md, "Linux 中断系统/Linux 硬中断irq + 软中断softirq原理.md", Linux 中断系统/Linux 软中断softirq.md, Linux 内存管理/Linux meminfo参数详细解释.md, "Linux 内存管理/Linux 页缓存（Page Cache）.md", Linux 内核 IO 栈/Linux IO全景介绍.md, "Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md", Linux 网络/Linux 网络协议栈.md, Linux 资源隔离/Linux Namespace与Cgroups介绍.md, "Linux 资源隔离/System V IPC/Linux Namespace  -  IPC.md"]
 summary: 内核各子系统的监控命令、常见问题排查路径与调试技巧——softirq/meminfo/Page Cache/IO/关机/cgroup/IPC namespace七类场景。
 provenance:
   extracted: 0.85
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-11
+updated: 2026-06-13
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: uses

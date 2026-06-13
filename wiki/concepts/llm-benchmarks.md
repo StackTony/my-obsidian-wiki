@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, LLM, 评测, 基准, Benchmark]
 aliases: [LLM Benchmarks, 大模型评测基准, 评测数据集]
 source_dir: AI 人工智能/Agent架构/评估系统
-source_files: [大语言模型LLM的评测基准数据集（Benchmarks）汇总.md]
+source_files: [大语言模型LLM的评测基准数据集（BenchMarks）汇总.md]
 summary: LLM评测基准按六大能力分类：知识语言理解(MMLU/ARC/GLUE)、推理(GSM8K/DROP/BBH)、多轮对话(MT-bench)、抽取生成(MS-MARCO)、内容审核(TruthfulQA/HHH)、编程(HumanEval/MBPP)
 provenance:
   extracted: 0.80
@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-12
 tier: supporting
 created: 2026-06-12
-updated: 2026-06-12
+updated: 2026-06-13
 relationships:
   - target: "[[concepts/evaluation-metrics]]"
     type: extends

@@ -10,7 +10,7 @@ relationships:
     type: uses
   - target: "[[concepts/container-runtime-deep-dive]]"
     type: related_to
-source_dir: Kubernetes（K8s）
+source_dir: 云原生/Kubernetes（K8s）
 source_files: [K8s安全加固完全指南.md]
 summary: K8s安全五维度加固：RBAC最小权限+NetworkPolicy默认拒绝+PSS restricted+etcd Secret加密+API Server匿名禁用；安全基线纳入GitOps成为默认状态
 provenance:
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-13
 ---
 
 # Kubernetes 安全加固

@@ -1,6 +1,6 @@
 ---
 title: Wiki Index
-updated: 2026-06-12
+updated: 2026-06-13
 ---
 
 # Wiki Index
@@ -96,7 +96,7 @@ updated: 2026-06-12
 - [llm-quantization-engineering](concepts/llm-quantization-engineering.md) — LLM量化：精度/指令能力/服务成本三方博弈，FP8/INT8/AWQ/GPTQ方案对比 — `AI` `LLM` `量化` `FP8` `AWQ` `GPTQ`
 - [moe-training-engineering](concepts/moe-training-engineering.md) — MoE稀疏激活：路由均衡+Expert Parallel+All-to-All才是工程难点 — `AI` `LLM` `MoE` `稀疏激活` `专家混合`
 - [rlhf-alignment-pipeline](concepts/rlhf-alignment-pipeline.md) — 对齐流水线：PPO/DPO/GRPO在数据/奖励/采样/稳定性间做工程取舍 — `AI` `LLM` `RLHF` `DPO` `对齐` `PPO`
-- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线，数据质量决定上限；文档解析7类工具+Chunking+Embedding+混合检索+Rerank+5种高级范式+评估 — `AI` `RAG` `检索` `向量库` `知识图谱`
+- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线，数据质量决定上限；文档解析+Chunking+Embedding(m3e)+混合检索+Rerank+5种高级范式+评估+三阶段落地路径+避坑清单 — `AI` `RAG` `检索` `向量库` `知识图谱`
 - [rag-chunking-strategies](concepts/rag-chunking-strategies.md) — 21种RAG分块策略：基础→结构感知→语义驱动，分块决定检索质量 — `AI` `RAG` `Chunking` `分块` `文本分割`
 - [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW默认+DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；混合检索是生产标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`

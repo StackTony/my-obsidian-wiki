@@ -12,7 +12,7 @@ relationships:
     type: uses
   - target: "[[concepts/linux-interrupt-virtualization]]"
     type: related_to
-source_dir: 容器运行时/从零造容器系列
+source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】10 容器 vs microVM：Firecracker 凭什么 125ms 启动.md]
 summary: 容器共享内核(单点故障) vs microVM独立内核(硬件隔离)；Firecracker 125ms启动与容器同一量级(5ms VMM+10ms加载kernel+80ms guest boot+30ms init)；QEMU 200万行vs Firecracker 5万行Rust；Kata Containers=OCI接口+microVM隔离
 provenance:
@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-13
 ---
 
 # 容器 vs microVM

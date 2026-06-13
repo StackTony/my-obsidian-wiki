@@ -10,7 +10,7 @@ relationships:
     type: related_to
   - target: "[[concepts/k8s-architecture]]"
     type: related_to
-source_dir: 容器运行时
+source_dir: 云原生/容器运行时
 source_files: [容器运行时 containerd.md]
 summary: containerd专注容器生命周期管理，是Docker/K8s与底层runc之间的中间层；类比模型：K8s≈Nova, containerd≈libvirtd, runc≈QEMU；CRI内置+containerd-shim解耦+三种运行时对比
 provenance:
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # containerd 容器运行时管理器

@@ -18,7 +18,7 @@ relationships:
     type: related_to
   - target: "[[concepts/prometheus-architecture]]"
     type: uses
-source_dir: Kubernetes（K8s）
+source_dir: 云原生/Kubernetes（K8s）
 source_files: [1-K8s 核心术语速查表.md, K8s云原生-官方文档-K8s架构.md, K8s云原生-阿里云-K8S技术原理.md, Kubernetes（K8s）全面解析：核心概念、架构与实践.md]
 summary: K8s声明式API+协调循环驱动自愈/弹性/滚动更新；控制面(apiserver+etcd+scheduler+controller-manager)+数据面(kubelet+kube-proxy+容器运行时)；Pod最小部署单元+Service稳定网络入口+Deployment无状态管理
 provenance:
@@ -30,7 +30,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-13
 ---
 
 # Kubernetes 架构与核心原理

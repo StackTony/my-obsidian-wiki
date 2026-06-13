@@ -886,7 +886,7 @@
         "entities/langgraph-framework.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/1-RAG 核心术语速查表.md": {
+    "AI 人工智能/Agent架构/RAG/传统RAG/1-RAG 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 9927,
       "content_hash": "sha256:fa4477b79165d6f30a5b1ed3236576fc68de0ba2915797954ac37e199e3c18c4",
@@ -895,7 +895,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/RAG/3-RAG 工程全景.md": {
+    "AI 人工智能/Agent架构/RAG/传统RAG/3-RAG 工程全景.md": {
       "ingested_at": "2026-06-11",
       "size_bytes": 45157,
       "content_hash": "sha256:008035d125c9f37ccf712890a41523c5546182fc102e77d349307b56e2bacfdc",
@@ -904,18 +904,18 @@
       "pages_created": [],
       "pages_updated": ["concepts/rag-engineering.md"]
     },
-    "AI 人工智能/Agent架构/RAG/2-RAG 全栈介绍.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 30595,
-      "content_hash": "sha256:8a8db4030564b3f157a2feeaec39d8328701354ce2802f76e66f30830cebc081",
+    "AI 人工智能/Agent架构/RAG/传统RAG/2-RAG 全栈介绍.md": {
+      "ingested_at": "2026-06-13",
+      "size_bytes": 29737,
+      "content_hash": "sha256:20cbef02980d2363529b2ccc568edda43dda92eb47e01f2eea9645a41f8d61ed",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/rag-engineering.md"
       ],
-      "pages_updated": []
+      "pages_updated": ["concepts/rag-engineering.md"]
     },
-    "AI 人工智能/Agent架构/RAG/RAG Chunk分块策略.md": {
+    "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 37101,
       "content_hash": "sha256:4461e3280d213cefdd671be2a17098a08a6977167697cbd4d27b65ac65ff96b9",
@@ -926,7 +926,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
+    "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 86043,
       "content_hash": "sha256:794389f05c9c7a94d50cdab28517a53a0fafabfc6f447090d0c2a15a0def238f",
@@ -935,7 +935,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/RAG/RAG RRF算法 倒数排名融合（Reciprocal Rank Fusion）.md": {
+    "AI 人工智能/Agent架构/RAG/传统RAG/RAG RRF算法 倒数排名融合（Reciprocal Rank Fusion）.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 6285,
       "content_hash": "sha256:ecd398c510c0555e3892cdffaddc35fc10e9bfdfef808dbf6eca91e9f0157fc1",
@@ -962,7 +962,7 @@
       "pages_created": ["concepts/evaluation-metrics.md"],
       "pages_updated": ["concepts/rag-engineering.md"]
     },
-    "AI 人工智能/Agent架构/RAG/RAG 搭建研究.md": {
+    "AI 人工智能/Agent架构/RAG/传统RAG/RAG 搭建研究.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 8111,
       "content_hash": "sha256:d38edb673510eec4327285de9469abb8558ad9c3a639d1437c4d285e772d18d9",
@@ -1650,9 +1650,8 @@
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
       ]
-    }
-  },
-  "数据结构与算法/树/二叉树基础.md": {
+    },
+    "数据结构与算法/树/二叉树基础.md": {
     "ingested_at": "2026-06-11",
     "size_bytes": 12882,
     "content_hash": "sha256:e2640b52aded77b1528fb90f0b9c4c2baeb96a36145c8ad8e6f4aa416e549e72",
@@ -1720,8 +1719,9 @@
     "project": null,
     "pages_created": [],
     "pages_updated": []
+  }
   },
-  "last_ingest": "2026-06-12",
+  "last_ingest": "2026-06-13",
   "created": "2026-06-01",
   "stats": {
     "total_sources_ingested": 150,

@@ -2,7 +2,7 @@
 title: 容器网络性能测试实操
 category: skills
 tags: [云原生, 容器, 网络, 性能测试, iperf3]
-source_dir: 容器运行时/从零造容器系列
+source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】11 容器网络性能真相：veth vs macvlan vs eBPF 数据面.md]
 summary: 容器网络性能测试方法论：iperf3测吞吐+sockperf测P99+关闭TCP offload保证公平；六种方案实测：veth+bridge(-20%吞吐/4.4xP99)/macvlan(-1.4%)/ipvlan/Cilium eBPF/XDP redirect
 provenance:
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # 容器网络性能测试实操

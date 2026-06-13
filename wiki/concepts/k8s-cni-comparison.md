@@ -12,7 +12,7 @@ relationships:
     type: derived_from
   - target: "[[concepts/k8s-architecture]]"
     type: related_to
-source_dir: Kubernetes（K8s）
+source_dir: 云原生/Kubernetes（K8s）
 source_files: [1-K8s 核心术语速查表.md, K8s云原生-阿里云-K8S技术原理.md, Kubernetes网络/K8s网络整体架构-腾讯云.md]
 summary: 五大CNI对比：Flannel VXLAN(简单小集群)/Calico BGP(大规模高性能)/Cilium eBPF(现代首选,可替换kube-proxy)/Weave Net(加密)/Kube-router(简化BGP)；iptables O(n)是大规模杀手→IPVS或Cilium eBPF是出路
 provenance:
@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-13
 ---
 
 # Kubernetes CNI 插件对比

@@ -2,7 +2,7 @@
 title: 阿里云K8S技术原理摘要
 category: summaries
 tags: [云原生, Kubernetes, 技术原理, 阿里云]
-source_dir: Kubernetes（K8s）
+source_dir: 云原生/Kubernetes（K8s）
 source_files: [K8s云原生-阿里云-K8S技术原理.md]
 summary: 阿里云K8S技术原理深度解读：声明式API+协调循环驱动自愈；etcd Raft共识+Quorum；网络三铁律；Flannel VXLAN/Calico BGP/Cilium eBPF对比；Service Mesh Istio mTLS零信任；GitOps ArgoCD；Operator模式；Knative Serverless+KubeVirt VM
 provenance:
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # 阿里云K8S技术原理摘要

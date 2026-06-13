@@ -2,7 +2,7 @@
 title: K8s 核心术语速查表摘要
 category: summaries
 tags: [云原生, Kubernetes, 术语, 速查表]
-source_dir: Kubernetes（K8s）
+source_dir: 云原生/Kubernetes（K8s）
 source_files: [1-K8s 核心术语速查表.md]
 summary: K8s集群13类核心术语中文速查：声明式API/协调循环/控制面/数据面/etcd/Raft/Pod/Deployment/Service/CNI/Flannel/Calico/Cilium/RBAC/PSS/Prometheus/Operator/GitOps
 provenance:
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # K8s 核心术语速查表摘要

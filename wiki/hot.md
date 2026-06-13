@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-06-12
+updated: 2026-06-13
 ---
 
 # Hot Cache
@@ -9,24 +9,24 @@ updated: 2026-06-12
 
 ## Recent Activity
 
-- [2026-06-12] INGEST — 评估系统增量：RAGAS评估框架+LLM评测基准六维全景，补全AI评估知识链
-- [2026-06-12] LEARN — 自学推荐执行：LangGraph+GraphRAG 15篇博客推荐+12篇下载完成
-- [2026-06-11] INGEST — 分类评估指标+数据飞轮+RAG工程扩充+数据结构与算法9页
+- [2026-06-13] PATH_FIX — 全量路径引用修复：21个wiki页面source_dir/source_files + 7个manifest键 + 1个JSON结构修复，零mismatch验证通过
+- [2026-06-13] INGEST — RAG目录变动：2-RAG全栈介绍SHA-256变更，更新rag-engineering（补充m3e+落地路径+避坑清单）
+- [2026-06-12] INGEST — 评估系统增量：RAGAS+LLM评测基准，补全AI评估知识链
 
 ## Active Threads
 
-- **AI评估知识链成型**：evaluation-metrics(底层指标)→llm-benchmarks(评测数据集)→ragas-framework(RAG专用评估)→rag-engineering(评估层)→llm-observability(可观测性)——五层评估栈逐步补全
+- **路径一致性完成**：全量审计raw/sources实际路径与wiki引用的匹配，三类系统性错误（缺云原生/前缀、Linux操作系统过浅、大小写）全部修复，manifest和wiki零mismatch
+- **RAG工程实践链充实**：rag-engineering现已包含三阶段落地路径和避坑清单
 - **GraphRAG知识即将构建**：自学推荐已下载9篇GraphRAG博客，等待ingest蒸馏
-- **LangGraph高级特性待补**：SubGraph/Command/Send/并行流已在自学推荐中，等待ingest
+- **101个新文件未ingest**：Self learn(84)+Obsidian使用(10)+软件工程(3)+Agent智能体1+知识图谱2+安全性2——需后续ingest
 
 ## Key Takeaways
 
-- RAGAS四个核心指标是精确率/召回率思想在RAG领域的具体实现：Context Precision=检索精确率、Context Recall=检索召回率
-- LLM评测基准按六大维度组织：知识(MMLU)→推理(GSM8K)→对话(MT-bench)→抽取(MS-MARCO)→安全(TruthfulQA)→编程(HumanEval)
-- GraphRAG vs Vector RAG实测：80% vs 50.83%正确率（AWS Lettria数据）；关联型问题召回率70%→99%+
-- GraphRAG开源生态四框架定位：MS=摘要生成、LightRAG=增量更新、KAG=逻辑推理、HippoRAG=事实问答
+- 路径引用最常见错误：顶级目录名缺前缀（K8s→云原生/K8s，容器运行时→云原生/容器运行时）
+- 跨目录整合的source_files必须含子目录路径前缀，否则无法解析
+- Manifest JSON结构问题：数据结构与算法条目在sources对象外部（已修复）
 
 ## Flagged Contradictions
 
 - 3-RAG工程全景与【17】RAG工程全景内容完全相同（同一文件出现在两个路径），不是矛盾而是副本
-- KAG"以推理为始" vs GraphRAG"以检索为始"——不同范式而非矛盾，取决于应用场景
+- KAG"以推理为始" vs GraphRAG"以检索为始"——不同范式而非矛盾

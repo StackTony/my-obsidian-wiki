@@ -3,7 +3,7 @@ title: Linux内核子系统交互全景
 category: synthesis
 tags: [linux, 内核, 子系统交互, preempt_count, softirq, page-cache, 锁]
 source_dir: Linux 操作系统
-source_files: ["Linux 硬中断irq + 软中断softirq原理.md", Linux 软中断softirq.md, Linux meminfo参数详细解释.md, "Linux 页缓存（Page Cache）.md", Linux IO全景介绍.md, "Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md", Linux 网络协议栈.md, Linux Namespace与Cgroups介绍.md, "Linux Namespace  -  IPC.md", Linux 进程调度器.md, Linux 锁机制全景介绍.md, Linux SpinLock锁.md, Linux Mutex锁.md, Linux RCU锁.md]
+source_files: ["Linux 中断系统/Linux 硬中断irq + 软中断softirq原理.md", Linux 中断系统/Linux 软中断softirq.md, Linux 内存管理/Linux meminfo参数详细解释.md, "Linux 内存管理/Linux 页缓存（Page Cache）.md", Linux 内核 IO 栈/Linux IO全景介绍.md, "Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md", Linux 网络/Linux 网络协议栈.md, Linux 资源隔离/Linux Namespace与Cgroups介绍.md, "Linux 资源隔离/System V IPC/Linux Namespace  -  IPC.md", Linux 进程调度/Linux 进程调度器.md", Linux 锁机制/Linux 锁机制全景介绍.md, Linux 锁机制/Linux SpinLock锁.md, Linux 锁机制/Linux Mutex锁.md, Linux 锁机制/Linux RCU锁.md]
 summary: Linux内核六大子系统交互机制：preempt_count统一上下文追踪、softirq跨子系统延迟分发、Page Cache作为IO/内存/文件系统交汇点、锁机制作为跨上下文协调原语、关机作为终极子系统协调测试、Namespace+Cgroup互补容器原语。
 provenance:
   extracted: 0.70
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-11
+updated: 2026-06-13
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: extends

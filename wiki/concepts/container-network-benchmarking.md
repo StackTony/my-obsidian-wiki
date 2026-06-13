@@ -12,7 +12,7 @@ relationships:
     type: derived_from
   - target: "[[concepts/zero-copy-memory-mapping]]"
     type: related_to
-source_dir: 容器运行时/从零造容器系列
+source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】11 容器网络性能真相：veth vs macvlan vs eBPF 数据面.md]
 summary: 容器网络实测数据：veth+bridge吞吐-20%/P99 4.4x；macvlan近裸机；Cilium eBPF不受iptables规则影响；P99才是真正杀人的指标；conntrack每条300字节默认65536上限→高并发表满丢包
 provenance:
@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-13
 ---
 
 # 容器网络性能实测

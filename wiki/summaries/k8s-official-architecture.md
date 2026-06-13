@@ -2,7 +2,7 @@
 title: K8s官方文档架构摘要
 category: summaries
 tags: [云原生, Kubernetes, 架构, 官方文档]
-source_dir: Kubernetes（K8s）
+source_dir: 云原生/Kubernetes（K8s）
 source_files: [K8s云原生-官方文档-K8s架构.md]
 summary: K8s官方文档架构：控制面(apiserver+etcd+scheduler+controller-manager+cloud-controller-manager)+数据面(kubelet+kube-proxy+容器运行时)；四种架构变体；kube-proxy可选
 provenance:
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-13
 ---
 
 # K8s官方文档架构摘要
