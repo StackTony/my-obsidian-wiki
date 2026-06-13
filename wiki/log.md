@@ -309,6 +309,16 @@ title: Wiki Log
 ## [2026-06-13] INGEST | Agent架构增量（15新来源 + 1空文件 → 5新页面 + 7更新）
 
 - INGEST mode=append source_dir="AI 人工智能/Agent架构" pages_created=5 pages_updated=7
+
+## [2026-06-13] STRUCTURE | Agent架构领域分类显式化
+
+- STRUCTURE pages_created=1 pages_updated=2
+- 新建页面（1个）：
+  - agent-architecture-landscape — Agent架构7个子领域导航枢纽：树状拓扑+4核心矛盾+子领域连接+LLM基础设施边界
+- index.md重构（AI部分）：
+  - Concepts (AI)：27条扁平列表 → 6个子标题分组（LLM基础设施15条+RAG 6条+Agent框架4条+评估2条+安全1条+数据飞轮1条）
+  - Entities (AI)：6条扁平列表 → 4个子标题分组（LLM基础设施2条+Agent框架2条+RAG 1条+知识图谱1条）
+  - 新增 Synthesis (AI)：llm-infra-evolution-2022-2026从通用Synthesis移入
 - 概念页面（5个新建）：
   - graphrag-engineering — GraphRAG工程：6个源文件蒸馏，微软14步管线+蚂蚁统一架构+6大项目PK+全局/局部/DRIFT搜索
   - rag-storage-technology — RAG存储四层架构：原始文件+元数据+切片+向量，缺一层功能失能
@@ -325,3 +335,34 @@ title: Wiki Log
   - ragas-framework — updated字段更新
 - 跳过1个空文件：ACL访问控制.md(0 bytes)
 - 15个有实质内容文件已登记SHA-256哈希到 .manifest.json
+
+## [2026-06-13] STRUCTURE | Linux OS/虚拟化领域分类显式化
+
+- STRUCTURE pages_created=1 pages_updated=1 (index.md重构)
+- 新建页面（1个）：
+  - linux-os-virtualization-landscape — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾（性能vs隔离、通用vs专用、硬件vs软件、完整vs增量）
+- index.md重构（Linux部分）：
+  - 原：扁平通用分组（Summaries 18条含14条Linux、Entities 5条全Linux、Concepts 16条含13条Linux+3虚拟化、Skills 11条含10条Linux、Synthesis 4条含3条Linux）
+  - 新：7个专用分组（Summaries(Linux) 14条、Entities(Linux) 5条、Concepts(Linux操作系统) 14条含landscape、Concepts(Linux虚拟化) 3条、Skills(Linux操作系统) 8条、Skills(Linux虚拟化) 2条、Synthesis(Linux) 4条含landscape）
+  - 通用分组只保留数据结构与算法（Summaries 4条、Concepts 4条、Skills 1条、Synthesis 1条）
+
+## [2026-06-13] STRUCTURE | 云原生领域分类显式化
+
+- STRUCTURE pages_created=1 pages_updated=1 (index.md云原生部分重构)
+- 新建页面（1个）：
+  - k8s-cloud-native-landscape — 云原生5子领域导航枢纽：K8s核心(4)+容器运行时(6)+可观测(1)+实体(2)+摘要(3)+技巧(2)+综合(2)，4条Linux→云原生映射(Namespace→视图隔离/Cgroup→资源限制/OverlayFS→镜像/Seccomp→安全防线)，3个核心矛盾(共享vs独立内核/声明式vs命令式/服务网格vs不侵入)
+- index.md重构（云原生部分）：
+  - 原：Concepts (云原生) 11条扁平列表
+  - 新：Concepts (云原生) → 3个子标题分组（K8s核心5条含landscape + 容器运行时6条 + 可观测1条），Synthesis (云原生) 新增landscape引用
+  - 与AI/Linux处理方式一致：先landscape导航页+后子领域分组
+
+## [2026-06-13] LEARN | Harness Engineering 学习推荐
+
+- LEARN topic="Harness Engineering" category=原理介绍/技术分析/架构图
+- [2026-06-13T12:05] LEARN 主题确认：优先了解章节指定 Harness Engineering
+- 已有知识分析：Wiki 已有 Agent框架工程/持久化执行/工具调用/MCP/LangGraph 等基础，但 Harness Engineering 作为独立工程范式全面缺失
+- 联网搜索：tavily-search 4轮（英2+中2），发现30+篇高质量博客
+- 延伸方向：1.Long-Running Agent持久化架构（Initializer+Coding Agent） 2.Feedforward/Feedback双回路设计
+- 推荐报告：12篇深度推荐+核心术语表+三层范式对比+跨领域关联
+- 博客下载：15篇成功下载（Self learn/Harness Engineering/），2篇失败（HackMD/BusinessNext SPA防爬）
+- 报告保存：wiki/recommendations/2026-06-13.md
