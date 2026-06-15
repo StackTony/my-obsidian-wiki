@@ -7,18 +7,18 @@ relationships:
   - target: "[[concepts/linux-network-stack]]"
     type: uses
 source_dir: DFX工具
-source_files: [==网络==/iperf打流.md, ==网络==/网络分析工具tcpdump.md]
-summary: 网络调试实操手册：tcpdump抓包分析（参数/表达式/实例）和iperf打流测试（UDP带宽测试），覆盖网络问题排查的两大核心场景。
+source_files: [==网络==/iperf打流.md, ==网络==/网络分析工具tcpdump.md, ==网络==/内核网络Bonding调试日志.md]
+summary: 网络调试实操手册：tcpdump抓包分析、iperf打流测试、Bonding调试日志开启，覆盖网络问题排查的核心场景。
 provenance:
-  extracted: 0.75
-  inferred: 0.20
+  extracted: 0.78
+  inferred: 0.17
   ambiguous: 0.05
 base_confidence: 0.65
 lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-15
 ---
 
 # Linux网络调试实操手册
@@ -99,6 +99,40 @@ iperf -c 195.168.1.31 -p 20000 -i 1 -l 1460 -t 18000 -u -b 50G
 # -c: 服务端IP；-p: 端口；-i: 间隔报告；-l: 包长度；-t: 持续时间；-u: UDP；-b: 目标带宽
 ```
 
+### 3. Bonding 调试日志开启
+
+排查 Bond/802.3ad 聚合问题时，需要开启内核 Bonding 模块的调试打印。
+
+**步骤一：调整 printk 级别**
+```bash
+echo 8 > /proc/sys/kernel/printk   # 放开所有级别日志输出（临时生效）
+cat /proc/sys/kernel/printk        # 确认当前级别
+```
+
+**步骤二：Dynamic Debug 开启 Bond 源码打印**
+```bash
+# 开启 802.3ad 聚合协议逻辑调试
+echo 'file drivers/net/bonding/bond_3ad.c +p' >> /sys/kernel/debug/dynamic_debug/control
+# 开启 Bond 主逻辑、状态、收发调试
+echo 'file drivers/net/bonding/bond_main.c +p' >> /sys/kernel/debug/dynamic_debug/control
+```
+
+**实时查看调试日志**：
+```bash
+dmesg -wT | grep -i bond
+```
+
+**关闭调试**：
+```bash
+echo 'file drivers/net/bonding/bond_3ad.c -p' > /sys/kernel/debug/dynamic_debug/control
+echo 'file drivers/net/bonding/bond_main.c -p' > /sys/kernel/debug/dynamic_debug/control
+echo 7 > /proc/sys/kernel/printk   # 恢复默认级别
+```
+
+**注意**：必须 root 权限；确保 debugfs 已挂载（`mount -t debugfs none /sys/kernel/debug`）；生产环境排障完成后务必关闭（性能损耗）。
+
+详见 [[summaries/kernel-bonding-debug-log]]。
+
 ## 常见问题
 
 | 问题 | 排查方向 |
@@ -106,7 +140,9 @@ iperf -c 195.168.1.31 -p 20000 -i 1 -l 1460 -t 18000 -u -b 50G
 | 网络延迟增大 | tcpdump抓包分析延迟 + 检查路由 |
 | UDP丢包 | iperf测试带宽 + tcpdump确认丢包位置 |
 | TCP连接异常 | tcpdump tcp端口抓包 → Wireshark分析 |
+| Bonding聚合异常 | 开启 dynamic debug 调试日志 → dmesg -wT \| grep bond 分析 |
 
 ## 来源
 
 - [[concepts/linux-network-stack]] — 网络栈架构
+- [[summaries/kernel-bonding-debug-log]] — Bonding 调试日志开启方法

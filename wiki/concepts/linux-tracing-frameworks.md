@@ -11,8 +11,8 @@ relationships:
   - target: "[[entities/perf-tool]]"
     type: uses
 source_dir: DFX工具
-source_files: [==设置trace点==/1 ftrace和kprobe和bpftrace.md, ==设置trace点==/trace：ftrace使用方法.md, ==设置trace点==/trace：kprobe使用方式.md, ==CPU==/kprobe抓CPU单核调度轨迹.md]
-summary: Linux内核四大追踪框架对比：ftrace(静态函数追踪)、kprobe(动态探针)、perf(性能采样)、bpftrace(eBPF追踪)，各框架的适用场景与操作方式。
+source_files: [==设置trace点==/1 ftrace和kprobe和bpftrace.md, ==设置trace点==/trace：ftrace使用方法.md, ==设置trace点==/trace：kprobe使用方式.md, ==CPU==/kprobe抓CPU单核调度轨迹.md, ==网络==/内核网络Bonding调试日志.md]
+summary: Linux内核追踪框架对比：ftrace(静态函数追踪)、kprobe(动态探针)、perf(性能采样)、bpftrace(eBPF追踪)、dynamic debug(源码级调试打印)，各框架适用场景与操作方式。
 provenance:
   extracted: 0.65
   inferred: 0.30
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-06-15
 ---
 
 # Linux内核追踪框架
@@ -94,6 +94,31 @@ echo > trace
 | kprobe | 动态探针 | 高（任意内核函数） | 中 | 特定函数追踪、事件探针 |
 | perf | 事件采样 | 中（PMU+tracepoint） | 低 | 性能热点定位、统计分析 |
 | bpftrace | eBPF可编程 | 最高 | 极低 | 复杂条件追踪、实时统计 ^[inferred] |
+| dynamic debug | 源码级控制 | 中（按文件/函数/模块过滤） | 极低 | 特定子模块调试打印、驱动级问题排查 ^[inferred] |
+
+### Dynamic Debug 源码级调试打印
+
+内核 dynamic debug 机制是一种轻量级的追踪方式，通过 `/sys/kernel/debug/dynamic_debug/control` 接口控制内核源码中 `pr_debug()/dev_dbg()` 的打印行为，不需要修改源码或重新编译。
+
+**核心特点**：
+- 按文件、函数、模块、行号精确控制调试打印开关（`+p` 开启 / `-p` 关闭）
+- 开销极低——关闭时 `pr_debug()` 编译为空操作，开启时仅增加打印开销 ^[inferred]
+- 适合排查特定子模块（如网络 Bonding、USB 驱动）的状态变化问题
+
+**典型用法**（以 Bonding 为例）：
+```bash
+# 开启 bond_3ad.c 和 bond_main.c 的调试打印
+echo 'file drivers/net/bonding/bond_3ad.c +p' >> /sys/kernel/debug/dynamic_debug/control
+echo 'file drivers/net/bonding/bond_main.c +p' >> /sys/kernel/debug/dynamic_debug/control
+# 实时查看
+dmesg -wT | grep -i bond
+# 关闭
+echo 'file drivers/net/bonding/bond_3ad.c -p' > /sys/kernel/debug/dynamic_debug/control
+```
+
+需要配合 `echo 8 > /proc/sys/kernel/printk` 放开日志级别，否则 `pr_debug()` 输出不会显示到控制台。
+
+详见 [[summaries/kernel-bonding-debug-log]] 和 [[skills/linux-network-debugging]]。
 
 ## 未解问题
 

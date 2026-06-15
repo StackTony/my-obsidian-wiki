@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-06-13
+updated: 2026-06-15
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-13 (云原生领域分类显式化)*
+*自动维护。上次更新：2026-06-15 (DFX网络Bonding调试日志ingest)*
 
 ## Summaries (数据结构与算法)
 
@@ -27,6 +27,7 @@ updated: 2026-06-13
 - [crash-register-address](summaries/crash-register-address.md) — x86_64和ARM64寄存器体系、函数调用约定、栈回溯原理、常见崩溃场景分析 — `linux` `寄存器` `x86` `ARM64` `崩溃分析` `调用约定`
 - [linux-interrupt-monitoring-script](summaries/linux-interrupt-monitoring-script.md) — 不依赖额外模块的bash脚本：基于/proc/interrupts两次采样的每秒中断增量观测 — `linux` `中断` `监控脚本` `/proc/interrupts`
 - [linux-ftrace-kprobe-overview](summaries/linux-ftrace-kprobe-overview.md) — ftrace(静态/开销大) vs kprobe(动态/灵活) vs bpftrace(eBPF)三大追踪框架概览 — `linux` `tracing` `ftrace` `kprobe` `bpftrace`
+- [kernel-bonding-debug-log](summaries/kernel-bonding-debug-log.md) — 内核网络Bonding调试日志开启：printk级别调整+dynamic debug开启bond_3ad/bond_main源码打印 — `linux` `内核` `网络` `bonding` `dynamic-debug`
 - [virtio-io-notification-mechanism](summaries/virtio-io-notification-mechanism.md) — Virtio前后端双向零拷贝通知：ioeventfd(Guest→Host)和irqfd(Host→Guest) — `linux` `虚拟化` `virtio` `ioeventfd` `irqfd`
 - [virtio-vring-data-sharing](summaries/virtio-vring-data-sharing.md) — vring三大表(desc/avail/used)组成的生产者-消费者数据共享机制 — `linux` `虚拟化` `virtio` `vring` `数据共享`
 - [linux-live-migration-flow](summaries/linux-live-migration-flow.md) — 虚拟机热迁移三阶段流程：内存迭代拷贝、停机拷贝、网络恢复与关键参数 — `linux` `虚拟化` `热迁移` `QEMU` `libvirt`
@@ -51,7 +52,7 @@ updated: 2026-06-13
 - [linux-namespace-cgroups](concepts/linux-namespace-cgroups.md) — Linux内核资源隔离双引擎：Namespace实现视图隔离，Cgroups实现资源限制 — `linux` `kernel` `namespace` `cgroups` `container` `isolation`
 - [linux-process-scheduling](concepts/linux-process-scheduling.md) — Linux内核进程调度核心：CFS完全公平调度器的红黑树机制与三种调度策略 — `linux` `kernel` `scheduler` `CFS` `process` `scheduling`
 - [linux-system-v-ipc](concepts/linux-system-v-ipc.md) — System V IPC三大机制：信号量集合、共享内存、消息队列的原理与API — `linux` `ipc` `semaphore` `shared-memory` `message-queue` `system-v`
-- [linux-tracing-frameworks](concepts/linux-tracing-frameworks.md) — 内核追踪四大框架对比：ftrace(静态)/kprobe(动态)/perf(采样)/bpftrace(eBPF) — `linux` `内核` `tracing` `ftrace` `kprobe` `perf`
+- [linux-tracing-frameworks](concepts/linux-tracing-frameworks.md) — 内核追踪框架对比：ftrace(静态)/kprobe(动态)/perf(采样)/bpftrace(eBPF)/dynamic debug(源码级调试打印) — `linux` `内核` `tracing` `ftrace` `kprobe` `perf`
 - [linux-cpu-performance-analysis](concepts/linux-cpu-performance-analysis.md) — CPU性能分析三大场景：perf采样/kvmtop VM-Exit/%ST抢占率 — `linux` `cpu` `性能分析` `虚拟化` `perf`
 - [linux-vmcore-analysis](concepts/linux-vmcore-analysis.md) — vmcore崩溃转储分析：crash工具、x86/ARM64寄存器、task/mm结构体、栈回溯 — `linux` `vmcore` `crash` `崩溃分析` `寄存器`
 - [linux-io-performance-analysis](concepts/linux-io-performance-analysis.md) — IO性能分析：iostat监控/fio压测/dd测速/blktrace追踪/block_dump日志 — `linux` `io` `性能分析` `iostat` `fio`
@@ -70,7 +71,7 @@ updated: 2026-06-13
 - [linux-kernel-tracing](skills/linux-kernel-tracing.md) — 内核追踪实操手册：ftrace函数追踪→kprobe动态探针→perf事件采样→火焰图可视化四类场景 — `linux` `内核` `tracing` `ftrace` `kprobe` `perf` `火焰图`
 - [linux-vmcore-debugging](skills/linux-vmcore-debugging.md) — vmcore崩溃分析实操：crash加载→堆栈回溯→寄存器解读→结构体分析→崩溃类型识别 — `linux` `vmcore` `crash` `崩溃分析` `寄存器` `内核调试`
 - [linux-io-debugging](skills/linux-io-debugging.md) — IO性能排查与压测实操：iostat→fio→dd→blktrace→block_dump四步流程 — `linux` `io` `iostat` `fio` `blktrace` `dd` `性能分析`
-- [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包分析（参数/表达式/实例）+ iperf打流测试 — `linux` `网络` `tcpdump` `iperf` `网络分析`
+- [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包+iperf打流+Bonding调试日志开启 — `linux` `网络` `tcpdump` `iperf` `bonding`
 - [gdb-debugging-guide](skills/gdb-debugging-guide.md) — GDB调试实操速查：断点/观察点/执行控制/内存查看/多线程/多进程/Core Dump/QEMU调试 — `linux` `gdb` `调试` `QEMU` `断点` `观察点`
 
 ## Skills (Linux 虚拟化)

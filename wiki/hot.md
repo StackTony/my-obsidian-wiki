@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-06-13
+updated: 2026-06-15
 ---
 
 # Hot Cache
@@ -9,25 +9,21 @@ updated: 2026-06-13
 
 ## Recent Activity
 
-- [2026-06-13] STRUCTURE — 云原生领域分类显式化：新增k8s-cloud-native-landscape导航页+index.md云原生Concepts从扁平11条重构为3个子标题(K8s核心5条+容器运行时6条+可观测1条)
-- [2026-06-13] STRUCTURE — Linux OS/虚拟化领域分类显式化（之前完成）
-- [2026-06-13] LEARN — Harness Engineering 学习推荐（之前完成）
+- [2026-06-15] INGEST — DFX网络Bonding调试日志：1个新summary页面(kernel-bonding-debug-log)+4个已有页面更新(network-debugging/tracing-frameworks/network-stack/kernel-debugging)，dynamic debug从追踪框架的边缘用法升级为独立对比项
 
 ## Active Threads
 
-- **五大领域landscape全覆盖**：现在有5个导航枢纽页面——Linux OS/虚拟化(linux-os-virtualization-landscape)、云原生(k8s-cloud-native-landscape)、AI Agent(agent-architecture-landscape)、LLM基础设施(llm-infra-landscape)、云原生基础设施三层架构(cloud-native-infrastructure-landscape)
-- **领域间的映射关系网**：Linux→虚拟化(7条)、Linux→云原生(4条 Namespace/Cgroup/OverlayFS/Seccomp)、云原生→AI(K8s编排推理引擎)、容器vs VM(性能vs隔离的两种解)
-- **index.md 五大领域分组**：Linux(OS+虚拟化+DFX)、数据结构与算法、AI(LLM+RAG+Agent+评估+安全+飞轮)、云原生(K8s+容器+可观测)
+- **五大领域landscape全覆盖**：5个导航枢纽页面——Linux OS/虚拟化、云原生、AI Agent、LLM基础设施、云原生基础设施三层架构
+- **DFX工具网络调试维度扩展**：原来只有tcpdump+iperf，现在新增Bonding调试日志（dynamic debug源码级打印），网络调试覆盖从"抓包+打流"到"模块级调试"
+- **追踪框架从四到五**：linux-tracing-frameworks从四大框架(ftrace/kprobe/perf/bpftrace)升级为包含dynamic debug的五框架对比
 
 ## Key Takeaways
 
-- 云原生=Linux内核特性的拼装，4条核心映射：Namespace→容器视图隔离、Cgroup→资源限制(QoS等级)、OverlayFS→镜像层叠、Seccomp+Capabilities→安全防线(PSS)
-- 容器vs VM是"性能vs隔离"的两种解——容器共享内核快但不安全，VM独立内核安全但慢，microVM(Firecracker)尝试两头兼得
-- 云原生3个核心矛盾：共享vs独立内核、声明式vs命令式、服务网格vs不侵入——与Linux虚拟化4个矛盾形成类比映射
-- 云原生与AI的交叉点：K8s编排推理引擎(Deployment→推理部署、Service→推理入口、HPA→弹性伸缩、Prometheus→LLM可观测)
+- Dynamic debug是内核源码级调试打印机制，通过`/sys/kernel/debug/dynamic_debug/control`按文件/函数/模块精确控制`pr_debug()/dev_dbg()`开关，关闭时编译为空操作，开启时仅增加打印开销——比ftrace/kprobe更轻量
+- Bonding调试需要两步配合：先`echo 8 > /proc/sys/kernel/printk`放开日志级别，再通过dynamic debug开启bond_3ad/bond_main源码打印——单独调整printk或单独开启dynamic debug都不会生效
+- 网络调试工具矩阵扩充：tcpdump(抓包) + iperf(打流) + dynamic debug(模块调试)——三种工具覆盖从数据包级到源码级的调试深度
 
 ## Flagged Contradictions
 
 - GraphRAG"以检索为始" vs KAG"以推理为始"——不同范式而非矛盾
 - 3-RAG工程全景与【17】RAG工程全景内容完全相同（同一文件出现在两个路径），不是矛盾而是副本
-- Harness Engineering vs Agent框架工程：两者不是替代而是互补——框架是工具，Harness是方法论+工程体系

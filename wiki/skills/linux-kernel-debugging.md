@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-13
+updated: 2026-06-15
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: uses
@@ -177,6 +177,8 @@ sudo nsenter -t <PID> -i       # 进入目标进程的 IPC namespace
 - **Ftrace**：`echo function_graph > current_tracer` + `echo <func> > set_graph_function` — 函数调用图追踪
 - **[[entities/crash-tool|crash]] 工具**：`crash> struct mutex <addr>` → 解析 mutex 状态、owner、waiter 队列
 - **中断数实时观测**：参考 [[summaries/linux-interrupt-monitoring-script]] 的bash脚本，不依赖额外模块
+- **Dynamic Debug 源码级调试**：通过 `/sys/kernel/debug/dynamic_debug/control` 按文件/函数/模块开关 `pr_debug()/dev_dbg()` 打印，适合排查特定子模块问题（如 Bonding 调试日志：参考 [[summaries/kernel-bonding-debug-log]]）
+- **printk 级别调整**：`echo 8 > /proc/sys/kernel/printk` 放开所有级别日志输出，配合 dynamic debug 或其他内核调试打印使用（临时生效，重启失效）
 
 ## 来源
 

@@ -1936,15 +1936,31 @@
       ],
       "pages_updated": [],
       "note": "Synthesized from existing wiki pages, no raw source file"
+    },
+    "DFX工具/==网络==/内核网络Bonding调试日志.md": {
+      "ingested_at": "2026-06-15",
+      "size_bytes": 2628,
+      "content_hash": "sha256:69254974b58c60de904884661185df4a9959f2dcf34dc85877a61322f99ba556",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/kernel-bonding-debug-log.md"
+      ],
+      "pages_updated": [
+        "skills/linux-network-debugging.md",
+        "concepts/linux-tracing-frameworks.md",
+        "concepts/linux-network-stack.md",
+        "skills/linux-kernel-debugging.md"
+      ]
     }
   },
-  "last_ingest": "2026-06-13",
+  "last_ingest": "2026-06-15",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 167,
-    "total_pages": 102,
+    "total_sources_ingested": 168,
+    "total_pages": 103,
     "total_concepts": 55,
-    "total_summaries": 21,
+    "total_summaries": 22,
     "total_entities": 14,
     "total_skills": 13,
     "total_synthesis": 6

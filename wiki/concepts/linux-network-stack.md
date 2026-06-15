@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-11
+updated: 2026-06-15
 ---
 
 # Linux网络协议栈
@@ -158,6 +158,7 @@ NAPI（New API）是 Linux 网络设备驱动的中断+轮询混合模式：
 
 - eBPF/XDP 在网络栈中的位置——在 skb 创建之前介入，理论上可以跳过大部分协议栈处理。 ^[inferred]
 - TCP拥塞控制算法的选择对协议栈性能的影响，来源中未深入展开。 ^[ambiguous]
+- Bonding（链路聚合）在内核网络栈中的实现位置——bond_main.c 负责主逻辑和状态管理，bond_3ad.c 负责 802.3ad 聚合协议。可通过 dynamic debug 开启调试日志排查聚合异常 ^[inferred]
 
 
 ## 延伸阅读
@@ -170,3 +171,4 @@ NAPI（New API）是 Linux 网络设备驱动的中断+轮询混合模式：
 
 - [[summaries/linux-network-protocol-stack-impl]] — 网络协议栈实现细节
 - [[summaries/linux-softirq-detail]] — NET_RX_SOFTIRQ与NAPI的关系
+- [[summaries/kernel-bonding-debug-log]] — Bonding 调试日志开启方法

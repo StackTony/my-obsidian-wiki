@@ -378,3 +378,12 @@ title: Wiki Log
 - 推荐报告：12篇深度推荐+核心术语表+三层范式对比+跨领域关联
 - 博客下载：15篇成功下载（Self learn/Harness Engineering/），2篇失败（HackMD/BusinessNext SPA防爬）
 - 报告保存：wiki/recommendations/2026-06-13.md
+
+## [2026-06-15] INGEST | DFX工具-网络增量（Bonding调试日志）
+
+- [2026-06-15T10:00] INGEST source="DFX工具/==网络==/内核网络Bonding调试日志.md" pages_created=1 pages_updated=4 mode=append
+  - 新增：summaries/kernel-bonding-debug-log.md — 内核Bonding调试日志开启方法（printk+dynamic debug）
+  - 更新：skills/linux-network-debugging.md — 新增Bonding调试日志实操步骤+常见问题
+  - 更新：concepts/linux-tracing-frameworks.md — 新增dynamic debug作为第五种追踪框架+对比表格+使用示例
+  - 更新：concepts/linux-network-stack.md — 新增Bonding交叉引用+未解问题
+  - 更新：skills/linux-kernel-debugging.md — 新增dynamic debug和printk级别调整进阶用法
