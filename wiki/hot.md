@@ -9,21 +9,24 @@ updated: 2026-06-15
 
 ## Recent Activity
 
-- [2026-06-15] INGEST — DFX网络Bonding调试日志：1个新summary页面(kernel-bonding-debug-log)+4个已有页面更新(network-debugging/tracing-frameworks/network-stack/kernel-debugging)，dynamic debug从追踪框架的边缘用法升级为独立对比项
+- [2026-06-15] LEARN — Harness Engineering 第二次推荐：9篇新博客下载+新概念发现（Meta-Harness/Loop Engineering/CDLC/Context Flywheel）
+- [2026-06-15] INGEST — DFX网络Bonding调试日志：1个新summary+4个已有页面更新，dynamic debug升级为第五追踪框架
+- [2026-06-13] LEARN — Harness Engineering 首次推荐：15篇博客+9章节完整报告
 
 ## Active Threads
 
-- **五大领域landscape全覆盖**：5个导航枢纽页面——Linux OS/虚拟化、云原生、AI Agent、LLM基础设施、云原生基础设施三层架构
-- **DFX工具网络调试维度扩展**：原来只有tcpdump+iperf，现在新增Bonding调试日志（dynamic debug源码级打印），网络调试覆盖从"抓包+打流"到"模块级调试"
-- **追踪框架从四到五**：linux-tracing-frameworks从四大框架(ftrace/kprobe/perf/bpftrace)升级为包含dynamic debug的五框架对比
+- **Harness Engineering 知识从零构建**：Wiki 目前无 Harness Engineering 专门页面，但已收集24篇原始博客（06-13的15篇+06-15的9篇），覆盖起源/原理/架构/实践/学术/生态六个维度
+- **新概念涌现**：Meta-Harness（Databricks Omnigent 06-13发布）、Loop Engineering（MindStudio）、CDLC+Context Flywheel（Tessl/Debois DevOps之父）——Harness Engineering 范式在2026.06仍在快速演进
+- **五大领域landscape全覆盖**：Linux OS/虚拟化、云原生、AI Agent、LLM基础设施、云原生基础设施三层架构
 
 ## Key Takeaways
 
-- Dynamic debug是内核源码级调试打印机制，通过`/sys/kernel/debug/dynamic_debug/control`按文件/函数/模块精确控制`pr_debug()/dev_dbg()`开关，关闭时编译为空操作，开启时仅增加打印开销——比ftrace/kprobe更轻量
-- Bonding调试需要两步配合：先`echo 8 > /proc/sys/kernel/printk`放开日志级别，再通过dynamic debug开启bond_3ad/bond_main源码打印——单独调整printk或单独开启dynamic debug都不会生效
-- 网络调试工具矩阵扩充：tcpdump(抓包) + iperf(打流) + dynamic debug(模块调试)——三种工具覆盖从数据包级到源码级的调试深度
+- **Harness 必要充分条件定义**（arXiv 2606.10106）：四个条件缺一不可——Agent Loop/Tool Interface/Context Management/Control Mechanisms，首次学术级形式化定义
+- **层级演进 Model→Harness→Meta-Harness**：Harness 让模型可互换，Meta-Harness（Omnigent）让 Harness 可组合、可控制、可协作——层级类比：进程→容器→Kubernetes编排
+- **CDLC = Context 的 DevOps**：Patrick Debois（DevOps之父）提出 Context Development Lifecycle（Generate→Evaluate→Distribute→Observe），Context Flywheel 四方向复合回报
+- **Ralph Loop 实践成熟**：AI Hero 11 Tips（prd.json+progress.txt+WhatsApp通知），ralph-wiggum.ai 官方站点+SpecKit工具——从概念到可操作实践
 
 ## Flagged Contradictions
 
 - GraphRAG"以检索为始" vs KAG"以推理为始"——不同范式而非矛盾
-- 3-RAG工程全景与【17】RAG工程全景内容完全相同（同一文件出现在两个路径），不是矛盾而是副本
+- arXiv 论文定义 Harness 必要包含 Control Mechanisms，但部分实践文章（如菜鸟教程）将 Control 作为可选组件——定义 vs 实践的张力

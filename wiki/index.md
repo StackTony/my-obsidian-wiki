@@ -224,4 +224,9 @@ updated: 2026-06-15
 - [k8s-cloud-native-landscape](concepts/k8s-cloud-native-landscape.md) — 云原生5子领域导航枢纽+4条Linux→云原生映射+3个核心矛盾（同时在Concepts中索引） — `云原生` `Kubernetes` `全景图` `导航`
 - [cloud-native-infrastructure-landscape](synthesis/cloud-native-infrastructure-landscape.md) — 云原生三层架构全景：底层Linux内核特性→中间containerd/shim/runc→上层K8s编排+Service Mesh+GitOps+可观测 — `云原生` `Kubernetes` `容器` `全景图` `架构`
 
+## Recommendations (学习推荐)
+
+- [2026-06-15](recommendations/2026-06-15.md) — Harness Engineering 第二次推荐：9篇新博客+Meta-Harness/Loop Engineering/CDLC/Context Flywheel/Ralph Loop实践 — `Harness Engineering` `Agent架构` `Meta-Harness` `Loop Engineering` `上下文工程`
+- [2026-06-13](recommendations/2026-06-13.md) — Harness Engineering 首次推荐：15篇博客+9章节报告+核心术语表 — `Harness Engineering` `Agent架构` `约束系统` `反馈回路` `可靠性`
+
 ## Journal

@@ -815,24 +815,3 @@ Harness Engineering 最值得记住的一点是：
 所以如果非要用一句最短的话来定义它：
 
 > **Harness Engineering，不是让模型更聪明，而是让模型真正可驾驭、可上线、可交付。**
-
----
-
-## 参考阅读
-
-> 下面列的是本文写作时参考过的公开讨论方向。由于相关概念仍在快速演化，建议优先阅读各团队的一手原文与官方仓库。
-
-## 一手资料方向
-
-- Mitchell Hashimoto 关于 AI adoption / harness engineering 的博客讨论
-- OpenAI 关于 Codex / Agent-first / Harness Engineering 的公开文章
-- Anthropic 关于长任务应用开发中的 harness 设计文章
-- `AGENTS.md` 相关官方仓库与社区规范
-
-## 二手解读方向
-
-- Martin Fowler / Thoughtworks 相关分析文章
-- LangChain 团队关于 agent harness 改进的技术分享
-- 中文社区对 Harness Engineering、Context Engineering、AGENTS.md 的工程解读文章
-
-posted on [岚天逸见](https://www.cnblogs.com/aquester) 阅读(6298) 评论(2) 收藏 [举报](https://report.cnblogs.com/?targetLink=https%3A%2F%2Fwww.cnblogs.com%2Faquester%2Fp%2F19791985&targetId=19791985&targetType=0)

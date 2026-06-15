@@ -2,6 +2,9 @@
 
 AI 模型已经能写出 100 万行代码。真正的挑战不再是让它写得更好，而是 **怎么驾驭它稳定、可靠、不失控地工作** 。这套围绕 AI 智能体构建约束、反馈与控制系统的方法论，就是 2026 年初迅速席卷工程圈的新范式—— **Harness Engineering（驾驭工程）** 。
 
+github仓地址：
+https://github.com/deusyu/harness-engineering
+
 ---
 
 ## 一、什么是 Harness Engineering？

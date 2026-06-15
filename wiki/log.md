@@ -379,6 +379,16 @@ title: Wiki Log
 - 博客下载：15篇成功下载（Self learn/Harness Engineering/），2篇失败（HackMD/BusinessNext SPA防爬）
 - 报告保存：wiki/recommendations/2026-06-13.md
 
+## [2026-06-15] LEARN | Harness Engineering 学习推荐（第二次）
+
+- LEARN topic="Harness Engineering" category=原理介绍/技术分析/架构图
+- [2026-06-15T11:10] LEARN 延续06-13推荐，搜索2026.06新内容
+- 新发现：9篇新博客（arXiv学术定义/Meta-Harness/Loop Engineering/Ralph Loop实践/CDLC+Context Flywheel/自定义Harness/SF现场调研/设计师视角）
+- 新概念：Meta-Harness（Databricks Omnigent）、Loop Engineering（MindStudio）、CDLC/Context Flywheel（Tessl/Debois）
+- 博客下载：9篇新增（Self learn/Harness Engineering/），总计24篇
+- 延伸方向更新：1.Harness→Meta-Harness架构演进 2.CDLC×Harness Feedback
+- 报告保存：wiki/recommendations/2026-06-15.md
+
 ## [2026-06-15] INGEST | DFX工具-网络增量（Bonding调试日志）
 
 - [2026-06-15T10:00] INGEST source="DFX工具/==网络==/内核网络Bonding调试日志.md" pages_created=1 pages_updated=4 mode=append
