@@ -5,6 +5,9 @@ tags: [AI, RAG, 检索, 向量库, 知识图谱]
 summary: RAG工程不是"向量检索+大模型生成"这么简单，而是从文档解析到答案评估的完整流水线——准确率更多取决于数据和检索工程
 source_dir: AI 人工智能/Agent架构/RAG/传统RAG
 source_files: [2-RAG 全栈介绍.md, 1-RAG 核心术语速查表.md, RAG 搭建研究.md, 3-RAG 工程全景.md, RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md, RAG 存储技术：文件、元数据、切片、向量.md]
+  # 跨目录补充
+  # source_dir: AI 人工智能/Agent架构/RAG/高级RAG
+  # source_files: [RAG进阶：下一代RAG演进方向.md]
 provenance:
   extracted: 0.70
   inferred: 0.25
@@ -14,7 +17,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-13
+updated: 2026-06-16
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: uses
@@ -171,6 +174,59 @@ Embedding是bi-encoder（query与doc独立编码），Rerank用cross-encoder一�
 
 **Long-context vs 小chunk RAG**：现实答案几乎总是混合——大部分问题走小chunk RAG，少数需全局视角的走长上下文或GraphRAG ^[inferred]。
 
+## 下一代RAG演进方向
+
+基础RAG解决80%问题，但20%难题需要更进阶技术。三大天花板：孤立片段处理不了关联、缺乏深层语义理解、搞不定领域特有关系。
+
+### GraphRAG：用知识图谱把关系显式建出来
+
+**核心做法**：实体抽取 → 关系抽取 → 知识图谱 + 图检索。不仅检索相关Chunk，还检索实体和关系路径。
+
+| 问题类型 | 基础RAG | GraphRAG | 提升 |
+|----------|---------|----------|------|
+| "A和B是什么关系？" | 33% | 71% | +38% |
+| "涉及X的所有法规" | 28% | 75% | +47% |
+| "A→B→C关联路径" | 15% | 68% | +53% |
+| 简单事实问答 | 82% | 85% | +3% |
+
+**务实的起步方式**：先用基础RAG → 找出高频关联推理问题 → 优先构建"小图谱+大检索"混合架构。全量图谱成本很高，不要一开始铺。^[inferred]
+
+### HyDE：让大模型"猜"答案再检索
+
+Query → 大模型生成假答案 → 假答案embedding检索 → 真实文档。假答案包含完整语义描述，更容易命中相关文档。
+
+**适用**：用户问题表述模糊、问法和文档表述差异大。**局限**：多一次大模型调用；模型猜错时检索跑偏。建议HyDE作为混合检索的一路，用RRF融合。^[inferred]
+
+### Self-RAG：让模型自己决定要不要检索
+
+不是所有问题都需要检索。Self-RAG引入Reflection Token：Retrieve（需要检索）、Relevant（检索相关）、Supported（检索支持回答）、Utility（回答有帮助）。
+
+**局限**：需微调模型识别Reflection Token，标准API无法直接实现。
+
+### Code-RAG：代码场景的专门设计
+
+- **Chunk策略**：按函数/类/文件边界切分，整个函数作为最小单位
+- **Embedding模型**：需专门的代码模型（CodeBERT、GraphCodeBERT、Cohere/code）
+- **检索多路并进**：代码语义检索+关键词检索+文档检索+示例检索
+
+### 行业黑话文档RAG
+
+三种解法（建设顺序）：
+1. **术语词典+Query扩展**（最小成本，立即见效）
+2. **知识图谱+术语映射**（与GraphRAG结合最好）
+3. **领域自适应Embedding**（微调，成本高不建议一开始做）
+
+### 多模态RAG
+
+图片→CLIP/BLIP转向量+描述文本双索引；表格→TaBERT提取转结构化文本；视频/音频→Whisper语音转文字+关键帧图像索引。
+
+### 持续关注的方向
+
+- **Agent + RAG**：RAG从被动工具变主动推理组件——质变 ^[inferred]
+- **长上下文RAG**：100K+上下文窗口让RAG形态变化——不再需要激进压缩 ^[inferred]
+- **实时学习RAG**：知识库实时更新、增量学习 ^[inferred]
+- **多模态原生RAG**：从一开始就把文本/图像/音频作为原生输入 ^[inferred]
+
 ## 评估
 
 **两层评估**（底层指标原理见 [[concepts/evaluation-metrics]]）：
@@ -227,3 +283,4 @@ Embedding是bi-encoder（query与doc独立编码），Rerank用cross-encoder一�
 - 3-RAG 工程全景（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
 - RAG 核心工具大全（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
 - RAG 存储技术（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
+- RAG进阶：下一代RAG演进方向（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/）

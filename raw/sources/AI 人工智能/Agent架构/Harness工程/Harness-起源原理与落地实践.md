@@ -1,12 +1,5 @@
 ## 一文读懂 Harness Engineering：起源、原理与落地实践
 
-[社区首页](https://cloud.tencent.com/developer) > [专栏](https://cloud.tencent.com/developer/column) >一文读懂 Harness Engineering：起源、原理与落地实践
-
-## 一文读懂 Harness Engineering：起源、原理与落地实践
-
-2.2K
-
-举报
 
 **前言：你的瓶颈不在模型，在环境**
 
@@ -342,15 +335,3 @@ ThoughtWorks 的 Birgitta Böckeler 有一句被反复引用的话：
 这件事跟写代码的创造力是两条线，它更像系统工程、更像控制论，但同时也是未来几年最能放大个人生产力的技能。
 
 模型质量在快速趋同，GPT、Claude、Grok 的差距会越来越小。但在同一个基线模型下，你设计的文档结构、lint 规则、Hook 脚本、Agent 分工模式——才是真正拉开生产力差距的地方。
-
-本文参与 [腾讯云自媒体同步曝光计划](https://cloud.tencent.com/developer/support-plan) ，分享自微信公众号。
-
-原始发表：2026-05-04，如有侵权请联系 [cloudcommunity@tencent.com](mailto:cloudcommunity@tencent.com) 删除
-
-本文分享自 程序员架构进阶 微信公众号，前往查看
-
-如有侵权，请联系 [cloudcommunity@tencent.com](mailto:cloudcommunity@tencent.com) 删除。
-
-本文参与 [腾讯云自媒体同步曝光计划](https://cloud.tencent.com/developer/support-plan) ，欢迎热爱写作的你一起参与！
-
-目录

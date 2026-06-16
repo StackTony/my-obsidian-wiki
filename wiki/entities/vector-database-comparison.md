@@ -14,6 +14,9 @@ relationships:
     type: related_to
 source_dir: AI 人工智能/AI infra/大模型基础设施工程系列
 source_files: [【大模型基础设施工程】18：向量库与图 RAG.md]
+  # 跨目录补充
+  # source_dir: AI 人工智能/Agent架构/向量数据库
+  # source_files: [HNSW原理实践及阿里云灵积向量检索-博客园.md, 向量数据库是必要之恶，但不是银弹.md]
 summary: 向量库选型核心：HNSW是默认索引（95-99%recall毫秒级），DiskANN解决10B+内存瓶颈，RaBitQ 32x压缩近无损；Milvus/Qdrant/pgvector三强覆盖不同规模；混合检索(dense+sparse+RRF)是生产标配
 provenance:
   extracted: 0.78
@@ -24,7 +27,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-16
 ---
 
 # 向量数据库选型对比
@@ -187,6 +190,49 @@ Microsoft GraphRAG Pipeline：
 
 训练集至少nlist×39样本（理想nlist×50）。必须跨租户/时间/类别分层采样。生产环境季度重训练。
 
+## HNSW原理实践与局限
+
+HNSW由Yury Malkov团队2016年提出，核心思想：**层次化图结构**模拟小世界网络特性——上层稀疏图加速导航（快速定位目标区域），下层稠密图保证精度（精准匹配候选向量）。
+
+### 检索过程
+
+1. **顶层导航**：从入口节点贪心搜索（每次跳转至距离query最近的邻居），逐层向下
+2. **底层精准匹配**：Layer 0扩大候选范围，计算距离，筛选Top-K
+
+**关键参数**：
+- `M`：每层最大连接数（高维D>1024建议20-40）
+- `ef_construction`：索引构建候选数（建议M的2-5倍）
+- `ef_search`：检索候选数（K=10时建议100-150）
+
+### 阿里云灵积DashScope
+
+阿里云灵积提供从向量嵌入→向量数据库→大语言模型的全栈RAG工具链：
+- **text-embedding-v2**：768维向量，中文优化，单条≤100ms
+- **向量数据库服务**：原生支持HNSW索引，可配置M/ef_construction/ef_search
+- **检索调优实践**：实时交互RAG设M=20-30/ef_search=80-120（延迟≤30ms/recall≥95%）；高精度RAG设M=30-40/ef_search=150-300（延迟≤100ms/recall≥98%）
+
+## 向量数据库的局限与务实选型
+
+### 四大局限
+
+| 局限 | 说明 | 影响 |
+|------|------|------|
+| **更新困难** | HNSW的"更新"是标记旧节点失效+重新插入，失效节点积累需周期重建索引 | 重建耗时数十分钟，期间服务性能下降 |
+| **过滤查询弱** | 元数据（时间/分类/状态）和向量语义不在同一频道，只能"先向量检索→再内存过滤" | 高选择性过滤需先召回1000条才能筛出10条 |
+| **精度与性能权衡** | ANN是"近似"，高维(>1024)各维度稀释语义信息 | ef从50升200，精度+4%但搜索时间×2-3 |
+| **运维复杂且贵** | 100万×768维向量内存10-17GB（不是3GB），1亿条约1-1.7TB | 无专职DBA搭高可用集群是挑战 |
+
+### 什么时候普通数据库就够了
+
+| 场景 | 推荐 | 原因 |
+|------|------|------|
+| 精确匹配 | MySQL/PostgreSQL | 一毫秒返回 |
+| 结构化过滤 | Elasticsearch倒排索引 | 原生索引远胜向量库元数据过滤 |
+| 百万级以下 | pgvector/ES dense_vector | 统一系统两种能力 |
+| BM25够用 | Elasticsearch BM25 | 80%场景覆盖，无需Embedding模型 |
+
+**混合检索+场景适配**是比"All in向量数据库"更务实的选择。^[inferred]
+
 ## 成本革命
 
 Turbopuffer模型：对象存储+按查询计费，冷数据在S3，查询时按需加载+LRU缓存。<$1/百万向量/月。Lance、Pinecone Serverless、pgvectorscale都在演进向这个模型。 ^[inferred]
@@ -200,5 +246,7 @@ Turbopuffer模型：对象存储+按查询计费，冷数据在S3，查询时按
 ## 来源
 
 - 【大模型基础设施工程】18 — 向量库与图RAG完整技术解析
+- HNSW原理实践及阿里云灵积向量检索（raw/sources/AI 人工智能/Agent架构/向量数据库/）
+- 向量数据库是必要之恶，但不是银弹（raw/sources/AI 人工智能/Agent架构/向量数据库/）
 - [[concepts/rag-engineering]] — RAG工程全景
 - [[concepts/rag-chunking-strategies]] — 分块策略

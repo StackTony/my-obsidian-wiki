@@ -17,7 +17,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-13
+updated: 2026-06-16
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: derived_from
@@ -100,6 +100,7 @@ Agent的核心挑战不是"让模型更聪明"，而是**让模型在结构化�
 
 ## 延伸阅读
 
+相关概念：[[concepts/harness-engineering]] — Harness Engineering（驾驭工程）：Agent=Model+Harness，四大支柱+六大共识+三阶段路线图——Agent框架工程的上层方法论
 相关概念：[[concepts/data-flywheel]] — 数据飞轮：Agent决策的数据基础正反馈循环
 相关概念：[[concepts/multi-agent-framework-comparison]] — Multi-Agent框架终极对比
 相关概念：[[concepts/agent-security]] — Agent安全与对抗

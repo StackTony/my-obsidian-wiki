@@ -15,12 +15,16 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: core
 created: 2026-06-13
-updated: 2026-06-13
+updated: 2026-06-16
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: related_to
   - target: "[[concepts/agent-framework-engineering]]"
     type: extends
+  - target: "[[concepts/harness-engineering]]"
+    type: related_to
+  - target: "[[entities/claude-code]]"
+    type: related_to
   - target: "[[concepts/rag-engineering]]"
     type: related_to
   - target: "[[concepts/graphrag-engineering]]"
@@ -51,6 +55,7 @@ Agent架构
 │       └── [[concepts/graphrag-engineering|GraphRAG工程]]    — 知识图谱解决全局型问题
 ├── Agent框架
 │   ├── [[concepts/agent-framework-engineering|Agent框架工程]] — 五大支柱+可靠Agent=可观测状态机
+│   ├── [[concepts/harness-engineering|Harness Engineering]]   — Agent=Model+Harness，四大支柱+六大共识+三阶段路线
 │   ├── [[concepts/tool-calling-mcp|工具调用与MCP]]           — JSON Schema+MCP统一工具生态
 │   └── [[concepts/multi-agent-framework-comparison|Multi-Agent对比]] — LangGraph/CrewAI/AutoGen/AgentX
 ├── 评估系统
@@ -62,9 +67,11 @@ Agent架构
 │   └── [[entities/graphify-gitnexus|Graphify vs GitNexus]]  — 认知整合 vs 工程执行
 ├── 数据飞轮
 │   └── [[concepts/data-flywheel|数据飞轮]]                  — 数据与业务正反馈循环
+┬── Agent工具
+│   └── [[entities/claude-code|Claude Code]]                   — 极简while循环+六层记忆+子代理+技能+Hook
 └── LangChain生态
     ├── [[entities/langchain-framework|LangChain框架]]        — Runnable+LCEL统一可执行单元
-    ├── [[entities/langgraph-framework|LangGraph框架]]        — 有向图+状态持久化+循环支持
+    ├── [[entities/langgraph-framework|LangGraph框架]]        — 有向图+状态持久化+完整Memory架构
     └── [[entities/ragas-framework|RAGAS评估框架]]            — RAG量化评估4核心指标
 ```
 

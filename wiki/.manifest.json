@@ -1952,16 +1952,137 @@
         "concepts/linux-network-stack.md",
         "skills/linux-kernel-debugging.md"
       ]
+    },
+    "AI 人工智能/Agent架构/Harness工程/Harness Engineering：AI Agent 时代的工程范式革命.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/harness-engineering.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Harness工程/Harness-从零理解到动手代码实践.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/harness-engineering.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Harness工程/Harness-起源原理与落地实践.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/harness-engineering.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Harness工程/Harness-驾驭工程介绍.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/harness-engineering.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Claude Code/Claude Code 工作原理深度解析：从技术架构到设计哲学.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/claude-code.md"
+      ],
+      "pages_updated": []
+    },
+    "AI 人工智能/Agent架构/Claude Code/Claude Code 使用技巧：从入门到精通.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "entities/claude-code.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Memory记忆/Claude Code-记忆系统设计.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "entities/claude-code.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/RAG/高级RAG/RAG进阶：下一代RAG演进方向.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/rag-engineering.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/向量数据库/HNSW原理实践及阿里云灵积向量检索-博客园.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "entities/vector-database-comparison.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/向量数据库/向量数据库是必要之恶，但不是银弹.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "entities/vector-database-comparison.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Memory记忆/LangGraph-Agent记忆Memory架构.md": {
+      "ingested_at": "2026-06-16",
+      "size_bytes": 0,
+      "content_hash": "sha256:pending-manual-compute",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "entities/langgraph-framework.md"
+      ]
     }
   },
-  "last_ingest": "2026-06-15",
+  "last_ingest": "2026-06-16",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 168,
-    "total_pages": 103,
-    "total_concepts": 55,
+    "total_sources_ingested": 179,
+    "total_pages": 105,
+    "total_concepts": 56,
     "total_summaries": 22,
-    "total_entities": 14,
+    "total_entities": 15,
     "total_skills": 13,
     "total_synthesis": 6
   }

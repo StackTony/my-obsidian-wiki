@@ -391,9 +391,28 @@ title: Wiki Log
 
 ## [2026-06-15] INGEST | DFX工具-网络增量（Bonding调试日志）
 
+- [2026-06-16T11:45] DAILY-UPDATE fresh=155 stale=10 missing=3 index_added=11 index_removed=0 hot_refreshed=false
+
 - [2026-06-15T10:00] INGEST source="DFX工具/==网络==/内核网络Bonding调试日志.md" pages_created=1 pages_updated=4 mode=append
   - 新增：summaries/kernel-bonding-debug-log.md — 内核Bonding调试日志开启方法（printk+dynamic debug）
   - 更新：skills/linux-network-debugging.md — 新增Bonding调试日志实操步骤+常见问题
   - 更新：concepts/linux-tracing-frameworks.md — 新增dynamic debug作为第五种追踪框架+对比表格+使用示例
   - 更新：concepts/linux-network-stack.md — 新增Bonding交叉引用+未解问题
   - 更新：skills/linux-kernel-debugging.md — 新增dynamic debug和printk级别调整进阶用法
+
+## [2026-06-16] INGEST | Harness工程+Claude Code+高级RAG+向量数据库+LangGraph Memory 增量
+
+- INGEST mode=append pages_created=2 pages_updated=5
+- 新建页面（2个）：
+  - concepts/harness-engineering — Harness Engineering（驾驭工程）：Agent=Model+Harness，四大支柱（上下文工程/架构约束/反馈循环/熵管理），六大行业共识，三阶段落地路线图，四大实战案例（OpenAI百万行代码/Anthropic C编译器/LangChain排名30→5/Can Boluk Hashline协议）
+  - entities/claude-code — Claude Code：极简while循环架构(N0引擎)+信任模型哲学+Bash核心工具+六层记忆系统+子代理上下文隔离+技能+Hook+蚂蚁喂养开发哲学
+- 已有页面更新（5个）：
+  - concepts/rag-engineering — 新增"下一代RAG演进方向"章节：GraphRAG+HyDE+Self-RAG+Code-RAG+行业黑话+多模态RAG七大演进方向
+  - entities/vector-database-comparison — 新增"HNSW原理实践与局限"和"向量数据库的局限与务实选型"两大章节：HNSW检索过程+灵积DashScope全栈工具链+四大局限+混合检索务实之选
+  - entities/langgraph-framework — Memory架构从简述扩充为完整分类：短期记忆(Checkpoint+管理长对话3技术)+长期记忆(Store+写入2方式+管理2方式+表示2方式)
+  - concepts/red-black-tree — 更新日期+标记源文件替换
+  - concepts/agent-architecture-landscape — 新增Harness Engineering+Claude Code导航节点+交叉链接
+- 交叉链接更新（2个）：
+  - concepts/agent-framework-engineering — 新增Harness Engineering延伸阅读链接
+  - concepts/agent-architecture-landscape — 新增harness-engineering/claude-code relationships
+- 7个新源文件已登记到 .manifest.json（Harness工程4篇+Claude Code 2篇+记忆系统1篇+高级RAG 1篇+向量数据库2篇+LangGraph Memory 1篇）

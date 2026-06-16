@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-06-15
+updated: 2026-06-16
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-15 (DFX网络Bonding调试日志ingest)*
+*自动维护。上次更新：2026-06-16 (Harness工程+Claude Code+高级RAG+向量数据库+LangGraph Memory 增量ingest)*
 
 ## Summaries (数据结构与算法)
 
@@ -129,17 +129,18 @@ updated: 2026-06-15
 
 ### RAG (检索增强生成)  — 6条（传统RAG 4条 + 高级RAG/GraphRAG 1条 + 向量库选型1条）
 
-- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线，数据质量决定上限；文档解析+Chunking+Embedding(m3e)+混合检索+Rerank+5种高级范式+评估+三阶段落地路径+避坑清单 — `AI` `RAG` `检索` `向量库` `知识图谱`
+- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线+下一代演进方向(GraphRAG/HyDE/Self-RAG/Code-RAG/行业黑话/多模态RAG)，数据质量决定上限；文档解析+Chunking+Embedding(m3e)+混合检索+Rerank+5种高级范式+评估+三阶段落地路径+避坑清单 — `AI` `RAG` `检索` `向量库` `知识图谱`
 - [rag-chunking-strategies](concepts/rag-chunking-strategies.md) — 21种RAG分块策略：基础→结构感知→语义驱动，分块决定检索质量 — `AI` `RAG` `Chunking` `分块` `文本分割`
 - [rag-storage-technology](concepts/rag-storage-technology.md) — RAG存储四层架构：原始文件→元数据→切片(ES)→向量(Milvus/Qdrant/pgvector)，缺一层则功能失能 — `AI` `RAG` `存储` `向量库` `Elasticsearch`
 - [rag-tools-landscape](concepts/rag-tools-landscape.md) — RAG工具链全景：7类解析工具+分块策略+Embedding选型+向量库+重排序——选型先确认瓶颈再选工具 — `AI` `RAG` `工具` `解析` `向量模型`
 - [graphrag-engineering](concepts/graphrag-engineering.md) — GraphRAG用知识图谱解决全局型问题：实体→关系→Leiden社区摘要→全局/局部/DRIFT三种搜索，代价是LLM调用量大 — `AI` `RAG` `知识图谱` `GraphRAG` `社区检测`
-- [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW默认+DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；混合检索是生产标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
+- [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW原理实践+四大局限+灵积DashScope全栈；DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；向量库非银弹，混合检索是务实标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 
-### Agent框架 (智能体/工具调用)  — 4条（含新的landscape导航页面）
+### Agent框架 (智能体/工具调用)  — 5条（含新的landscape导航页面+Harness Engineering）
 
 - [agent-architecture-landscape](concepts/agent-architecture-landscape.md) — Agent架构7个子领域导航枢纽：树状拓扑+4个核心矛盾+子领域连接+LLM基础设施边界 — `AI` `Agent` `RAG` `知识图谱` `全景图`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`
+- [harness-engineering](concepts/harness-engineering.md) — Harness Engineering（驾驭工程）：围绕AI Agent构建约束、反馈回路与执行控制——模型负责推理，Harness负责一切外围工程 — `AI` `Agent架构` `Harness` `约束系统` `工程范式`
 - [tool-calling-mcp](concepts/tool-calling-mcp.md) — 工具调用与MCP：JSON Schema+结构化输出+MCP统一工具生态，协议与安全边界 — `AI` `Agent` `MCP` `Function Call` `工具调用`
 - [multi-agent-framework-comparison](concepts/multi-agent-framework-comparison.md) — 四大Multi-Agent框架对比：LangGraph(可靠)/CrewAI(简单)/AutoGen(灵活)/AgentX(安全) — `AI` `Agent` `LangGraph` `CrewAI` `AutoGen`
 
@@ -163,10 +164,11 @@ updated: 2026-06-15
 - [vllm-sglang-tensorrt](entities/vllm-sglang-tensorrt.md) — 推理引擎四强对比：vLLM生态最强/SGLang延迟最优/TensorRT吞吐最高/TGI最稳 — `AI` `vLLM` `SGLang` `TensorRT-LLM` `推理引擎`
 - [megatron-deepspeed](entities/megatron-deepspeed.md) — Megatron偏高性能内核/DeepSpeed偏显存优化易用性，选型取决于规模拓扑维护能力 — `AI` `Megatron` `DeepSpeed` `训练框架`
 
-### Agent框架  — 2条
+### Agent框架  — 3条
 
 - [langchain-framework](entities/langchain-framework.md) — LangChain框架：Runnable+LCEL统一可执行单元，六大包分离架构 — `AI` `LangChain` `LCEL` `框架`
-- [langgraph-framework](entities/langgraph-framework.md) — LangGraph工作流编排：有向图+状态持久化+循环支持，Agent从自由聊天升级为可观测状态机 — `AI` `LangGraph` `工作流` `状态机` `Agent`
+- [langgraph-framework](entities/langgraph-framework.md) — LangGraph工作流编排：有向图+状态持久化+循环支持+完整Memory架构(短期Checkpoint+长期Store)，Agent从自由聊天升级为可观测状态机 — `AI` `LangGraph` `工作流` `状态机` `Agent`
+- [claude-code](entities/claude-code.md) — Claude Code：Anthropic的AI编程Agent——极简while循环架构+六层记忆系统+子代理上下文隔离+Hook自动化 — `AI` `Claude` `Agent工具` `代码助手` `Anthropic`
 
 ### RAG  — 1条
 
@@ -228,5 +230,15 @@ updated: 2026-06-15
 
 - [2026-06-15](recommendations/2026-06-15.md) — Harness Engineering 第二次推荐：9篇新博客+Meta-Harness/Loop Engineering/CDLC/Context Flywheel/Ralph Loop实践 — `Harness Engineering` `Agent架构` `Meta-Harness` `Loop Engineering` `上下文工程`
 - [2026-06-13](recommendations/2026-06-13.md) — Harness Engineering 首次推荐：15篇博客+9章节报告+核心术语表 — `Harness Engineering` `Agent架构` `约束系统` `反馈回路` `可靠性`
+- [2026-06-12](recommendations/2026-06-12.md) — LangGraph + GraphRAG 学习推荐
+- [2026-05-27](recommendations/2026-05-27.md) — 消息队列 学习推荐
+- [2026-05-26](recommendations/2026-05-26.md) — 消息队列（Kafka/RabbitMQ）
+- [2026-05-22](recommendations/2026-05-22.md) — Linux/Agent 学习推荐
+- [2026-05-21](recommendations/2026-05-21.md) — Agent范式 学习推荐
+- [2026-05-20](recommendations/2026-05-20.md) — Agent范式（ReAct/Human-in-the-loop/幂等性）
+- [2026-05-19](recommendations/2026-05-19.md) — Agent范式 学习推荐
+- [2026-05-18](recommendations/2026-05-18.md) — LangChain/LangGraph 学习推荐
+- [2026-05-16](recommendations/2026-05-16.md) — 云原生 学习推荐
+- [2026-05-15](recommendations/2026-05-15.md) — 大模型基础设施 学习推荐
 
 ## Journal
