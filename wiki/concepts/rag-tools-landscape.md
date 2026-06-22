@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, RAG, 工具, 解析, 向量模型, 重排序]
 summary: RAG工具链全景：7类文档解析工具+分块策略演进+Embedding模型选型+向量库+重排序——选型先确认瓶颈再选工具
 source_dir: AI 人工智能/Agent架构/RAG/传统RAG
-source_files: [RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md]
+source_files: [RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md, RAG 常用框架大全.md]
 provenance:
   extracted: 0.75
   inferred: 0.20
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: supporting
 created: 2026-06-13
-updated: 2026-06-13
+updated: 2026-06-22
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: implements
@@ -104,12 +104,35 @@ RAG效果取决于整条流水线的工具选择——没有单一工具能打�
 
 **三级漏斗**：向量召回Top-200 → ColBERT rescore Top-50 → cross-encoder Top-5
 
+## RAG开源框架对比
+
+7个主流RAG开源框架对比（更新自RAG常用框架大全）：
+
+| 框架 | 关注数 | 核心定位 | 特色 | 适用场景 |
+|------|--------|----------|------|----------|
+| **LangChain** | 86.2k | 通用LLM应用开发框架 | 模块化组件+LangSmith监控+LangServe部署API | 快速原型+灵活组合 |
+| **LlamaIndex** | 32.4k | 上下文增强LLM框架 | 数据连接器+索引/图表构建+高级检索接口 | 数据密集型RAG |
+| **Langchain-Chatchat** | 28.7k | 本地知识库问答 | 中文友好+完全本地化+支持开源模型+可离线 | 中文企业私有部署 |
+| **FastGPT** | 14.2k | 知识库问答+Flow可视化 | 开箱即用数据处理+可视化工作流编排 | 业务人员快速搭建 |
+| **Haystack** | 14.2k | 端到端NLP框架 | 技术不可知论+组件透明+灵活定制 | 研究实验+深度定制 |
+| **QAnything** | 9.9k | 多格式知识库问答 | 两阶段检索(embedding+rerank)+断网可用 | 多格式文档企业QA |
+| **RAGFlow** | 8.8k | 深度文档理解RAG引擎 | 模板化切片+可视化+有理有据引用+多路召回融合重排 | 高精度文档QA |
+
+**选型建议**：
+- 中文私有部署 → Langchain-Chatchat（本地化最成熟）
+- 快速业务搭建 → FastGPT / RAGFlow（可视化低代码）
+- 灵活研究定制 → LangChain / LlamaIndex / Haystack（组件丰富）
+- 多格式深度QA → QAnything / RAGFlow（解析能力强）
+
+^[inferred]
+
 ## 延伸阅读
 
 - [[concepts/rag-engineering]] — RAG工程全景
 - [[concepts/rag-chunking-strategies]] — 分块策略详解
 - [[concepts/rag-storage-technology]] — RAG四层存储架构
 - [[entities/vector-database-comparison]] — 向量库选型深度对比
+- [[concepts/sag-sql-retrieval-augmented-generation]] — SAG（SQL+向量新范式）
 
 ## 来源
 

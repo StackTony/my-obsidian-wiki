@@ -3,7 +3,7 @@ title: 红黑树详解原文摘要
 category: summaries
 tags: [数据结构, 红黑树, AVL, 平衡树]
 source_dir: 数据结构与算法/树
-source_files: [红黑树详解.md]
+source_files: [红黑树讲解.md]
 summary: 红黑树五大性质、与4阶B树等价、12种插入情况、5类删除修复、AVL vs红黑树完整对比原文摘要
 provenance:
   extracted: 0.88
@@ -14,12 +14,12 @@ lifecycle: draft
 lifecycle_changed: 2026-06-11
 tier: supporting
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-06-18
 ---
 
 # 红黑树详解原文摘要
 
-来源：`raw/sources/数据结构与算法/树/红黑树详解.md`
+来源：`raw/sources/数据结构与算法/树/红黑树讲解.md`（原文件红黑树详解.md已替换为红黑树讲解.md）
 
 ## 概述
 

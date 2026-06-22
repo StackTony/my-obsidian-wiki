@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: core
 created: 2026-06-13
-updated: 2026-06-13
+updated: 2026-06-22
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: extends
@@ -169,12 +169,19 @@ GraphRAG不是替代传统RAG，而是**补充**——局部型问题仍然用�
 - GraphRAG"以检索为始"——先建图再检索
 - KAG"以推理为始"——先推理需要什么知识再建图 ^^[ambiguous]
 
+**GraphRAG vs SAG范式差异**：
+- GraphRAG：提前建全局图 → 查询时遍历已有结构
+- SAG：不提前建图 → 查询时用SQL join临时激活局部Hyperedge结构 → 查询结束结构消失
+- SAG在MuSiQue多跳基准上Recall@5=80.0，高于HippoRAG 2的65.1；增量更新只需append记录而非重建全局图 ^[inferred]
+- 详见 [[concepts/sag-sql-retrieval-augmented-generation]]
+
 ## 延伸阅读
 
 - [[concepts/rag-engineering]] — RAG工程全景（GraphRAG是高级范式之一）
 - [[entities/graphify-gitnexus]] — Graphify/GitNexus知识图谱工具对比
 - [[concepts/rag-chunking-strategies]] — 分块策略（GraphRAG的Chunking是第一步）
 - [[concepts/agent-framework-engineering]] — GraphRAG作为Agent的知识基础
+- [[concepts/sag-sql-retrieval-augmented-generation]] — SAG（GraphRAG的SQL替代范式）
 
 ## 来源
 

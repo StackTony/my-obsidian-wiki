@@ -416,3 +416,33 @@ title: Wiki Log
   - concepts/agent-framework-engineering — 新增Harness Engineering延伸阅读链接
   - concepts/agent-architecture-landscape — 新增harness-engineering/claude-code relationships
 - 7个新源文件已登记到 .manifest.json（Harness工程4篇+Claude Code 2篇+记忆系统1篇+高级RAG 1篇+向量数据库2篇+LangGraph Memory 1篇）
+
+- [2026-06-18T15:55] DAILY-UPDATE fresh=167 stale=9 missing=4 index_added=0 hot_refreshed=true
+
+## [2026-06-18] manifest-fix | 4个missing源清理 + 红黑树源文件替换登记
+
+- MANIFEST_FIX missing_resolved=4 pages_updated=3
+- 处理详情：
+  1. `Agent记忆-LangGraph官方-Memory架构.md` → `LangGraph-Agent记忆Memory架构.md`（文件重命名，key+hash更新）
+  2. `RAG Chunk分块策略.md` → 拆分为 `RAG Chunk分块策略-代码示例.md` + `RAG Chunk分块策略-图解.md`（旧key删除，2个新key+hash注册）
+  3. `红黑树详解.md` → `红黑树讲解.md`（源文件替换，key+hash+size更新）
+  4. `_wiki_synthesis/agent-architecture-landscape` — 已有note标记说明非raw源文件，保留不变
+- Wiki页面更新（3个frontmatter修正）：
+  - concepts/red-black-tree.md — source_files: 红黑树详解.md → 红黑树讲解.md + updated日期
+
+## [2026-06-22] INGEST | SAG + RAG常用框架 + 软件工程 + pending-hash修正
+
+- INGEST mode=append pages_created=2 pages_updated=4
+- 新建页面（2个）：
+  - concepts/sag-sql-retrieval-augmented-generation — SAG（SQL检索增强生成）：SQL+向量混合检索替代GraphRAG全局图构建，查询时用SQL join临时激活局部Hyperedge结构，MuSiQue多跳Recall@5达80%
+  - concepts/ood-principles-and-patterns — 面向对象设计原则与模式：六大设计原则+9种架构模式+23种GoF设计模式，软件设计是对"变化"的辩证处理
+- 已有页面更新（4个）：
+  - concepts/graphrag-engineering — 新增SAG作为GraphRAG替代范式对比+延伸阅读链接
+  - concepts/rag-engineering — 新增SAG段落到"下一代RAG演进方向"章节
+  - concepts/rag-tools-landscape — 新增7个RAG开源框架对比表格+RAG常用框架大全来源文件+SAG延伸阅读链接
+  - wiki/index.md — 新增SAG条目(RAG从6→7条)+软件工程新分类+更新摘要描述
+- Manifest修正（10个pending-hash→真实SHA-256）：
+  - Harness工程4篇+Claude Code 2篇+记忆系统1篇+高级RAG 1篇+向量数据库2篇
+- 6个新源文件已登记到 .manifest.json
+  - summaries/red-black-tree-detail.md — source_files + 正文路径引用更新 + updated日期
+  - synthesis/balanced-tree-evolution.md — source_files: 红黑树详解.md → 红黑树讲解.md + updated日期

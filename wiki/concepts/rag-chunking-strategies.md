@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, RAG, Chunking, 分块, 文本分割]
 summary: 21种文本分块策略从基础到前沿：分块是决定RAG系统性能的关键因素——不当的分块直接影响检索质量和生成效果
 source_dir: AI 人工智能/Agent架构/RAG/传统RAG
-source_files: [RAG Chunk分块策略.md, RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md, RAG Chunk分块策略-图解.md, RAG Chunk分块策略-代码示例.md]
+source_files: [RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md, RAG Chunk分块策略-图解.md, RAG Chunk分块策略-代码示例.md]
 provenance:
   extracted: 0.70
   inferred: 0.25
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-13
+updated: 2026-06-18
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: uses

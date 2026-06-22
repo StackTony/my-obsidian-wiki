@@ -875,17 +875,6 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Memory记忆/Agent记忆-LangGraph官方-Memory架构.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 26722,
-      "content_hash": "sha256:9d21a15732a998bf00d57f4c598d9038e24345fab1871f55981c213cd0e551bf",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [],
-      "pages_updated": [
-        "entities/langgraph-framework.md"
-      ]
-    },
     "AI 人工智能/Agent架构/RAG/传统RAG/1-RAG 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 9927,
@@ -918,17 +907,6 @@
       "pages_updated": [
         "concepts/rag-engineering.md"
       ]
-    },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 37101,
-      "content_hash": "sha256:4461e3280d213cefdd671be2a17098a08a6977167697cbd4d27b65ac65ff96b9",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [
-        "concepts/rag-chunking-strategies.md"
-      ],
-      "pages_updated": []
     },
     "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
       "ingested_at": "2026-06-02",
@@ -1685,18 +1663,6 @@
       ],
       "pages_updated": []
     },
-    "数据结构与算法/树/红黑树详解.md": {
-      "ingested_at": "2026-06-11",
-      "size_bytes": 37606,
-      "content_hash": "sha256:940de1780c4dbd7395743a8c5a81733a0394334897d0b5024bb5fdb798c59f6c",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [
-        "concepts/red-black-tree.md",
-        "summaries/red-black-tree-detail.md"
-      ],
-      "pages_updated": []
-    },
     "数据结构与算法/树/AVL树、红黑树以及B树介绍.md": {
       "ingested_at": "2026-06-11",
       "size_bytes": 10396,
@@ -1834,26 +1800,28 @@
       ]
     },
     "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略-图解.md": {
-      "ingested_at": "2026-06-13",
+      "ingested_at": "2026-06-18",
       "size_bytes": 16083,
       "content_hash": "sha256:1482e4d15a18a904681696456309d9b52fd222f6809a2e09c9f9c296317ecc15",
       "source_type": "document",
       "project": null,
-      "pages_created": [],
-      "pages_updated": [
+      "pages_created": [
         "concepts/rag-chunking-strategies.md"
-      ]
+      ],
+      "pages_updated": [],
+      "note": "Split from RAG Chunk分块策略.md (diagrams portion)"
     },
     "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略-代码示例.md": {
-      "ingested_at": "2026-06-13",
+      "ingested_at": "2026-06-18",
       "size_bytes": 36156,
       "content_hash": "sha256:37c40ee5f9bf8964e87dc3ba3b4708af71add020f0273c2d16c0c1a37c7336e4",
       "source_type": "document",
       "project": null,
-      "pages_created": [],
-      "pages_updated": [
+      "pages_created": [
         "concepts/rag-chunking-strategies.md"
-      ]
+      ],
+      "pages_updated": [],
+      "note": "Split from RAG Chunk分块策略.md (code examples portion)"
     },
     "AI 人工智能/Agent架构/RAG/传统RAG/RAG 存储技术：文件、元数据、切片、向量.md": {
       "ingested_at": "2026-06-13",
@@ -1955,8 +1923,8 @@
     },
     "AI 人工智能/Agent架构/Harness工程/Harness Engineering：AI Agent 时代的工程范式革命.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 13799,
+      "content_hash": "sha256:f96fb10c9e8154446e8501d08d26a7415bcbcc95e968d963a73ec4518684b4b2",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1966,8 +1934,8 @@
     },
     "AI 人工智能/Agent架构/Harness工程/Harness-从零理解到动手代码实践.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 23726,
+      "content_hash": "sha256:6cb0b3a83ab7c84163880764dfff4d6bddcface53329acf844e322f2f986f572",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -1977,8 +1945,8 @@
     },
     "AI 人工智能/Agent架构/Harness工程/Harness-起源原理与落地实践.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 22655,
+      "content_hash": "sha256:daa4da3cbf9733acda7d2d2473ff7709830892565e8b75537247ded4c5622bdd",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -1988,8 +1956,8 @@
     },
     "AI 人工智能/Agent架构/Harness工程/Harness-驾驭工程介绍.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 17794,
+      "content_hash": "sha256:967c4932c04c2930eaa8a30f161f6fdbf34a831dca99d9bea78f442e5d7d12ef",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -1999,8 +1967,8 @@
     },
     "AI 人工智能/Agent架构/Claude Code/Claude Code 工作原理深度解析：从技术架构到设计哲学.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 17584,
+      "content_hash": "sha256:f42173fe6d7f7149dacb6a55e1993c196f277cbdf08402c1148abcc434829368",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2010,8 +1978,8 @@
     },
     "AI 人工智能/Agent架构/Claude Code/Claude Code 使用技巧：从入门到精通.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 11944,
+      "content_hash": "sha256:00abd9c549f097d9ee4565b7e35492faf0ce988bfb4c7becf5116741d4bd31fe",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -2021,8 +1989,8 @@
     },
     "AI 人工智能/Agent架构/Memory记忆/Claude Code-记忆系统设计.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 8605,
+      "content_hash": "sha256:8dccea2e7ba60410c944cb225f42e5e6fa4fe76453110577332890e2de83da0a",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -2032,8 +2000,8 @@
     },
     "AI 人工智能/Agent架构/RAG/高级RAG/RAG进阶：下一代RAG演进方向.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 10506,
+      "content_hash": "sha256:3b911913f0cdb36d0e7593a10d9aaed11accf0e461429fccfd58fa460ee59d9d",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -2043,8 +2011,8 @@
     },
     "AI 人工智能/Agent架构/向量数据库/HNSW原理实践及阿里云灵积向量检索-博客园.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 26010,
+      "content_hash": "sha256:27230b8e7a6ff7873f289c8398e1d2875ed94fa919b75950576a16c19b5d2ce2",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -2054,8 +2022,8 @@
     },
     "AI 人工智能/Agent架构/向量数据库/向量数据库是必要之恶，但不是银弹.md": {
       "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "size_bytes": 15759,
+      "content_hash": "sha256:33a685f00ecc6d2b84dbcb4a7a6260d6ae4ca8e27a207d059f4016ea4f822581",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -2064,23 +2032,106 @@
       ]
     },
     "AI 人工智能/Agent架构/Memory记忆/LangGraph-Agent记忆Memory架构.md": {
-      "ingested_at": "2026-06-16",
-      "size_bytes": 0,
-      "content_hash": "sha256:pending-manual-compute",
+      "ingested_at": "2026-06-18",
+      "size_bytes": 26370,
+      "content_hash": "sha256:4e62dda84a4d88e41f55a29dbd0d6d3b51b72a9d3284b09d815f43eeffa479a4",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "entities/langgraph-framework.md"
+      ],
+      "note": "File renamed from Agent记忆-LangGraph官方-Memory架构.md"
+    },
+    "数据结构与算法/树/红黑树讲解.md": {
+      "ingested_at": "2026-06-18",
+      "size_bytes": 36407,
+      "content_hash": "sha256:27d036c9981a81fed762fe2a7dc4401825ef2f3b97efba6e6ff3139e0ea31be2",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/red-black-tree.md",
+        "summaries/red-black-tree-detail.md"
+      ],
+      "pages_updated": [],
+      "note": "Source file replaced: 红黑树详解.md → 红黑树讲解.md (content updated)"
+    },
+    "AI 人工智能/Agent架构/RAG/高级RAG/SAG/SAG 核心思路介绍（利用SQL构建查询时的Hyperedge超边）.md": {
+      "ingested_at": "2026-06-22",
+      "size_bytes": 6503,
+      "content_hash": "sha256:04dc96e37df3a53a37f02b79f9d22310b2b1c22f71d069f32b86b50671965a2b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/sag-sql-retrieval-augmented-generation.md"
+      ],
+      "pages_updated": [
+        "concepts/graphrag-engineering.md",
+        "concepts/rag-engineering.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/RAG/高级RAG/SAG/Zleap技术解密：后RAG时代已来，SAG重新定义AI搜索.md": {
+      "ingested_at": "2026-06-22",
+      "size_bytes": 11681,
+      "content_hash": "sha256:7ba542ab7cfa69fc419b41fb05be42821c798b890c5c2479e61b8a3e75894992",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/sag-sql-retrieval-augmented-generation.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/RAG/传统RAG/RAG 常用框架大全.md": {
+      "ingested_at": "2026-06-22",
+      "size_bytes": 13826,
+      "content_hash": "sha256:2b7ad1de6d6fc200db417628fbd74f2e2293e46ffeb4e707c9d039fa3c92cf7a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/rag-tools-landscape.md"
+      ]
+    },
+    "软件工程/设计原则.md": {
+      "ingested_at": "2026-06-22",
+      "size_bytes": 4245,
+      "content_hash": "sha256:f0771a0d0bd7f87b601e195e9bc3669793b55a8bab9da2e1bb770703bc1a0f5b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/ood-principles-and-patterns.md"
+      ],
+      "pages_updated": []
+    },
+    "软件工程/设计框架.md": {
+      "ingested_at": "2026-06-22",
+      "size_bytes": 6374,
+      "content_hash": "sha256:eada7ce01082546c575ac16947627bf0b149133f5ebef7910561387e8b499563",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/ood-principles-and-patterns.md"
+      ]
+    },
+    "软件工程/设计模式.md": {
+      "ingested_at": "2026-06-22",
+      "size_bytes": 9710,
+      "content_hash": "sha256:9a22ca1b8b6f7a6caceb2365c8be98f47ad0f12bb1bac2a4ee7d6a8119e4c415",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/ood-principles-and-patterns.md"
       ]
     }
   },
-  "last_ingest": "2026-06-16",
+  "last_ingest": "2026-06-22",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 179,
-    "total_pages": 105,
-    "total_concepts": 56,
+    "total_sources_ingested": 184,
+    "total_pages": 107,
+    "total_concepts": 58,
     "total_summaries": 22,
     "total_entities": 15,
     "total_skills": 13,

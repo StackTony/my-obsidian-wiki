@@ -3,7 +3,7 @@ title: 平衡树演进路线与选型
 category: synthesis
 tags: [数据结构, 平衡树, BST, AVL, 红黑树, B树]
 source_dir: 数据结构与算法/树
-source_files: [红黑树详解.md, AVL树、红黑树以及B树介绍.md, 二叉树基础.md]
+source_files: [红黑树讲解.md, AVL树、红黑树以及B树介绍.md, 二叉树基础.md]
 summary: 从BST到AVL到红黑树到B/B+树的平衡策略演进：严格平衡→弱平衡→多路矮胖，每种放松换取不同场景的性能收益
 provenance:
   extracted: 0.55
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-11
 tier: supporting
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-06-18
 relationships:
   - target: "[[concepts/binary-tree-basics]]"
     type: extends

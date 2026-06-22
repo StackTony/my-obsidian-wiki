@@ -17,7 +17,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-16
+updated: 2026-06-22
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: uses
@@ -219,6 +219,12 @@ Query → 大模型生成假答案 → 假答案embedding检索 → 真实文档
 ### 多模态RAG
 
 图片→CLIP/BLIP转向量+描述文本双索引；表格→TaBERT提取转结构化文本；视频/音频→Whisper语音转文字+关键帧图像索引。
+
+### SAG：用SQL替代全局图构建
+
+SAG（SQL-Retrieval Augmented Generation）是GraphRAG的替代范式：不提前建全局图，而是在查询时用SQL join临时激活局部Hyperedge结构。新数据来了只需append event/entity记录，不需要重建全局图。在MuSiQue多跳基准上Recall@5=80.0（HippoRAG 2仅65.1）。
+
+**关键区别**：GraphRAG问"图怎么建得更大"，SAG问"哪些结构可以查询时再临时生成"。详见 [[concepts/sag-sql-retrieval-augmented-generation]]。
 
 ### 持续关注的方向
 

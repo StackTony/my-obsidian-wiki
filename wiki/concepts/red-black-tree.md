@@ -3,8 +3,7 @@ title: 红黑树
 category: concepts
 tags: [数据结构, 红黑树, AVL, 平衡树, B树]
 source_dir: 数据结构与算法/树
-source_files: [红黑树详解.md, AVL树、红黑树以及B树介绍.md]
-  # 注意：红黑树详解.md已被红黑树讲解.md替换（同一内容的不同版本），wiki内容已覆盖
+source_files: [红黑树讲解.md, AVL树、红黑树以及B树介绍.md]
 summary: 红黑树五大性质、与4阶B树等价性、12种插入+5类删除修复策略、AVL vs红黑树选型指南
 provenance:
   extracted: 0.80
@@ -15,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-11
 tier: supporting
 created: 2026-06-11
-updated: 2026-06-16
+updated: 2026-06-18
 relationships:
   - target: "[[concepts/binary-tree-basics]]"
     type: extends

@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-06-16
+updated: 2026-06-22
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-16 (Harness工程+Claude Code+高级RAG+向量数据库+LangGraph Memory 增量ingest)*
+*自动维护。上次更新：2026-06-22 (SAG+RAG常用框架+软件工程+pending-hash修正)*
 
 ## Summaries (数据结构与算法)
 
@@ -99,6 +99,10 @@ updated: 2026-06-16
 - [mq-selection-comparison](concepts/mq-selection-comparison.md) — 三大MQ选型对比：Kafka(高吞吐低可靠)/RocketMQ(高可靠事务)/RabbitMQ(低延迟灵活路由) — `消息队列` `Kafka` `RocketMQ` `RabbitMQ` `选型`
 - [zero-copy-memory-mapping](concepts/zero-copy-memory-mapping.md) — 零拷贝工具组：sendfile/splice/mmap/io_uring/DPDK各自解决不同瓶颈，选型先确认瓶颈再选工具 — `零拷贝` `sendfile` `mmap` `io_uring` `DPDK` `性能优化`
 
+## Concepts (软件工程)
+
+- [ood-principles-and-patterns](concepts/ood-principles-and-patterns.md) — 软件设计是对"变化"的辩证处理——六大设计原则（面向接口/依赖倒置/组合优于继承/SRP/OCP/LSP）+9种架构模式+23种GoF设计模式 — `软件工程` `设计原则` `设计模式` `OOP` `架构`
+
 ## Skills (数据结构与算法)
 
 - [graph-algorithm-learning-path](skills/graph-algorithm-learning-path.md) — 图论算法从入门到进阶的学习路线、代码模板清单和经典模型映射 — `数据结构` `图论` `学习路线` `算法`
@@ -127,13 +131,14 @@ updated: 2026-06-16
 - [llm-gateway](concepts/llm-gateway.md) — 大模型网关：多供应商路由/配额/计费/语义缓存/Guardrails/可观测的统一入口 — `AI` `LLM` `网关` `LiteLLM` `路由`
 - [llm-observability](concepts/llm-observability.md) — LLM可观测性：性能/语义质量/成本三维观测，Langfuse/OpenLLMetry — `AI` `LLM` `可观测` `Langfuse` `OpenTelemetry`
 
-### RAG (检索增强生成)  — 6条（传统RAG 4条 + 高级RAG/GraphRAG 1条 + 向量库选型1条）
+### RAG (检索增强生成)  — 7条（传统RAG 4条 + 高级RAG/GraphRAG 1条 + SAG 1条 + 向量库选型1条）
 
-- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线+下一代演进方向(GraphRAG/HyDE/Self-RAG/Code-RAG/行业黑话/多模态RAG)，数据质量决定上限；文档解析+Chunking+Embedding(m3e)+混合检索+Rerank+5种高级范式+评估+三阶段落地路径+避坑清单 — `AI` `RAG` `检索` `向量库` `知识图谱`
+- [rag-engineering](concepts/rag-engineering.md) — RAG工程全景：从文档解析到答案评估的完整流水线+下一代演进方向(GraphRAG/HyDE/Self-RAG/Code-RAG/行业黑话/多模态RAG/SAG)，数据质量决定上限；文档解析+Chunking+Embedding(m3e)+混合检索+Rerank+5种高级范式+评估+三阶段落地路径+避坑清单 — `AI` `RAG` `检索` `向量库` `知识图谱`
 - [rag-chunking-strategies](concepts/rag-chunking-strategies.md) — 21种RAG分块策略：基础→结构感知→语义驱动，分块决定检索质量 — `AI` `RAG` `Chunking` `分块` `文本分割`
 - [rag-storage-technology](concepts/rag-storage-technology.md) — RAG存储四层架构：原始文件→元数据→切片(ES)→向量(Milvus/Qdrant/pgvector)，缺一层则功能失能 — `AI` `RAG` `存储` `向量库` `Elasticsearch`
-- [rag-tools-landscape](concepts/rag-tools-landscape.md) — RAG工具链全景：7类解析工具+分块策略+Embedding选型+向量库+重排序——选型先确认瓶颈再选工具 — `AI` `RAG` `工具` `解析` `向量模型`
+- [rag-tools-landscape](concepts/rag-tools-landscape.md) — RAG工具链全景：7类解析工具+分块策略+Embedding选型+向量库+重排序+7个RAG开源框架对比——选型先确认瓶颈再选工具 — `AI` `RAG` `工具` `解析` `向量模型`
 - [graphrag-engineering](concepts/graphrag-engineering.md) — GraphRAG用知识图谱解决全局型问题：实体→关系→Leiden社区摘要→全局/局部/DRIFT三种搜索，代价是LLM调用量大 — `AI` `RAG` `知识图谱` `GraphRAG` `社区检测`
+- [sag-sql-retrieval-augmented-generation](concepts/sag-sql-retrieval-augmented-generation.md) — SAG用SQL+向量混合检索替代GraphRAG全局图构建——查询时用SQL join临时激活局部Hyperedge结构，多跳Recall@5达80% — `AI` `RAG` `SAG` `SQL` `Hyperedge`
 - [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW原理实践+四大局限+灵积DashScope全栈；DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；向量库非银弹，混合检索是务实标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 
 ### Agent框架 (智能体/工具调用)  — 5条（含新的landscape导航页面+Harness Engineering）
