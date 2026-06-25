@@ -35,6 +35,15 @@ id: card-mpq7inrk
 调用一次rag结果与llm wiki结果比对直到差异很小？
 Hermes Agent
 
+### 2026-06-25 备忘录
+id: card-mqtel7ld
+我需要做一个分流器，根据用户输入的问题复杂程度，选择传统RAG、SAG、GraphRAG还是LLM
+wiki来回答用户问题
+
+### 2026-06-25 备忘录
+id: card-mqtelu8l
+我需要做一个任务调度器，实现对AI算力的削峰填谷，比如将不紧急的任务放到夜间执行
+
 ## 事项跟踪
 
 ### 今日任务
