@@ -17,7 +17,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-16
+updated: 2026-06-27
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: derived_from
@@ -31,6 +31,10 @@ relationships:
     type: uses
   - target: "[[concepts/multi-agent-framework-comparison]]"
     type: extends
+  - target: "[[concepts/multi-agent-orchestration]]"
+    type: extends
+  - target: "[[entities/oh-my-opencode]]"
+    type: related_to
 ---
 
 # Agent框架工程
@@ -98,13 +102,30 @@ Agent的核心挑战不是"让模型更聪明"，而是**让模型在结构化�
 
 生产环境最常用LangGraph——可靠性+可调试性是第一优先。 ^[inferred]
 
+## Multi-Agent协同编排
+
+详见 [[concepts/multi-agent-orchestration]] 的编排设计模式提炼。
+
+超越框架选择的层面，Multi-Agent编排遵循7个核心设计模式：
+1. **角色分化与工具隔离** — 不同认知任务需要不同模型能力和工具权限
+2. **主编排+子执行分层** — 编排者判断"让谁做"，而非"自己做得更好"
+3. **双轨主Agent哲学** — 编排型（委派优先）vs 自主型（禁止询问），行为模式切换比参数微调更可靠 ^[inferred]
+4. **证据驱动完成标准** — File edit→lsp_diagnostics clean、Build→exit code 0，NO EVIDENCE=NOT COMPLETE
+5. **并发控制与防递归委派** — 三级粒度并发+禁止子agent委派新task
+6. **completion_promise自动续跑** — 用户定义"完成"，双通道检测，Loop Engineering的具体实现 ^[inferred]
+7. **AgentPromptMetadata自描述** — 开放-封闭原则，新agent自动融入编排
+
+[[entities/oh-my-opencode|Oh My OpenCode]] 是这些设计模式的杰出实践案例。
+
 ## 延伸阅读
 
 相关概念：[[concepts/harness-engineering]] — Harness Engineering（驾驭工程）：Agent=Model+Harness，四大支柱+六大共识+三阶段路线图——Agent框架工程的上层方法论
 相关概念：[[concepts/data-flywheel]] — 数据飞轮：Agent决策的数据基础正反馈循环
 相关概念：[[concepts/multi-agent-framework-comparison]] — Multi-Agent框架终极对比
+相关概念：[[concepts/multi-agent-orchestration]] — Multi-Agent协同编排设计模式
 相关概念：[[concepts/agent-security]] — Agent安全与对抗
 相关实体：[[entities/graphify-gitnexus]]
+相关实体：[[entities/oh-my-opencode]] — Multi-Agent编排实践案例
 
 ## 来源
 

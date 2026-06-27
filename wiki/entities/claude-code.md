@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-16
 tier: core
 created: 2026-06-16
-updated: 2026-06-16
+updated: 2026-06-27
 summary: Claude Code是Anthropic的AI编程Agent——极简while循环架构而非复杂DAG、Bash作为核心工具、六层记忆系统、子代理上下文隔离、Hook自动化
 relationships:
   - target: "[[concepts/harness-engineering]]"
@@ -23,6 +23,8 @@ relationships:
     type: related_to
   - target: "[[concepts/agent-framework-engineering]]"
     type: uses
+  - target: "[[entities/oh-my-opencode]]"
+    type: related_to
 ---
 
 # Claude Code
@@ -157,6 +159,12 @@ Hooks在特定事件发生时执行自定义脚本——安全确认、代码质
 | 记忆层级 | 6层（Agent→Auto→Local→Project→User→Managed） |
 | 上下文压缩阈值 | 92% |
 | 并行工作 | Worktree + Fork Session |
+
+## 与 Oh My OpenCode 的关系
+
+[[entities/oh-my-opencode|Oh My OpenCode]] 是 OpenCode 的超级插件，提供了完整的 Claude Code 兼容层——能加载 Claude Code 的 commands、agents、MCP servers、plugins、skills、hooks，让用户零成本迁移。OMO 在 Claude Code 单 agent 基础上扩展了多 agent 编排能力（11个希腊神话命名 agent、Ralph Loop 自动续跑、Hashline Edit 防幻觉）。
+
+两者不是竞争关系而是互补：Claude Code 是单 agent 深度执行的工具，OMO 是在类似工具（OpenCode）上叠加多 agent 编排层。 ^[inferred]
 
 ## 来源
 

@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-16
 tier: core
 created: 2026-06-16
-updated: 2026-06-16
+updated: 2026-06-27
 summary: Harness Engineering是围绕AI Agent构建约束、反馈回路与执行控制的工程方法——模型负责推理，Harness负责一切外围工程：工具系统、上下文管理、权限控制、反馈回路、状态持久化
 relationships:
   - target: "[[concepts/agent-framework-engineering]]"
@@ -23,7 +23,7 @@ relationships:
     type: uses
   - target: "[[entities/claude-code]]"
     type: uses
-  - target: "[[concepts/agent-architecture-landscape]]"
+  - target: "[[entities/oh-my-opencode]]"
     type: related_to
 ---
 
@@ -133,6 +133,19 @@ AI 复制坏模式的速度是指数级的。**集中清理模式已失效**—�
 ### Can Boluk：Hashline协议
 
 给每行代码加内容哈希标签，模型引用标签而非精确匹配原文。Grok Code Fast 1 从 6.7% → 68.3%，Grok 4 Fast 输出token降61%。**训练成本为零**。
+
+### Oh My OpenCode：Multi-Agent编排的Harness实现
+
+[[entities/oh-my-opencode|Oh My OpenCode]]（OMO）是 Harness Engineering 的杰出实践案例——它不是框架而是插件，但把 Harness 四大支柱全部落地：
+
+| Harness 支柱 | OMO 实现 | 说明 |
+|--------------|----------|------|
+| **上下文工程** | Context Injector（4级优先级）+ `synthetic: true` 隐藏注入 | agent 可见、用户不可见的上下文管理 |
+| **架构约束** | 工具权限矩阵 + Prometheus `md-only` hook + Hephaestus FORBIDDEN 指令 | 机械化约束——顾问不能动手、规划不能写代码、执行不能询问 |
+| **反馈循环** | Ralph Loop completion_promise + 双通道完成检测 + 证据驱动完成标准 | 用户定义"完成"，工具验证证据，自动化反馈闭环 |
+| **熵管理** | preemptive-compaction + Hashline Edit 防幻觉 + settled-flag 防竞态 | 防止上下文腐烂、防止基于过时内容编辑、防止并发竞态 |
+
+特别值得注意的是 Ralph Loop——这正是 [[concepts/multi-agent-orchestration|Loop Engineering]] 的具体实现：agent 停了自动踢一脚继续干，completion_promise 让多次运行自主可控。 ^[inferred]
 
 ## 六大行业共识
 

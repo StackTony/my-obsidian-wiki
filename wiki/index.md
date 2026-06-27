@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-06-22
+updated: 2026-06-27
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-22 (SAG+RAG常用框架+软件工程+pending-hash修正)*
+*自动维护。上次更新：2026-06-27 (Multi-Agent协同 Ingest)*
 
 ## Summaries (数据结构与算法)
 
@@ -141,13 +141,14 @@ updated: 2026-06-22
 - [sag-sql-retrieval-augmented-generation](concepts/sag-sql-retrieval-augmented-generation.md) — SAG用SQL+向量混合检索替代GraphRAG全局图构建——查询时用SQL join临时激活局部Hyperedge结构，多跳Recall@5达80% — `AI` `RAG` `SAG` `SQL` `Hyperedge`
 - [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW原理实践+四大局限+灵积DashScope全栈；DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；向量库非银弹，混合检索是务实标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 
-### Agent框架 (智能体/工具调用)  — 5条（含新的landscape导航页面+Harness Engineering）
+### Agent框架 (智能体/工具调用)  — 7条（含landscape导航页面+Harness Engineering+Multi-Agent编排+OMO）
 
 - [agent-architecture-landscape](concepts/agent-architecture-landscape.md) — Agent架构7个子领域导航枢纽：树状拓扑+4个核心矛盾+子领域连接+LLM基础设施边界 — `AI` `Agent` `RAG` `知识图谱` `全景图`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`
 - [harness-engineering](concepts/harness-engineering.md) — Harness Engineering（驾驭工程）：围绕AI Agent构建约束、反馈回路与执行控制——模型负责推理，Harness负责一切外围工程 — `AI` `Agent架构` `Harness` `约束系统` `工程范式`
 - [tool-calling-mcp](concepts/tool-calling-mcp.md) — 工具调用与MCP：JSON Schema+结构化输出+MCP统一工具生态，协议与安全边界 — `AI` `Agent` `MCP` `Function Call` `工具调用`
 - [multi-agent-framework-comparison](concepts/multi-agent-framework-comparison.md) — 四大Multi-Agent框架对比：LangGraph(可靠)/CrewAI(简单)/AutoGen(灵活)/AgentX(安全) — `AI` `Agent` `LangGraph` `CrewAI` `AutoGen`
+- [multi-agent-orchestration](concepts/multi-agent-orchestration.md) — Multi-Agent协同编排7个设计模式：角色分化+工具隔离、主编排+子执行、双轨主Agent、证据完成、并发防递归、completion_promise续跑、AgentPromptMetadata自描述 — `AI` `Agent` `Multi-Agent` `编排` `协同`
 
 ### 评估系统 (评测/指标)  — 2条
 
@@ -169,11 +170,12 @@ updated: 2026-06-22
 - [vllm-sglang-tensorrt](entities/vllm-sglang-tensorrt.md) — 推理引擎四强对比：vLLM生态最强/SGLang延迟最优/TensorRT吞吐最高/TGI最稳 — `AI` `vLLM` `SGLang` `TensorRT-LLM` `推理引擎`
 - [megatron-deepspeed](entities/megatron-deepspeed.md) — Megatron偏高性能内核/DeepSpeed偏显存优化易用性，选型取决于规模拓扑维护能力 — `AI` `Megatron` `DeepSpeed` `训练框架`
 
-### Agent框架  — 3条
+### Agent框架  — 4条
 
 - [langchain-framework](entities/langchain-framework.md) — LangChain框架：Runnable+LCEL统一可执行单元，六大包分离架构 — `AI` `LangChain` `LCEL` `框架`
 - [langgraph-framework](entities/langgraph-framework.md) — LangGraph工作流编排：有向图+状态持久化+循环支持+完整Memory架构(短期Checkpoint+长期Store)，Agent从自由聊天升级为可观测状态机 — `AI` `LangGraph` `工作流` `状态机` `Agent`
 - [claude-code](entities/claude-code.md) — Claude Code：Anthropic的AI编程Agent——极简while循环架构+六层记忆系统+子代理上下文隔离+Hook自动化 — `AI` `Claude` `Agent工具` `代码助手` `Anthropic`
+- [oh-my-opencode](entities/oh-my-opencode.md) — Oh My OpenCode：OpenCode超级插件——11个希腊神话命名agent编排+Ralph Loop自动续跑+Hashline Edit防幻觉+三级并发+Claude Code兼容层 — `AI` `Agent` `Multi-Agent` `OpenCode` `编排`
 
 ### RAG  — 1条
 
@@ -233,6 +235,7 @@ updated: 2026-06-22
 
 ## Recommendations (学习推荐)
 
+- [2026-06-25](recommendations/2026-06-25.md) — Loop Engineering 学习推荐：12篇深度推荐+3篇博客下载+五要素/四代演进/Loopcraft/Salty Lesson/验证器瓶颈/Hill Climbing Loop — `Loop Engineering` `循环工程` `Agent架构` `验证器瓶颈` `Loopcraft`
 - [2026-06-15](recommendations/2026-06-15.md) — Harness Engineering 第二次推荐：9篇新博客+Meta-Harness/Loop Engineering/CDLC/Context Flywheel/Ralph Loop实践 — `Harness Engineering` `Agent架构` `Meta-Harness` `Loop Engineering` `上下文工程`
 - [2026-06-13](recommendations/2026-06-13.md) — Harness Engineering 首次推荐：15篇博客+9章节报告+核心术语表 — `Harness Engineering` `Agent架构` `约束系统` `反馈回路` `可靠性`
 - [2026-06-12](recommendations/2026-06-12.md) — LangGraph + GraphRAG 学习推荐

@@ -17,12 +17,14 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-16
+updated: 2026-06-27
 relationships:
   - target: "[[entities/langchain-framework]]"
     type: extends
   - target: "[[concepts/agent-framework-engineering]]"
     type: implements
+  - target: "[[entities/oh-my-opencode]]"
+    type: related_to
 ---
 
 # LangGraph框架

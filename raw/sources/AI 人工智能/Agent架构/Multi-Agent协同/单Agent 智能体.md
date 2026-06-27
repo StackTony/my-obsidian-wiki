@@ -3,7 +3,7 @@ tags:
   - AI
   - Agent
 ---
-GenericAgent智能体：（复旦大学研究）
+单GenericAgent智能体：（复旦大学研究）
 https://github.com/lsdefine/GenericAgent
 
 

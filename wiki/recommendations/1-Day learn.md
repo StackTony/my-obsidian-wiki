@@ -1,6 +1,6 @@
 ### 优先了解
 ##### 1、内容方向
-Harness Engineering
+Loop Engineering
 
 
 ##### 2、博客类别
@@ -25,6 +25,8 @@ Agent范式：ReAct、Plan-and-Execute、Multi-Agent
 Prompt Engineering和RAG/知识库系统：索引、召回、重排、缓存、增量更新、评测和可观测  
 RAG增强：Pre-Retrieval 优化、During Retrieval 优化、Post-Retrieval 优化  
 Agent记忆系统：短期上下文、长期记忆和Human-Readable Memory
+
+Harness Engineering、Loop Engineering
 
 **算力基础：**  
 AI infra（ https://quant67.com/categories/ai-infra.html ）

@@ -446,3 +446,32 @@ title: Wiki Log
 - 6个新源文件已登记到 .manifest.json
   - summaries/red-black-tree-detail.md — source_files + 正文路径引用更新 + updated日期
   - synthesis/balanced-tree-evolution.md — source_files: 红黑树详解.md → 红黑树讲解.md + updated日期
+
+## [2026-06-25] LEARN | Loop Engineering 学习推荐
+
+- LEARN topic="Loop Engineering" category=原理介绍/技术分析/架构图
+- [2026-06-25T14:30] LEARN 主题确认：优先了解章节指定 Loop Engineering
+- 已有知识分析：Wiki 已有 Harness Engineering 页面（06-16 创建），但 Loop Engineering 作为第四代独立范式全面缺失
+- 联网搜索：tavily-search 4轮（英2+中2），发现15+篇高质量博客
+- 新发现：Loop Engineering 在2026年6月7-8日正式命名（Peter Steinberger推文800万浏览+Boris Cherny"我的工作是写Loop"+Addy Osmani命名文章），已成为AI工程第四代范式
+- 延伸方向：1.Loopcraft堆叠循环与嵌套设计（Swyx） 2.验证器工程（Verifier Engineering=瓶颈）
+- 推荐报告：12篇深度推荐+核心术语表（Loop Engineering/五要素/四代演进/Loopcraft/Salty Lesson/验证器瓶颈/Hill Climbing Loop/on-the-loop/认知投降/理解腐烂/Loop四条件测试/企业级运行时）
+- 博客下载：3篇下载（Self learn/Loop Engineering/：AddyOsmani/LangChain/TrueFoundry），8篇tavily提取全文但defuddle下载失败
+- 报告保存：wiki/recommendations/2026-06-25.md
+
+## [2026-06-27] INGEST | Multi-Agent协同增量（1路径变更+2新来源 → 2新页面 + 7更新）
+
+- INGEST mode=append source_dir="AI 人工智能/Agent架构/Multi-Agent协同" pages_created=2 pages_updated=7
+- 新建页面（2个）：
+  - entities/oh-my-opencode — Oh My OpenCode多Agent编排实体：四大支柱架构+希腊神话11agent体系+Sisyphus/Hephaestus双轨哲学+Prometheus三段式质量链+Hashline Edit防幻觉+Ralph Loop自动续跑+三级并发控制+tmux可视化+Claude Code兼容层+8大创新亮点
+  - concepts/multi-agent-orchestration — Multi-Agent协同编排7个设计模式：角色分化与工具隔离、主编排+子执行分层、双轨主Agent、证据驱动完成、并发控制与防递归委派、completion_promise续跑、AgentPromptMetadata自描述
+- 已有页面更新（7个）：
+  - concepts/multi-agent-framework-comparison — 新增OMO实践案例段+延伸阅读扩展+来源更新+source_dir路径修正（Agent智能体→Multi-Agent协同）
+  - concepts/agent-framework-engineering — 新增Multi-Agent协同编排7个设计模式段落+延伸阅读扩展
+  - concepts/harness-engineering — 新增OMO作为Harness Engineering实践案例段落（四大支柱对照表）
+  - concepts/agent-architecture-landscape — 导航树新增Multi-Agent编排节点+Agent工具新增OMO节点
+  - entities/claude-code — 新增"与Oh My OpenCode的关系"段落+relationships新增oh-my-opencode
+  - entities/langgraph-framework — relationships新增oh-my-opencode related_to
+  - wiki/index.md — Agent框架从5→7条+实体新增OMO条目
+- 跳过1个稀薄文件：单Agent 智能体.md（286字节，仅含2个GitHub链接，内容不足以独立建页，作为来源引用记入multi-agent-orchestration）
+- Manifest更新：旧key迁移（Agent智能体→Multi-Agent协同）+ 2个新源文件SHA-256注册

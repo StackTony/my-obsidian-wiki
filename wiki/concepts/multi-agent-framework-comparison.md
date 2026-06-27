@@ -3,8 +3,8 @@ title: Multi-Agent框架对比
 category: concepts
 tags: [AI, Agent, LangGraph, CrewAI, AutoGen, 多智能体]
 summary: 四大Multi-Agent框架对比：LangGraph(状态图+可靠) vs CrewAI(角色分工+简单) vs AutoGen(对话驱动+灵活) vs AgentX(企业工作流+安全)
-source_dir: AI 人工智能/Agent架构/Agent智能体
-source_files: [Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md]
+source_dir: AI 人工智能/Agent架构/Multi-Agent协同
+source_files: [Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md, 多Agent协同：Oh My OpenCode 深度架构分析报告.md]
 provenance:
   extracted: 0.70
  inferred: 0.25
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: supporting
 created: 2026-06-13
-updated: 2026-06-13
+updated: 2026-06-27
 relationships:
   - target: "[[concepts/agent-framework-engineering]]"
     type: extends
@@ -22,6 +22,10 @@ relationships:
     type: uses
   - target: "[[entities/langchain-framework]]"
     type: uses
+  - target: "[[concepts/multi-agent-orchestration]]"
+    type: related_to
+  - target: "[[entities/oh-my-opencode]]"
+    type: related_to
 ---
 
 # Multi-Agent框架对比
@@ -130,12 +134,21 @@ AgentX面向企业生产环境，强调安全性和合规性。
 
 Multi-Agent不是单Agent的替代——简单任务用单Agent（ReAct/Direct），复杂协作任务才需要Multi-Agent。详见 [[concepts/agent-framework-engineering]]。
 
+## 实践案例：Oh My OpenCode
+
+[[entities/oh-my-opencode|Oh My OpenCode]]（OMO）不是框架，而是 OpenCode 的超级插件——但它实现了 Multi-Agent 编排的核心设计模式：11 个希腊神话命名 agent、精细化工具权限矩阵、Sisyphus 主编排+子执行分层、三级并发控制、completion_promise 自动续跑。详见 [[concepts/multi-agent-orchestration|Multi-Agent协同编排]] 的设计模式提炼。
+
+OMO 的实践验证了本页的核心结论：**生产环境需要结构化编排而非自由对话**——LangGraph 的图驱动和 OMO 的角色+权限驱动都是这个结论的不同实现。 ^[inferred]
+
 ## 延伸阅读
 
 - [[concepts/agent-framework-engineering]] — Agent框架五大支柱
+- [[concepts/multi-agent-orchestration]] — Multi-Agent协同编排设计模式（超越框架选择，提炼编排模式）
+- [[entities/oh-my-opencode]] — Oh My OpenCode 多Agent编排实践案例
 - [[entities/langgraph-framework]] — LangGraph框架详解
 - [[entities/langchain-framework]] — LangChain生态基础
 
 ## 来源
 
-- Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen（raw/sources/AI 人工智能/Agent架构/Agent智能体/）
+- Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen（raw/sources/AI 人工智能/Agent架构/Multi-Agent协同/）
+- 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/Agent架构/Multi-Agent协同/）

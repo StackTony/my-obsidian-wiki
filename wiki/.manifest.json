@@ -1730,20 +1730,6 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Agent智能体/Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md": {
-      "ingested_at": "2026-06-13",
-      "size_bytes": 10072,
-      "content_hash": "sha256:8c5194c41abad4fe3cb57c3a4ab1b9c810318d5274c5d203ce104523c3e2335d",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [
-        "concepts/multi-agent-framework-comparison.md"
-      ],
-      "pages_updated": [
-        "concepts/agent-framework-engineering.md",
-        "entities/langgraph-framework.md"
-      ]
-    },
     "AI 人工智能/Agent架构/安全性/ACL访问控制.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 0,
@@ -2124,13 +2110,58 @@
       "pages_updated": [
         "concepts/ood-principles-and-patterns.md"
       ]
+    },
+    "AI 人工智能/Agent架构/Multi-Agent协同/Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md": {
+      "ingested_at": "2026-06-13",
+      "size_bytes": 10072,
+      "content_hash": "sha256:8c5194c41abad4fe3cb57c3a4ab1b9c810318d5274c5d203ce104523c3e2335d",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/multi-agent-framework-comparison.md"
+      ],
+      "pages_updated": [
+        "concepts/multi-agent-framework-comparison.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Multi-Agent协同/多Agent协同：Oh My OpenCode 深度架构分析报告.md": {
+      "ingested_at": "2026-06-27",
+      "size_bytes": 61172,
+      "modified_at": "2026-06-27",
+      "content_hash": "sha256:03126df7bdecf0231ffdb62829afa72c157cad32a276f9cdb2b075597460fd65",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/oh-my-opencode.md",
+        "concepts/multi-agent-orchestration.md"
+      ],
+      "pages_updated": [
+        "concepts/multi-agent-framework-comparison.md",
+        "concepts/agent-framework-engineering.md",
+        "concepts/harness-engineering.md",
+        "concepts/agent-architecture-landscape.md",
+        "entities/claude-code.md",
+        "entities/langgraph-framework.md"
+      ]
+    },
+    "AI 人工智能/Agent架构/Multi-Agent协同/单Agent 智能体.md": {
+      "ingested_at": "2026-06-27",
+      "size_bytes": 286,
+      "modified_at": "2026-06-27",
+      "content_hash": "sha256:d3b3587c6102df7fa6255c42c9207239308f3371242c56a958873c9cea3c7b47",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/multi-agent-orchestration.md"
+      ]
     }
   },
   "last_ingest": "2026-06-22",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 184,
-    "total_pages": 107,
+    "total_sources_ingested": 186,
+    "total_pages": 156,
     "total_concepts": 58,
     "total_summaries": 22,
     "total_entities": 15,

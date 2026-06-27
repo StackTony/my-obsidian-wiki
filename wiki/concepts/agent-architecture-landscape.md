@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: core
 created: 2026-06-13
-updated: 2026-06-16
+updated: 2026-06-27
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: related_to
@@ -23,7 +23,7 @@ relationships:
     type: extends
   - target: "[[concepts/harness-engineering]]"
     type: related_to
-  - target: "[[entities/claude-code]]"
+  - target: "[[entities/oh-my-opencode]]"
     type: related_to
   - target: "[[concepts/rag-engineering]]"
     type: related_to
@@ -58,6 +58,7 @@ Agent架构
 │   ├── [[concepts/harness-engineering|Harness Engineering]]   — Agent=Model+Harness，四大支柱+六大共识+三阶段路线
 │   ├── [[concepts/tool-calling-mcp|工具调用与MCP]]           — JSON Schema+MCP统一工具生态
 │   └── [[concepts/multi-agent-framework-comparison|Multi-Agent对比]] — LangGraph/CrewAI/AutoGen/AgentX
+│   └── [[concepts/multi-agent-orchestration|Multi-Agent编排]] — 角色分化+工具隔离+证据完成+并发控制
 ├── 评估系统
 │   ├── [[concepts/evaluation-metrics|分类评估指标]]          — 混淆矩阵→准确率/精确率/召回率/F1
 │   └── [[concepts/llm-benchmarks|LLM评测基准]]              — 六大维度20+基准数据集
@@ -68,7 +69,8 @@ Agent架构
 ├── 数据飞轮
 │   └── [[concepts/data-flywheel|数据飞轮]]                  — 数据与业务正反馈循环
 ┬── Agent工具
-│   └── [[entities/claude-code|Claude Code]]                   — 极简while循环+六层记忆+子代理+技能+Hook
+│   ├── [[entities/claude-code|Claude Code]]                   — 极简while循环+六层记忆+子代理+技能+Hook
+│   └── [[entities/oh-my-opencode|Oh My OpenCode]]              — 多Agent编排+Ralph Loop+Hashline Edit+三级并发
 └── LangChain生态
     ├── [[entities/langchain-framework|LangChain框架]]        — Runnable+LCEL统一可执行单元
     ├── [[entities/langgraph-framework|LangGraph框架]]        — 有向图+状态持久化+完整Memory架构
