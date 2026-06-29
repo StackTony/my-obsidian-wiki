@@ -4,6 +4,28 @@ title: Wiki Log
 
 # Wiki Log
 
+## [2026-06-29] UPDATE | Graphify与GitNexus实体页更新
+- [2026-06-29T09:00] UPDATE source="AI 人工智能/AI Agent/知识图谱/Graphify和Gitnexus.md" pages_updated=1
+  - entities/graphify-gitnexus.md — 新增GitNexus CLI命令表、MCP工具体系（核心/API/仓库组3类）、Web界面和本地后端模式、设计哲学差异详细展开；source_dir从Agent架构更新为AI Agent
+
+## [2026-06-29] INGEST | AI Agent 增量（2新来源+7修改 → 3新页面+7更新）+ 目录迁移Agent架构→AI Agent
+
+- INGEST mode=append source_dir="AI 人工智能/AI Agent" pages_created=3 pages_updated=7
+- 新建页面（3个）：
+  - concepts/agent-system-architecture — Agent系统架构设计：执行循环+消息总线+Skill/Memory/Sub-agent
+  - summaries/agent-system-architecture-design — Agent执行循环原文摘要
+  - summaries/agent-message-bus-architecture — 消息总线架构原文摘要
+- 已有页面更新（7个）：
+  - entities/langchain-framework — 新增14篇设计原理分析系列+六大核心问题+Memory系统+Agent架构细节
+  - entities/langgraph-framework — 新增工作流编排演进+状态/状态图/工作流三层概念+四种驱动机制
+  - concepts/agent-framework-engineering — 新增Skill vs Tool区分+Sub-agent机制交叉引用+agent-system-architecture链接
+  - concepts/agent-architecture-landscape — 新增Agent系统架构设计导航节点
+  - concepts/rag-chunking-strategies — 新增ChineseRecursiveTextSplitter实现细节
+  - entities/graphify-gitnexus — 新增GitNexus完整CLI/MCP/API工具体系+扩展对比
+- 目录迁移：manifest全部40+条目从Agent架构→AI Agent，wiki页面source_dir同步更新23个页面
+- 跳过1个稀薄文件：Claude Code/未命名.md（43字节，仅含链接）
+- 9个源文件已登记SHA-256哈希到 .manifest.json
+
 ## [2026-06-01] init | Vault 创建
 - vault_path="C:\Users\23363\Data\code\my-obsidian-wiki"
 - wiki_dir=wiki categories=concepts,entities,skills,summaries,synthesis,journal,projects,recommendations
@@ -244,7 +266,7 @@ title: Wiki Log
 - 跳过2个空/无实质内容文件：有向无环图.md(0 bytes)、算法合集.md(仅链接)
 - 4个有实质内容文件已登记SHA-256哈希到 .manifest.json
 
-- [2026-06-11T14:30] INGEST source="AI 人工智能/Agent架构/评估系统/如何理解准确率、精确率和召回率.md" pages_created=1 pages_updated=1 mode=append
+- [2026-06-11T14:30] INGEST source="AI 人工智能/AI Agent/评估系统/如何理解准确率、精确率和召回率.md" pages_created=1 pages_updated=1 mode=append
 
 ## [2026-06-11] ingest | AI 人工智能增量（1新来源 + 3路径变更 + 2页面更新）
 
@@ -283,16 +305,16 @@ title: Wiki Log
 
 ## [2026-06-12] INGEST | 评估系统增量
 
-- [2026-06-12T17:12] INGEST source="AI 人工智能/Agent架构/评估系统/RAGAS 评估框架.md" pages_created=1 pages_updated=1 mode=append
+- [2026-06-12T17:12] INGEST source="AI 人工智能/AI Agent/评估系统/RAGAS 评估框架.md" pages_created=1 pages_updated=1 mode=append
   - 新增：entities/ragas-framework.md — RAGAS RAG量化评估框架（4核心指标+自动造测试集+框架集成）
   - 更新：concepts/evaluation-metrics.md — 补充LLM评测基准和RAGAS的连接
-- [2026-06-12T17:12] INGEST source="AI 人工智能/Agent架构/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md" pages_created=1 pages_updated=1 mode=append
+- [2026-06-12T17:12] INGEST source="AI 人工智能/AI Agent/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md" pages_created=1 pages_updated=1 mode=append
   - 新增：concepts/llm-benchmarks.md — LLM评测基准六大维度全景（知识/推理/对话/抽取/安全/编程共20+基准）
   - 更新：concepts/evaluation-metrics.md — 补充LLM评测基准和RAGAS的连接
 
 ## [2026-06-13] INGEST | RAG目录变动更新
 
-- [2026-06-13] INGEST source="AI 人工智能/Agent架构/RAG/传统RAG/2-RAG 全栈介绍.md" pages_created=0 pages_updated=1 mode=append
+- [2026-06-13] INGEST source="AI 人工智能/AI Agent/RAG/传统RAG/2-RAG 全栈介绍.md" pages_created=0 pages_updated=1 mode=append
   - 变动：原文SHA-256变更(8a8db40→20cbef0)，文件大小从30595→29737 bytes
   - 更新：concepts/rag-engineering.md — 补充m3e Embedding模型、三阶段落地路径、避坑清单
 
@@ -308,7 +330,7 @@ title: Wiki Log
 
 ## [2026-06-13] INGEST | Agent架构增量（15新来源 + 1空文件 → 5新页面 + 7更新）
 
-- INGEST mode=append source_dir="AI 人工智能/Agent架构" pages_created=5 pages_updated=7
+- INGEST mode=append source_dir="AI 人工智能/AI Agent" pages_created=5 pages_updated=7
 
 ## [2026-06-13] STRUCTURE | Agent架构领域分类显式化
 
@@ -461,7 +483,7 @@ title: Wiki Log
 
 ## [2026-06-27] INGEST | Multi-Agent协同增量（1路径变更+2新来源 → 2新页面 + 7更新）
 
-- INGEST mode=append source_dir="AI 人工智能/Agent架构/Multi-Agent协同" pages_created=2 pages_updated=7
+- INGEST mode=append source_dir="AI 人工智能/AI Agent/Multi-Agent协同" pages_created=2 pages_updated=7
 - 新建页面（2个）：
   - entities/oh-my-opencode — Oh My OpenCode多Agent编排实体：四大支柱架构+希腊神话11agent体系+Sisyphus/Hephaestus双轨哲学+Prometheus三段式质量链+Hashline Edit防幻觉+Ralph Loop自动续跑+三级并发控制+tmux可视化+Claude Code兼容层+8大创新亮点
   - concepts/multi-agent-orchestration — Multi-Agent协同编排7个设计模式：角色分化与工具隔离、主编排+子执行分层、双轨主Agent、证据驱动完成、并发控制与防递归委派、completion_promise续跑、AgentPromptMetadata自描述

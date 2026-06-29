@@ -3,7 +3,7 @@ title: Oh My OpenCode
 category: entities
 tags: [AI, Agent, Multi-Agent, OpenCode, 编排]
 aliases: [OMO, Oh My OpenCode]
-source_dir: AI 人工智能/Agent架构/Multi-Agent协同
+source_dir: AI 人工智能/AI Agent/Multi-Agent协同
 source_files: [多Agent协同：Oh My OpenCode 深度架构分析报告.md]
 provenance:
   extracted: 0.65
@@ -307,4 +307,4 @@ OMO 能加载 Claude Code 生态的全部扩展点：commands、agents、MCP ser
 
 ## 来源
 
-- 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/Agent架构/Multi-Agent协同/）
+- 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）

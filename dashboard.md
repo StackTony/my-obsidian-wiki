@@ -22,6 +22,8 @@ columns:
 id: card-mpo4g1fu
 博客：
 1、 https://quant67.com/
+2、agent从demo到实践
+https://mcp.csdn.net/6a2e189a662f9a54cb7e8b69.html
 
 ### 2026-05-29 备忘录
 id: card-mpq7hsat

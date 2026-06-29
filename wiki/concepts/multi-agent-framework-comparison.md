@@ -3,7 +3,7 @@ title: Multi-Agent框架对比
 category: concepts
 tags: [AI, Agent, LangGraph, CrewAI, AutoGen, 多智能体]
 summary: 四大Multi-Agent框架对比：LangGraph(状态图+可靠) vs CrewAI(角色分工+简单) vs AutoGen(对话驱动+灵活) vs AgentX(企业工作流+安全)
-source_dir: AI 人工智能/Agent架构/Multi-Agent协同
+source_dir: AI 人工智能/AI Agent/Multi-Agent协同
 source_files: [Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md, 多Agent协同：Oh My OpenCode 深度架构分析报告.md]
 provenance:
   extracted: 0.70
@@ -150,5 +150,5 @@ OMO 的实践验证了本页的核心结论：**生产环境需要结构化编�
 
 ## 来源
 
-- Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen（raw/sources/AI 人工智能/Agent架构/Multi-Agent协同/）
-- 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/Agent架构/Multi-Agent协同/）
+- Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）
+- 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）

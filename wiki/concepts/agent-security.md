@@ -3,7 +3,7 @@ title: Agent安全与对抗
 category: concepts
 tags: [AI, 安全, Agent, 对抗攻击, 脑狱]
 summary: Claude Fable 5破解事件揭示LLM安全分类器的4类绕过手法：字符级混淆、上下文稀释、学术伪装、解构重组——安全是动态对抗而非静态防御
-source_dir: AI 人工智能/Agent架构/安全性
+source_dir: AI 人工智能/AI Agent/安全性
 source_files: [Claude Fable 5被破解的启示录.md]
 provenance:
   extracted: 0.55
@@ -103,4 +103,4 @@ Agent比单LLM更危险，因为：
 
 ## 来源
 
-- Claude Fable 5被破解的启示录（raw/sources/AI 人工智能/Agent架构/安全性/）
+- Claude Fable 5被破解的启示录（raw/sources/AI 人工智能/AI Agent/安全性/）

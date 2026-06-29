@@ -3,10 +3,10 @@ title: RAG工程全景
 category: concepts
 tags: [AI, RAG, 检索, 向量库, 知识图谱]
 summary: RAG工程不是"向量检索+大模型生成"这么简单，而是从文档解析到答案评估的完整流水线——准确率更多取决于数据和检索工程
-source_dir: AI 人工智能/Agent架构/RAG/传统RAG
+source_dir: AI 人工智能/AI Agent/RAG/传统RAG
 source_files: [2-RAG 全栈介绍.md, 1-RAG 核心术语速查表.md, RAG 搭建研究.md, 3-RAG 工程全景.md, RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md, RAG 存储技术：文件、元数据、切片、向量.md]
   # 跨目录补充
-  # source_dir: AI 人工智能/Agent架构/RAG/高级RAG
+  # source_dir: AI 人工智能/AI Agent/RAG/高级RAG
   # source_files: [RAG进阶：下一代RAG演进方向.md]
 provenance:
   extracted: 0.70
@@ -283,10 +283,10 @@ SAG（SQL-Retrieval Augmented Generation）是GraphRAG的替代范式：不提�
 
 ## 来源
 
-- 2-RAG 全栈介绍（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- 1-RAG 核心术语速查表（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- RAG 搭建研究（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- 3-RAG 工程全景（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- RAG 核心工具大全（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- RAG 存储技术（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- RAG进阶：下一代RAG演进方向（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/）
+- 2-RAG 全栈介绍（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- 1-RAG 核心术语速查表（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- RAG 搭建研究（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- 3-RAG 工程全景（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- RAG 核心工具大全（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- RAG 存储技术（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- RAG进阶：下一代RAG演进方向（raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/）

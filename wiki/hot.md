@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-06-27
+updated: 2026-06-29
 ---
 
 # Hot Cache
@@ -9,25 +9,26 @@ updated: 2026-06-27
 
 ## Recent Activity
 
-- [2026-06-27] INGEST — Multi-Agent协同：2个新页面（Oh My OpenCode实体+Multi-Agent编排概念）+7个更新页面。OMO是开源项目中最完善的multi-agent编排方案之一——11个希腊神话命名agent+精细化工具权限矩阵+Ralph Loop自动续跑+Hashline Edit防幻觉
-- [2026-06-25] LEARN — Loop Engineering学习推荐：12篇深度推荐+3篇博客下载+核心术语表
-- [2026-06-22] INGEST — SAG+RAG常用框架+软件工程：2个新页面+4个更新页面
+- [2026-06-29] INGEST — AI Agent增量：2新来源（Agent系统架构设计+消息总线架构）+7修改来源 → 3新页面+7更新页面。manifest 40+条目从Agent架构迁移到AI Agent路径
+- [2026-06-29] UPDATE — Graphify与GitNexus实体页更新：新增GitNexus CLI/MCP/Web工具体系
+- [2026-06-27] INGEST — Multi-Agent协同：2新页面（OMO实体+Multi-Agent编排概念）+7更新
+- [2026-06-25] LEARN — Loop Engineering学习推荐：12篇深度推荐+3篇博客下载
 
 ## Active Threads
 
-- **Multi-Agent编排设计模式**：从OMO实践提炼出7个核心模式——角色分化与工具隔离、主编排+子执行分层、双轨主Agent哲学、证据驱动完成标准、并发控制与防递归、completion_promise续跑、AgentPromptMetadata自描述。这是Wiki首次从"框架对比"视角升级到"设计模式提炼"视角
-- **OMO作为Harness Engineering实践案例**：工具权限矩阵=约束系统、Ralph Loop=Loop Engineering实现、completion_promise=反馈回路、并发控制=资源管理——四大支柱全部落地
-- **Loop Engineering vs Ralph Loop**：OMO的Ralph Loop是Loop Engineering概念的具体实现——自动续跑+completion_promise让多次运行自主可控
+- **Agent系统架构设计**：新概念页agent-system-architecture横跨两篇新来源——执行循环Observe-Think-Act+消息总线解耦Channel-Agent，首次将Skill vs Tool、三层Memory、Sub-agent机制整合为统一架构视图
+- **消息总线作为Agent解耦核心**：Agent架构设计解析文章提出四层架构（Channel→Session→Agent→Skill），同Session串行不同Session并发，LLM Provider统一接口——这是继Harness Engineering后第三个独立Agent架构范式 ^[inferred]
+- **目录迁移Agent架构→AI Agent**：manifest 50个键+wiki 23个页面source_dir全部从Agent架构迁移到AI Agent，与raw/sources目录重命名同步
 
 ## Key Takeaways
 
-- **OMO是"oh-my-zsh"模式**：不改变宿主核心，通过插件机制注入整套agent体系——AI编程工具的模块化扩展范式 ^[inferred]
-- **希腊神话命名即设计文档**：Sisyphus推石头永不放弃、Oracle只给建议不动手、Prometheus规划未来——用户不需读文档就能直觉理解角色
-- **开放-封闭原则在agent系统中的实现**：AgentPromptMetadata自描述系统让添加新agent时主编排prompt自动更新，第三方agent也能通过buildCustomAgentMetadata()自动融入
-- **行为模式切换比参数微调更可靠**：LLM对"你是管理者"和"你是执行者"的响应差异远大于autonomy参数调整 ^[inferred]
-- **证据驱动完成=机械化约束**：NO EVIDENCE=NOT COMPLETE，完成标准不是prompt软约束而是工具返回的硬证据
+- **执行循环是Agent的"心脏"**：Observe-Think-Act三步循环驱动所有Agent行为，Skill/Memory/Sub-agent都是循环内的资源接入点 ^[inferred]
+- **消息总线解耦Channel-Agent**：多渠道接入不再需要为每个Channel写不同Agent，而是Channel发消息→Bus路由→Agent处理——统一入口+统一处理 ^[inferred]
+- **Skill vs Tool的关键区分**：Skill是Agent主动调用的能力包（声明式），Tool是被动响应的外部接口（命令式）——这是Agent架构从"工具调用"到"能力编排"的范式升级 ^[inferred]
+- **LangChain/LangGraph持续深化**：7个修改来源中有5个来自LangChain/LangGraph目录，工作流编排原理大幅更新+状态/状态图三层概念+四种驱动机制
 
 ## Flagged Contradictions
 
-- OMO "自主执行"（Hephaestus禁止询问）vs Harness Engineering "约束机械化"——自主和约束的边界在哪里？Hephaestus的FORBIDDEN指令本身就是一种约束 ^[inferred]
-- Multi-Agent编排的"最优分层深度"——OMO用两层（主→子），但更深层意味着更多延迟和上下文传递损耗 ^[ambiguous]
+- **消息总线串行vs并发**：同Session串行保证一致性，但串行是否成为瓶颈？Session粒度的并发调度可能不够细 ^[ambiguous]
+- **Skill声明式vs实际执行**：声明式Skill设计目标是"Agent按需调用"，但LLM对Skill的理解可能偏差导致调用失败——需要验证器（Verifier Engineering交叉） ^[inferred]
+- **OMO自主执行vs消息总线约束**：OMO的Hephaestus"禁止询问"与消息总线"统一接口"是否矛盾？前者强调Agent自主、后者强调系统约束 ^[ambiguous]

@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, Agent, RAG, 知识图谱, 全景图]
 aliases: [Agent架构全景, Agent Landscape, Agent架构导航]
 summary: Agent架构领域导航枢纽：7个子领域的树状拓扑、4个核心矛盾、子领域间连接关系、与LLM基础设施的边界划分
-source_dir: AI 人工智能/Agent架构
+source_dir: AI 人工智能/AI Agent
 source_files: []
 provenance:
   extracted: 0.15
@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: core
 created: 2026-06-13
-updated: 2026-06-27
+updated: 2026-06-29
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: related_to
@@ -34,6 +34,8 @@ relationships:
   - target: "[[concepts/agent-security]]"
     type: related_to
   - target: "[[concepts/data-flywheel]]"
+    type: related_to
+  - target: "[[concepts/agent-system-architecture]]"
     type: related_to
 ---
 
@@ -55,6 +57,7 @@ Agent架构
 │       └── [[concepts/graphrag-engineering|GraphRAG工程]]    — 知识图谱解决全局型问题
 ├── Agent框架
 │   ├── [[concepts/agent-framework-engineering|Agent框架工程]] — 五大支柱+可靠Agent=可观测状态机
+│   ├── [[concepts/agent-system-architecture|Agent系统架构设计]] — 执行循环+消息总线+Skill/Memory/Sub-agent
 │   ├── [[concepts/harness-engineering|Harness Engineering]]   — Agent=Model+Harness，四大支柱+六大共识+三阶段路线
 │   ├── [[concepts/tool-calling-mcp|工具调用与MCP]]           — JSON Schema+MCP统一工具生态
 │   └── [[concepts/multi-agent-framework-comparison|Multi-Agent对比]] — LangGraph/CrewAI/AutoGen/AgentX
@@ -110,6 +113,6 @@ Agent ←→ 安全          工具调用越开放安全风险越高，MCP协议
 ## 推荐阅读路径
 
 - **RAG入门** → RAG工程全景 → 分块策略 → 存储技术 → 工具全景 → GraphRAG
-- **Agent入门** → Agent框架工程 → 工具调用/MCP → Multi-Agent对比 → Agent安全
+- **Agent入门** → Agent框架工程 → Agent系统架构设计 → 工具调用/MCP → Multi-Agent对比 → Agent安全
 - **评估路线** → 分类评估指标 → LLM评测基准 → RAGAS框架
 - **闭环路线** → 数据飞轮 → RAG工程（数据侧） → Agent框架（应用侧）

@@ -3,7 +3,7 @@ title: Claude Code
 category: entities
 tags: [AI, Claude, Agent工具, 代码助手, Anthropic]
 aliases: [Claude Code, claudian]
-source_dir: AI 人工智能/Agent架构/Claude Code
+source_dir: AI 人工智能/AI Agent/Claude Code
 source_files: [Claude Code 工作原理深度解析：从技术架构到设计哲学.md, Claude Code 使用技巧：从入门到精通.md]
 provenance:
   extracted: 0.65
@@ -168,6 +168,6 @@ Hooks在特定事件发生时执行自定义脚本——安全确认、代码质
 
 ## 来源
 
-- Claude Code 工作原理深度解析（raw/sources/AI 人工智能/Agent架构/Claude Code/）
-- Claude Code 使用技巧：从入门到精通（raw/sources/AI 人工智能/Agent架构/Claude Code/）
-- Claude Code 记忆系统设计（raw/sources/AI 人工智能/Agent架构/Memory记忆/）
+- Claude Code 工作原理深度解析（raw/sources/AI 人工智能/AI Agent/Claude Code/）
+- Claude Code 使用技巧：从入门到精通（raw/sources/AI 人工智能/AI Agent/Claude Code/）
+- Claude Code 记忆系统设计（raw/sources/AI 人工智能/AI Agent/Memory记忆/）

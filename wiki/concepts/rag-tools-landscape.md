@@ -3,7 +3,7 @@ title: RAG核心工具全景
 category: concepts
 tags: [AI, RAG, 工具, 解析, 向量模型, 重排序]
 summary: RAG工具链全景：7类文档解析工具+分块策略演进+Embedding模型选型+向量库+重排序——选型先确认瓶颈再选工具
-source_dir: AI 人工智能/Agent架构/RAG/传统RAG
+source_dir: AI 人工智能/AI Agent/RAG/传统RAG
 source_files: [RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md, RAG 常用框架大全.md]
 provenance:
   extracted: 0.75
@@ -136,4 +136,4 @@ RAG效果取决于整条流水线的工具选择——没有单一工具能打�
 
 ## 来源
 
-- RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
+- RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）

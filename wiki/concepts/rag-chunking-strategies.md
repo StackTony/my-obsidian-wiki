@@ -3,8 +3,8 @@ title: RAG分块策略
 category: concepts
 tags: [AI, RAG, Chunking, 分块, 文本分割]
 summary: 21种文本分块策略从基础到前沿：分块是决定RAG系统性能的关键因素——不当的分块直接影响检索质量和生成效果
-source_dir: AI 人工智能/Agent架构/RAG/传统RAG
-source_files: [RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md, RAG Chunk分块策略-图解.md, RAG Chunk分块策略-代码示例.md]
+source_dir: AI 人工智能/AI Agent/RAG/传统RAG
+source_files: [RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md, RAG Chunk分块策略-图解.md, RAG Chunk分块策略-代码示例.md, LangChain 递归字符文本分割器原理、源码分析和实践.md]
 provenance:
   extracted: 0.70
   inferred: 0.25
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-18
+updated: 2026-06-29
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: uses
@@ -37,6 +37,28 @@ relationships:
 | 方法 | 描述 | 适用场景 |
 |------|------|----------|
 | **递归字符分割** | 依次尝试多种分隔符（段落→句子→字符） | 最常用的通用方法（LangChain默认） |
+
+### ChineseRecursiveTextSplitter实现细节
+
+LangChain的递归字符分割器在中文场景下有专门优化版本`ChineseRecursiveTextSplitter`（来自Langchain-Chatchat项目），其核心流程：
+
+1. **分隔符优先级**：`\n\n` → `\n` → `。|！|？` → `\.|!|?`（英文标点+空格） → `；|;\s` → `，|,\s`——优先使用高优先级分隔符预切分，超长块再用低优先级分隔符递归拆分
+2. **暂存集合(good_splits)**：按顺序将不超过chunk_size的子块暂存，直到遇到超长块触发批处理——合并暂存集合+递归拆分超长块
+3. **重叠预留(chunk_overlap)**：合并后从左侧弹出子块直到剩余长度小于overlap，保留部分和后续块合并——既在A块又在B块，防止短句切分语义 ^[inferred]
+4. **递归停止条件**：某块超长但连最低优先级分隔符都没有时直接加入最终集合，不再拆分
+
+```python
+# 核心流程伪代码
+for s in splits:
+    if length(s) < chunk_size:
+        good_splits.append(s)  # 暂存
+    else:
+        merge good_splits → final_chunks  # 批处理
+        if new_separators available:
+            recursively split s with next-level separators  # 递归拆分
+        else:
+            final_chunks.append(s)  # 无法再分
+```
 | **Markdown分割** | 按标题层级（#→##→###）分割 | Markdown文档、技术文档 |
 | **代码分割** | 按函数/类定义分割 | 代码仓库、API文档 |
 | **HTML分割** | 按DOM结构分割 | 网页抓取内容 |
@@ -98,7 +120,7 @@ RAG Chunk分块策略-代码示例提供了21种方法的Python实现，核心�
 
 ## 来源
 
-- RAG Chunk分块策略（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- RAG Chunk分块策略：主流方法+前沿推荐（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- RAG Chunk分块策略-图解（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
-- RAG Chunk分块策略-代码示例（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
+- RAG Chunk分块策略（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- RAG Chunk分块策略：主流方法+前沿推荐（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- RAG Chunk分块策略-图解（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- RAG Chunk分块策略-代码示例（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）

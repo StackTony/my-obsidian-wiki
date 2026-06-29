@@ -3,7 +3,7 @@ title: Harness Engineering（驾驭工程）
 category: concepts
 tags: [AI, Agent架构, Harness, 约束系统, 工程范式]
 aliases: [驾驭工程, Harness]
-source_dir: AI 人工智能/Agent架构/Harness工程
+source_dir: AI 人工智能/AI Agent/Harness工程
 source_files: [Harness Engineering：AI Agent 时代的工程范式革命.md, Harness-从零理解到动手代码实践.md, Harness-起源原理与落地实践.md, Harness-驾驭工程介绍.md]
 provenance:
   extracted: 0.65
@@ -172,9 +172,16 @@ AI 复制坏模式的速度是指数级的。**集中清理模式已失效**—�
 - **行为验证**：擅长约束Agent不做错事，但验证Agent做对了事远未解决
 - **长期可维护性**：防止"功能没问题但维护性很差"的代码渗进代码库，没人回答
 
+### 与Agent系统架构设计的共鸣
+
+[[concepts/agent-system-architecture|Agent系统架构设计]]的两种视角与Harness Engineering有深层关联：
+- **声明式架构** — Agent系统架构提出"声明能力/知识/约束而非if-else"，这与Harness的"model handles reasoning, Harness handles everything else"异曲同工——两者都把LLM从硬编码流程中解放出来 ^[inferred]
+- **消息总线即Harness边界** — 消息总线架构将Channel和Agent完全解耦，而Harness将Model和外围工程完全解耦——前者划定渠道边界，后者划定工程边界 ^[inferred]
+- **渐进式上下文加载 vs Harness上下文工程** — 前者是单次对话内的分层prompt注入策略，后者是跨对话的上下文工程实践——两者都指向"上下文是Agent最重要的输入"这一共识 ^[inferred]
+
 ## 来源
 
-- Harness Engineering：AI Agent 时代的工程范式革命（raw/sources/AI 人工智能/Agent架构/Harness工程/）
-- Harness-从零理解到动手代码实践（raw/sources/AI 人工智能/Agent架构/Harness工程/）
-- Harness-起源原理与落地实践（raw/sources/AI 人工智能/Agent架构/Harness工程/）
-- Harness-驾驭工程介绍（raw/sources/AI 人工智能/Agent架构/Harness工程/）
+- Harness Engineering：AI Agent 时代的工程范式革命（raw/sources/AI 人工智能/AI Agent/Harness工程/）
+- Harness-从零理解到动手代码实践（raw/sources/AI 人工智能/AI Agent/Harness工程/）
+- Harness-起源原理与落地实践（raw/sources/AI 人工智能/AI Agent/Harness工程/）
+- Harness-驾驭工程介绍（raw/sources/AI 人工智能/AI Agent/Harness工程/）

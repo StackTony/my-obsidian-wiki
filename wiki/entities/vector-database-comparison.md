@@ -15,7 +15,7 @@ relationships:
 source_dir: AI 人工智能/AI infra/大模型基础设施工程系列
 source_files: [【大模型基础设施工程】18：向量库与图 RAG.md]
   # 跨目录补充
-  # source_dir: AI 人工智能/Agent架构/向量数据库
+  # source_dir: AI 人工智能/AI Agent/向量数据库
   # source_files: [HNSW原理实践及阿里云灵积向量检索-博客园.md, 向量数据库是必要之恶，但不是银弹.md]
 summary: 向量库选型核心：HNSW是默认索引（95-99%recall毫秒级），DiskANN解决10B+内存瓶颈，RaBitQ 32x压缩近无损；Milvus/Qdrant/pgvector三强覆盖不同规模；混合检索(dense+sparse+RRF)是生产标配
 provenance:
@@ -246,7 +246,7 @@ Turbopuffer模型：对象存储+按查询计费，冷数据在S3，查询时按
 ## 来源
 
 - 【大模型基础设施工程】18 — 向量库与图RAG完整技术解析
-- HNSW原理实践及阿里云灵积向量检索（raw/sources/AI 人工智能/Agent架构/向量数据库/）
-- 向量数据库是必要之恶，但不是银弹（raw/sources/AI 人工智能/Agent架构/向量数据库/）
+- HNSW原理实践及阿里云灵积向量检索（raw/sources/AI 人工智能/AI Agent/向量数据库/）
+- 向量数据库是必要之恶，但不是银弹（raw/sources/AI 人工智能/AI Agent/向量数据库/）
 - [[concepts/rag-engineering]] — RAG工程全景
 - [[concepts/rag-chunking-strategies]] — 分块策略

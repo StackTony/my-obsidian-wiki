@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, RAG, 知识图谱, GraphRAG, 社区检测]
 aliases: [GraphRAG, 图检索增强生成]
 summary: GraphRAG用知识图谱解决传统RAG的全局型问题：实体→关系→社区摘要→全局/局部/DRIFT三种搜索模式，代价是LLM调用量大和索引成本高
-source_dir: AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG
+source_dir: AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG
 source_files: [GraphRAG微软源代码理解.md, GraphRAG详解.md, GraphRAG开源生态全景-6大项目PK.md, GraphRAG设计解读.md, GraphRAG原理及部署实战-博客园.md, GraphRAG知识图谱全流程解析.md]
 provenance:
   extracted: 0.65
@@ -185,9 +185,9 @@ GraphRAG不是替代传统RAG，而是**补充**——局部型问题仍然用�
 
 ## 来源
 
-- GraphRAG微软源代码理解（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/）
-- GraphRAG详解（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/）
-- GraphRAG开源生态全景-6大项目PK（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/）
-- GraphRAG设计解读（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/）
-- GraphRAG原理及部署实战-博客园（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/）
-- GraphRAG知识图谱全流程解析（raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/）
+- GraphRAG微软源代码理解（raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/）
+- GraphRAG详解（raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/）
+- GraphRAG开源生态全景-6大项目PK（raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/）
+- GraphRAG设计解读（raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/）
+- GraphRAG原理及部署实战-博客园（raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/）
+- GraphRAG知识图谱全流程解析（raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/）

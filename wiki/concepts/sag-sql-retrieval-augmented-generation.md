@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, RAG, SAG, SQL, Hyperedge, 多跳检索]
 aliases: [SAG, SQL-RAG, SQL检索增强生成]
 summary: SAG用SQL+向量混合检索替代GraphRAG的全局图构建——查询时用SQL join临时激活局部Hyperedge结构，避免全局图维护成本，多跳Recall@5达80%
-source_dir: AI 人工智能/Agent架构/RAG/高级RAG/SAG
+source_dir: AI 人工智能/AI Agent/RAG/高级RAG/SAG
 source_files: [SAG 核心思路介绍（利用SQL构建查询时的Hyperedge超边）.md, Zleap技术解密：后RAG时代已来，SAG重新定义AI搜索.md]
 provenance:
   extracted: 0.60
@@ -115,7 +115,7 @@ SAG在9个Recall@K指标中拿到8个最好。Event-level hyperedge版本优于t
 
 ## 来源
 
-- `raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/SAG/SAG 核心思路介绍（利用SQL构建查询时的Hyperedge超边）.md` — 论文深度解读
-- `raw/sources/AI 人工智能/Agent架构/RAG/高级RAG/SAG/Zleap技术解密：后RAG时代已来，SAG重新定义AI搜索.md` — CEO视角的产品与技术介绍
+- `raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/SAG/SAG 核心思路介绍（利用SQL构建查询时的Hyperedge超边）.md` — 论文深度解读
+- `raw/sources/AI 人工智能/AI Agent/RAG/高级RAG/SAG/Zleap技术解密：后RAG时代已来，SAG重新定义AI搜索.md` — CEO视角的产品与技术介绍
 - [[concepts/graphrag-engineering]] — GraphRAG工程（SAG的替代对象）
 - [[concepts/rag-engineering]] — RAG工程全景（SAG的演进方向）

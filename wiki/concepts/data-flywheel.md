@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, 数据飞轮, 数据要素, 知识管理, 企业数字化]
 aliases: [数据正反馈循环, data flywheel]
 summary: 数据飞轮是数据和业务间的正反馈循环——AI辅助决策产出更多数据，更多数据强化AI决策，飞轮越转越快，企业竞争力越强
-source_dir: AI 人工智能/Agent架构/数据飞轮
+source_dir: AI 人工智能/AI Agent/数据飞轮
 source_files: [AI时代如何构建数据飞轮.md]
 provenance:
   extracted: 0.80
@@ -67,4 +67,4 @@ relationships:
 
 ## 来源
 
-- AI时代如何构建数据飞轮（raw/sources/AI 人工智能/Agent架构/数据飞轮/） — 清华经管学院《清华管理评论》2024年4月刊
+- AI时代如何构建数据飞轮（raw/sources/AI 人工智能/AI Agent/数据飞轮/） — 清华经管学院《清华管理评论》2024年4月刊

@@ -797,7 +797,7 @@
         "skills/linux-kernel-tracing.md"
       ]
     },
-    "AI 人工智能/Agent架构/Agent智能体/入门级Agent 智能体.md": {
+    "AI 人工智能/AI Agent/Agent智能体/入门级Agent 智能体.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 283,
       "content_hash": "sha256:2123e1b154ab7666dc7925e6292a070aee21c240434c1d7aaaa7a6e56f29aaa3",
@@ -806,7 +806,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/LangChain/1-LangChain 核心术语速查表.md": {
+    "AI 人工智能/AI Agent/LangChain/1-LangChain 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 15162,
       "content_hash": "sha256:6237d89426be0082879ffe78baac5c2d4ac339a91076fdb4d56f782515d77c12",
@@ -815,50 +815,56 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/LangChain/2-LangChain 架构.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 22818,
-      "content_hash": "sha256:b383ee9c4a120bdd99d89089b659272e67cc03bf209fc5835f0054ed39530a14",
+    "AI 人工智能/AI Agent/LangChain/2-LangChain 架构.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 22281,
+      "content_hash": "sha256:babab6a69275086f7a1aba69e86e6c6cf85a94ee89d8370a74dfec793b8609b0",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "entities/langchain-framework.md"
       ],
-      "pages_updated": []
+      "pages_updated": [
+        "entities/langchain-framework.md"
+      ]
     },
-    "AI 人工智能/Agent架构/LangChain/LangChain 解决的核心问题.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 395,
-      "content_hash": "sha256:f01022a00c0091171a418e3933be3a1c7a6a20d5c551ff826610a9c4129888fb",
+    "AI 人工智能/AI Agent/LangChain/LangChain 解决的核心问题.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 380,
+      "content_hash": "sha256:fd0cd74f60f8d0542b7c9e869beb4d346d6c775c50a72d15e313b2370efe251c",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/LangChain/LangChain 递归字符文本分割器原理、源码分析和实践.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 19293,
-      "content_hash": "sha256:80a3468e121bf7fa63be75ae09b3b6d6cfbd77f99cd74ec9f208b4b2a7053c1e",
+    "AI 人工智能/AI Agent/LangChain/LangChain 递归字符文本分割器原理、源码分析和实践.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 18962,
+      "content_hash": "sha256:1ff9e0eb28266ea333394b445ddf7d5422cdcd7e1761beb55b01b9a03dd29e4f",
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": []
+      "pages_updated": [
+        "concepts/rag-chunking-strategies.md"
+      ]
     },
-    "AI 人工智能/Agent架构/LangChain/LangGraph-工作流编排原理.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 51928,
-      "content_hash": "sha256:138553f435124a291ddf0f01300ebe29dc7994d759450d85b77bf38d05123b49",
+    "AI 人工智能/AI Agent/LangChain/LangGraph-工作流编排原理.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 51053,
+      "content_hash": "sha256:aae59bcb8acd2decfff32b91108a67337abc9ea30edd03f96fad51e4926c4e37",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "entities/langgraph-framework.md"
       ],
-      "pages_updated": []
+      "pages_updated": [
+        "entities/langgraph-framework.md"
+      ]
     },
-    "AI 人工智能/Agent架构/LangChain/LangGraph-状态-状态图-工作流.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 13883,
-      "content_hash": "sha256:c1c3b371a5f5367e465d5d853259ab6e8ed76217b151b8fe95f6eb9f9eda5887",
+    "AI 人工智能/AI Agent/LangChain/LangGraph-状态-状态图-工作流.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 13691,
+      "content_hash": "sha256:68e24741823e453f8851eff2261128c49efe4bf44b96e2941225b1182095471c",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -866,16 +872,16 @@
         "entities/langgraph-framework.md"
       ]
     },
-    "AI 人工智能/Agent架构/Memory记忆/Prompt 提示词.md": {
-      "ingested_at": "2026-06-11",
-      "size_bytes": 312,
-      "content_hash": "sha256:59d133321e56feb823ae9566ed838ad82267da89951d4495413060bcc3fe8562",
+    "AI 人工智能/AI Agent/Memory记忆/Prompt 提示词.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 306,
+      "content_hash": "sha256:b14d49726f9cd31bc8f1dd19c5356957cb4cf6fb812f374e6092a1bfcdded559",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/1-RAG 核心术语速查表.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/1-RAG 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 9927,
       "content_hash": "sha256:fa4477b79165d6f30a5b1ed3236576fc68de0ba2915797954ac37e199e3c18c4",
@@ -884,7 +890,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/3-RAG 工程全景.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/3-RAG 工程全景.md": {
       "ingested_at": "2026-06-11",
       "size_bytes": 45157,
       "content_hash": "sha256:008035d125c9f37ccf712890a41523c5546182fc102e77d349307b56e2bacfdc",
@@ -895,7 +901,7 @@
         "concepts/rag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/2-RAG 全栈介绍.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/2-RAG 全栈介绍.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 29737,
       "content_hash": "sha256:20cbef02980d2363529b2ccc568edda43dda92eb47e01f2eea9645a41f8d61ed",
@@ -908,7 +914,7 @@
         "concepts/rag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 86043,
       "content_hash": "sha256:794389f05c9c7a94d50cdab28517a53a0fafabfc6f447090d0c2a15a0def238f",
@@ -917,7 +923,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG RRF算法 倒数排名融合（Reciprocal Rank Fusion）.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG RRF算法 倒数排名融合（Reciprocal Rank Fusion）.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 6285,
       "content_hash": "sha256:ecd398c510c0555e3892cdffaddc35fc10e9bfdfef808dbf6eca91e9f0157fc1",
@@ -926,7 +932,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/数据飞轮/AI时代如何构建数据飞轮.md": {
+    "AI 人工智能/AI Agent/数据飞轮/AI时代如何构建数据飞轮.md": {
       "ingested_at": "2026-06-11",
       "size_bytes": 20745,
       "content_hash": "sha256:879c4a0b41879f8c96cbfecb6971257f3fb4c937870d45b8394da280a97f400c",
@@ -940,7 +946,7 @@
         "concepts/agent-framework-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/评估系统/如何理解准确率、精确率和召回率.md": {
+    "AI 人工智能/AI Agent/评估系统/如何理解准确率、精确率和召回率.md": {
       "ingested_at": "2026-06-11",
       "size_bytes": 6334,
       "content_hash": "sha256:cc37cd93f55da0b51d93c12f200918d85a605257e95db295c1f69cfbe43be6b6",
@@ -953,7 +959,7 @@
         "concepts/rag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG 搭建研究.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG 搭建研究.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 8111,
       "content_hash": "sha256:d38edb673510eec4327285de9469abb8558ad9c3a639d1437c4d285e772d18d9",
@@ -962,7 +968,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Skills/my-skills.md": {
+    "AI 人工智能/AI Agent/Skills/my-skills.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 134,
       "content_hash": "sha256:dfe801150fcd2459aa883c870f5ec918d24dbb6d87ee3fb5fce3d3d743668bba",
@@ -971,7 +977,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Skills/开源skills库.md": {
+    "AI 人工智能/AI Agent/Skills/开源skills库.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 20,
       "content_hash": "sha256:f25d6df3af8e1884bbe06efc496bea3a8a40689efbf105922b5095fa8e9b9dd0",
@@ -980,7 +986,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/知识图谱/Deepwiki.md": {
+    "AI 人工智能/AI Agent/知识图谱/Deepwiki.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 92,
       "content_hash": "sha256:9950bef7b17fc0c267a3b4e04abebdc8bb5df580fa8009cf01ec8cb2079409bb",
@@ -989,16 +995,36 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/知识图谱/Graphify和Gitnexus.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 7377,
-      "content_hash": "sha256:6c3801355ffbc839e2a048fa5795bc36287dacf634059e3712f5131959251023",
+    "AI 人工智能/AI Agent/知识图谱/Graphify和Gitnexus.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 7436,
+      "content_hash": "sha256:c920b95213ffc2184c9062e5772e2a014260634cd12f01850735ae7bfe375317",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "entities/graphify-gitnexus.md"
       ],
-      "pages_updated": []
+      "pages_updated": [
+        "entities/graphify-gitnexus.md"
+      ]
+    },
+    "AI 人工智能/AI Agent/Agent架构设计/Agent 系统架构设计：从执行循环到智能协作.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 17247,
+      "content_hash": "sha256:513ea190d0e4eff3a3290b77ab5ad6bde9ac5d87e80fcc96b5ee5deadf50bba5",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["concepts/agent-system-architecture.md", "summaries/agent-system-architecture-design.md"],
+      "pages_updated": ["concepts/agent-framework-engineering.md", "concepts/agent-architecture-landscape.md"]
+    },
+    "AI 人工智能/AI Agent/Agent架构设计/Agent 架构设计解析：消息总线如何驱动多渠道智能体.md": {
+      "ingested_at": "2026-06-29",
+      "size_bytes": 12207,
+      "content_hash": "sha256:06a58f109183a692e7f619ac23148e7dbfa9b6a29b08ddda2fcd0772140a9eb5",
+      "source_type": "document",
+      "project": null,
+      "pages_created": ["summaries/agent-message-bus-architecture.md"],
+      "pages_updated": ["concepts/agent-system-architecture.md"]
     },
     "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】01：大模型基础设施全景 —— 训练、推理、RAG、Agent、观测.md": {
       "ingested_at": "2026-06-02",
@@ -1301,7 +1327,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md": {
+    "AI 人工智能/AI Agent/评估系统/大语言模型LLM的评测基准数据集（BenchMarks）汇总.md": {
       "ingested_at": "2026-06-12",
       "size_bytes": 19571,
       "content_hash": "sha256:6f473f2aa44b6c41e75cf8dc05ed45126ce954e31af5380c75a6ac87fdb390d2",
@@ -1314,7 +1340,7 @@
         "concepts/evaluation-metrics.md"
       ]
     },
-    "AI 人工智能/Agent架构/评估系统/RAGAS 评估框架.md": {
+    "AI 人工智能/AI Agent/评估系统/RAGAS 评估框架.md": {
       "ingested_at": "2026-06-12",
       "size_bytes": 3699,
       "content_hash": "sha256:52a56b57490dd2f081f6e8d67c030f818d0afd943ef964a845fd3062f25cfa6d",
@@ -1708,7 +1734,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/知识图谱/Graphify原理.md": {
+    "AI 人工智能/AI Agent/知识图谱/Graphify原理.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 11463,
       "content_hash": "sha256:0e2fb54e060a661d69b924a9db085c143205824e590316fee0b8de5022772032",
@@ -1719,7 +1745,7 @@
         "entities/graphify-gitnexus.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG微软源代码理解.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/GraphRAG微软源代码理解.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 4292,
       "content_hash": "sha256:242179e2184b13d31c0360c82e4f4e692901bcd615b64cff0c71d18a36aea788",
@@ -1730,7 +1756,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/安全性/ACL访问控制.md": {
+    "AI 人工智能/AI Agent/安全性/ACL访问控制.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 0,
       "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -1739,7 +1765,7 @@
       "pages_created": [],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/安全性/Claude Fable 5被破解的启示录.md": {
+    "AI 人工智能/AI Agent/安全性/Claude Fable 5被破解的启示录.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 6049,
       "content_hash": "sha256:83a48d4630d55c6102f893c738dd463d3a3c42eaa5345d8e59d4d7749164f8d7",
@@ -1752,7 +1778,7 @@
         "concepts/agent-framework-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG详解.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/GraphRAG详解.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 5776,
       "content_hash": "sha256:5e0f1225dbb5f351c4c9837c0a1aa3280c089d028cf530a62cb0690f7f621aa0",
@@ -1763,7 +1789,7 @@
         "concepts/graphrag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/评估系统/RAG评测完整指南：指标、测试和最佳实践.md": {
+    "AI 人工智能/AI Agent/评估系统/RAG评测完整指南：指标、测试和最佳实践.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 27911,
       "content_hash": "sha256:b32d47f04b6147ed7c039ad392c15665bb546791e9b2d9165d5e2580b4f7fbd2",
@@ -1774,7 +1800,7 @@
         "concepts/evaluation-metrics.md"
       ]
     },
-    "AI 人工智能/Agent架构/评估系统/RAG效果差？7个指标让你的准确率大幅提升.md": {
+    "AI 人工智能/AI Agent/评估系统/RAG效果差？7个指标让你的准确率大幅提升.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 13883,
       "content_hash": "sha256:8649c000516f713568be131e706caaa437ea20fe8c0dfea22812a43589586335",
@@ -1785,7 +1811,7 @@
         "concepts/evaluation-metrics.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略-图解.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG Chunk分块策略-图解.md": {
       "ingested_at": "2026-06-18",
       "size_bytes": 16083,
       "content_hash": "sha256:1482e4d15a18a904681696456309d9b52fd222f6809a2e09c9f9c296317ecc15",
@@ -1797,7 +1823,7 @@
       "pages_updated": [],
       "note": "Split from RAG Chunk分块策略.md (diagrams portion)"
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG Chunk分块策略-代码示例.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG Chunk分块策略-代码示例.md": {
       "ingested_at": "2026-06-18",
       "size_bytes": 36156,
       "content_hash": "sha256:37c40ee5f9bf8964e87dc3ba3b4708af71add020f0273c2d16c0c1a37c7336e4",
@@ -1809,7 +1835,7 @@
       "pages_updated": [],
       "note": "Split from RAG Chunk分块策略.md (code examples portion)"
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG 存储技术：文件、元数据、切片、向量.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG 存储技术：文件、元数据、切片、向量.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 27857,
       "content_hash": "sha256:66ac8fededf1b7e82b665920cb22627efff7ea08f50d1c533d8a55dccd41f4ee",
@@ -1822,7 +1848,7 @@
         "concepts/rag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG开源生态全景-6大项目PK.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/GraphRAG开源生态全景-6大项目PK.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 11400,
       "content_hash": "sha256:40bd0c37e71b8a77620228d32371d5f8b069a590a32288577b2322103c99e3cd",
@@ -1833,7 +1859,7 @@
         "concepts/graphrag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG 核心工具大全 - 7大解析工具+向量模型+数据库+检索排序.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 25810,
       "content_hash": "sha256:e01aa91656a25f0168a9e804275939e29201440d12fb58fa856dfa682ac14189",
@@ -1846,7 +1872,7 @@
         "concepts/rag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG设计解读.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/GraphRAG设计解读.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 36149,
       "content_hash": "sha256:cb8ad22ca38b32da000b6b3ecc5960d098d5347e2b4294c5f856772cc6d35349",
@@ -1857,7 +1883,7 @@
         "concepts/graphrag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG原理及部署实战-博客园.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/GraphRAG原理及部署实战-博客园.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 7317,
       "content_hash": "sha256:831d8b7d1b9db1a81a1b7c5e75e440943846d477c1d70bd513bced51f149827a",
@@ -1868,7 +1894,7 @@
         "concepts/graphrag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/GraphRAG/GraphRAG知识图谱全流程解析.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/GraphRAG/GraphRAG知识图谱全流程解析.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 45055,
       "content_hash": "sha256:03c2322ff8538fb794e6d8ebdd83a6462d0f5a5b36f0fe0d7309d372db9fb4e1",
@@ -1907,7 +1933,7 @@
         "skills/linux-kernel-debugging.md"
       ]
     },
-    "AI 人工智能/Agent架构/Harness工程/Harness Engineering：AI Agent 时代的工程范式革命.md": {
+    "AI 人工智能/AI Agent/Harness工程/Harness Engineering：AI Agent 时代的工程范式革命.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 13799,
       "content_hash": "sha256:f96fb10c9e8154446e8501d08d26a7415bcbcc95e968d963a73ec4518684b4b2",
@@ -1918,7 +1944,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Harness工程/Harness-从零理解到动手代码实践.md": {
+    "AI 人工智能/AI Agent/Harness工程/Harness-从零理解到动手代码实践.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 23726,
       "content_hash": "sha256:6cb0b3a83ab7c84163880764dfff4d6bddcface53329acf844e322f2f986f572",
@@ -1929,7 +1955,7 @@
         "concepts/harness-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/Harness工程/Harness-起源原理与落地实践.md": {
+    "AI 人工智能/AI Agent/Harness工程/Harness-起源原理与落地实践.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 22655,
       "content_hash": "sha256:daa4da3cbf9733acda7d2d2473ff7709830892565e8b75537247ded4c5622bdd",
@@ -1940,7 +1966,7 @@
         "concepts/harness-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/Harness工程/Harness-驾驭工程介绍.md": {
+    "AI 人工智能/AI Agent/Harness工程/Harness-驾驭工程介绍.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 17794,
       "content_hash": "sha256:967c4932c04c2930eaa8a30f161f6fdbf34a831dca99d9bea78f442e5d7d12ef",
@@ -1951,7 +1977,7 @@
         "concepts/harness-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/Claude Code/Claude Code 工作原理深度解析：从技术架构到设计哲学.md": {
+    "AI 人工智能/AI Agent/Claude Code/Claude Code 工作原理深度解析：从技术架构到设计哲学.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 17584,
       "content_hash": "sha256:f42173fe6d7f7149dacb6a55e1993c196f277cbdf08402c1148abcc434829368",
@@ -1962,7 +1988,7 @@
       ],
       "pages_updated": []
     },
-    "AI 人工智能/Agent架构/Claude Code/Claude Code 使用技巧：从入门到精通.md": {
+    "AI 人工智能/AI Agent/Claude Code/Claude Code 使用技巧：从入门到精通.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 11944,
       "content_hash": "sha256:00abd9c549f097d9ee4565b7e35492faf0ce988bfb4c7becf5116741d4bd31fe",
@@ -1973,7 +1999,7 @@
         "entities/claude-code.md"
       ]
     },
-    "AI 人工智能/Agent架构/Memory记忆/Claude Code-记忆系统设计.md": {
+    "AI 人工智能/AI Agent/Memory记忆/Claude Code-记忆系统设计.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 8605,
       "content_hash": "sha256:8dccea2e7ba60410c944cb225f42e5e6fa4fe76453110577332890e2de83da0a",
@@ -1984,7 +2010,7 @@
         "entities/claude-code.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/RAG进阶：下一代RAG演进方向.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/RAG进阶：下一代RAG演进方向.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 10506,
       "content_hash": "sha256:3b911913f0cdb36d0e7593a10d9aaed11accf0e461429fccfd58fa460ee59d9d",
@@ -1995,7 +2021,7 @@
         "concepts/rag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/向量数据库/HNSW原理实践及阿里云灵积向量检索-博客园.md": {
+    "AI 人工智能/AI Agent/向量数据库/HNSW原理实践及阿里云灵积向量检索-博客园.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 26010,
       "content_hash": "sha256:27230b8e7a6ff7873f289c8398e1d2875ed94fa919b75950576a16c19b5d2ce2",
@@ -2006,7 +2032,7 @@
         "entities/vector-database-comparison.md"
       ]
     },
-    "AI 人工智能/Agent架构/向量数据库/向量数据库是必要之恶，但不是银弹.md": {
+    "AI 人工智能/AI Agent/向量数据库/向量数据库是必要之恶，但不是银弹.md": {
       "ingested_at": "2026-06-16",
       "size_bytes": 15759,
       "content_hash": "sha256:33a685f00ecc6d2b84dbcb4a7a6260d6ae4ca8e27a207d059f4016ea4f822581",
@@ -2017,7 +2043,7 @@
         "entities/vector-database-comparison.md"
       ]
     },
-    "AI 人工智能/Agent架构/Memory记忆/LangGraph-Agent记忆Memory架构.md": {
+    "AI 人工智能/AI Agent/Memory记忆/LangGraph-Agent记忆Memory架构.md": {
       "ingested_at": "2026-06-18",
       "size_bytes": 26370,
       "content_hash": "sha256:4e62dda84a4d88e41f55a29dbd0d6d3b51b72a9d3284b09d815f43eeffa479a4",
@@ -2042,7 +2068,7 @@
       "pages_updated": [],
       "note": "Source file replaced: 红黑树详解.md → 红黑树讲解.md (content updated)"
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/SAG/SAG 核心思路介绍（利用SQL构建查询时的Hyperedge超边）.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/SAG/SAG 核心思路介绍（利用SQL构建查询时的Hyperedge超边）.md": {
       "ingested_at": "2026-06-22",
       "size_bytes": 6503,
       "content_hash": "sha256:04dc96e37df3a53a37f02b79f9d22310b2b1c22f71d069f32b86b50671965a2b",
@@ -2056,7 +2082,7 @@
         "concepts/rag-engineering.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/高级RAG/SAG/Zleap技术解密：后RAG时代已来，SAG重新定义AI搜索.md": {
+    "AI 人工智能/AI Agent/RAG/高级RAG/SAG/Zleap技术解密：后RAG时代已来，SAG重新定义AI搜索.md": {
       "ingested_at": "2026-06-22",
       "size_bytes": 11681,
       "content_hash": "sha256:7ba542ab7cfa69fc419b41fb05be42821c798b890c5c2479e61b8a3e75894992",
@@ -2067,7 +2093,7 @@
         "concepts/sag-sql-retrieval-augmented-generation.md"
       ]
     },
-    "AI 人工智能/Agent架构/RAG/传统RAG/RAG 常用框架大全.md": {
+    "AI 人工智能/AI Agent/RAG/传统RAG/RAG 常用框架大全.md": {
       "ingested_at": "2026-06-22",
       "size_bytes": 13826,
       "content_hash": "sha256:2b7ad1de6d6fc200db417628fbd74f2e2293e46ffeb4e707c9d039fa3c92cf7a",
@@ -2111,7 +2137,7 @@
         "concepts/ood-principles-and-patterns.md"
       ]
     },
-    "AI 人工智能/Agent架构/Multi-Agent协同/Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md": {
+    "AI 人工智能/AI Agent/Multi-Agent协同/Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md": {
       "ingested_at": "2026-06-13",
       "size_bytes": 10072,
       "content_hash": "sha256:8c5194c41abad4fe3cb57c3a4ab1b9c810318d5274c5d203ce104523c3e2335d",
@@ -2124,7 +2150,7 @@
         "concepts/multi-agent-framework-comparison.md"
       ]
     },
-    "AI 人工智能/Agent架构/Multi-Agent协同/多Agent协同：Oh My OpenCode 深度架构分析报告.md": {
+    "AI 人工智能/AI Agent/Multi-Agent协同/多Agent协同：Oh My OpenCode 深度架构分析报告.md": {
       "ingested_at": "2026-06-27",
       "size_bytes": 61172,
       "modified_at": "2026-06-27",
@@ -2144,7 +2170,7 @@
         "entities/langgraph-framework.md"
       ]
     },
-    "AI 人工智能/Agent架构/Multi-Agent协同/单Agent 智能体.md": {
+    "AI 人工智能/AI Agent/Multi-Agent协同/单Agent 智能体.md": {
       "ingested_at": "2026-06-27",
       "size_bytes": 286,
       "modified_at": "2026-06-27",
@@ -2157,13 +2183,13 @@
       ]
     }
   },
-  "last_ingest": "2026-06-22",
+  "last_ingest": "2026-06-29",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 186,
-    "total_pages": 156,
-    "total_concepts": 58,
-    "total_summaries": 22,
+    "total_sources_ingested": 188,
+    "total_pages": 159,
+    "total_concepts": 59,
+    "total_summaries": 24,
     "total_entities": 15,
     "total_skills": 13,
     "total_synthesis": 6

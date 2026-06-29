@@ -3,7 +3,7 @@ title: RAG存储技术
 category: concepts
 tags: [AI, RAG, 存储, 向量库, Elasticsearch, Milvus]
 summary: RAG存储四层架构：原始文件(MinIO/Ceph/SeaweedFS)→元数据(PostgreSQL/MongoDB/Neo4j)→切片(ES/OpenSearch)→向量(Milvus/Qdrant/pgvector/ChromaDB)
-source_dir: AI 人工智能/Agent架构/RAG/传统RAG
+source_dir: AI 人工智能/AI Agent/RAG/传统RAG
 source_files: [RAG 存储技术：文件、元数据、切片、向量.md]
 provenance:
   extracted: 0.75
@@ -143,4 +143,4 @@ RAG系统的存储不是"一个向量库就够了"——而是四层架构：原
 
 ## 来源
 
-- RAG 存储技术：文件、元数据、切片、向量（raw/sources/AI 人工智能/Agent架构/RAG/传统RAG/）
+- RAG 存储技术：文件、元数据、切片、向量（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）

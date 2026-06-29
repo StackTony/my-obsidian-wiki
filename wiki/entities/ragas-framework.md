@@ -3,7 +3,7 @@ title: RAGAS评估框架
 category: entities
 tags: [AI, RAG, 评估, RAGAS, 量化评估]
 aliases: [RAGAS, Retrieval Augmented Generation Assessment]
-source_dir: AI 人工智能/Agent架构/评估系统
+source_dir: AI 人工智能/AI Agent/评估系统
 source_files: [RAGAS 评估框架.md]
 summary: RAGAS是RAG/LLM应用的自动化量化评估框架，核心4指标：Context Precision/Recall检索层+Faithfulness/Answer Relevancy生成层，把"感觉对"变成"数据证明对"
 provenance:
@@ -99,5 +99,5 @@ print(result)  # 输出各指标分数（0~1）
 
 ## 来源
 
-- RAGAS 评估框架（raw/sources/AI 人工智能/Agent架构/评估系统/）
+- RAGAS 评估框架（raw/sources/AI 人工智能/AI Agent/评估系统/）
 - GitHub: https://github.com/vibrantlabsai/ragas

@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-06-27
+updated: 2026-06-29
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-27 (Multi-Agent协同 Ingest)*
+*自动维护。上次更新：2026-06-29 (AI Agent 增量 Ingest)*
 
 ## Summaries (数据结构与算法)
 
@@ -141,10 +141,11 @@ updated: 2026-06-27
 - [sag-sql-retrieval-augmented-generation](concepts/sag-sql-retrieval-augmented-generation.md) — SAG用SQL+向量混合检索替代GraphRAG全局图构建——查询时用SQL join临时激活局部Hyperedge结构，多跳Recall@5达80% — `AI` `RAG` `SAG` `SQL` `Hyperedge`
 - [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW原理实践+四大局限+灵积DashScope全栈；DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；向量库非银弹，混合检索是务实标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 
-### Agent框架 (智能体/工具调用)  — 7条（含landscape导航页面+Harness Engineering+Multi-Agent编排+OMO）
+### Agent框架 (智能体/工具调用)  — 8条（含landscape导航页面+Harness Engineering+Multi-Agent编排+OMO+系统架构设计）
 
 - [agent-architecture-landscape](concepts/agent-architecture-landscape.md) — Agent架构7个子领域导航枢纽：树状拓扑+4个核心矛盾+子领域连接+LLM基础设施边界 — `AI` `Agent` `RAG` `知识图谱` `全景图`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`
+- [agent-system-architecture](concepts/agent-system-architecture.md) — Agent系统架构设计：执行循环+消息总线+Skill vs Tool+三层Memory+Sub-agent+声明式设计 — `AI` `Agent` `架构设计` `执行循环` `消息总线`
 - [harness-engineering](concepts/harness-engineering.md) — Harness Engineering（驾驭工程）：围绕AI Agent构建约束、反馈回路与执行控制——模型负责推理，Harness负责一切外围工程 — `AI` `Agent架构` `Harness` `约束系统` `工程范式`
 - [tool-calling-mcp](concepts/tool-calling-mcp.md) — 工具调用与MCP：JSON Schema+结构化输出+MCP统一工具生态，协议与安全边界 — `AI` `Agent` `MCP` `Function Call` `工具调用`
 - [multi-agent-framework-comparison](concepts/multi-agent-framework-comparison.md) — 四大Multi-Agent框架对比：LangGraph(可靠)/CrewAI(简单)/AutoGen(灵活)/AgentX(安全) — `AI` `Agent` `LangGraph` `CrewAI` `AutoGen`
@@ -162,6 +163,11 @@ updated: 2026-06-27
 ### 数据飞轮 (正反馈循环)  — 1条
 
 - [data-flywheel](concepts/data-flywheel.md) — 数据飞轮：数据和业务间的正反馈循环——AI辅助决策产出更多数据，更多数据强化AI决策，飞轮越转越快 — `AI` `数据飞轮` `数据要素` `知识管理` `企业数字化`
+
+## Summaries (AI)
+
+- [agent-system-architecture-design](summaries/agent-system-architecture-design.md) — Agent执行循环Observe-Think-Act架构+Skill vs Tool+三层Memory+Sub-agent+声明式设计 — `AI` `Agent` `执行循环` `Skill` `Memory`
+- [agent-message-bus-architecture](summaries/agent-message-bus-architecture.md) — 消息总线解耦Channel-Agent+四层架构+同Session串行不同并发+LLM Provider统一接口 — `AI` `Agent` `消息总线` `多渠道` `解耦`
 
 ## Entities (AI)
 

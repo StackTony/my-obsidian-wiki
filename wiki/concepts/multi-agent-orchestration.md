@@ -3,7 +3,7 @@ title: Multi-Agent协同编排
 category: concepts
 tags: [AI, Agent, Multi-Agent, 编排, 协同]
 aliases: [多Agent协同, Multi-Agent编排, Agent协同]
-source_dir: AI 人工智能/Agent架构/Multi-Agent协同
+source_dir: AI 人工智能/AI Agent/Multi-Agent协同
 source_files: [多Agent协同：Oh My OpenCode 深度架构分析报告.md, 单Agent 智能体.md]
 provenance:
   extracted: 0.40
@@ -142,5 +142,5 @@ Ralph Loop 的 `completion_promise` 机制让用户定义"完成"的标准，age
 
 ## 来源
 
-- 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/Agent架构/Multi-Agent协同/）
-- 单Agent 智能体（raw/sources/AI 人工智能/Agent架构/Multi-Agent协同/）— 仅含 2 个 GitHub 链接，内容稀疏
+- 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）
+- 单Agent 智能体（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）— 仅含 2 个 GitHub 链接，内容稀疏

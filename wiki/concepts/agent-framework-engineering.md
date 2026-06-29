@@ -6,7 +6,7 @@ summary: Agent工程的核心洞察：可靠Agent更像可观测状态机，而�
 source_dir: AI 人工智能/AI infra/大模型基础设施工程系列
 source_files: [【大模型基础设施工程】19：Agent 框架工程.md]
   # 跨目录补充
-  # source_dir: AI 人工智能/Agent架构/Agent智能体
+  # source_dir: AI 人工智能/AI Agent/Agent智能体
   # source_files: [Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md]
 provenance:
   extracted: 0.60
@@ -17,7 +17,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-27
+updated: 2026-06-29
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: derived_from
@@ -35,6 +35,8 @@ relationships:
     type: extends
   - target: "[[entities/oh-my-opencode]]"
     type: related_to
+  - target: "[[concepts/agent-system-architecture]]"
+    type: extends
 ---
 
 # Agent框架工程
@@ -80,6 +82,18 @@ Agent的核心挑战不是"让模型更聪明"，而是**让模型在结构化�
 - **短期记忆**：线程内，通过检查点持久化，包括对话历史和检索结果
 - **长期记忆**：跨线程共享，通过Store管理，包括用户偏好、历史摘要、知识积累
 
+### Skill vs Tool：方法论知识的注入
+
+详见 [[concepts/agent-system-architecture|Agent系统架构设计]] 中的Skill系统部分。
+
+关键洞察：**Tool定义"能做什么"（可执行操作），Skill定义"如何做好"（方法论知识）**——两者互补。用户无需编码，在workspace/skills/目录创建Markdown文件即可注入领域知识。Skill采用三层渐进式加载避免token耗尽。
+
+### Sub-agent机制
+
+详见 [[concepts/agent-system-architecture|Agent系统架构设计]] 中的Sub-agent部分。
+
+关键洞察：Sub-agent是**完整的AgentLoop实例**而非简单工具调用——它拥有独立ToolRegistry（不含spawn和message）、临时messages、精简System Prompt。禁止spawn防止递归，禁止message必须通过主Agent转发。
+
 ## Agent框架对比
 
 | 框架 | 定位 | 特点 |
@@ -120,6 +134,7 @@ Agent的核心挑战不是"让模型更聪明"，而是**让模型在结构化�
 ## 延伸阅读
 
 相关概念：[[concepts/harness-engineering]] — Harness Engineering（驾驭工程）：Agent=Model+Harness，四大支柱+六大共识+三阶段路线图——Agent框架工程的上层方法论
+相关概念：[[concepts/agent-system-architecture]] — Agent系统架构设计：执行循环+消息总线两种架构视角+Skill/Memory/Sub-agent机制细节
 相关概念：[[concepts/data-flywheel]] — 数据飞轮：Agent决策的数据基础正反馈循环
 相关概念：[[concepts/multi-agent-framework-comparison]] — Multi-Agent框架终极对比
 相关概念：[[concepts/multi-agent-orchestration]] — Multi-Agent协同编排设计模式

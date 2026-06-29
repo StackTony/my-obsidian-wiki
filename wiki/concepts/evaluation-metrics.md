@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, 评估, 混淆矩阵, 准确率, 精确率, 召回率, F1]
 aliases: [混淆矩阵, accuracy precision recall, 准确率精确率召回率]
 summary: 分类评估指标的核心：混淆矩阵导出准确率/精确率/召回率/F1——类别不平衡时准确率失效，精确率防错报、召回率防漏报、F1兼顾两者
-source_dir: AI 人工智能/Agent架构/评估系统
+source_dir: AI 人工智能/AI Agent/评估系统
 source_files: [如何理解准确率、精确率和召回率.md, RAG评测完整指南：指标、测试和最佳实践.md, RAG效果差？7个指标让你的准确率大幅提升.md]
 provenance:
   extracted: 0.85
@@ -96,6 +96,6 @@ RAG检索层的7个核心排序指标（来自"RAG效果差？7个指标让你�
 
 ## 来源
 
-- 如何理解准确率、精确率和召回率（raw/sources/AI 人工智能/Agent架构/评估系统/）
-- RAG评测完整指南：指标、测试和最佳实践（raw/sources/AI 人工智能/Agent架构/评估系统/）
-- RAG效果差？7个指标让你的准确率大幅提升（raw/sources/AI 人工智能/Agent架构/评估系统/）
+- 如何理解准确率、精确率和召回率（raw/sources/AI 人工智能/AI Agent/评估系统/）
+- RAG评测完整指南：指标、测试和最佳实践（raw/sources/AI 人工智能/AI Agent/评估系统/）
+- RAG效果差？7个指标让你的准确率大幅提升（raw/sources/AI 人工智能/AI Agent/评估系统/）
