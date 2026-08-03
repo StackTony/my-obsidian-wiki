@@ -4,6 +4,26 @@ title: Wiki Log
 
 # Wiki Log
 
+## [2026-08-03] INGEST | AI Agent 协议+平台 增量（11新来源+74 CRLF重命名 → 7新页面+3更新）
+
+- [2026-08-03T15:00] INGEST mode=append source_dir="AI 人工智能/AI Agent" pages_created=7 pages_updated=3
+- 新建页面（7个）：
+  - concepts/agent-communication-protocols — 三大Agent协议（MCP/ACP/A2A）三层协议栈：工具驱动层+协作通信层+公共发现层
+  - concepts/agent-development-platforms-landscape — 10+Agent开发平台全景图：5分类（自主执行/可视化编排/通用框架/多Agent协作/有状态Agent）+选型决策树
+  - summaries/a2a-protocol — A2A协议原文摘要：Agent Card/Task/Message/Part/Artifact+JSON-RPC方法
+  - summaries/acp-protocol — ACP协议原文摘要（上下篇整合）：REST架构+三种部署模式+离线发现
+  - summaries/ai-protocols-comparison — 三大AI协议对比原文摘要：MCP外接大脑+ACP本地对讲机+A2A国际通用语
+  - summaries/agent-development-platforms-top10 — 10个Agent开发平台原文摘要：AutoGPT/Dify/LangChain/MetaGPT等
+  - entities/headroom-tool — Headroom上下文压缩中间件：ContentRouter+5策略+92%SRE日志token节省
+- 已有页面更新（3个）：
+  - concepts/tool-calling-mcp — 新增"MCP在三大Agent协议中的定位"章节+source_files扩展至5个协议文件+base_confidence 0.75→0.80
+  - concepts/agent-system-architecture — source_files更新（消息总线文件重命名：架构设计解析→系统架构设计）
+  - summaries/agent-message-bus-architecture — source_files更新（文件重命名同步）
+- 跳过4个稀薄文件：Demo进阶指南/多Agent协作github项目/自动化研究skill/codebase-memory-mcp（≤100字节，仅含URL）
+- 74个CRLF行尾转换文件：manifest哈希全量更新（无实际内容变化，避免重复ingest）
+- 1个文件重命名：Agent 架构设计解析 → Agent 系统架构设计（消息总线），内容字节相同，manifest条目迁移
+- manifest: 198 total sources（was 188）
+
 ## [2026-06-29] UPDATE | Graphify与GitNexus实体页更新
 - [2026-06-29T09:00] UPDATE source="AI 人工智能/AI Agent/知识图谱/Graphify和Gitnexus.md" pages_updated=1
   - entities/graphify-gitnexus.md — 新增GitNexus CLI命令表、MCP工具体系（核心/API/仓库组3类）、Web界面和本地后端模式、设计哲学差异详细展开；source_dir从Agent架构更新为AI Agent

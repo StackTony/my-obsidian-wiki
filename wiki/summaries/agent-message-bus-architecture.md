@@ -4,7 +4,7 @@ category: summaries
 tags: [AI, Agent, 消息总线, 多渠道, 解耦]
 summary: 消息总线架构将Channel和Agent完全解耦：InboundQueue+OutboundQueue两个异步队列，接入新渠道只需实现start/stop/send三个接口Agent代码不变——四层架构（渠道层/消息总线/核心Agent/Provider工具层），同Session串行不同Session并发，LLM Provider统一接口+error_should_retry判断下沉
 source_dir: AI 人工智能/AI Agent/Agent架构设计
-source_files: [Agent 架构设计解析：消息总线如何驱动多渠道智能体.md]
+source_files: [Agent 系统架构设计：消息总线如何驱动多渠道智能体.md]
 provenance:
   extracted: 0.70
   inferred: 0.25
