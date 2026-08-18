@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-06-29
+updated: 2026-08-03
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-06-29 (AI Agent 增量 Ingest)*
+*自动维护。上次更新：2026-08-03 (AI Agent 协议+平台 增量 Ingest)*
 
 ## Summaries (数据结构与算法)
 
@@ -141,15 +141,17 @@ updated: 2026-06-29
 - [sag-sql-retrieval-augmented-generation](concepts/sag-sql-retrieval-augmented-generation.md) — SAG用SQL+向量混合检索替代GraphRAG全局图构建——查询时用SQL join临时激活局部Hyperedge结构，多跳Recall@5达80% — `AI` `RAG` `SAG` `SQL` `Hyperedge`
 - [vector-database-comparison](entities/vector-database-comparison.md) — 向量库选型：HNSW原理实践+四大局限+灵积DashScope全栈；DiskANN 10B+解+RaBitQ 32x压缩；Milvus/Qdrant/pgvector三强；向量库非银弹，混合检索是务实标配 — `AI` `RAG` `向量库` `Milvus` `Qdrant` `HNSW`
 
-### Agent框架 (智能体/工具调用)  — 8条（含landscape导航页面+Harness Engineering+Multi-Agent编排+OMO+系统架构设计）
+### Agent框架 (智能体/工具调用)  — 9条（含landscape导航页面+Harness Engineering+Multi-Agent编排+OMO+系统架构设计+通信协议三层）
 
 - [agent-architecture-landscape](concepts/agent-architecture-landscape.md) — Agent架构7个子领域导航枢纽：树状拓扑+4个核心矛盾+子领域连接+LLM基础设施边界 — `AI` `Agent` `RAG` `知识图谱` `全景图`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`
 - [agent-system-architecture](concepts/agent-system-architecture.md) — Agent系统架构设计：执行循环+消息总线+Skill vs Tool+三层Memory+Sub-agent+声明式设计 — `AI` `Agent` `架构设计` `执行循环` `消息总线`
 - [harness-engineering](concepts/harness-engineering.md) — Harness Engineering（驾驭工程）：围绕AI Agent构建约束、反馈回路与执行控制——模型负责推理，Harness负责一切外围工程 — `AI` `Agent架构` `Harness` `约束系统` `工程范式`
-- [tool-calling-mcp](concepts/tool-calling-mcp.md) — 工具调用与MCP：JSON Schema+结构化输出+MCP统一工具生态，协议与安全边界 — `AI` `Agent` `MCP` `Function Call` `工具调用`
+- [tool-calling-mcp](concepts/tool-calling-mcp.md) — 工具调用与MCP：JSON Schema+结构化输出+MCP统一工具生态，协议与安全边界；含三大协议栈定位（MCP工具驱动层/ACP协作通信层/A2A公共发现层） — `AI` `Agent` `MCP` `Function Call` `工具调用`
+- [agent-communication-protocols](concepts/agent-communication-protocols.md) — Agent通信协议三大分类：MCP（工具驱动层Agent↔Resource）+ACP（协作通信层Agent↔Agent企业内）+A2A（公共发现层跨厂商）——像网络协议栈一样各司其职，开源中间件将"翻译"成统一接口 — `AI` `Agent` `MCP` `ACP` `A2A`
 - [multi-agent-framework-comparison](concepts/multi-agent-framework-comparison.md) — 四大Multi-Agent框架对比：LangGraph(可靠)/CrewAI(简单)/AutoGen(灵活)/AgentX(安全) — `AI` `Agent` `LangGraph` `CrewAI` `AutoGen`
 - [multi-agent-orchestration](concepts/multi-agent-orchestration.md) — Multi-Agent协同编排7个设计模式：角色分化+工具隔离、主编排+子执行、双轨主Agent、证据完成、并发防递归、completion_promise续跑、AgentPromptMetadata自描述 — `AI` `Agent` `Multi-Agent` `编排` `协同`
+- [agent-development-platforms-landscape](concepts/agent-development-platforms-landscape.md) — Agent开发平台全景图：10+主流平台按定位分5类（自主任务执行/可视化编排/通用LLM框架/多Agent协作/有状态Agent）——AutoGPT/Dify/LangChain/MetaGPT/CrewAI/Letta等 — `AI` `Agent` `平台` `全景图` `开源`
 
 ### 评估系统 (评测/指标)  — 2条
 
@@ -168,6 +170,10 @@ updated: 2026-06-29
 
 - [agent-system-architecture-design](summaries/agent-system-architecture-design.md) — Agent执行循环Observe-Think-Act架构+Skill vs Tool+三层Memory+Sub-agent+声明式设计 — `AI` `Agent` `执行循环` `Skill` `Memory`
 - [agent-message-bus-architecture](summaries/agent-message-bus-architecture.md) — 消息总线解耦Channel-Agent+四层架构+同Session串行不同并发+LLM Provider统一接口 — `AI` `Agent` `消息总线` `多渠道` `解耦`
+- [a2a-protocol](summaries/a2a-protocol.md) — A2A协议：Google推出的Agent间开放协议——Agent Card+Task+Message/Part+Artifact，HTTP/JSON-RPC/SSE，异步+模态无关 — `AI` `Agent` `A2A` `协议` `互操作性`
+- [acp-protocol](summaries/acp-protocol.md) — ACP协议：IBM/LinuxFoundation的Agent协作协议——REST+Agent/Run两阶段+离线发现，企业防火墙内多Agent协作 — `AI` `Agent` `ACP` `协议` `协作`
+- [ai-protocols-comparison](summaries/ai-protocols-comparison.md) — 三大AI协议对比：MCP(外接大脑/工具)+ACP(本地对讲机/企业内Agent协作)+A2A(国际通用语/跨厂商发现) — `AI` `Agent` `MCP` `ACP` `A2A`
+- [agent-development-platforms-top10](summaries/agent-development-platforms-top10.md) — 10个Agent开发平台：AutoGPT/Dify/LangChain/MetaGPT/AutoGen/Flowise/CrewAI/ChatDev/SuperAGI/Letta定位对比 — `AI` `Agent` `平台` `AutoGPT` `Dify`
 
 ## Entities (AI)
 
@@ -176,12 +182,13 @@ updated: 2026-06-29
 - [vllm-sglang-tensorrt](entities/vllm-sglang-tensorrt.md) — 推理引擎四强对比：vLLM生态最强/SGLang延迟最优/TensorRT吞吐最高/TGI最稳 — `AI` `vLLM` `SGLang` `TensorRT-LLM` `推理引擎`
 - [megatron-deepspeed](entities/megatron-deepspeed.md) — Megatron偏高性能内核/DeepSpeed偏显存优化易用性，选型取决于规模拓扑维护能力 — `AI` `Megatron` `DeepSpeed` `训练框架`
 
-### Agent框架  — 4条
+### Agent框架  — 5条
 
 - [langchain-framework](entities/langchain-framework.md) — LangChain框架：Runnable+LCEL统一可执行单元，六大包分离架构 — `AI` `LangChain` `LCEL` `框架`
 - [langgraph-framework](entities/langgraph-framework.md) — LangGraph工作流编排：有向图+状态持久化+循环支持+完整Memory架构(短期Checkpoint+长期Store)，Agent从自由聊天升级为可观测状态机 — `AI` `LangGraph` `工作流` `状态机` `Agent`
 - [claude-code](entities/claude-code.md) — Claude Code：Anthropic的AI编程Agent——极简while循环架构+六层记忆系统+子代理上下文隔离+Hook自动化 — `AI` `Claude` `Agent工具` `代码助手` `Anthropic`
 - [oh-my-opencode](entities/oh-my-opencode.md) — Oh My OpenCode：OpenCode超级插件——11个希腊神话命名agent编排+Ralph Loop自动续跑+Hashline Edit防幻觉+三级并发+Claude Code兼容层 — `AI` `Agent` `Multi-Agent` `OpenCode` `编排`
+- [headroom-tool](entities/headroom-tool.md) — Headroom上下文压缩中间件：ContentRouter+5策略(SmartCrusher/CodeCompressor/Kompress-base/CacheAligner/CCR)，SRE日志92%Token节省，MCP server模式跨Agent共享记忆 — `AI` `Agent` `Token压缩` `上下文压缩` `中间件`
 
 ### RAG  — 1条
 

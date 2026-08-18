@@ -3,23 +3,25 @@ title: 工具调用与MCP协议
 category: concepts
 tags: [AI, Agent, MCP, Function Call, 工具调用]
 summary: 工具调用是Agent连接外部世界的协议边界——JSON Schema描述接口、结构化输出保证安全、MCP统一工具生态
-source_dir: AI 人工智能/AI infra/大模型基础设施工程系列
-source_files: [【大模型基础设施工程】20：工具调用与 MCP.md]
+source_dir: AI 人工智能/AI Agent/各种协议
+source_files: [../../AI infra/大模型基础设施工程系列/【大模型基础设施工程】20：工具调用与 MCP.md, 深度解析三大AI协议：MCP、ACP与A2A.md, A2A/A2A协议.md, ACP/ACP协议让AI团队协作成为现实（上篇）.md, ACP/ACP协议实战指南：从零构建你的AI智能体团队（下篇）.md]
 provenance:
   extracted: 0.60
   inferred: 0.35
   ambiguous: 0.05
-base_confidence: 0.75
+base_confidence: 0.80
 lifecycle: draft
-lifecycle_changed: 2026-06-02
+lifecycle_changed: 2026-08-03
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-08-03
 relationships:
   - target: "[[concepts/agent-framework-engineering]]"
     type: implements
   - target: "[[concepts/llm-infra-landscape]]"
     type: derived_from
+  - target: "[[concepts/agent-communication-protocols]]"
+    type: implements
 ---
 
 # 工具调用与MCP协议
@@ -45,9 +47,6 @@ relationships:
     }
   }
 }
-
-// LLM返回调用请求
-{"name": "get_weather", "arguments": {"city": "北京"}}
 ```
 
 ### 关键设计
@@ -92,6 +91,18 @@ Host（Claude Code等AI应用）
 
 MCP的目标是成为"LLM的USB接口"——一个标准协议让任何工具可以接入任何LLM应用。 ^[inferred]
 
+## MCP在三大Agent协议中的定位
+
+MCP与ACP、A2A构成**Agent协议栈的三层分工**（详见 [[concepts/agent-communication-protocols]]）：
+
+| 协议 | 抽象层级 | 核心问题 | 比喻 |
+|------|----------|----------|------|
+| **MCP** | 工具驱动层（Agent↔Resource） | Agent如何调用外部能力 | "外接大脑" |
+| **ACP** | 协作通信层（Agent↔Agent，企业内） | 企业内部Agent如何协作 | "本地对讲机" |
+| **A2A** | 公共发现层（Agent↔Agent，跨厂商） | 跨厂商Agent如何相互发现 | "国际通用语" |
+
+**协同模式**：主Agent通过MCP调用外部API获取实时数据；当需要更复杂推理时，通过A2A将子任务委派给专门的远程Agent；远程Agent内部又通过MCP调用各自工具集；最终通过A2A返回结果——**MCP负责"对物"交互，A2A负责"对智"交互** ^[inferred]
+
 ## 安全边界
 
 工具调用是Agent攻击面的核心入口：
@@ -102,3 +113,6 @@ MCP的目标是成为"LLM的USB接口"——一个标准协议让任何工具可
 ## 来源
 
 - 大模型基础设施工程系列20：工具调用与MCP（raw/sources/AI 人工智能/AI infra/大模型基础设施工程系列/）
+- [[summaries/ai-protocols-comparison]] — 三大AI协议对比原文摘要
+- [[summaries/a2a-protocol]] — A2A协议原文摘要
+- [[summaries/acp-protocol]] — ACP协议原文摘要（上下篇）

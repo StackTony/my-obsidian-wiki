@@ -5,7 +5,7 @@ tags: [AI, Agent, 架构设计, 执行循环, 消息总线]
 aliases: [Agent Architecture Design, Agent执行循环, Agent消息总线]
 summary: Agent系统架构两种视角：执行循环（Observe-Think-Act迭代+Skill/Memory/Sub-agent）和消息总线（Channel-Bus-Agent解耦+多渠道并发）——从单轮问答到自主循环执行的质变
 source_dir: AI 人工智能/AI Agent/Agent架构设计
-source_files: [Agent 系统架构设计：从执行循环到智能协作.md, Agent 架构设计解析：消息总线如何驱动多渠道智能体.md]
+source_files: [Agent 系统架构设计：从执行循环到智能协作.md, Agent 系统架构设计：消息总线如何驱动多渠道智能体.md]
 provenance:
   extracted: 0.55
   inferred: 0.40
