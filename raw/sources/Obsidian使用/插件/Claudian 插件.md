@@ -5,6 +5,11 @@ https://github.com/YishenTu/claudian
 若通过npm安装的，插件需要设置为实际可执行二进制的路径：
 C:/Users/23363/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe
 
+ANTHROPIC_API_KEY=sk-FP1owtdEKvWUvw1dNSDTCA
+ANTHROPIC_BASE_URL=http://113.46.219.251:8080/
+ANTHROPIC_MODEL=glm-5.2
+
+
 可以在 Obsidian 里直接让 Claude： 
 - 重构一篇技术文章 
 - 拆解复杂概念 
