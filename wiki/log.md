@@ -516,4 +516,4 @@ title: Wiki Log
   - entities/langgraph-framework — relationships新增oh-my-opencode related_to
   - wiki/index.md — Agent框架从5→7条+实体新增OMO条目
 - 跳过1个稀薄文件：单Agent 智能体.md（286字节，仅含2个GitHub链接，内容不足以独立建页，作为来源引用记入multi-agent-orchestration）
-- Manifest更新：旧key迁移（Agent智能体→Multi-Agent协同）+ 2个新源文件SHA-256注册
+- Manifest更新：旧key迁移（Agent智能体→Multi-Agent协同）+ 2个新源文件SHA-256注册- [2026-09-10 QUERY query="IO 阻塞不返回，如何查看确认进程卡在哪个内核调用上" result_pages=4 mode=normal escalated=false
