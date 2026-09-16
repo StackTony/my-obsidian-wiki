@@ -9,8 +9,8 @@ relationships:
   - target: "[[concepts/linux-io-stack]]"
     type: uses
 source_dir: DFX工具
-source_files: [==IO==/IO常用工具.md]
-summary: IO性能排查与压测实操手册：iostat监控磁盘利用率/时延、fio随机/顺序读写压测、dd裸盘读写速率测试、blktrace追踪IO路径、block_dump+SCSI日志开关。
+source_files: [==IO==/IO常用工具.md, "Linux 操作系统/Linux 内核 IO 栈/Linux IO全景介绍.md"]
+summary: IO性能排查与压测实操手册：iostat监控磁盘利用率/时延、fio随机/顺序读写压测、dd裸盘读写速率测试、blktrace追踪IO路径、block_dump+SCSI日志开关、hctx tags busy值确认IO阻塞。
 provenance:
   extracted: 0.85
   inferred: 0.10
@@ -20,7 +20,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-09-15
 ---
 
 # Linux IO性能排查与压测实操手册
@@ -90,6 +90,18 @@ blktrace 记录IO请求在各层的流转时间，区分IO Scheduler慢还是硬
 |----|------|------|
 | block层 | block_dump | `echo 1 > /proc/sys/vm/block_dump`（开启）/ `echo 0`（关闭） |
 | SCSI中层 | SCSI_LOG_MLQUEUE | `scsi_logging_level -s --mlqueue=5`（开启）/ `--mlqueue=0`（关闭） |
+
+### 6. IO阻塞确认（hctx tags busy值）
+
+判断进程IO是否卡在等待硬件返回：
+
+```bash
+cat /sys/kernel/debug/block/sdX/hctx0/tags
+```
+
+- **busy=0** — 队列无未完成请求，IO阻塞不在块层
+- **busy非0** — 存在等待IO返回的请求，可能存在IO阻塞（请求已下发但硬件未完成）
+- 配合阵列卡Cache模式确认：`cat /sys/class/scsi_disk/0\:2\:0\:0/cache_type`（write through直接与磁盘交互；write back经阵列Cache二传手，Cache故障/掉电保护异常时会卡IO）
 
 ## 常见问题
 

@@ -3,7 +3,7 @@ title: Linux操作系统与虚拟化全景
 category: concepts
 tags: [linux, 虚拟化, 全景图, 内核, DFX]
 aliases: [Linux全景, OS+虚拟化导航, Linux Landscape]
-summary: Linux操作系统+虚拟化领域的统一导航枢纽：7个OS子领域+4个虚拟化子领域+DFX工具矩阵，7条OS→虚拟化核心映射关系，4个领域核心矛盾
+summary: Linux操作系统+虚拟化领域的统一导航枢纽：8个OS子领域+4个虚拟化子领域+DFX工具矩阵，7条OS→虚拟化核心映射关系，4个领域核心矛盾
 source_dir: Linux 操作系统
 source_files: []
 provenance:
@@ -15,13 +15,15 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: core
 created: 2026-06-13
-updated: 2026-06-13
+updated: 2026-09-15
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
   - target: "[[concepts/linux-memory-management]]"
     type: related_to
   - target: "[[concepts/linux-io-stack]]"
+    type: related_to
+  - target: "[[concepts/linux-fs-mount]]"
     type: related_to
   - target: "[[concepts/linux-network-stack]]"
     type: related_to
@@ -55,13 +57,17 @@ Linux操作系统和虚拟化是**强关联**的两个领域——虚拟化建�
 
 ```
 Linux OS + 虚拟化 + DFX
-├── Linux操作系统（7个子领域）
+├── Linux操作系统（8个子领域）
 │   ├── 中断系统
 │   │   └── [[concepts/linux-interrupt-system|中断系统]]          — IRQ/softirq两阶段、preempt_count、ksoftirqd
 │   ├── 内存管理
 │   │   └── [[concepts/linux-memory-management|内存管理]]          — meminfo参数、Page Cache、LRU、Write策略
 │   ├── IO栈
-│   │   └── [[concepts/linux-io-stack|IO栈]]                      — 五层架构、IO调度器、gendisk
+│   │   └── [[concepts/linux-io-stack|IO栈]]                      — 五层架构、IO调度器、gendisk、hctx busy
+│   ├── 文件系统与Mount
+│   │   └── [[concepts/linux-fs-mount|文件系统与Mount]]           — mount/mountpoint/vfsmount三结构+两步挂载
+│   ├── 网络栈
+│   │   └── [[concepts/linux-network-stack|网络栈]]               — TCP/IP四层、sk_buff零拷贝、NAPI
 │   ├── 网络栈
 │   │   └── [[concepts/linux-network-stack|网络栈]]               — TCP/IP四层、sk_buff零拷贝、NAPI
 │   ├── 锁机制
@@ -152,10 +158,11 @@ Linux内核特性          云原生上层
 │Cgroups   │ ────────→│ 容器资源限制    │
 │OverlayFS │ ────────→│ 容器镜像存储    │
 │Seccomp   │ ────────→│ 容器安全防线    │
+│Mount     │ ────────→│ Mount Namespace│
 └──────────┘          └──────────────┘
 ```
 
-**边界定义**：Namespace+Cgroup+OverlayFS+Seccomp 是 Linux 内核特性 → 云原生的桥梁。理解这四个内核原语是理解容器的基础。
+**边界定义**：Namespace+Cgroup+OverlayFS+Seccomp 是 Linux 内核特性 → 云原生的桥梁。理解这四个内核原语是理解容器的基础。Mount Namespace 的隔离基础正是 [[concepts/linux-fs-mount|mount机制]] 的 mnt_ns 与挂载传播类型。^[inferred]
 
 - OS层面理解 → [[concepts/linux-namespace-cgroups]]、[[concepts/cgroups-v2-deep-dive]]、[[concepts/overlayfs-container-images]]、[[concepts/seccomp-capabilities]]
 - 云原生层面理解 → [[synthesis/cloud-native-infrastructure-landscape]]

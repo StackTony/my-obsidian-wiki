@@ -14,7 +14,7 @@ relationships:
     type: related_to
 source_dir: Linux 操作系统/Linux 内核 IO 栈
 source_files: [Linux IO全景介绍.md, Linux IO调度算法.md]
-summary: Linux IO栈分层架构：VFS→Block层→SCSI/NVMe→驱动→硬件。Block层请求排队调度，IO调度器选择指南，设备发现从pci_device_probe开始，gendisk核心结构。
+summary: Linux IO栈分层架构：VFS→Block层→SCSI/NVMe→驱动→硬件。Block层请求排队调度，IO调度器选择指南，设备发现从pci_device_probe开始，gendisk核心结构，hctx tags busy值确认IO阻塞。
 provenance:
   extracted: 0.70
   inferred: 0.25
@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-11
+updated: 2026-09-15
 ---
 
 # Linux IO栈
@@ -132,6 +132,12 @@ IO栈与 [[concepts/linux-memory-management]] 的 Page Cache 紧密交互，Writ
 |------|--------|------|----------|
 | Write Through | 用户→Page Cache→同步写磁盘 | 低 | 高 |
 | Write Back | 用户→Page Cache→异步刷盘 | 高 | 低（断电风险） |
+
+存储侧同样存在此区分：阵列卡 cache_type（`/sys/class/scsi_disk/0:2:0:0/cache_type`）决定写路径——write through 不利用阵列Cache直接与磁盘交互；write back 以阵列Cache为二传手（系统→Cache→磁盘）。
+
+### IO阻塞确认
+
+判断IO是否卡在块层等待硬件返回：读 `/sys/kernel/debug/block/sdX/hctx0/tags`，busy 值非0代表存在等待IO返回的请求，即可能存在IO阻塞。实操细节见 [[skills/linux-io-debugging|IO调试实操]]。
 
 ## 未解问题
 

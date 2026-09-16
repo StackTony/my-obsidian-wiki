@@ -3,7 +3,7 @@ title: Agent架构全景
 category: concepts
 tags: [AI, Agent, RAG, 知识图谱, 全景图]
 aliases: [Agent架构全景, Agent Landscape, Agent架构导航]
-summary: Agent架构领域导航枢纽：7个子领域的树状拓扑、4个核心矛盾、子领域间连接关系、与LLM基础设施的边界划分
+summary: Agent架构领域导航枢纽：8个子领域的树状拓扑（含知识管理方法论）、4个核心矛盾、子领域间连接关系、与LLM基础设施的边界划分
 source_dir: AI 人工智能/AI Agent
 source_files: []
 provenance:
@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: core
 created: 2026-06-13
-updated: 2026-06-29
+updated: 2026-09-15
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: related_to
@@ -73,7 +73,11 @@ Agent架构
 │   └── [[concepts/data-flywheel|数据飞轮]]                  — 数据与业务正反馈循环
 ┬── Agent工具
 │   ├── [[entities/claude-code|Claude Code]]                   — 极简while循环+六层记忆+子代理+技能+Hook
-│   └── [[entities/oh-my-opencode|Oh My OpenCode]]              — 多Agent编排+Ralph Loop+Hashline Edit+三级并发
+│   ├── [[entities/oh-my-opencode|Oh My OpenCode]]              — 多Agent编排+Ralph Loop+Hashline Edit+三级并发
+│   └── [[entities/dsh-plugin-ecosystem|DSH插件生态]]           — DeepSeek Harness插件：web-ui/modlens/workflow
+├── 知识管理方法论
+│   ├── [[concepts/llm-wiki-methodology|Karpathy LLM Wiki]]    — 编译式知识库：Raw/Wiki/Schema三层+Ingest/Query/Lint
+│   └── [[concepts/obsidian-ai-toolchain|Obsidian AI工具链]]    — Claudian接入+插件清单+Skill+MCP四层
 └── LangChain生态
     ├── [[entities/langchain-framework|LangChain框架]]        — Runnable+LCEL统一可执行单元
     ├── [[entities/langgraph-framework|LangGraph框架]]        — 有向图+状态持久化+完整Memory架构

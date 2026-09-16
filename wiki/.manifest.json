@@ -4,14 +4,15 @@
   "sources": {
     "Linux 虚拟化/IO虚拟化/1）设备初始化流程.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 400,
-      "content_hash": "sha256:014ed460afee5c4e6c7009b672869af18ec93dcebaf097682fd007889b811c6a",
+      "size_bytes": 415,
+      "content_hash": "sha256:3b0bf405ab7df23496ffc106871dfb293047d74392e1a07b801c0206b2423be0",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-virtio-architecture.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 虚拟化/IO虚拟化/2）消息通知机制（ioeventfd和irqfd）.md": {
       "ingested_at": "2026-06-01",
@@ -86,15 +87,16 @@
     },
     "Linux 虚拟化/libvirt/virsh 常用命令汇总表.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 7462,
-      "content_hash": "sha256:2a7c162c8d7ac93655797073043042566cd4f051a850d464e127b9e60da80e4b",
+      "size_bytes": 7641,
+      "content_hash": "sha256:384f486fcec1f9668706b9692a3138d25e0382c8106481e4d62cc9dc54438e83",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "entities/libvirt-virsh.md",
         "skills/virsh-vm-management.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 虚拟化/中断虚拟化/KVM中断注入机制.md": {
       "ingested_at": "2026-06-01",
@@ -133,14 +135,15 @@
     },
     "Linux 虚拟化/热迁移/热迁移流程.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 3979,
-      "content_hash": "sha256:5400ab3de4781b9d06aa14dfb2bfae89880b736fa741242d59d9466987e47949",
+      "size_bytes": 4065,
+      "content_hash": "sha256:48856b94a63fa75509d3a9de8ff6f760734ff678952f3f4e3bf735dcac1545dc",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "summaries/linux-live-migration-flow.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 虚拟化/网络虚拟化/virtio-net内核态网络转发流程.md": {
       "ingested_at": "2026-06-01",
@@ -205,8 +208,8 @@
     },
     "Linux 操作系统/Linux 内存管理/Linux meminfo参数详细解释.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 35900,
-      "content_hash": "sha256:24ce2b5e29a5cb67bdb760d14d1e7eff27d2bd360e957396abd866310801285b",
+      "size_bytes": 36475,
+      "content_hash": "sha256:8e29ef4e67c9c44b946677a1d0cf3336d87e8a0240426df6fa9d09354200d141",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -215,12 +218,13 @@
       "pages_updated": [
         "concepts/linux-memory-management.md",
         "skills/linux-kernel-debugging.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 内存管理/Linux 页缓存（Page Cache）.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 18376,
-      "content_hash": "sha256:43692a450a436c6ec858b1ad8eff934cbea3aa97c35aa90103bbca55a8f82d06",
+      "size_bytes": 18605,
+      "content_hash": "sha256:93efd76a7d89c7d9a2094aa57f853d55951b364a73878a8d5a414d16e0c508cf",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -228,29 +232,35 @@
       ],
       "pages_updated": [
         "concepts/linux-memory-management.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO全景介绍.md": {
-      "ingested_at": "2026-06-01",
-      "size_bytes": 2595,
-      "content_hash": "sha256:e6a7ff51674de1bd559f6944abaebf155723073ba5a1e6eda1dd96f640d7a8ad",
+      "ingested_at": "2026-09-15",
+      "size_bytes": 2674,
+      "content_hash": "sha256:f9a26cd5797599a8fb907a578b02647bd84c9b66379962dee1edddafb1adfe37",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-io-stack.md"
       ],
-      "pages_updated": []
+      "pages_updated": [
+        "concepts/linux-io-stack.md",
+        "skills/linux-io-debugging.md"
+      ],
+      "modified_at": "2026-09-10T15:24"
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO调度算法.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 76,
-      "content_hash": "sha256:1522e2a77bdc001ed57f4dc936dc1262ee4d537f40a725217f0b797edbaef29f",
+      "size_bytes": 73,
+      "content_hash": "sha256:9d662b12888896a687a036e7b8f4fdd8f5a326433e033c9ed43bd7be8a861dd8",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/linux-io-stack.md"
-      ]
+      ],
+      "modified_at": "2026-09-10T15:22"
     },
     "Linux 操作系统/Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md": {
       "ingested_at": "2026-06-01",
@@ -276,41 +286,44 @@
     },
     "Linux 操作系统/Linux 网络/Linux TCP - IP协议.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 58589,
-      "content_hash": "sha256:0c26a212cea33bada84a9753dfa04d59dc5546d2adddc13b29aa3932136a31d2",
+      "size_bytes": 59511,
+      "content_hash": "sha256:fba3cd565a217698d4b45d1197ec2c3825f2c5890f4163b081542124e9b417e3",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-network-stack.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 网络/Linux 常见的网络协议.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 2834,
-      "content_hash": "sha256:8a0db716c8aed9ac79a3f121fc38331706cb41ab726632e36e479eea4d3364ee",
+      "size_bytes": 2964,
+      "content_hash": "sha256:06a925ae398d414508fed70f5eda1334923adceacf037f6f0fcea722fe67592a",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-network-stack.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 网络/Linux 网络三张表：ARP表, MAC表, 路由表.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 18035,
-      "content_hash": "sha256:d906b5d7e987e3098c085125d0afd53ae6f2a561375deef2198d49efa1dab466",
+      "size_bytes": 18386,
+      "content_hash": "sha256:45a73164ba7a82b1dfa3d3a3f394e58656586f365921fe326f0a85403a58674e",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-network-stack.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 网络/Linux 网络协议栈.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 20735,
-      "content_hash": "sha256:a1ed39516bb552a738b13c68c8b13c76d4811f1ed009c2b28f758712eb1582ff",
+      "size_bytes": 21020,
+      "content_hash": "sha256:5846029d1f989b4570301e41f68c0e4b47e058da988b727326c840e03f7482eb",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -318,88 +331,96 @@
       ],
       "pages_updated": [
         "concepts/linux-network-stack.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 资源隔离/Linux Namespace与Cgroups介绍.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 14813,
-      "content_hash": "sha256:6072e354f0f94cf96212ec415c5264217e370bd1357e6a534e1c5c549796d677",
+      "size_bytes": 14950,
+      "content_hash": "sha256:56de8d47b542162dc63bc514998ae9ce5b895ef6c765e6196ee2cce84cd22b8c",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-namespace-cgroups.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 资源隔离/System V IPC/Linux Namespace  -  IPC.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 5344,
-      "content_hash": "sha256:65921bbb75948730e5b6d6d37d90223f0796a53cacfe3ad3d4711d95864ae6f5",
+      "size_bytes": 5422,
+      "content_hash": "sha256:31a3dd8eecc3bccff9b84f9cf3221db5597dc0185f4e2925c0224f47f837fd42",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-namespace-cgroups.md",
         "concepts/linux-system-v-ipc.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 资源隔离/System V IPC/System V IPC 之信号量.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 13957,
-      "content_hash": "sha256:8847b5b4a1beac160cb985c118dbb898c151e3b810fbe55264d9881f3a1e5eb3",
+      "size_bytes": 14253,
+      "content_hash": "sha256:4bf3b8bff141a5564028fd09f104d11abb3e49d233ea3d8ab93388a73c0b6a7f",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-system-v-ipc.md",
         "skills/linux-ipc-programming.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 资源隔离/System V IPC/System V IPC 之共享内存.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 10739,
-      "content_hash": "sha256:ade8ea6e0e802d3dbae2a55e50cb49315669fe31fd3e4d6148bfc32e0936b743",
+      "size_bytes": 10981,
+      "content_hash": "sha256:ae98df5325a7462fa090cbbd75db8043ec052468e9e73e3902a1acc98ecd87d8",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-system-v-ipc.md",
         "skills/linux-ipc-programming.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 资源隔离/System V IPC/System V IPC 之消息队列.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 9145,
-      "content_hash": "sha256:cc67e75dc31c4f4f2a55e6f3871f749186e6786ebe6d525882d33c60109bb066",
+      "size_bytes": 9335,
+      "content_hash": "sha256:11cbac5c0debab1a91640dd5f1748c97cf4672e7cb1d57d7afc4161722bbc574",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-system-v-ipc.md",
         "skills/linux-ipc-programming.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 进程调度/Linux 进程调度器.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 3104,
-      "content_hash": "sha256:7f13edad0039f4174b17f2e6c748bd516ae542d4d1370a3793d06205cf824a31",
+      "size_bytes": 3139,
+      "content_hash": "sha256:890ba8301eaa524f2d0c48076f2f29392d15cf3ae9c9da3a64731e76e1269590",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-process-scheduling.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 进程调度/Linux 进程调度策略.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 491,
-      "content_hash": "sha256:e6979a28ca5a360ad942629c92cc7d7f58e65c635fcd742cb3c594f22df4b07e",
+      "size_bytes": 496,
+      "content_hash": "sha256:083ba706944d605d8265fc5503f71ef0fabe12baefef9b3620d6089267ae4173",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-process-scheduling.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "Linux 操作系统/Linux 锁机制/Linux Mutex锁.md": {
       "ingested_at": "2026-06-01",
@@ -797,15 +818,6 @@
         "skills/linux-kernel-tracing.md"
       ]
     },
-    "AI 人工智能/AI Agent/Agent智能体/入门级Agent 智能体.md": {
-      "ingested_at": "2026-06-02",
-      "size_bytes": 283,
-      "content_hash": "sha256:2123e1b154ab7666dc7925e6292a070aee21c240434c1d7aaaa7a6e56f29aaa3",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [],
-      "pages_updated": []
-    },
     "AI 人工智能/AI Agent/LangChain/1-LangChain 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
       "size_bytes": 15162,
@@ -991,13 +1003,13 @@
     },
     "AI 人工智能/AI Agent/Skills/开源skills库.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 19,
-      "content_hash": "sha256:ca3527e24548b033939b4178f6360259a43debaf2fb379d202df623c60273ba0",
+      "size_bytes": 20,
+      "content_hash": "sha256:f25d6df3af8e1884bbe06efc496bea3a8a40689efbf105922b5095fa8e9b9dd0",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [],
-      "modified_at": "2026-08-03"
+      "modified_at": "2026-08-18T09:44"
     },
     "AI 人工智能/AI Agent/知识图谱/Deepwiki.md": {
       "ingested_at": "2026-06-02",
@@ -1416,25 +1428,27 @@
     },
     "消息队列/Kafka 设计架构原理详细解析（超详细图解）.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 28866,
-      "content_hash": "sha256:90d992f25da334edcf7e88bcca94a3cc1b6a7683d1545ac771bbf4dd4b902627",
+      "size_bytes": 29163,
+      "content_hash": "sha256:b29add1746e87b199995e0c4361aa75616d4d48570fb79bce906cefd8b054c9b",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/kafka-architecture.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "消息队列/三大MQ选型对比-博客园.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 10933,
-      "content_hash": "sha256:2496129f5df65423c83f10068df2f873ae59e9489c93a4acb8ea1557befecd90",
+      "size_bytes": 11158,
+      "content_hash": "sha256:2fc8279a0f70826c3a0b3259eeb856aa0398c105be5f567170d3f2544738b392",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/mq-selection-comparison.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "消息队列/深入解读基于 Kafka 和 ZooKeeper 的分布式消息队列原理.md": {
       "ingested_at": "2026-06-02",
@@ -1449,8 +1463,8 @@
     },
     "消息队列/零拷贝与内存映射-数据搬运极致优化.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 48732,
-      "content_hash": "sha256:a1967e5f432e1fdc5f68fa93a3721a691d586cd64bca93ca2eb018f4d4fe09fa",
+      "size_bytes": 49888,
+      "content_hash": "sha256:8575d3541574628f93d3a2b01f72db5d4fdb6362fe861e110324decc6d1e816b",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1458,12 +1472,13 @@
       ],
       "pages_updated": [
         "concepts/kafka-architecture.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/Kubernetes（K8s）/1-K8s 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 17514,
-      "content_hash": "sha256:fb2afc7403a23be599d0f9c4a057a0e1ddafe246af01fc4e435945d362928489",
+      "size_bytes": 17766,
+      "content_hash": "sha256:606ed610c5c79367d25e7615cb61117671c259452efe9665a5d107f58f1b5d5b",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1472,12 +1487,13 @@
       "pages_updated": [
         "concepts/k8s-architecture.md",
         "concepts/k8s-cni-comparison.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/Kubernetes（K8s）/K8s云原生-官方文档-K8s架构.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 14649,
-      "content_hash": "sha256:87bfbd395139bf3679be261e77ac02f7fc28d2e4db40a7cbfc6392c3346b420b",
+      "size_bytes": 14836,
+      "content_hash": "sha256:11e8332bd032d3835156c03df9911f413f46a2323074d2f64257e46574aefa79",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1485,12 +1501,13 @@
       ],
       "pages_updated": [
         "concepts/k8s-architecture.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/Kubernetes（K8s）/K8s云原生-阿里云-K8S技术原理.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 36824,
-      "content_hash": "sha256:f1603d0c5b5715cd6ab59d47ce17b6700d33122b2c1642df0e0427072692cb3d",
+      "size_bytes": 37283,
+      "content_hash": "sha256:cfe51d636c84b8879a492f9c0471620f74707da28f9082f361563951bb5dfc1c",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1499,24 +1516,26 @@
       "pages_updated": [
         "concepts/k8s-architecture.md",
         "concepts/k8s-cni-comparison.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/Kubernetes（K8s）/K8s安全加固完全指南.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 4667,
-      "content_hash": "sha256:bf225dd77adde605577e0b5a6b29b48f500254466c64d03a494d9febf7085d0a",
+      "size_bytes": 4901,
+      "content_hash": "sha256:c49d273559ccc5053c04a49383ade4826b803b9f6f5fd8c83623dadec75f0b3b",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/k8s-security.md",
         "skills/k8s-security-hardening.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/Kubernetes（K8s）/Kubernetes网络/K8s网络整体架构-腾讯云.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 17648,
-      "content_hash": "sha256:8815b3292520aa20261eacf1d1f6d776347c66a5b10406deba73a1a55b9a79c4",
+      "size_bytes": 17966,
+      "content_hash": "sha256:c33bf78c3b3689a361e1acdfc92b24783581878808b8e33f2e205b58c3b84375",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1524,18 +1543,20 @@
       ],
       "pages_updated": [
         "concepts/k8s-cni-comparison.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/Kubernetes（K8s）/Kubernetes（K8s）全面解析：核心概念、架构与实践.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 15015,
-      "content_hash": "sha256:3deba9f9fef5c12939dd126f0b8f25ff1a8ebd32a3567f123be7c1bf355eec87",
+      "size_bytes": 15361,
+      "content_hash": "sha256:eb96a41bfbf43eb3851cea6c96c9942438e34ead20136a2afe9a773b977ce2e0",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/k8s-architecture.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/Prometheus/Prometheus-博客园-原理详解.md": {
       "ingested_at": "2026-06-02",
@@ -1550,8 +1571,8 @@
     },
     "云原生/容器运行时/容器运行时 containerd.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 42294,
-      "content_hash": "sha256:6a730e583e7923e908947878355e4339da4aa636ea814d06fe72600ceb16744b",
+      "size_bytes": 43250,
+      "content_hash": "sha256:73d0f43e2e667efee343c97c2e893c1109521ccbcb42c2e14baaea3473eead64",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1559,23 +1580,25 @@
       ],
       "pages_updated": [
         "synthesis/cloud-native-infrastructure-landscape.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/从零造容器系列文章.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 6845,
-      "content_hash": "sha256:d8073de2553d1186386c892e80c08f9d8d67d3cf95ddc6c8d4cb8b6cec66cdf8",
+      "size_bytes": 6979,
+      "content_hash": "sha256:06b65b214d4fb3fa7d2073e5ea12329c7fa2cd3be013d40c17b6880c98edae0b",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】1 Linux Namespaces：用 50 行 C 隔离一个进程.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 16475,
-      "content_hash": "sha256:9e6725b13a8f135df0f0e3b7d44e2b150541a9d33c2b3506e4115ba620d4f85b",
+      "size_bytes": 16928,
+      "content_hash": "sha256:a113a2b0e6590aa9270bf58cead9aed7d31608788635ae2cc740834dde37da50",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1583,34 +1606,37 @@
       ],
       "pages_updated": [
         "concepts/linux-namespace-cgroups.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】2 Network Namespace：给你的进程接上虚拟网线.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 22594,
-      "content_hash": "sha256:74484ef044b09ffab0bfec50fd0f7235067c759526f838fac3b29f05fc64362c",
+      "size_bytes": 23160,
+      "content_hash": "sha256:38ff61a9dd59dc449e5cecd236fa73a5d1655ef79a3e5e9b12c32dd63352857a",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】3 Mount Namespace 与 pivot_root：构建容器文件系统.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 21980,
-      "content_hash": "sha256:da0e01a29b0e90be37acd9f0456b2ba81efd52406d7577cb196da205940e52a7",
+      "size_bytes": 22600,
+      "content_hash": "sha256:8da2a236a8f9bb76457bd48738022e6cc29a351de84d0749ae1f96314493d885",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】4 Cgroups v2：让容器不能吃掉整台机器.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 31093,
-      "content_hash": "sha256:36ceaf39dc20b6468ef5296a3c1e99bf585475de33bb09ada82c06c81b30f80b",
+      "size_bytes": 31903,
+      "content_hash": "sha256:19de87361832479474c103c489ab5060e132d639ed0d854e0e7066012c2fdf49",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1618,12 +1644,13 @@
       ],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】5 OverlayFS：一层一层像洋葱.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 14309,
-      "content_hash": "sha256:f77657d7f831d39e4243667617de17498cc654b8e915e966115a78f6986737d0",
+      "size_bytes": 14676,
+      "content_hash": "sha256:a03145f7bfeab534c630ee44f2df3cfb8aa9a4731c0f4cbef121fd280554d0d0",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1631,34 +1658,37 @@
       ],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】6 用 Go 组装迷你容器运行时：把积木拼起来.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 13959,
-      "content_hash": "sha256:37e48327b97821a512548ed8e02fea6dae4022857b046048abb5fbc13e3053b9",
+      "size_bytes": 14359,
+      "content_hash": "sha256:b510f2d7ce0f66c00183521bfa9449f1822aaed7eb935897b7bad06a0df78a77",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】7 OCI 规范兼容：让迷你运行时说标准语言.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 22064,
-      "content_hash": "sha256:7b13093d152b48ec1f61f51167fce21463306e9d517438132e3c5dc8d4cf6083",
+      "size_bytes": 22654,
+      "content_hash": "sha256:a86f6d216bea530432b0d5ec86b6603cdda5c3f45b51056b26df4d03f1c609b4",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】8 Seccomp-BPF 与 Capabilities：容器安全的两道防线.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 24301,
-      "content_hash": "sha256:8f126e4902073c44bedc6d6821b63accede9181c026512fafdb6c79f314cf54d",
+      "size_bytes": 24921,
+      "content_hash": "sha256:546ca147e8b8fa1d0ca123b54b18e3859fd099aabcd5af70f34cda8ab0836b33",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1666,23 +1696,25 @@
       ],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】9 User Namespace 与 Rootless 容器：不需要 root 也能跑.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 11587,
-      "content_hash": "sha256:9a1ccc38471d3f50766b47b6ce7aab702a1a06daa27ad11fa5a4d4c922eb801d",
+      "size_bytes": 11863,
+      "content_hash": "sha256:9c14367e3d8922f2119fb158a852a4506200bc27e2626747f94113ba694077f1",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】10 容器 vs microVM：Firecracker 凭什么 125ms 启动.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 11855,
-      "content_hash": "sha256:95d6b626c961d5a3f71513da17aa8ef08a57bb0fc88afe88fbbbbd0bcfc8a2d0",
+      "size_bytes": 12129,
+      "content_hash": "sha256:c5f204e6603c2d3f8f5cf63a842cda8ef40f67aa79d457eca68955109a6b3d84",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1690,12 +1722,13 @@
       ],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】11 容器网络性能真相：veth vs macvlan vs eBPF 数据面.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 12114,
-      "content_hash": "sha256:40ab090dcbf010cd0a437213c8114f5d378fe30138abd8f44a4ebe24d9e9eefb",
+      "size_bytes": 12396,
+      "content_hash": "sha256:06d35e5a415cfb4768c0159d0a57c46e4df60ed8429cbc1f8987f42ec7863709",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1704,12 +1737,13 @@
       ],
       "pages_updated": [
         "concepts/k8s-cni-comparison.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "云原生/容器运行时/从零造容器系列/【从零造容器】12 runc 源码考古：OCI 参考实现到底长什么样.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 14997,
-      "content_hash": "sha256:a452da4ebc40f960a5f20ae2901d8fb99c09c3cba2f7f51bb179f6a497acc4af",
+      "size_bytes": 15287,
+      "content_hash": "sha256:de13dc9c4d13177dbf554d6ace00841f44dc91a2ba1453fabc2d251afeb893fa",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1717,7 +1751,8 @@
       ],
       "pages_updated": [
         "concepts/container-runtime-deep-dive.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "数据结构与算法/树/二叉树基础.md": {
       "ingested_at": "2026-06-11",
@@ -1747,8 +1782,8 @@
     },
     "数据结构与算法/图/图 合集.md": {
       "ingested_at": "2026-06-11",
-      "size_bytes": 2186,
-      "content_hash": "sha256:8364bc3dd6d983290510074ecb3aee95ef085e4019de6c341bdf1cd93a6c12b8",
+      "size_bytes": 2262,
+      "content_hash": "sha256:eb2147e4c9f7825bd496a38c7039bd0fbbffb1a07997d9b2cafb996e86936801",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1756,7 +1791,8 @@
         "summaries/graph-algorithms-overview.md",
         "skills/graph-algorithm-learning-path.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "数据结构与算法/图/有向无环图.md": {
       "ingested_at": "2026-06-11",
@@ -1975,8 +2011,8 @@
     },
     "DFX工具/==网络==/内核网络Bonding调试日志.md": {
       "ingested_at": "2026-06-15",
-      "size_bytes": 2628,
-      "content_hash": "sha256:69254974b58c60de904884661185df4a9959f2dcf34dc85877a61322f99ba556",
+      "size_bytes": 2697,
+      "content_hash": "sha256:41561c01a37b8c058d6897e17c629625a6933a8455dcdf448e385c40ab25943e",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1987,7 +2023,8 @@
         "concepts/linux-tracing-frameworks.md",
         "concepts/linux-network-stack.md",
         "skills/linux-kernel-debugging.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "AI 人工智能/AI Agent/Harness工程/Harness Engineering：AI Agent 时代的工程范式革命.md": {
       "ingested_at": "2026-06-16",
@@ -2124,8 +2161,8 @@
     },
     "数据结构与算法/树/红黑树讲解.md": {
       "ingested_at": "2026-06-18",
-      "size_bytes": 36407,
-      "content_hash": "sha256:27d036c9981a81fed762fe2a7dc4401825ef2f3b97efba6e6ff3139e0ea31be2",
+      "size_bytes": 37075,
+      "content_hash": "sha256:bc29576098b24638d15d65dd1b81132fa7c2598801a2462afaa5b81958ddbd1b",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2133,7 +2170,8 @@
         "summaries/red-black-tree-detail.md"
       ],
       "pages_updated": [],
-      "note": "Source file replaced: 红黑树详解.md → 红黑树讲解.md (content updated)"
+      "note": "Source file replaced: 红黑树详解.md → 红黑树讲解.md (content updated)",
+      "modified_at": "2026-07-20T15:48"
     },
     "AI 人工智能/AI Agent/RAG/高级RAG/SAG/SAG 核心思路介绍（利用SQL构建查询时的Hyperedge超边）.md": {
       "ingested_at": "2026-06-22",
@@ -2176,36 +2214,39 @@
     },
     "软件工程/设计原则.md": {
       "ingested_at": "2026-06-22",
-      "size_bytes": 4245,
-      "content_hash": "sha256:f0771a0d0bd7f87b601e195e9bc3669793b55a8bab9da2e1bb770703bc1a0f5b",
+      "size_bytes": 4367,
+      "content_hash": "sha256:6485cd87907e55a500428a566007128c0352727526c083142cfcfdd5bee3e604",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/ood-principles-and-patterns.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "modified_at": "2026-07-20T15:48"
     },
     "软件工程/设计框架.md": {
       "ingested_at": "2026-06-22",
-      "size_bytes": 6374,
-      "content_hash": "sha256:eada7ce01082546c575ac16947627bf0b149133f5ebef7910561387e8b499563",
+      "size_bytes": 6611,
+      "content_hash": "sha256:7e507c83ddcb4a16d4828777fef2f79dcba364d49ffe97ed8aa6c5ed5dae1609",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/ood-principles-and-patterns.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "软件工程/设计模式.md": {
       "ingested_at": "2026-06-22",
-      "size_bytes": 9710,
-      "content_hash": "sha256:9a22ca1b8b6f7a6caceb2365c8be98f47ad0f12bb1bac2a4ee7d6a8119e4c415",
+      "size_bytes": 10016,
+      "content_hash": "sha256:3020f67e21a584ea38df07f167ea691af195dc0350c9fb949eaec34463716389",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "concepts/ood-principles-and-patterns.md"
-      ]
+      ],
+      "modified_at": "2026-07-20T15:48"
     },
     "AI 人工智能/AI Agent/Multi-Agent协同/Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md": {
       "ingested_at": "2026-06-13",
@@ -2278,9 +2319,9 @@
     },
     "AI 人工智能/AI Agent/Multi-Agent协同/GitHub 上 10 个令人惊艳的 Agent 开发平台.md": {
       "ingested_at": "2026-08-03",
-      "size_bytes": 25754,
-      "modified_at": "2026-08-03",
-      "content_hash": "sha256:0189aaea2a5e3f8f8e7ed1ea6a506352e68789bc21b2e91f5bbd2530e007f370",
+      "size_bytes": 25955,
+      "modified_at": "2026-08-18T09:44",
+      "content_hash": "sha256:4e51261a1288b0a5387ec9109b782ebaaa1e5ffb3bb436f22d76a1d66b19a3a3",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2290,14 +2331,17 @@
       "pages_updated": []
     },
     "AI 人工智能/AI Agent/Multi-Agent协同/多 Agent 协作 github项目示例.md": {
-      "ingested_at": "2026-08-03",
-      "size_bytes": 93,
-      "modified_at": "2026-08-03",
-      "content_hash": "sha256:32fe3fbb9982f553b97442f1945d53c96605359556bfab1a46cf6eb8391ad2c2",
+      "ingested_at": "2026-09-15",
+      "size_bytes": 95,
+      "modified_at": "2026-08-18T09:47",
+      "content_hash": "sha256:3f02ef04ad318a0ef1abee3df0ceeaa336580236027ab61112cf4606c2682a63",
       "source_type": "sparse",
       "project": null,
       "pages_created": [],
-      "pages_updated": []
+      "pages_updated": [
+        "concepts/multi-agent-orchestration.md"
+      ],
+      "note": "仅含2个GitHub项目链接(clowder-ai/tutti)，作为参考项目示例记入multi-agent-orchestration"
     },
     "AI 人工智能/AI Agent/Skills/Headroom工具：减少token消耗.md": {
       "ingested_at": "2026-08-03",
@@ -2323,9 +2367,9 @@
     },
     "AI 人工智能/AI Agent/各种协议/深度解析三大AI协议：MCP、ACP与A2A.md": {
       "ingested_at": "2026-08-03",
-      "size_bytes": 11274,
-      "modified_at": "2026-08-03",
-      "content_hash": "sha256:63959797e11dbf5962a17993629e9c38b5a3829f21077020698805903cf303fe",
+      "size_bytes": 11390,
+      "modified_at": "2026-08-18T09:44",
+      "content_hash": "sha256:a6ffae7de84d8bf15048cb22da7bb713aa9b4f53d77d0b348b1acccf3f7a8e82",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2338,9 +2382,9 @@
     },
     "AI 人工智能/AI Agent/各种协议/A2A/A2A协议.md": {
       "ingested_at": "2026-08-03",
-      "size_bytes": 24565,
-      "modified_at": "2026-08-03",
-      "content_hash": "sha256:d89d28396f284ba460f2bf8f68fa9f676c6593186b9494280f79aedc475811de",
+      "size_bytes": 24716,
+      "modified_at": "2026-08-18T09:44",
+      "content_hash": "sha256:305c758c96de8dc5be3a1505839220347b01d7b790066dadd95999a4dd8da938",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2390,6 +2434,160 @@
       "project": null,
       "pages_created": [],
       "pages_updated": []
+    },
+    "Linux 操作系统/Linux 文件系统/Linux内核—文件系统mount过程.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 32666,
+      "modified_at": "2026-09-15T15:18",
+      "content_hash": "sha256:d760cabf182238d018d3334d80fbcb43921d159912f63cec9a33fdea32c4f2fa",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/linux-fs-mount.md",
+        "summaries/linux-fs-mount-process.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-os-virtualization-landscape.md"
+      ]
+    },
+    "AI 人工智能/AI Agent/Deepseek Harness/DSH几个插件推荐.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 5677,
+      "modified_at": "2026-08-15T19:44",
+      "content_hash": "sha256:f20763aa39b036c0964eb9fcf9d1dc032b2eaad5dbf5faf2ecd52ddeadc2c68b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "entities/dsh-plugin-ecosystem.md"
+      ],
+      "pages_updated": [
+        "concepts/agent-architecture-landscape.md"
+      ]
+    },
+    "Obsidian使用/Karpathy LLM Wiki/Karpathy wiki方法论.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 12209,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:fe97ff4e3b82f28c19e4ae1b8122f5858df899c1e6ef8cce9b4ecee4a8bcbfd7",
+      "source_type": "document",
+      "pages_created": [
+        "concepts/llm-wiki-methodology.md"
+      ],
+      "pages_updated": []
+    },
+    "Obsidian使用/Karpathy LLM Wiki/Obsidian-Wiki：LLM Wiki 的工程化实践.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 118,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:55c534c4fa0c9bde3ce3e78be726d31792c21b86f899d8abc37cc90bdf1dd0ee",
+      "source_type": "sparse",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/llm-wiki-methodology.md"
+      ],
+      "note": "仅含安装教程链接和github仓库地址，方法论细节已在llm-wiki-methodology引用"
+    },
+    "Obsidian使用/Karpathy LLM Wiki/参考的CLAUDE.md文件.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 5586,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:b0195dbeb72ec42e7f6eb8833194e3f7d3a88c8311be57222add9d64b95d4182",
+      "source_type": "document",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/llm-wiki-methodology.md"
+      ]
+    },
+    "Obsidian使用/Karpathy LLM Wiki/期望目标：构建个人的Karpathy LLM Wiki + Obsidian + Claude知识系统.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 10648,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:7019b1e4609d3556c5701a1cd5af359e48080657fb8a7d71a35dae0c63ae3e85",
+      "source_type": "document",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/llm-wiki-methodology.md"
+      ]
+    },
+    "Obsidian使用/Skill和MCP/obsidian相关skill和mcp.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 896,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:4514c68f5ad1fa6a8159e7f420e303f71e1b20e543023806218d549537ee8fa4",
+      "source_type": "document",
+      "pages_created": [
+        "concepts/obsidian-ai-toolchain.md"
+      ],
+      "pages_updated": []
+    },
+    "Obsidian使用/备份示例文件/Day learn 示例.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 1859,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:ae182445670074e56fae12684f4048e63da4b558452dae2cedc3f397d96d904d",
+      "source_type": "document",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/obsidian-ai-toolchain.md"
+      ]
+    },
+    "Obsidian使用/插件/Claude Code 安装.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 251,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:837652a070f3fb4eae75d10583b5a42ef004b1dbbfb0c4de9dffb3beaa9dd8b5",
+      "source_type": "sparse",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/obsidian-ai-toolchain.md"
+      ],
+      "note": "安装路径速记，并入obsidian-ai-toolchain"
+    },
+    "Obsidian使用/插件/Claudian 插件.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 544,
+      "modified_at": "2026-07-28T15:20",
+      "content_hash": "sha256:47ec931854a6043e4d8729a018ccdb1e231ef9ef52df83e62c1d1a39df335400",
+      "source_type": "sparse",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/obsidian-ai-toolchain.md"
+      ],
+      "note": "插件安装与功能列表，并入obsidian-ai-toolchain"
+    },
+    "Obsidian使用/插件/OpenCode 插件.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 59,
+      "modified_at": "2026-07-20T15:48",
+      "content_hash": "sha256:47cbd6d41929bea75e5949220ebd1998a68b63ae0d75c88cff653438314ccd82",
+      "source_type": "sparse",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/obsidian-ai-toolchain.md"
+      ],
+      "note": "仅含github链接，并入obsidian-ai-toolchain"
+    },
+    "Obsidian使用/插件/插件记录.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 469,
+      "modified_at": "2026-08-28T09:50",
+      "content_hash": "sha256:6bda6a0f6e1cece77eba7e745513b03753cb6dd5ecf7aafcf095ea5799e6fbf9",
+      "source_type": "document",
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/obsidian-ai-toolchain.md",
+        "concepts/agent-architecture-landscape.md"
+      ]
+    },
+    "Linux 操作系统/Linux 文件系统/未命名.md": {
+      "ingested_at": "2026-09-15",
+      "size_bytes": 38,
+      "modified_at": "2026-09-15T15:15",
+      "content_hash": "sha256:d6407126e885e852a03a92029fe85c8fb9486c11297bf62d2959621746375c14",
+      "source_type": "sparse",
+      "pages_created": [],
+      "pages_updated": [],
+      "note": "仅含知乎链接(zhuanlan.zhihu.com/p/606596107)，该链接正是Linux内核mount过程一文的原文——疑似收藏占位"
     }
   },
   "last_ingest": "2026-06-29",

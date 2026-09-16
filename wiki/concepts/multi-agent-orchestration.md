@@ -4,7 +4,7 @@ category: concepts
 tags: [AI, Agent, Multi-Agent, 编排, 协同]
 aliases: [多Agent协同, Multi-Agent编排, Agent协同]
 source_dir: AI 人工智能/AI Agent/Multi-Agent协同
-source_files: [多Agent协同：Oh My OpenCode 深度架构分析报告.md, 单Agent 智能体.md]
+source_files: [多Agent协同：Oh My OpenCode 深度架构分析报告.md, 单Agent 智能体.md, 多 Agent 协作 github项目示例.md]
 provenance:
   extracted: 0.40
   inferred: 0.50
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-27
 tier: supporting
 created: 2026-06-27
-updated: 2026-06-27
+updated: 2026-09-15
 summary: Multi-Agent协同编排是单Agent到多Agent的跃迁——关键设计模式包括角色分化与工具隔离、主编排+子执行分层、证据驱动完成标准、并发控制与防递归委派、completion_promise自动续跑
 relationships:
   - target: "[[concepts/multi-agent-framework-comparison]]"
@@ -140,7 +140,15 @@ Ralph Loop 的 `completion_promise` 机制让用户定义"完成"的标准，age
 - **成本优化 vs 延迟优化**：低成本 agent 做搜索降低 token 成本，但更多 agent 调用增加延迟。如何量化权衡？ ^[ambiguous]
 - **编排 agent 的可靠性**：主编排（Sisyphus）本身可能做出错误的委派决策——如何约束编排者的行为？ ^[inferred]
 
+## 参考项目示例
+
+多 Agent 协作的开源项目索引（来源文件仅含链接，待后续深读）^[inferred]：
+
+- **猫咖 clowder-ai** — github.com/zts212653/clowder-ai
+- **tutti** — github.com/tutti-os/tutti（OS 级别的多 Agent 协作探索）^[inferred]
+
 ## 来源
 
 - 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）
 - 单Agent 智能体（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）— 仅含 2 个 GitHub 链接，内容稀疏
+- 多 Agent 协作 github项目示例（同目录）— 猫咖 + tutti 两个项目链接

@@ -17,6 +17,7 @@ updated: 2026-08-03
 ## Summaries (Linux)
 
 - [linux-softirq-detail](summaries/linux-softirq-detail.md) — Linux软中断的完整实现：preempt_count防抢占机制、__do_softirq执行流、ksoftirqd溢出处理 — `linux` `kernel` `softirq` `interrupt` `ksoftirqd`
+- [linux-fs-mount-process](summaries/linux-fs-mount-process.md) — mount系统调用逐函数分析：mountpoint/mount/vfsmount三结构体、do_mount五分支、vfs_kern_mount+do_add_mount两步挂载 — `linux` `内核` `mount` `VFS` `文件系统`
 - [linux-meminfo-params](summaries/linux-meminfo-params.md) — /proc/meminfo各字段含义与关系：内存黑洞、LRU分类、HugePages与THP区别、关键公式 — `linux` `kernel` `memory` `meminfo` `page-cache`
 - [linux-page-cache](summaries/linux-page-cache.md) — Page Cache机制：基数树结构、预读算法、Write Through与Write Back一致性、Dirty page回写 — `linux` `kernel` `page-cache` `file-io` `memory`
 - [linux-network-protocol-stack-impl](summaries/linux-network-protocol-stack-impl.md) — Linux网络协议栈收发路径、sk_buff零拷贝机制与NAPI接收模型 — `linux` `kernel` `network` `tcp` `ip` `sk_buff` `protocol-stack`
@@ -45,7 +46,8 @@ updated: 2026-08-03
 - [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
 - [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断系统：IRQ/softirq两阶段设计、三种延迟机制、ksoftirqd — `linux` `kernel` `interrupt` `irq` `softirq`
 - [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、LRU与Write策略 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
-- [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈：五层IO架构、IO调度器、设备发现与gendisk结构 — `linux` `kernel` `io` `block` `scheduler`
+- [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈：五层IO架构、IO调度器、设备发现与gendisk结构、hctx tags busy值IO阻塞确认 — `linux` `kernel` `io` `block` `scheduler`
+- [linux-fs-mount](concepts/linux-fs-mount.md) — 文件系统与Mount机制：mount/mountpoint/vfsmount三大结构+sys_mount五分支+do_new_mount两步挂载+lookup_mnt穿越挂载点 — `linux` `内核` `mount` `VFS` `文件系统`
 - [linux-boot-shutdown](concepts/linux-boot-shutdown.md) — Linux启动与关机：10步启动流程、关机多子系统协调、systemd与架构差异 — `linux` `kernel` `boot` `shutdown` `systemd`
 - [linux-network-stack](concepts/linux-network-stack.md) — Linux网络栈：TCP/IP四层模型、三张核心表、sk_buff零拷贝、NAPI混合模式 — `linux` `kernel` `network` `tcp` `ip` `sk_buff`
 - [linux-lock-mechanisms](concepts/linux-lock-mechanisms.md) — Linux内核同步机制的完整框架：从Spinlock到RCU的演进与选择指南 — `linux` `kernel` `synchronization` `lock` `spinlock` `mutex` `rcu`
@@ -152,6 +154,8 @@ updated: 2026-08-03
 - [multi-agent-framework-comparison](concepts/multi-agent-framework-comparison.md) — 四大Multi-Agent框架对比：LangGraph(可靠)/CrewAI(简单)/AutoGen(灵活)/AgentX(安全) — `AI` `Agent` `LangGraph` `CrewAI` `AutoGen`
 - [multi-agent-orchestration](concepts/multi-agent-orchestration.md) — Multi-Agent协同编排7个设计模式：角色分化+工具隔离、主编排+子执行、双轨主Agent、证据完成、并发防递归、completion_promise续跑、AgentPromptMetadata自描述 — `AI` `Agent` `Multi-Agent` `编排` `协同`
 - [agent-development-platforms-landscape](concepts/agent-development-platforms-landscape.md) — Agent开发平台全景图：10+主流平台按定位分5类（自主任务执行/可视化编排/通用LLM框架/多Agent协作/有状态Agent）——AutoGPT/Dify/LangChain/MetaGPT/CrewAI/Letta等 — `AI` `Agent` `平台` `全景图` `开源`
+- [llm-wiki-methodology](concepts/llm-wiki-methodology.md) — Karpathy LLM Wiki方法论：编译式知识库（vs RAG检索式）、Raw/Wiki/Schema三层、Ingest/Query/Lint三操作、渐进式披露——本vault的方法论根基 — `AI` `LLM` `知识管理` `Obsidian` `知识库`
+- [obsidian-ai-toolchain](concepts/obsidian-ai-toolchain.md) — Obsidian AI工具链：Claudian/OpenCode/Copilot接入层+Clipper/Terminal插件层+Start My Day技能层+qmd/Tavily检索层 — `AI` `Obsidian` `工具链` `插件` `知识管理`
 
 ### 评估系统 (评测/指标)  — 2条
 
@@ -189,6 +193,7 @@ updated: 2026-08-03
 - [claude-code](entities/claude-code.md) — Claude Code：Anthropic的AI编程Agent——极简while循环架构+六层记忆系统+子代理上下文隔离+Hook自动化 — `AI` `Claude` `Agent工具` `代码助手` `Anthropic`
 - [oh-my-opencode](entities/oh-my-opencode.md) — Oh My OpenCode：OpenCode超级插件——11个希腊神话命名agent编排+Ralph Loop自动续跑+Hashline Edit防幻觉+三级并发+Claude Code兼容层 — `AI` `Agent` `Multi-Agent` `OpenCode` `编排`
 - [headroom-tool](entities/headroom-tool.md) — Headroom上下文压缩中间件：ContentRouter+5策略(SmartCrusher/CodeCompressor/Kompress-base/CacheAligner/CCR)，SRE日志92%Token节省，MCP server模式跨Agent共享记忆 — `AI` `Agent` `Token压缩` `上下文压缩` `中间件`
+- [dsh-plugin-ecosystem](entities/dsh-plugin-ecosystem.md) — DeepSeek Harness插件生态Top10：web-ui全家桶⭐1312、modlens纯文本模型看图、better-sidebar工作台、dsh_workflow多Agent编排治理 — `AI` `Agent` `DeepSeek` `插件` `工具`
 
 ### RAG  — 1条
 
