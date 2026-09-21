@@ -5,16 +5,19 @@ tags: [AI, RAG, Chunking, 分块, 文本分割]
 summary: 21种文本分块策略从基础到前沿：分块是决定RAG系统性能的关键因素——不当的分块直接影响检索质量和生成效果
 source_dir: AI 人工智能/AI Agent/RAG/传统RAG
 source_files: [RAG Chunk分块策略：主流方法（递归、jina-seg）+ 前沿推荐（Meta-chunking、Late chunking、SLM-SFT）.md, RAG Chunk分块策略-图解.md, RAG Chunk分块策略-代码示例.md, LangChain 递归字符文本分割器原理、源码分析和实践.md]
+  # Self learn 补充（credibility: low）
+  # source_dir: Self learn/RAG技术深入
+  # source_files: [Chunk策略5层分级-BuildMVPFast.md, Chunk三种策略-Langformers.md]
 provenance:
   extracted: 0.70
   inferred: 0.25
   ambiguous: 0.05
-base_confidence: 0.75
+base_confidence: 0.72
 lifecycle: draft
-lifecycle_changed: 2026-06-02
+lifecycle_changed: 2026-09-16
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-29
+updated: 2026-09-16
 relationships:
   - target: "[[concepts/rag-engineering]]"
     type: uses
@@ -118,9 +121,49 @@ RAG Chunk分块策略-代码示例提供了21种方法的Python实现，核心�
 - **评测驱动**：用RAGAS等框架量化不同分块策略的检索质量差异 ^[inferred]
 - **混合策略**：不同类型文档用不同策略（代码→代码分割、论文→语义分割） ^[inferred]
 
+## Self learn 补充：五级分级与量化数据（2026-09-16，credibility: low）
+
+来源：`raw/sources/Self learn/RAG技术深入/`（Chunk策略5层分级-BuildMVPFast + Chunk三种策略-Langformers）。
+
+### Greg Kamradt 五级分级框架
+
+| 级别 | 方法 | 机制 | 成本 |
+|------|------|------|------|
+| L1 | 字符分割 | 每 N 字符硬切 | 最低 |
+| L2 | 递归字符分割 | 分隔符优先级回退（\n\n→\n→空格→字符） | 低 |
+| L3 | 文档结构分割 | 尊重 Markdown 标题/HTML 标签/代码块 | 低 |
+| L4 | 语义分块 | 相邻句子 embedding 余弦距离超阈值即切分 | 高（慢 10-14×） |
+| L5 | Agentic 分块 | LLM 逐句判断归属当前块还是新块 | 最高（~100×） |
+
+### 关键量化证据
+
+**固定大小并不落后**（NVIDIA 测试，15% overlap）：最优 chunk 大小因数据集而异——KG-RAG/FinanceBench 1024 tokens、Earnings 512、SQuAD 实体型答案仅 64 tokens（64.1% recall@1）。**没有万能尺寸，必须按数据集评测**。
+
+**Chonkie 基准**（100K Wikipedia 篇，A100）：Token 分块 58s vs 递归 1m19s vs 语义分块 **14 分钟（慢 10×）**——语义分块的代价被量化。
+
+**Late chunking（Jina AI）"先嵌入后切分"**：解决代词指代丢失（"Its population..."不知道 Its 是谁）——整文档先过嵌入模型获得上下文化 token 表示，再池化成 chunk 向量。BeIR 实测：长文档收益显著（NFCorpus +6.5 nDCG@10），**短文档零收益**。
+
+**Contextual retrieval（Anthropic）**：每个 chunk 前用 Haiku 生成 50-100 token 上下文描述再嵌入——检索失败率降 **67%**，成本仅 $1.02/百万文档 token（prompt caching 加持）。
+
+**Parent-child 模式**：小 chunk（128-256 tokens）做嵌入检索保精度，命中后返回大 parent chunk（512-1024 tokens）给 LLM 保生成上下文——检索精度和生成质量兼得。
+
+### 升级路径（原文推荐）
+
+```
+起点：RecursiveCharacterTextSplitter 256-512 tokens + 10-15% overlap（覆盖 80% 场景）
+→ 检索精度好但生成差？加 parent-child
+→ 在升级分块策略之前，先加混合检索（embedding+BM25）——Anthropic 数据显示提升比分块策略更大
+→ 文档有明确多主题结构才上语义分块
+→ Agentic 分块须先论证 100× 成本合理性
+```
+
+注意：本页前文"经验值 Chunk 500-1000 tokens"与新证据（多数据集最优在 64-1024 之间波动）提示**经验值只是起点，评测才是依据**。^[inferred]
+
 ## 来源
 
 - RAG Chunk分块策略（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
 - RAG Chunk分块策略：主流方法+前沿推荐（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
 - RAG Chunk分块策略-图解（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
 - RAG Chunk分块策略-代码示例（raw/sources/AI 人工智能/AI Agent/RAG/传统RAG/）
+- Self learn（credibility: low）：Chunk策略5层分级-BuildMVPFast（Kamradt 五级+NVIDIA/Chonkie/Jina/Anthropic 量化数据）、Chunk三种策略-Langformers
+- 关联：[[concepts/rag-engineering]]、[[concepts/rag-storage-technology]]

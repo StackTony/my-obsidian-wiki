@@ -11,7 +11,7 @@ relationships:
   - target: "[[concepts/linux-namespace-cgroups]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 文件系统
-source_files: [Linux内核—文件系统mount过程.md]
+source_files: [Linux 文件系统mount过程.md]
 summary: VFS挂载三大数据结构(mount/mountpoint/vfsmount)+mount系统调用五分支流程+do_new_mount两步挂载(内核挂载vfs_kern_mount+关联挂载点do_add_mount)。
 provenance:
   extracted: 0.85
@@ -106,4 +106,4 @@ sys_mount() → do_mount()
 
 ## 来源
 
-- [[summaries/linux-fs-mount-process]] — 原文：Linux内核—文件系统mount过程（知乎 zhuanlan.zhihu.com/p/606596107）
+- [[summaries/linux-fs-mount-process]] — 原文：Linux 文件系统mount过程（知乎 zhuanlan.zhihu.com/p/606596107）

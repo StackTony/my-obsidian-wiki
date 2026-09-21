@@ -11,7 +11,7 @@ relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux meminfo参数详细解释.md, Linux 页缓存（Page Cache）.md]
+source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md]
 summary: Linux内存管理：meminfo参数体系、Page Cache架构(基数树+预读)、内存黑洞(alloc_pages不可追踪)、LRU分类与Write策略。
 provenance:
   extracted: 0.80

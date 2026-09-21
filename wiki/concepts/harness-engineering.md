@@ -5,16 +5,19 @@ tags: [AI, Agent架构, Harness, 约束系统, 工程范式]
 aliases: [驾驭工程, Harness]
 source_dir: AI 人工智能/AI Agent/Harness工程
 source_files: [Harness Engineering：AI Agent 时代的工程范式革命.md, Harness-从零理解到动手代码实践.md, Harness-起源原理与落地实践.md, Harness-驾驭工程介绍.md]
+  # Self learn 补充（credibility: low）
+  # source_dir: Self learn/Harness Engineering
+  # source_files: [AddyOsmani-Agent-Harness-Engineering.md, Anthropic-Effective-Harnesses-Long-Running.md, Anthropic-Harness-Design-Long-Running-Apps.md, Fowler-Harness-Engineering-Coding-Agent-Users.md, LangChain-Anatomy-Agent-Harness.md, Harness-基座工程-决定Agent能否真正工作-TianPan.md, AddyOsmani-Long-Running-Agents.md, Tessl-Context-Flywheel.md]
 provenance:
-  extracted: 0.65
-  inferred: 0.30
-  ambiguous: 0.05
+  extracted: 0.62
+  inferred: 0.32
+  ambiguous: 0.06
 base_confidence: 0.82
 lifecycle: draft
-lifecycle_changed: 2026-06-16
+lifecycle_changed: 2026-09-16
 tier: core
 created: 2026-06-16
-updated: 2026-06-27
+updated: 2026-09-16
 summary: Harness Engineering是围绕AI Agent构建约束、反馈回路与执行控制的工程方法——模型负责推理，Harness负责一切外围工程：工具系统、上下文管理、权限控制、反馈回路、状态持久化
 relationships:
   - target: "[[concepts/agent-framework-engineering]]"
@@ -172,6 +175,52 @@ AI 复制坏模式的速度是指数级的。**集中清理模式已失效**—�
 - **行为验证**：擅长约束Agent不做错事，但验证Agent做对了事远未解决
 - **长期可维护性**：防止"功能没问题但维护性很差"的代码渗进代码库，没人回答
 
+## Self learn 补充洞察（2026-09-16，credibility: low）
+
+以下来自 `raw/sources/Self learn/Harness Engineering/`（21篇博客），与上文高可信度来源互补。
+
+### 指南与传感器：Fowler 分类法
+
+Martin Fowler 把外层 Harness（用户为编码 Agent 搭的部分）拆为**前馈指南（Guides）**与**反馈传感器（Sensors）**，再按执行类型二分：
+
+| | 计算型（Computational） | 推断型（Inferential） |
+|---|---|---|
+| **前馈（行动前引导）** | codemod、bootstrap 脚本 | AGENTS.md、Skills |
+| **反馈（行动后修正）** | 类型检查器、Linter、结构化测试 | AI code review、LLM as judge |
+
+计算型快而确定（毫秒级、可每次变更跑），推断型慢而概率性（贵、非确定）。质量检查按成本"左移"分布：快检查 pre-commit、类型与架构适应度函数在 PR、变异测试等昂贵检查 post-integration。Fowler 进一步区分三类 Harness 维度：**可维护性**（工具最成熟）、**架构适应度**（Fitness Functions）、**行为**（最难——spec 前馈+测试反馈目前仍把大量信心押在 AI 生成的测试上）。
+
+Fowler 的开放问题：传感器从不触发，是质量高还是检测差？Harness 覆盖率如何度量（类比代码覆盖率的 mutation testing）？
+
+### Anthropic 长运行双报告（2026 官方工程博客）
+
+**报告一（Effective Harnesses）**：initializer agent + coding agent 双代理方案对抗四大失败模式——一次性做完（one-shotting）、过早宣布胜利、功能未验证就标完成、环境留坏。关键组件：`feature-list.json`（200+条特性全部初始标 failing，只许改 passes 字段，"删改测试不可接受"）、`init.sh`、`claude-progress.txt`、git 每步提交。**选 JSON 而非 Markdown 存特性清单**——模型对结构化数据不当编辑的概率更低。会话开场三步：`pwd` → 读 git log 和进度文件 → 从特性清单选最高优先级未完成项。测试给 Puppeteer MCP 让 Agent 像人类用户一样端到端验证。
+
+**报告二（Harness Design，GAN 启发）**：planner + generator + evaluator 三代理。planner 把 1-4 句 prompt 扩展成完整产品规格（刻意保持高层，防止规格错误级联到实现）；generator 按 sprint 逐特性实现；generator 与 evaluator 在每个 sprint 前**协商 sprint contract**——写代码之前就"done"达成一致。前端设计四评分维度（design quality/originality/craft/functionality），用 few-shot 校准 evaluator 减少 score drift。实测：solo 20分钟/$9 vs 完整 harness 6小时/$200（20倍成本），但 solo 的核心功能（游戏可玩性）是坏的，harness 版可玩。**Opus 4.6 后砍掉 sprint 结构**——模型原生能处理长任务连贯性，评估器从每 sprint 评分改为单次终评。"每个组件都编码了一个'模型自己做不了什么'的假设——模型升级时这些假设值得压力测试。"
+
+### Harness 不收缩，只迁移
+
+模型升级 → 一批脚手架变死代码（Opus 4.6 杀死了"context anxiety"缓解层）→ 但天花板随之移动 → 新失败模式需要新脚手架（多日记忆策略、多 Agent 协调、生成 UI 的设计评估器）。**模型- harness 共训循环**：harness 里的有用原语被标准化进产品、用于下一代模型的后训练 → 模型在该 harness 内更强 → 改工具逻辑反而引起回归（Codex apply_patch 过拟合案例）。但训练时的 harness ≠ 你任务的最优 harness——Terminal Bench 2.0 上 Opus 4.6 在 Claude Code 中得分远低于在其他 harness。
+
+### Harness-as-a-Service
+
+从 LLM API（给补全）到 Harness API（给运行时）：Claude Agent SDK / Codex SDK / OpenAI Agents SDK 都在收敛。默认路径从"自建循环+自接工具调用+自管状态"变成"选 harness 框架，按四大支柱配置，精力投入领域特定的 prompt 和工具设计"。LangChain 由此提出的 harness 组件清单：系统提示、工具/Skills/MCP 及描述、捆绑基础设施（文件系统/沙箱/浏览器）、编排逻辑（子代理/交接/路由）、Hooks 中间件（压缩/续跑/lint 检查）。
+
+### Context Flywheel（Tessl）
+
+Context Development Lifecycle（Generate→Evaluate→Distribute→Observe）跑一遍有用，跑十遍变革：一次技能编码投资有四个回报——Agent 质量、专家自身理解加深、团队学习、组织对齐。"模型在商品化，工具在收敛，但两年持续精炼的领域上下文是护城河。"前提是有人**拥有**它：维护+赋能+治理，无人拥有则腐烂（文档/基础设施/安全的教训重演）。
+
+### AGENTS.md 的反直觉发现
+
+人工编写 vs LLM 生成的 AGENTS.md 对比：**LLM 生成的文件实际上损害 Agent 性能**，人工编写的带来约 +4pp 基准提升——每个会话都加载、塑造后续每个决策的文件应该由人类精心维护。HumanLayer 的规则簿 <60 行："飞行员检查清单，不是风格指南。"
+
+### 与本页已有框架的关系
+
+- Fowler 的 Guides/Sensors 是"四大支柱"中**约束与反馈循环的统一分类学** ^[inferred]
+- Anthropic 双报告为"思考与执行分离"共识补充了最新量化证据和简化方向 ^[inferred]
+- HaaS 趋势与 [[entities/claude-code|Claude Code]]/[[entities/oh-my-opencode|OMO]] 的产品化路径互证 ^[inferred]
+- Loop Engineering（[[concepts/loop-engineering]]）坐在 Harness 上一层：Harness 管单次任务，Loop 管任务流
+
 ### 与Agent系统架构设计的共鸣
 
 [[concepts/agent-system-architecture|Agent系统架构设计]]的两种视角与Harness Engineering有深层关联：
@@ -185,3 +234,4 @@ AI 复制坏模式的速度是指数级的。**集中清理模式已失效**—�
 - Harness-从零理解到动手代码实践（raw/sources/AI 人工智能/AI Agent/Harness工程/）
 - Harness-起源原理与落地实践（raw/sources/AI 人工智能/AI Agent/Harness工程/）
 - Harness-驾驭工程介绍（raw/sources/AI 人工智能/AI Agent/Harness工程/）
+- Self learn/Harness Engineering/（21篇，credibility: low）：AddyOsmani×2、Anthropic×2、Fowler、LangChain×3、腾讯云×2、Tessl×2、TianPan、Augment、Databricks、Designative、Escape、MindStudio、Mitchell、wiselychen、AIHero 等

@@ -3,7 +3,7 @@ title: Linux内核文件系统mount过程（原文摘要）
 category: summaries
 tags: [linux, 内核, mount, VFS, 文件系统]
 source_dir: Linux 操作系统/Linux 文件系统
-source_files: [Linux内核—文件系统mount过程.md]
+source_files: [Linux 文件系统mount过程.md]
 summary: 逐函数讲解mount系统调用：mountpoint/mount/vfsmount三大结构体定义、do_mount五分支、vfs_kern_mount创建sb/dentry/inode、do_add_mount关联挂载点，附完整调用树。
 provenance:
   extracted: 0.90

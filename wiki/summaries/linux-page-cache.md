@@ -3,7 +3,7 @@ title: Linux Page Cache机制
 category: summaries
 tags: [linux, 内核, page-cache, file-io, memory]
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux 页缓存（Page Cache）.md]
+source_files: [Linux 页缓存 Page Cache.md]
 summary: Page Cache=Buffers+Cached+SwapCached，基数树组织，预读算法，Write Through/Back一致性，dirty page回写。2.4后合并buffer cache消除双重缓存。
 provenance:
   extracted: 0.85
@@ -63,4 +63,4 @@ Write Back是默认模式。dirty page回写由per存储设备的内核线程定
 
 - [[concepts/linux-memory-management]] — 内存管理整体框架
 - [[summaries/linux-meminfo-params]] — meminfo中Page Cache相关字段
-- `raw/sources/Linux 操作系统/Linux 内存管理/Linux 页缓存（Page Cache）.md`
+- `raw/sources/Linux 操作系统/Linux 内存管理/Linux 页缓存 Page Cache.md`（原文：zhuanlan.zhihu.com/p/436313908）

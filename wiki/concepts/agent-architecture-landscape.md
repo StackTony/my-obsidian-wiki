@@ -12,10 +12,10 @@ provenance:
   ambiguous: 0.05
 base_confidence: 0.60
 lifecycle: draft
-lifecycle_changed: 2026-06-13
+lifecycle_changed: 2026-09-16
 tier: core
 created: 2026-06-13
-updated: 2026-09-15
+updated: 2026-09-16
 relationships:
   - target: "[[concepts/llm-infra-landscape]]"
     type: related_to
@@ -36,6 +36,12 @@ relationships:
   - target: "[[concepts/data-flywheel]]"
     type: related_to
   - target: "[[concepts/agent-system-architecture]]"
+    type: related_to
+  - target: "[[concepts/agent-paradigm-selection]]"
+    type: related_to
+  - target: "[[concepts/agent-reliability-engineering]]"
+    type: related_to
+  - target: "[[concepts/loop-engineering]]"
     type: related_to
 ---
 
@@ -58,7 +64,10 @@ Agent架构
 ├── Agent框架
 │   ├── [[concepts/agent-framework-engineering|Agent框架工程]] — 五大支柱+可靠Agent=可观测状态机
 │   ├── [[concepts/agent-system-architecture|Agent系统架构设计]] — 执行循环+消息总线+Skill/Memory/Sub-agent
+│   ├── [[concepts/agent-paradigm-selection|Agent范式选型]]   — ReAct/ReWOO/Plan-Exec/Reflect/Ralph Loop行为范式对比
+│   ├── [[concepts/agent-reliability-engineering|Agent可靠性工程]] — 幂等键+重试分类+高级工具调用+动态HITL
 │   ├── [[concepts/harness-engineering|Harness Engineering]]   — Agent=Model+Harness，四大支柱+六大共识+三阶段路线
+│   ├── [[concepts/loop-engineering|Loop Engineering]]        — 六原语+四层循环栈+企业治理（控制粒度第四次上移）
 │   ├── [[concepts/tool-calling-mcp|工具调用与MCP]]           — JSON Schema+MCP统一工具生态
 │   └── [[concepts/multi-agent-framework-comparison|Multi-Agent对比]] — LangGraph/CrewAI/AutoGen/AgentX
 │   └── [[concepts/multi-agent-orchestration|Multi-Agent编排]] — 角色分化+工具隔离+证据完成+并发控制
@@ -71,7 +80,7 @@ Agent架构
 │   └── [[entities/graphify-gitnexus|Graphify vs GitNexus]]  — 认知整合 vs 工程执行
 ├── 数据飞轮
 │   └── [[concepts/data-flywheel|数据飞轮]]                  — 数据与业务正反馈循环
-┬── Agent工具
+├── Agent工具
 │   ├── [[entities/claude-code|Claude Code]]                   — 极简while循环+六层记忆+子代理+技能+Hook
 │   ├── [[entities/oh-my-opencode|Oh My OpenCode]]              — 多Agent编排+Ralph Loop+Hashline Edit+三级并发
 │   └── [[entities/dsh-plugin-ecosystem|DSH插件生态]]           — DeepSeek Harness插件：web-ui/modlens/workflow
@@ -118,5 +127,8 @@ Agent ←→ 安全          工具调用越开放安全风险越高，MCP协议
 
 - **RAG入门** → RAG工程全景 → 分块策略 → 存储技术 → 工具全景 → GraphRAG
 - **Agent入门** → Agent框架工程 → Agent系统架构设计 → 工具调用/MCP → Multi-Agent对比 → Agent安全
+- **范式路线** → Agent范式选型 → Agent可靠性工程 → Harness Engineering → Loop Engineering（控制粒度四跃迁：Prompt→Context→Harness→Loop）
 - **评估路线** → 分类评估指标 → LLM评测基准 → RAGAS框架
 - **闭环路线** → 数据飞轮 → RAG工程（数据侧） → Agent框架（应用侧）
+
+> 注：Agent范式选型、Agent可靠性工程、Loop Engineering 三页蒸馏自 `raw/sources/Self learn/`（credibility: low）——AI 自主收集的网络博客，观点汇聚度高但数值未经交叉验证。

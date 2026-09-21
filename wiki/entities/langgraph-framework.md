@@ -4,20 +4,23 @@ category: entities
 tags: [AI, LangGraph, 工作流, 状态机, Agent]
 summary: LangGraph将Agent行为建模为有向图：节点=动作、边=条件转移，支持循环/分支/并行——让Agent从自由聊天升级为可观测状态机
 source_dir: AI 人工智能/AI Agent/LangChain
-source_files: [LangGraph-工作流编排原理.md, LangGraph-状态-状态图-工作流.md]
+source_files: [LangGraph-工作流编排原理.md, LangGraph-状态-状态图-工作流.md, LangGraph-多工具有状态智能体-JimmySong.md, LangGraph-Subgraphs模块化AI-Agent.md, GraphRAG项目大比拼-微软蚂蚁港大.md]
   # 跨目录补充
   # source_dir: AI 人工智能/AI Agent/Memory记忆
   # source_files: [LangGraph-Agent记忆Memory架构.md]
+  # Self learn 补充（credibility: low）
+  # source_dir: Self learn/Agent范式
+  # source_files: [Agent记忆管理-短期长期.md, LangGraph-对话历史PostgreSQL.md, LangGraph-Human-in-the-loop实战.md, LangGraph-ReAct-实战.md, LangGraph-圣经-multi-agent入门.md]
 provenance:
-  extracted: 0.65
-  inferred: 0.28
+  extracted: 0.63
+  inferred: 0.30
   ambiguous: 0.07
 base_confidence: 0.75
 lifecycle: draft
-lifecycle_changed: 2026-06-02
+lifecycle_changed: 2026-09-16
 tier: core
 created: 2026-06-02
-updated: 2026-06-29
+updated: 2026-09-16
 relationships:
   - target: "[[entities/langchain-framework]]"
     type: extends
@@ -276,3 +279,15 @@ async def summarizeConversation(state):
 - LangGraph-工作流编排原理（raw/sources/AI 人工智能/AI Agent/LangChain/）
 - LangGraph-状态-状态图-工作流（raw/sources/AI 人工智能/AI Agent/LangChain/）
 - LangGraph-Agent记忆Memory架构（raw/sources/AI 人工智能/AI Agent/Memory记忆/）
+- Self learn/LangGraph进阶/（3篇，credibility: low）：多工具有状态智能体教程、Subgraphs 模块化、GraphRAG 项目对比（生态部分已蒸馏进 [[concepts/graphrag-engineering]]）
+- Self learn/Agent范式/（credibility: low）：记忆管理、PostgreSQL 对话历史、HITL 实战、ReAct 实战、multi-agent 入门——补充下文各节
+
+## Self learn 补充要点（2026-09-16，credibility: low）
+
+**Subgraphs 两种集成方式**：①编译后的子图直接作为父图节点——要求共享 state key、无需状态转换；②用节点函数包裹 `subgraph.invoke()`——适合父子 state schema 不同、需显式转换的场景。适用：多 Agent 系统按 agent/team 组织、节点复用、团队独立开发。与主 Agent 的 Sub-agent 机制（独立上下文防火墙）不同，Subgraph 是**编译期模块化**而非运行时隔离。 ^[inferred]
+
+**多工具有状态智能体的最佳实践**（JimmySong 教程）：状态字段用 `Annotated[List[int], operator.add]` 声明累加语义（reducer）；工具调用前输入校验（eval 前白名单检查）；错误写入 `state['error']` 字段由条件边路由到错误处理节点；`MemorySaver` + `thread_id` 实现跨 invoke 会话记忆；错误注入测试（人为让工具失败验证错误分支）与回放恢复（中途 kill 进程，重启后从 checkpoint 继续）；防无限循环——状态计数器超阈值强制走 END。
+
+**PostgresSaver 生产选型**：本地开发用 `MemorySaver`（内存）或 `SqliteSaver`（单文件）；正式环境 `PostgresSaver`（事务+水平扩展）或 `MongoDBSaver`（文档导向）；低延迟场景 `RedisSaver`。长期记忆 `PostgresStore` 搭配 **pgvector** 扩展支持语义检索，是官方推荐的生产组合。
+
+**动态 HITL 中断**（详见 [[concepts/agent-reliability-engineering]]）：`interrupt(payload)` 节点内任意位置暂停 + `Command(resume=value)` 恢复，前提是持久化 checkpointer。

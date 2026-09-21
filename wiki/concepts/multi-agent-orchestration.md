@@ -5,16 +5,19 @@ tags: [AI, Agent, Multi-Agent, 编排, 协同]
 aliases: [多Agent协同, Multi-Agent编排, Agent协同]
 source_dir: AI 人工智能/AI Agent/Multi-Agent协同
 source_files: [多Agent协同：Oh My OpenCode 深度架构分析报告.md, 单Agent 智能体.md, 多 Agent 协作 github项目示例.md]
+  # Self learn 补充（credibility: low）
+  # source_dir: Self learn/Agent范式
+  # source_files: [Multi-Agent-5种协调模式.md, Multi-Agent-架构演进思考.md, LangGraph-圣经-multi-agent入门.md]
 provenance:
-  extracted: 0.40
-  inferred: 0.50
+  extracted: 0.45
+  inferred: 0.45
   ambiguous: 0.10
-base_confidence: 0.55
+base_confidence: 0.58
 lifecycle: draft
-lifecycle_changed: 2026-06-27
+lifecycle_changed: 2026-09-16
 tier: supporting
 created: 2026-06-27
-updated: 2026-09-15
+updated: 2026-09-16
 summary: Multi-Agent协同编排是单Agent到多Agent的跃迁——关键设计模式包括角色分化与工具隔离、主编排+子执行分层、证据驱动完成标准、并发控制与防递归委派、completion_promise自动续跑
 relationships:
   - target: "[[concepts/multi-agent-framework-comparison]]"
@@ -140,6 +143,30 @@ Ralph Loop 的 `completion_promise` 机制让用户定义"完成"的标准，age
 - **成本优化 vs 延迟优化**：低成本 agent 做搜索降低 token 成本，但更多 agent 调用增加延迟。如何量化权衡？ ^[ambiguous]
 - **编排 agent 的可靠性**：主编排（Sisyphus）本身可能做出错误的委派决策——如何约束编排者的行为？ ^[inferred]
 
+## Self learn 补充（2026-09-16，credibility: low）
+
+来源：`raw/sources/Self learn/Agent范式/`（Multi-Agent-5种协调模式等）与 `Self learn/Harness Engineering/`（AddyOsmani-Long-Running-Agents）。
+
+### Anthropic 五种协调模式（来自 Multi-Agent 系统官方工程博客）
+
+| 模式 | 结构 | 适用 |
+|------|------|------|
+| **Generator-Verifier** | 生成器产出→验证器检查→循环 | 输出可客观判定的任务（代码+测试） |
+| **Orchestrator-Subagent** | 主编排拆解分派，子代理隔离执行 | 子任务独立、领域各异 |
+| **Agent Teams（持久 Worker）** | 长驻团队成员通过共享文件协作 | 长周期项目（文件系统=协作面） |
+| **Message Bus（Pub/Sub）** | Agent 发布/订阅事件解耦 | 松耦合、动态拓扑 |
+| **Shared State（去中心化）** | 全员读写共享状态，无中心编排 | 高并发、需弹性扩缩 |
+
+与本页七大模式的对应：OMO 的 Sisyphus 委派≈Orchestrator-Subagent；completion_promise 双通道检测≈Generator-Verifier；Anthropic Agent Teams 的"文件系统是天然协作面"呼应 Claude Code 的 worktree 隔离实践。 ^[inferred]
+
+### Cursor 三角色与模型-角色匹配
+
+Cursor 生产系统（ planners/ workers/ judges）：planner 持续探索代码库产出任务（可递归生成子 planner）、worker 专注执行不问大局、judge 决定迭代何时结束。两个反直觉发现：①"系统行为的惊人部分取决于怎么 prompt 这些 agent"——超过 harness 和模型本身的影响；②**不同模型适配不同角色**——GPT 模型在长时间自主工作上反而优于 Opus（Opus 倾向提前停下走捷径）。同任务不同角色配不同模型，模型匹配正在成为设计面的一部分。此外 Cursor 的三代架构演化（锁→乐观并发控制→planner/worker/judge）说明：平权 Agent + 文件锁是死路，Agent 变得风险规避互相空转。 ^[inferred]
+
+### 长运行五模式（Saboo & Osmani）
+
+Checkpoint-and-resume（粒度自选：不是每步、不只是结尾）/ Delegated approval（原地暂停等人工，亚秒恢复）/ Memory-layered context（警惕 **memory drift**：从少数非典型交互学到的捷径被泛化——"像治理微服务一样治理记忆"）/ Ambient processing（策略放 Gateway 层，改策略不重部署）/ Fleet orchestration（专家各持 Identity 权限，坏部署不级联）。五模式可组合。开门问题永远是："你的 Agent 最长需要不间断工作多久？"分钟级不需要长运行 Agent，小时/天级从这五模式开始。
+
 ## 参考项目示例
 
 多 Agent 协作的开源项目索引（来源文件仅含链接，待后续深读）^[inferred]：
@@ -152,3 +179,5 @@ Ralph Loop 的 `completion_promise` 机制让用户定义"完成"的标准，age
 - 多Agent协同：Oh My OpenCode 深度架构分析报告（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）
 - 单Agent 智能体（raw/sources/AI 人工智能/AI Agent/Multi-Agent协同/）— 仅含 2 个 GitHub 链接，内容稀疏
 - 多 Agent 协作 github项目示例（同目录）— 猫咖 + tutti 两个项目链接
+- Multi-Agent-5种协调模式、Multi-Agent-架构演进思考、LangGraph-圣经-multi-agent入门（raw/sources/Self learn/Agent范式/，credibility: low）
+- AddyOsmani-Long-Running-Agents（raw/sources/Self learn/Harness Engineering/，credibility: low）— Cursor/Anthropic/Google 长运行案例与五模式

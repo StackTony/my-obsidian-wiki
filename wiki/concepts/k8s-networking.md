@@ -14,17 +14,20 @@ relationships:
     type: related_to
 source_dir: 云原生/Kubernetes（K8s）/Kubernetes网络
 source_files: [K8s网络整体架构-腾讯云.md]
+  # Self learn 补充（credibility: low）
+  # source_dir: Self learn/K8s和容器
+  # source_files: [K8s-Flannel网络原理-腾讯云.md]
 summary: K8s网络四层模型：容器内localhost→Pod间CNI→Service ClusterIP+CoreDNS→Ingress L7路由；CNI插件(Flannel VXLAN/Calico BGP/Cilium eBPF)各解决不同瓶颈
 provenance:
-  extracted: 0.80
-  inferred: 0.18
+  extracted: 0.78
+  inferred: 0.20
   ambiguous: 0.02
-base_confidence: 0.75
+base_confidence: 0.72
 lifecycle: draft
-lifecycle_changed: 2026-06-02
+lifecycle_changed: 2026-09-16
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-13
+updated: 2026-09-16
 ---
 
 # Kubernetes 网络架构
@@ -109,6 +112,46 @@ CNI 独立插件系统负责：容器IP分配、网络接口创建、网络环�
 
 官方文档指出 kube-proxy 是可选的——当 CNI 插件提供等效的 Service 流量代理行为时。Cilium 正是如此：用 eBPF map 做 O(1) 路由查找，跳过整个[[concepts/linux-network-stack|Linux网络协议栈]]的 netfilter 栈。
 
+## Flannel VXLAN 内核级工作原理（Self learn 补充，credibility: low）
+
+来源：`raw/sources/Self learn/K8s和容器/K8s-Flannel网络原理-腾讯云.md`。Flannel 三种模式（udp/host-gw/vxlan）中 vxlan 最常用；两个组件分工：**flannel-cni 管同节点通信，kube-flannel 管跨节点通信**。
+
+### flannel-cni：同节点容器网络编织
+
+`/opt/cni/bin/` 下 CNI 插件分三类：**ipam**（host-local/dhcp/static，地址分配）、**main**（bridge/ptp/ipvlan/macvlan 等，网络编织）、**meta**（flannel/bandwidth/portmap 等，配置生成与转发）。
+
+工作流程：kubelet 创建 pause 容器 → 读 `/etc/cni/net.d/10-flannel.conflist` → 调用 flannel meta 插件 → flannel 读 `/run/flannel/subnet.env`（kube-flannel 写入的本节点子网信息）→ 生成标准 bridge+host-local 配置 → 委托给 bridge 插件完成：
+
+- 创建 cni0 Linux bridge，把子网第一个地址（如 10.244.1.1）绑上去 = 本节点所有 Pod 的默认网关
+- 创建主机路由 `10.244.1.0/24 dev cni0 scope link`
+- 创建 veth pair：一端插 Pod namespace，另一端插 cni0
+- 按 veth 设置 IP、默认网关、MTU（**vxlan 模式 1450/1460，host-gw 1500——MTU 与跨节点方案绑定**）
+
+host-local IPAM 用本地文件（`/var/lib/cni/network/host-local/`）记录已分配 IP——文件名即 IP、内容即容器 ID。
+
+### kube-flannel：跨节点路由维护
+
+DaemonSet 运行，启动后：复制 CNI 配置到 `/etc/cni/net.d/`、从 API Server 获取本节点 PodCIDR 写 subnet.env、创建 flannel.1 VXLAN 设备并把 VtepMAC/IP/节点IP 写入节点 annotation、**起协程周期性检查路由表项防误删**、订阅事件维护路由/邻居/FDB 三张表。
+
+**新节点加入时，其他节点的 kube-flannel 写三条记录**：
+
+```
+ip route add 10.244.3.0/24 via 10.244.3.0 dev flannel.1 onlink      # ① 主机路由
+ip neigh add 10.244.3.0 lladdr 02:3f:.. dev flannel.1 nud permanent  # ② ARP（VTEP MAC）
+bridge fdb append 02:3f:.. dev flannel.1 dst 192.168.3.10 permanent  # ③ FDB（MAC→对端节点IP）
+```
+
+（若启用 DirectRouting 且新节点同二层子网：三条全免，只加 `via <节点IP> dev eth0` 直连路由——即退化为 host-gw）
+
+### 跨节点发包全流程（pod1@node1 → pod2@node3）
+
+1. 包出 pod1 进 node1 协议栈 → 非本机地址 → 查路由 ① 匹配 flannel.1 设备
+2. flannel.1 查 ARP ② 拿到对端 VTEP MAC 完成二层封装
+3. VXLAN 设备不走网卡发送队列：按目标 MAC 反查 FDB ③ 得到对端主机 IP 192.168.3.10 → 封装 VXLAN 头+UDP 头（源码 `vxlan_xmit`→`vxlan_xmit_one`）→ `ip_local_out` 发出
+4. node3 收到 UDP 包 → 协议栈发现 UDP 4789 端口注册了 `encap_rcv=vxlan_rcv` → 剥 VXLAN 头 → 内层完整二层包重入协议栈 → 路由判决 → 转发至 pod2
+
+**本质**：VXLAN 用"路由表+ARP 表+FDB 表"三表协作，把 overlay 的 MAC 寻址翻译成 underlay 的 UDP/IP 寻址。 ^[inferred]
+
 ## 未解问题
 
 - VXLAN 在生产中的 MTU 影响量化？
@@ -120,8 +163,12 @@ CNI 独立插件系统负责：容器IP分配、网络接口创建、网络环�
 
 综合分析：[[synthesis/cloud-native-infrastructure-landscape]]
 
+排错手册：[[skills/k8s-network-troubleshooting]]
+
 ## 来源
 
 - [[summaries/k8s-terminology-cheatsheet]] — CNI/Service术语定义
 - [[summaries/k8s-alibaba-cloud-principles]] — 网络三铁律+IPVS/eBPF对比
 - 腾讯云K8s网络架构实战 — 四层模型+生产场景解决方案
+- Self learn（credibility: low）：K8s-Flannel网络原理-腾讯云 — CNI 插件分类/flannel-cni+kube-flannel 分工/VXLAN 三表协作与内核源码
+- 排错实践见 [[skills/k8s-network-troubleshooting]]，CNI 深度对比见 [[concepts/k8s-cni-comparison]]
