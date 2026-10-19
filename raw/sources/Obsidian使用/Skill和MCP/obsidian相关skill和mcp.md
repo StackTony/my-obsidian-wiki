@@ -6,6 +6,12 @@ https://github.com/kepano/obsidian-skills
 使用介绍：
 https://zhuanlan.zhihu.com/p/1996053344448434990
 
+
+#### obsidian-wiki
+github链接：
+[https://github.com/StackTony/obsidian-wiki](https://github.com/StackTony/obsidian-wiki)
+
+
 #### Start My Day（AI自主学习探索笔记）
 github链接：
 https://github.com/MarsWang42/OrbitOS
