@@ -9,7 +9,9 @@ https://zhuanlan.zhihu.com/p/1996053344448434990
 
 #### obsidian-wiki
 github链接：
-[https://github.com/StackTony/obsidian-wiki](https://github.com/StackTony/obsidian-wiki)
+https://github.com/StackTony/obsidian-wiki
+使用介绍：
+https://juejin.cn/post/7637823184209494051
 
 
 #### Start My Day（AI自主学习探索笔记）
