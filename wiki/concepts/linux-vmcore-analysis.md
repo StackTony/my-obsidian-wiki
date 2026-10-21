@@ -11,18 +11,18 @@ relationships:
   - target: "[[concepts/linux-memory-management]]"
     type: uses
 source_dir: DFX工具
-source_files: [==vmcore解析==/vmcore解析.md, ==vmcore解析==/寄存器和地址分布.md, ==vmcore解析==/调度sched.md, ==vmcore解析==/进程结构task_struct和mm_struct.md, ==vmcore解析==/开源crash网站.md]
-summary: vmcore崩溃转储分析方法：crash工具使用、x86/ARM64寄存器解读、task_struct/mm_struct结构体分析、常见崩溃类型识别与栈回溯原理。
+source_files: [==vmcore解析==/vmcore解析.md, ==vmcore解析==/寄存器和地址分布.md, ==vmcore解析==/调度sched.md, ==vmcore解析==/进程结构task_struct和mm_struct.md, ==vmcore解析==/开源crash网站.md, ==vmcore解析==/内核调试之devmem直接读写寄存器.md]
+summary: vmcore崩溃转储分析方法：crash工具使用、x86/ARM64寄存器解读、task_struct/mm_struct结构体分析、常见崩溃类型识别与栈回溯原理，辅以devmem直接读写寄存器验证。
 provenance:
-  extracted: 0.60
-  inferred: 0.30
-  ambiguous: 0.10
-base_confidence: 0.72
+  extracted: 0.66
+  inferred: 0.28
+  ambiguous: 0.06
+base_confidence: 0.76
 lifecycle: draft
 lifecycle_changed: 2026-06-02
-tier: supporting
+tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-10-21
 ---
 
 # Linux vmcore崩溃转储分析
@@ -109,11 +109,36 @@ vmcore是内核崩溃时生成的内存转储文件。通过crash工具加载vmc
 | `dis -r <addr>` | 反汇编代码流程 |
 | `rd -S <addr> <len>` | 查看内存内容并尝试解析符号 |
 
+### devmem 直接读写寄存器
+
+crash 是**事后**分析手段（进程已崩溃、只有转储文件）；调试阶段验证寄存器行为还需要**在线**手段——`devmem` 就是最轻量的那个：
+
+```
+devmem ADDRESS [WIDTH [VALUE]]        # 省略 VALUE 为读，给出 VALUE 为写
+devmem 0x40200000 32 0x12345678       # 向物理地址写 32 位值
+```
+
+- 能力来自 **`/dev/mem`**（物理内存裸视图），需内核开启 `Device Drivers → Character devices → [*] /dev/mem virtual device support` 且有 root 权限
+- 实现原理：`open("/dev/mem")` + `mmap()` 把目标物理地址映射进用户态，再用 `volatile` 指针读写——本质是手动做了一次 MMU 映射
+- 价值在于**绕过驱动**：不改驱动、不编译模块即可验证寄存器行为 ^[inferred]
+- 风险对称：写错地址等于直接破坏物理内存或触发硬件异常 ^[inferred]
+
+细节见 [[summaries/kernel-devmem-register-access]]。
+
+### crash 与 devmem 的定位差异
+
+| 手段 | 时机 | 对象 |
+|------|------|------|
+| `crash` + vmcore | 事后 | 转储文件中的内核状态 |
+| `devmem` | 在线 | 活的物理地址/寄存器 |
+| `kmem -p` | 事后 | 转储中的页面信息 |
+
 ## 未解问题
 
 - 硬件关闭 SPCR 开关会导致无法记录硬件日志，生产环境应确保开启
 - 调度sched源文件仅提到主/周期调度器的概念，缺少具体结构体字段说明
 - ARM64 EL2(虚拟化)和EL3(Secure Monitor)在崩溃分析中的具体应用场景
+- `devmem` 受 `CONFIG_STRICT_DEVMEM` 限制的可访问物理区间范围未说明 ^[inferred]
 
 
 ## 延伸阅读
@@ -127,3 +152,5 @@ vmcore是内核崩溃时生成的内存转储文件。通过crash工具加载vmc
 - [[entities/crash-tool]] — crash工具实体页
 - [[summaries/linux-task-struct-mm-struct]] — task_struct/mm_struct结构体详解
 - [[summaries/crash-register-address]] — 寄存器与地址分布
+- [[summaries/kernel-devmem-register-access]] — devmem 直接读写寄存器
+- `raw/sources/DFX工具/==vmcore解析==/内核调试之devmem直接读写寄存器.md`（原文：zhuanlan.zhihu.com/p/575667017）

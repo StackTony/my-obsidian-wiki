@@ -9,18 +9,18 @@ relationships:
   - target: "[[entities/crash-tool]]"
     type: uses
 source_dir: DFX工具
-source_files: [==vmcore解析==/vmcore解析.md, ==vmcore解析==/寄存器和地址分布.md, ==vmcore解析==/调度sched.md, ==vmcore解析==/进程结构task_struct和mm_struct.md, ==vmcore解析==/开源crash网站.md]
-summary: vmcore崩溃分析实操手册：crash工具加载→堆栈回溯→寄存器解读→结构体分析→崩溃类型识别的完整流程，覆盖x86_64和ARM64两大架构。
+source_files: [==vmcore解析==/vmcore解析.md, ==vmcore解析==/寄存器和地址分布.md, ==vmcore解析==/调度sched.md, ==vmcore解析==/进程结构task_struct和mm_struct.md, ==vmcore解析==/开源crash网站.md, ==vmcore解析==/内核调试之devmem直接读写寄存器.md]
+summary: vmcore崩溃分析实操手册：crash工具加载→堆栈回溯→寄存器解读→结构体分析→崩溃类型识别，并补充devmem在线读写寄存器验证，覆盖x86_64和ARM64两大架构。
 provenance:
-  extracted: 0.65
-  inferred: 0.30
-  ambiguous: 0.05
-base_confidence: 0.72
+  extracted: 0.70
+  inferred: 0.26
+  ambiguous: 0.04
+base_confidence: 0.76
 lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-10-21
 ---
 
 # Linux vmcore崩溃分析实操手册
@@ -118,6 +118,22 @@ date -d@'<timestamp>' "+%Y-%m-%d %H:%M:%S"
 
 已知内核bug搜索：https://bugs.launchpad.net/ — 输入关键异常堆栈搜索匹配问题。
 
+### 9. 在线验证寄存器（devmem）
+
+vmcore 是事后分析；若问题可复现，用 `devmem` 在线读写寄存器交叉验证：
+
+```bash
+# 读：省略 VALUE
+devmem 0x40200000 32
+
+# 写：给出 VALUE（32 位）
+devmem 0x40200000 32 0x12345678
+```
+
+**前提**：内核开启 `/dev/mem` 支持（`Device Drivers → Character devices → [*] /dev/mem virtual device support`）且有 root 权限。原理为 `open("/dev/mem")` + `mmap()` 映射物理地址后以 `volatile` 指针读写——参见 [[summaries/kernel-devmem-register-access]]。
+
+> 警告：直接操作物理地址，写错地址会导致系统崩溃或硬件异常，仅限受控调试环境。
+
 ## 常见问题
 
 | 问题 | 原因 | 解决 |
@@ -137,3 +153,5 @@ date -d@'<timestamp>' "+%Y-%m-%d %H:%M:%S"
 - [[concepts/linux-vmcore-analysis]] — vmcore分析方法
 - [[entities/crash-tool]] — crash工具实体页
 - [[summaries/linux-task-struct-mm-struct]] — task_struct/mm_struct结构体详解
+- [[summaries/kernel-devmem-register-access]] — devmem 读写寄存器
+- `raw/sources/DFX工具/==vmcore解析==/内核调试之devmem直接读写寄存器.md`（原文：zhuanlan.zhihu.com/p/575667017）

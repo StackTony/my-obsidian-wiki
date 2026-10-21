@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-08-03
+updated: 2026-10-21
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-08-03 (AI Agent 协议+平台 增量 Ingest)*
+*自动维护。上次更新：2026-10-21 (增量 Ingest：虚拟内存/TLB、CFS实现、零拷贝、devmem 共8个来源)*
 
 ## Summaries (数据结构与算法)
 
@@ -32,6 +32,11 @@ updated: 2026-08-03
 - [virtio-io-notification-mechanism](summaries/virtio-io-notification-mechanism.md) — Virtio前后端双向零拷贝通知：ioeventfd(Guest→Host)和irqfd(Host→Guest) — `linux` `虚拟化` `virtio` `ioeventfd` `irqfd`
 - [virtio-vring-data-sharing](summaries/virtio-vring-data-sharing.md) — vring三大表(desc/avail/used)组成的生产者-消费者数据共享机制 — `linux` `虚拟化` `virtio` `vring` `数据共享`
 - [linux-live-migration-flow](summaries/linux-live-migration-flow.md) — 虚拟机热迁移三阶段流程：内存迭代拷贝、停机拷贝、网络恢复与关键参数 — `linux` `虚拟化` `热迁移` `QEMU` `libvirt`
+- [linux-memory-cpu-relationship](summaries/linux-memory-cpu-relationship.md) — 教材式虚拟内存原理：地址空间→空闲内存五种适配算法→分页与页表项→TLB→多级/倒排页表→九种页面置换算法(最优为老化+WSClock) — `linux` `内存` `虚拟内存` `分页` `页面置换`
+- [linux-tlb-management](summaries/linux-tlb-management.md) — TLB作为MMU内的页表缓存：表项结构、ARM Cortex-A72两级TLB、global/local刷新策略、多核TLB shootdown与PCID(4.15全面启用)/ASID — `linux` `内核` `TLB` `分页` `PCID`
+- [linux-zero-copy-impl](summaries/linux-zero-copy-impl.md) — 零拷贝机制推导：CPU COPY vs DMA COPY分工、read+send四次拷贝/四次上下文切换、sendfile(2.1)三次拷贝、sendfile+SG-DMA(2.4)零CPU拷贝 — `linux` `零拷贝` `sendfile` `DMA` `性能优化`
+- [linux-cfs-scheduler-impl](summaries/linux-cfs-scheduler-impl.md) — CFS实现细节：vruntime换算公式、调度周期/粒度(6ms与0.75ms、多核×(1+log2(ncpus)))、rq/cfs_rq/sched_entity结构、五个调度类优先级与六种策略枚举 — `linux` `内核` `调度器` `CFS` `vruntime`
+- [kernel-devmem-register-access](summaries/kernel-devmem-register-access.md) — devmem命令用法与/dev/mem依赖、内核配置项、open+mmap映射物理地址的实现原理——无需写驱动即可验证寄存器行为 — `linux` `内核调试` `devmem` `寄存器` `物理地址`
 
 ## Entities (Linux)
 
@@ -45,18 +50,19 @@ updated: 2026-08-03
 
 - [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
 - [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断系统：IRQ/softirq两阶段设计、三种延迟机制、ksoftirqd — `linux` `kernel` `interrupt` `irq` `softirq`
-- [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、LRU与Write策略 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
+- [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、LRU与Write策略，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
+- [virtual-memory-and-paging](concepts/virtual-memory-and-paging.md) — 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(PCID/ASID与shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优) — `linux` `内存` `虚拟内存` `分页` `页面置换`
 - [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈：五层IO架构、IO调度器、设备发现与gendisk结构、hctx tags busy值IO阻塞确认 — `linux` `kernel` `io` `block` `scheduler`
 - [linux-fs-mount](concepts/linux-fs-mount.md) — 文件系统与Mount机制：mount/mountpoint/vfsmount三大结构+sys_mount五分支+do_new_mount两步挂载+lookup_mnt穿越挂载点 — `linux` `内核` `mount` `VFS` `文件系统`
 - [linux-boot-shutdown](concepts/linux-boot-shutdown.md) — Linux启动与关机：10步启动流程、关机多子系统协调、systemd与架构差异 — `linux` `kernel` `boot` `shutdown` `systemd`
 - [linux-network-stack](concepts/linux-network-stack.md) — Linux网络栈：TCP/IP四层模型、三张核心表、sk_buff零拷贝、NAPI混合模式 — `linux` `kernel` `network` `tcp` `ip` `sk_buff`
 - [linux-lock-mechanisms](concepts/linux-lock-mechanisms.md) — Linux内核同步机制的完整框架：从Spinlock到RCU的演进与选择指南 — `linux` `kernel` `synchronization` `lock` `spinlock` `mutex` `rcu`
 - [linux-namespace-cgroups](concepts/linux-namespace-cgroups.md) — Linux内核资源隔离双引擎：Namespace实现视图隔离，Cgroups实现资源限制 — `linux` `kernel` `namespace` `cgroups` `container` `isolation`
-- [linux-process-scheduling](concepts/linux-process-scheduling.md) — Linux内核进程调度核心：CFS完全公平调度器的红黑树机制与三种调度策略 — `linux` `kernel` `scheduler` `CFS` `process` `scheduling`
+- [linux-process-scheduling](concepts/linux-process-scheduling.md) — Linux内核进程调度核心：CFS的vruntime红黑树机制、五个调度类优先级体系(stop>dl>rt>fair>idle)与六种调度策略 — `linux` `kernel` `scheduler` `CFS` `process` `scheduling`
 - [linux-system-v-ipc](concepts/linux-system-v-ipc.md) — System V IPC三大机制：信号量集合、共享内存、消息队列的原理与API — `linux` `ipc` `semaphore` `shared-memory` `message-queue` `system-v`
 - [linux-tracing-frameworks](concepts/linux-tracing-frameworks.md) — 内核追踪框架对比：ftrace(静态)/kprobe(动态)/perf(采样)/bpftrace(eBPF)/dynamic debug(源码级调试打印) — `linux` `内核` `tracing` `ftrace` `kprobe` `perf`
 - [linux-cpu-performance-analysis](concepts/linux-cpu-performance-analysis.md) — CPU性能分析三大场景：perf采样/kvmtop VM-Exit/%ST抢占率 — `linux` `cpu` `性能分析` `虚拟化` `perf`
-- [linux-vmcore-analysis](concepts/linux-vmcore-analysis.md) — vmcore崩溃转储分析：crash工具、x86/ARM64寄存器、task/mm结构体、栈回溯 — `linux` `vmcore` `crash` `崩溃分析` `寄存器`
+- [linux-vmcore-analysis](concepts/linux-vmcore-analysis.md) — vmcore崩溃转储分析：crash工具、x86/ARM64寄存器、task/mm结构体、栈回溯，辅以devmem在线读写寄存器 — `linux` `vmcore` `crash` `崩溃分析` `寄存器`
 - [linux-io-performance-analysis](concepts/linux-io-performance-analysis.md) — IO性能分析：iostat监控/fio压测/dd测速/blktrace追踪/block_dump日志 — `linux` `io` `性能分析` `iostat` `fio`
 
 ## Concepts (Linux 虚拟化)
@@ -99,7 +105,7 @@ updated: 2026-08-03
 
 - [kafka-architecture](concepts/kafka-architecture.md) — Kafka分布式消息队列完整架构：ISR/HW/LEO可靠性+PageCache+零拷贝+顺序追加高性能三板斧 — `消息队列` `Kafka` `分布式` `高性能` `零拷贝`
 - [mq-selection-comparison](concepts/mq-selection-comparison.md) — 三大MQ选型对比：Kafka(高吞吐低可靠)/RocketMQ(高可靠事务)/RabbitMQ(低延迟灵活路由) — `消息队列` `Kafka` `RocketMQ` `RabbitMQ` `选型`
-- [zero-copy-memory-mapping](concepts/zero-copy-memory-mapping.md) — 零拷贝工具组：sendfile/splice/mmap/io_uring/DPDK各自解决不同瓶颈，选型先确认瓶颈再选工具 — `零拷贝` `sendfile` `mmap` `io_uring` `DPDK` `性能优化`
+- [zero-copy-memory-mapping](concepts/zero-copy-memory-mapping.md) — 零拷贝工具组：sendfile/splice/mmap/io_uring/DPDK各自解决不同瓶颈，选型先分清 CPU COPY / DMA COPY 再选工具 — `零拷贝` `sendfile` `mmap` `io_uring` `DPDK` `性能优化`
 
 ## Concepts (软件工程)
 
