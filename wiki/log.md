@@ -516,4 +516,32 @@ title: Wiki Log
   - entities/langgraph-framework — relationships新增oh-my-opencode related_to
   - wiki/index.md — Agent框架从5→7条+实体新增OMO条目
 - 跳过1个稀薄文件：单Agent 智能体.md（286字节，仅含2个GitHub链接，内容不足以独立建页，作为来源引用记入multi-agent-orchestration）
-- Manifest更新：旧key迁移（Agent智能体→Multi-Agent协同）+ 2个新源文件SHA-256注册- [2026-09-10 QUERY query="IO 阻塞不返回，如何查看确认进程卡在哪个内核调用上" result_pages=4 mode=normal escalated=false
+- Manifest更新：旧key迁移（Agent智能体→Multi-Agent协同）+ 2个新源文件SHA-256注册
+- [2026-09-10 QUERY query="IO 阻塞不返回，如何查看确认进程卡在哪个内核调用上" result_pages=4 mode=normal escalated=false
+
+## [2026-10-21] INGEST | 内存/调度/零拷贝/devmem 增量（8来源 → 6新页面 + 5更新）
+
+- INGEST mode=append sources=8 pages_created=6 pages_updated=5
+- delta来源（8个）：Linux 操作系统/Linux 内存管理/Linux 内存与CPU之间的关系.md、Linux 操作系统/Linux 内存管理/Linux 内存管理 TLB.md、Linux 操作系统/Linux 内核 IO 栈/Linux 零拷贝（Zero-Copy）.md、Linux 操作系统/Linux 进程调度/Linux CFS调度器.md、Linux 操作系统/Linux 进程调度/Linux 完全公平调度器CFS.md、DFX工具/==vmcore解析==/内核调试之devmem直接读写寄存器.md、Obsidian使用/claude的json备份.md、Obsidian使用/opencode的json备份.md
+- 新建页面（6个）：
+  - summaries/linux-memory-cpu-relationship — 教材式虚拟内存原理：地址空间→空闲内存五种适配算法→分页与页表项→TLB→多级/倒排页表→九种页面置换算法（最优=老化+WSClock）
+  - summaries/linux-tlb-management — TLB表项结构、ARM Cortex-A72两级TLB、global/local刷新策略、多核TLB shootdown、PCID与ASID、Linux 4.15全面启用PCID
+  - summaries/linux-zero-copy-impl — CPU COPY vs DMA COPY分工、read+send 4次拷贝/4次切换、sendfile(2.1) 3次拷贝、sendfile+SG-DMA(2.4) 0次CPU拷贝
+  - summaries/linux-cfs-scheduler-impl — vruntime换算公式、调度周期/粒度(6ms与0.75ms、多核×(1+log2 ncpus))、rq/cfs_rq/sched_entity/sched_class结构、五调度类与六策略枚举
+  - summaries/kernel-devmem-register-access — devmem用法、/dev/mem依赖与内核配置项、open("/dev/mem")+mmap实现原理
+  - concepts/virtual-memory-and-paging — 新增概念页（跨两来源整合）：抽象演进→分页/页表项→TLB→多级/倒排页表→置换算法→与Linux实现的对应表
+- 已有页面更新（5个）：
+  - concepts/linux-process-scheduling — 新增"调度类与优先级体系"(stop>dl>rt>fair>idle)与"CFS实现要点"(vruntime公式/周期粒度/数据结构/关键函数)；"三种调度策略"重构为"六种调度策略"并标注口径差异 ^[ambiguous]；base_confidence 0.538→0.77
+  - concepts/linux-memory-management — 新增"分页、页表与 TLB（下层基础）"段；LRU段关联工作集/老化算法；修正2处"鈴表"错字；source_files +2
+  - concepts/zero-copy-memory-mapping — 新增"CPU COPY 与 DMA COPY"前提段、read+send逐步拆解表、sendfile 2.1/2.4演进表
+  - concepts/linux-vmcore-analysis — 新增"devmem 直接读写寄存器"段与 crash/devmem 定位差异表；source_files +1
+  - skills/linux-vmcore-debugging — 新增步骤9"在线验证寄存器（devmem）"；source_files +1
+- 跨目录来源处理：zero-copy（消息队列/ + Linux 内核 IO 栈/）与 devmem（DFX工具/==vmcore解析==/）无共同前缀，未强行合并 source_dir，改为在"来源"段显式列出 raw 路径 + manifest 记录产出页面
+- 跳过建页（2个）：Obsidian使用/claude的json备份.md、Obsidian使用/opencode的json备份.md —— 内容为工具配置备份且含明文密钥，按"配置非知识"处理，仅登记 manifest，不作内容转录
+- 安全告警：上述2个JSON备份含明文 ANTHROPIC_AUTH_TOKEN、tavily api_key 与内网代理地址，已随 commit af72905 提交并推送至 github.com:StackTony/my-obsidian-wiki；raw/ 不可变，未做任何修改，已上报用户处置
+- Manifest更新：新增8条（6个document + 2个config），last_ingest 2026-09-16→2026-10-21
+- 索引/hot更新：index.md 新增5条摘要+1条概念、更新4条既有描述；hot.md 语义快照刷新
+- Tier提升（lint规则13，入链≥5）：concepts/linux-process-scheduling（14入链）、concepts/linux-vmcore-analysis（8入链）由 supporting → core
+- 事实校正：SCHED_IDLE 与 idle_sched_class 并非同一件事（前者由 fair 类极低权重实现，后者服务每 CPU idle 线程），已在概念页与摘要页标注 ^[ambiguous]
+- 跳过项：QMD_WIKI_COLLECTION 未设置（无 .env），按 GUARD 跳过 QMD 刷新
+- 未处理（需用户决策）：manifest 顶层 vault_path 仍为过期旧路径 `C:\Users\23363\Data\code\my-obsidian-wiki`，非本次 ingest 范围

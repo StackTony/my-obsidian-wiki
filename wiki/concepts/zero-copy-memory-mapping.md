@@ -2,19 +2,19 @@
 title: 零拷贝与内存映射技术
 category: concepts
 tags: [零拷贝, sendfile, mmap, io_uring, DPDK, 性能优化]
-summary: 零拷贝不是单一技术而是工具组：sendfile()最经典（文件→Socket）、splice()更灵活（管道中转）、mmap()随机访问、io_uring异步I/O、DPDK绕过内核——选型先确认瓶颈再选工具
+summary: 零拷贝不是单一技术而是工具组：sendfile()最经典（文件→Socket）、splice()更灵活（管道中转）、mmap()随机访问、io_uring异步I/O、DPDK绕过内核——选型先确认瓶颈再选工具，先分清 CPU COPY 与 DMA COPY
 source_dir: 消息队列
 source_files: [零拷贝与内存映射-数据搬运极致优化.md]
 provenance:
-  extracted: 0.70
-  inferred: 0.25
-  ambiguous: 0.05
+  extracted: 0.75
+  inferred: 0.21
+  ambiguous: 0.04
 base_confidence: 0.85
 lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-10-21
 relationships:
   - target: "[[concepts/kafka-architecture]]"
     type: uses
@@ -28,17 +28,52 @@ relationships:
 
 零拷贝不是"一个开关"，而是**一组工具**，每种解决特定场景的数据搬运瓶颈。选型的核心原则：先确认数据路径上的瓶颈是什么，再选择对应的工具。
 
+## 理解前提：CPU COPY 与 DMA COPY
+
+数据搬运有两类执行主体，分清它们是理解一切零拷贝优化的前提：
+
+| 拷贝类型 | 执行者 | 搬运区间 |
+|----------|--------|----------|
+| **DMA COPY** | DMA 控制器 | 内核缓冲区 ↔ 设备（磁盘/网卡） |
+| **CPU COPY** | CPU | 内核缓冲区 ↔ 用户缓冲区，或内核缓冲区之间 |
+
+**"零拷贝"的严格定义是：用户态与内核态之间的数据拷贝次数为 0** ^[inferred]——不是数据完全不移动，而是把搬运工作全部交给 DMA，同时消掉那些"数据原封不动绕一圈"的 CPU 拷贝。零拷贝的三项收益：**减少 CPU 拷贝开销、减少内存带宽占用、减少上下文切换次数**。
+
 ## 传统数据路径：4次拷贝+4次上下文切换
 
-`read()` + `write()` 传统路径：
-- 4次数据拷贝（2次DMA + 2次CPU）
-- 4次上下文切换（用户态→内核态→用户态→内核态→用户态）
-- 其中第2次和第3次CPU拷贝是浪费——数据从内核→用户空间→又原封不动拷贝回内核
-- 额外代价：大块数据流过CPU缓存会挤走热点数据（缓存污染）
+`read()` + `write()`（Socket 发送）路径逐步拆解：
+
+| 步骤 | 动作 | 上下文切换 |
+|------|------|-----------|
+| 1 | `read()`：DMA COPY 磁盘 → 内核缓冲区（Page Cache） | 用户态→内核态 |
+| 2 | `read()`：**CPU COPY** 内核缓冲区 → 用户缓冲区 ← 浪费 | 内核态→用户态 |
+| 3 | `write()`：**CPU COPY** 用户缓冲区 → Socket 缓冲区 ← 浪费 | 用户态→内核态 |
+| 4 | `write()`：DMA COPY Socket 缓冲区 → 网卡 | 内核态→用户态 |
+
+**合计：4次拷贝（2次DMA + 2次CPU）+ 4次上下文切换 + 2次CPU中断。**
+
+其中第2、3次 CPU 拷贝是纯浪费——数据从内核拷到用户空间、又原封不动拷回内核。额外代价是大块数据流过 CPU 缓存会挤走热点数据（**缓存污染**）。
 
 量化影响：传输1GB文件，额外2次CPU `memcpy`(2GB数据搬运)约130-200ms。万级并发下瓶颈凸显。
 
 ## sendfile()：最经典的零拷贝
+
+### 演进路线
+
+| 版本 | 机制 | 拷贝次数 | 上下文切换 |
+|------|------|----------|-----------|
+| Linux 2.1 | `sendfile()`：用户态不再参与搬运，数据由页缓存直接进入 Socket 缓冲区 | 3次（2 DMA + 1 CPU） | 2次 |
+| Linux 2.4+ | `sendfile()` + **scatter-gather**（网卡支持 SG-DMA）：内核只把数据的位置与长度（描述符）写入 Socket 缓冲区 | **2次（全 DMA，0次CPU拷贝）** | 2次 |
+
+**接口约束**：
+
+```c
+ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
+```
+
+- `in_fd` 必须是**真实文件**（支持 mmap），不能是 Socket/管道
+- `out_fd` 必须是 **Socket**
+- 数据全程不经过用户空间，因此**无法在传输途中修改数据**（加密/压缩/协议改写都不行）
 
 ### 数据路径（DMA聚合拷贝，网卡支持scatter-gather）
 1. 用户态→内核态（1次上下文切换）
@@ -48,6 +83,8 @@ relationships:
 5. 内核态→用户态（1次上下文切换）
 
 **结果：2次DMA拷贝 + 2次上下文切换，CPU零拷贝。**
+
+逐步推导与内核数据结构关系见 [[summaries/linux-zero-copy-impl]]。
 
 ### sendfile()限制
 | 限制 | 说明 |
@@ -174,4 +211,8 @@ Kafka零拷贝失效场景：
 
 ## 来源
 
-- 零拷贝与内存映射-数据搬运极致优化（raw/sources/消息队列/）
+- [[summaries/linux-zero-copy-impl]] — 零拷贝拷贝次数推导（CPU/DMA COPY、sendfile 演进）
+- [[concepts/linux-io-stack]] — 数据从文件系统到网卡经过的内核层次
+- [[concepts/linux-memory-management]] — Page Cache 与用户态缓冲区的内存侧机制
+- `raw/sources/消息队列/零拷贝与内存映射-数据搬运极致优化.md` — 工具组选型视角
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux 零拷贝（Zero-Copy）.md`（原文：zhuanlan.zhihu.com/p/430848775）

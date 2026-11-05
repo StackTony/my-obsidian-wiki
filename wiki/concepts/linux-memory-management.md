@@ -11,23 +11,23 @@ relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md]
-summary: Linux内存管理：meminfo参数体系、Page Cache架构(基数树+预读)、内存黑洞(alloc_pages不可追踪)、LRU分类与Write策略。
+source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md, Linux 内存与CPU之间的关系.md, Linux 内存管理 TLB.md]
+summary: Linux内存管理：meminfo参数体系、Page Cache架构(基数树+预读)、内存黑洞(alloc_pages不可追踪)、LRU分类与Write策略，向下承接虚拟内存/分页与TLB的原理基础。
 provenance:
-  extracted: 0.80
-  inferred: 0.15
+  extracted: 0.82
+  inferred: 0.13
   ambiguous: 0.05
-base_confidence: 0.75
+base_confidence: 0.78
 lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-10-21
 ---
 
 # Linux内存管理
 
-Linux内存管理是内核最复杂的子系统之一，涵盖物理内存分配、Page Cache缓存、LRU回收以及 /proc/meminfo 参数体系。理解这些参数和机制是排查内存问题的基础。详见 [[concepts/linux-os-virtualization-landscape|Linux全景]]。
+Linux内存管理是内核最复杂的子系统之一，涵盖物理内存分配、Page Cache缓存、LRU回收以及 /proc/meminfo 参数体系。理解这些参数和机制是排查内存问题的基础。**上层的 meminfo/Page Cache 统计，都建立在下层的分页、页表与 TLB 机制之上**——原理链路见 [[concepts/virtual-memory-and-paging]]。详见 [[concepts/linux-os-virtualization-landscape|Linux全景]]。
 
 ## 核心观点
 
@@ -35,8 +35,21 @@ Linux内存管理是内核最复杂的子系统之一，涵盖物理内存分配
 - Page Cache 是文件IO的性能加速器，采用基数树(Radix Tree)索引 + 预读(Readahead)机制，将磁盘数据缓存到内存中避免重复IO。
 - 内存黑洞指通过 `alloc_pages()` 等底层分配器直接分配的内存不被任何meminfo字段追踪，导致 MemFree 与实际可用内存之间有难以解释的差额。 ^[inferred]
 - LRU（Least Recently Used）回收算法将页面分为 Active 和 Inactive 两个链表，Inactive 链表尾端是回收候选。
+- 本页描述的是**上层机制**（统计口径、缓存组织、回收策略）；**下层机制**（地址空间抽象、分页与页表项、TLB 加速与刷新、页面置换算法的理论对比）由 [[concepts/virtual-memory-and-paging]] 承载。 ^[inferred]
 
 ## 关键细节
+
+### 分页、页表与 TLB（下层基础）
+
+理解内存回收与缓存之前，需要先明确地址是怎么被翻译的：
+
+- **分页**：虚拟地址空间切为固定大小的**页**，物理内存切为同样大小的**页框**，由 MMU 通过页表映射。
+- **页表项**：包含页框号、在/不在位、保护位、修改位（脏页需写回）、访问位（LRU/置换算法的输入信号）。**Linux 的 Active/Inactive 移动与页面回收，正是在消费硬件的访问位。**
+- **缺页中断**：MMU 发现页不在内存 → 陷入内核 → 换出牺牲页（脏页先写回）→ 调入缺失页 → 重新执行原指令。
+- **TLB**：MMU 内缓存页表项的硬件，每核私有。进程切换时若不刷新会读到错误映射，全量刷新又导致 cold TLB；**PCID/ASID** 通过给地址翻译加上进程上下文 ID 来消除这一成本（Linux 4.15 全面启用 PCID）。
+- **页面置换算法的工程结论**：LRU 效果好但难以低成本实现，**老化算法（aging）与 WSClock 是最优近似**——Linux 用 Active/Inactive 双链表 + kswapd 实现同类的近似。
+
+完整原理与九种置换算法对比见 [[concepts/virtual-memory-and-paging]]，TLB 硬件细节见 [[summaries/linux-tlb-management]]。
 
 ### /proc/meminfo 关键字段
 
@@ -97,9 +110,9 @@ Linux 使用双链表 LRU 实现：
 页面在两个链表之间移动：
 - 新页面进入 Inactive 链表头
 - Inactive 链表中的页面被再次访问 → 提升到 Active 链表
-- Active 鈴表中的页面逐渐老化 → 降级到 Inactive 鈴表尾
+- Active 链表中的页面逐渐老化 → 降级到 Inactive 链表尾
 
-匿名页（anon）和文件页（file）分别有独立的 Active/Inactive 链表，共4个LRU链表。
+匿名页（anon）和文件页（file）分别有独立的 Active/Inactive 链表，共4个LRU链表。这套双链表近似的是**工作集/老化类置换算法**——见 [[concepts/virtual-memory-and-paging]] 中九种算法的对比。 ^[inferred]
 
 ### Write Through vs Write Back
 
@@ -114,6 +127,8 @@ Linux默认使用 Write Back 策略，通过 pdflush/kworker 线程定期将脏�
 
 - 内存黑洞的精确量化仍然困难，不同内核版本和配置下黑洞大小差异显著。 ^[ambiguous]
 - THP（透明大页）在数据库等应用场景中的性能争议——有的场景显著提升，有的场景因内存碎片反而下降。 ^[ambiguous]
+- 教材视角的页面置换算法（OPT/NRU/老化/WSClock）与 Linux 实际的 Active/Inactive 双链表 + kswapd 之间，还缺少一份"从算法到实现"的对应推导。 ^[inferred]
+- TLB shootdown 在高核数场景下的实际开销没有量化数据。 ^[ambiguous]
 
 
 ## 延伸阅读
@@ -124,3 +139,7 @@ Linux默认使用 Write Back 策略，通过 pdflush/kworker 线程定期将脏�
 
 - [[summaries/linux-meminfo-params]] — meminfo参数详解
 - [[summaries/linux-page-cache]] — Page Cache架构与预读机制
+- [[summaries/linux-memory-cpu-relationship]] — 虚拟内存与页面置换算法原理
+- [[summaries/linux-tlb-management]] — TLB 硬件细节与 PCID
+- `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存与CPU之间的关系.md`（原文：zhuanlan.zhihu.com/p/450505454）
+- `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存管理 TLB.md`（原文：developer.aliyun.com/article/1479067）
