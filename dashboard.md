@@ -1,76 +1,131 @@
 ---
 dashboard: true
+layout: immersive
 banner:
   quote: "The mind is everything. What you think you become."
   author: "Buddha"
-  image: "raw/resources/1.png"
+  image: "https://images.unsplash.com/photo-1788651946293-893d6b217f34?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0"
+  quoteFont: "Didot,\"Bodoni MT\",Georgia,serif"
+  images:
+    - "https://images.unsplash.com/photo-1788651946293-893d6b217f34?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0"
+immersiveEditable: false
+immersiveBackground: "https://images.unsplash.com/photo-1788651946293-893d6b217f34?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0"
+immersive:
+  - id: "widget:quickActions"
+    w: 3
+    cap: 18
+    fixed: true
+    x: 0
+    y: 10
+  - id: "widget:weather"
+    w: 3
+    cap: 19
+    fixed: true
+    x: 0
+    y: 28
+  - id: "widget:calendar"
+    w: 3
+    cap: 33
+    fixed: true
+    x: 0
+    y: 47
+  - id: "widget:countdown-cd-2026-end"
+    w: 3
+    cap: 10
+    fixed: true
+    x: 0
+    y: 0
+  - id: "widget:music"
+    w: 3
+    cap: 17
+    fixed: true
+    x: 9
+    y: 14
+  - id: "card:demo-memo-1"
+    w: 6
+    cap: 21
+    fixed: true
+    x: 3
+    y: 0
+  - id: "card:demo-todo-1"
+    w: 3
+    cap: 32
+    fixed: true
+    x: 6
+    y: 21
+  - id: "card:demo-todo-2"
+    w: 3
+    cap: 32
+    fixed: true
+    x: 3
+    y: 21
+  - id: "section:Library"
+    w: 9
+    cap: 28
+    fixed: true
+    x: 3
+    y: 53
+  - id: "widget:album-1793868541713"
+    w: 3
+    cap: 21
+    fixed: true
+    x: 9
+    y: 32
+  - id: "widget:lunar"
+    w: 3
+    cap: 14
+    fixed: true
+    x: 9
+    y: 0
 columns:
-  - name: 树洞
+  - name: 便利贴
     color: "#f59e0b"
     type: sticky
-  - name: 事项跟踪
-    color: "#6366f1"
-    type: sticky
-  - name: 图书馆
-    color: "#10b981"
+  - name: Library
+    color: "#8b5cf6"
     type: projects
+    showCover: false
+    library:
+      viewMode: grid
+      sortBy: "modified"
+      sortDesc: true
 ---
 
-## 树洞
+## 便利贴
 
-### 2026-05-27 备忘录
-id: card-mpo4g1fu
+### 2026-11-05 备忘
+id: demo-memo-1
 type: generic
-width: 283
-博客：
-1、https://quant67.com/
-2、https://www.wowotech.net/
-3、agent从demo到实践
-https://mcp.csdn.net/6a2e189a662f9a54cb7e8b69.html
+欢迎使用 Apex Dashboard！点击此处编辑你的第一条备忘。
 
-### 2026-05-29 备忘录
-id: card-mpq7hsat
-type: generic
-Gbrain
-atomicmemory、llm_wiki
-obsidian_wiki
-claude_doctor
-
-### 2026-05-29 备忘录
-id: card-mpq7inrk
-type: generic
-调用一次rag结果与llm wiki结果比对直到差异很小？
-Hermes Agent
-
-### 2026-06-25 备忘录
-id: card-mqtel7ld
-type: generic
-我需要做一个分流器，根据用户输入的问题复杂程度，选择传统RAG、SAG、GraphRAG还是LLM
-wiki来回答用户问题
-
-### 2026-06-25 备忘录
-id: card-mqtelu8l
-type: generic
-我需要做一个任务调度器，实现对AI算力的削峰填谷，比如将不紧急的任务放到夜间执行
-
-### 2026-06-25 备忘录
-id: card-mqteqw2l
-type: generic
-能否结合SAG的局部动态组合思想，对代码仓也进行类似的操作，从而实现一个结合ai的工具，能根据传入的代码仓位置后进行分析形成对应代码仓日志分析系统，同时根据二八定律，可以引入热点或分层索引机制，对常用日志有缓存机制。
-
-## 事项跟踪
-
-### 今日任务
+### 快速上手
 id: demo-todo-1
 type: task
+- [ ] 在顶部输入框记一条闪念
+- [ ] 拖动这张卡片换个位置
+- [ ] 拖住卡片右下角把它变大
+- [ ] 打开左上角 + 添加一个小组件
 
-## 图书馆
+### 界面操作指南
+id: demo-todo-2
+type: task
+- [ ] 右键任意瓷贴：移除、整理布局
+- [ ] 点击时钟旁的编辑按钮更换海报背景
+- [ ] 从左上角工作台名切换或新建工作台
+- [ ] 在设置中开启天气、记账、音乐等更多小组件
+
+## Library
 
 ### Reading
 id: demo-lib-reading
 type: project
-- [[wiki/recommendations/1-Day learn.md]]
+width: 218
 
 ### To Read
-id: card-mpmoplnv
+id: demo-lib-toread
+type: project
+width: 232
+
+### Done
+id: demo-lib-done
 type: project
