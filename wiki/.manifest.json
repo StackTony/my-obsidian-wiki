@@ -11221,18 +11221,158 @@
       "pages_updated": [],
       "modified_at": "2026-10-19T18:01",
       "note": "tool config backup, not knowledge - registered only, no page distilled; CONTAINS PLAINTEXT API KEY; left untouched per raw/ immutability"
+    },
+    "物理硬件/PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 26275,
+      "content_hash": "sha256:8380fb65cc4e4ab7a9764c901e319d43e112737a06ebd24f04230e6c9e453c40",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/pcie-error-nvme-drive-loss-guide.md",
+        "concepts/pcie-error-aer-nvme-drive-loss.md",
+        "skills/nvme-pcie-drop-troubleshooting.md"
+      ],
+      "pages_updated": [
+        "synthesis/linux-dfx-tool-landscape.md",
+        "concepts/linux-io-stack.md"
+      ],
+      "modified_at": "2026-11-06T10:31"
+    },
+    "物理硬件/PCIe/NVMe掉盘真相：PCIe链路错误与AER诊断关系.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 4730,
+      "content_hash": "sha256:ac186d589d0199bc7d9d666d147fd7bef21bdc41dcda0539be593df053d8ad78",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/pcie-error-nvme-drive-loss-guide.md",
+        "concepts/pcie-error-aer-nvme-drive-loss.md"
+      ],
+      "pages_updated": [],
+      "modified_at": "2026-11-06T10:34"
+    },
+    "物理硬件/PCIe/芯片功耗.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 280,
+      "content_hash": "sha256:d2dfe692aa6e7c4c5cfc70a27a5010a294a2c656a53cdeed08f8b8ece99d415a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "synthesis/hardware-layer-debugging-landscape.md"
+      ],
+      "pages_updated": [],
+      "modified_at": "2026-11-05T15:39",
+      "note": "sparse work note (IPU power mode / uncore downclock / PowerPolicy) - folded into synthesis power-vs-latency thread, no standalone page"
+    },
+    "物理硬件/串口/BMC介绍.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 2349,
+      "content_hash": "sha256:c0cd0792f5d6d6c23220dbbc228abe20fd65c4c5e69ef5999dfbee566f28ca02",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/bmc-intro.md",
+        "entities/bmc-baseboard-management-controller.md"
+      ],
+      "pages_updated": [],
+      "modified_at": "2026-11-05T15:46"
+    },
+    "物理硬件/串口/IPMI的SOL (Serial Over LAN)原理与使用.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 8905,
+      "content_hash": "sha256:260b0b7ae1ecf25a70068ca062226cf656e91eb7a014fdf5e8da64751f735ee3",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/ipmi-sol-usage.md",
+        "skills/ipmi-sol-remote-console.md"
+      ],
+      "pages_updated": [
+        "entities/bmc-baseboard-management-controller.md"
+      ],
+      "modified_at": "2026-11-05T15:49"
+    },
+    "物理硬件/光模块/光模块简介.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 5227,
+      "content_hash": "sha256:9107feb509d668d3b9a8d633dde51fb9e04ea69e247e28d619198761a35f6733",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/optical-module-basics.md",
+        "entities/optical-transceiver-module.md"
+      ],
+      "pages_updated": [],
+      "modified_at": "2026-11-05T19:40"
+    },
+    "物理硬件/内存/ECC纠错机制.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 792,
+      "content_hash": "sha256:f70534f9fe33795a7257c91cd7a0e87f6dcb30512d75e478c41bc39fa77f185c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "concepts/memory-spd-xmp-ecc.md"
+      ],
+      "pages_updated": [],
+      "modified_at": "2026-11-05T15:29",
+      "note": "sparse note (CRC vs Hamming) - folded into memory hardware concept page, no standalone summary"
+    },
+    "物理硬件/内存/内存频率SPD、XMP.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 2267,
+      "content_hash": "sha256:bacd9892e736c1e453396d48b6c38a95e61e9b5bad14abe0354298bd0df9d691",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/memory-spd-xmp.md",
+        "concepts/memory-spd-xmp-ecc.md"
+      ],
+      "pages_updated": [],
+      "modified_at": "2026-11-05T15:28"
+    },
+    "物理硬件/磁盘/TRIM擦除指令.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 8947,
+      "content_hash": "sha256:cc092a2b658cd4ad5d0b4c825838ada76407a6bbc148e6ffb596931fd2f6c3be",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/ssd-trim-command.md",
+        "concepts/ssd-trim-write-amplification.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-io-stack.md",
+        "skills/linux-io-debugging.md"
+      ],
+      "modified_at": "2026-11-05T15:33"
+    },
+    "物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md": {
+      "ingested_at": "2026-11-06",
+      "size_bytes": 14306,
+      "content_hash": "sha256:9c57b82b1c404eba775a3eade2295fdfc6180f29e1c7f54a470349e190ffc00c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/nic-smp-irq-affinity.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-interrupt-system.md"
+      ],
+      "modified_at": "2026-11-05T15:30"
     }
   },
-  "last_ingest": "2026-10-21",
+  "last_ingest": "2026-11-06",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 928,
-    "total_pages": 160,
-    "total_concepts": 75,
-    "total_summaries": 34,
-    "total_entities": 18,
-    "total_skills": 13,
-    "total_synthesis": 6,
-    "last_updated": "2026-10-21"
+    "total_sources_ingested": 938,
+    "total_pages": 166,
+    "total_concepts": 82,
+    "total_summaries": 41,
+    "total_entities": 20,
+    "total_skills": 16,
+    "total_synthesis": 7,
+    "last_updated": "2026-11-06"
   }
 }

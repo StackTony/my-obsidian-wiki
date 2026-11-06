@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-10-21
+updated: 2026-11-06
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-10-21 (增量 Ingest：虚拟内存/TLB、CFS实现、零拷贝、devmem 共8个来源)*
+*自动维护。上次更新：2026-11-06 (Ingest：物理硬件域首批10来源——PCIe错误/NVMe掉盘、SSD TRIM、网卡IRQ绑定、BMC/IPMI SOL、光模块、内存SPD/XMP/ECC)*
 
 ## Summaries (数据结构与算法)
 
@@ -49,10 +49,10 @@ updated: 2026-10-21
 ## Concepts (Linux 操作系统)
 
 - [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
-- [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断系统：IRQ/softirq两阶段设计、三种延迟机制、ksoftirqd — `linux` `kernel` `interrupt` `irq` `softirq`
+- [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断系统：IRQ/softirq两阶段设计、三种延迟机制、ksoftirqd、SMP IRQ Affinity多核中断绑定 — `linux` `kernel` `interrupt` `irq` `softirq`
 - [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、LRU与Write策略，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
 - [virtual-memory-and-paging](concepts/virtual-memory-and-paging.md) — 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(PCID/ASID与shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优) — `linux` `内存` `虚拟内存` `分页` `页面置换`
-- [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈：五层IO架构、IO调度器、设备发现与gendisk结构、hctx tags busy值IO阻塞确认 — `linux` `kernel` `io` `block` `scheduler`
+- [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈：五层IO架构、IO调度器、设备发现与gendisk结构、hctx tags busy值IO阻塞确认，向下衔接L5硬件层SSD介质语义(TRIM)与PCIe链路 — `linux` `kernel` `io` `block` `scheduler`
 - [linux-fs-mount](concepts/linux-fs-mount.md) — 文件系统与Mount机制：mount/mountpoint/vfsmount三大结构+sys_mount五分支+do_new_mount两步挂载+lookup_mnt穿越挂载点 — `linux` `内核` `mount` `VFS` `文件系统`
 - [linux-boot-shutdown](concepts/linux-boot-shutdown.md) — Linux启动与关机：10步启动流程、关机多子系统协调、systemd与架构差异 — `linux` `kernel` `boot` `shutdown` `systemd`
 - [linux-network-stack](concepts/linux-network-stack.md) — Linux网络栈：TCP/IP四层模型、三张核心表、sk_buff零拷贝、NAPI混合模式 — `linux` `kernel` `network` `tcp` `ip` `sk_buff`
@@ -78,7 +78,7 @@ updated: 2026-10-21
 - [linux-lock-selection](skills/linux-lock-selection.md) — 内核锁类型选择决策树与API速查：Spinlock/Mutex/RCU等10种锁的适用场景与常见陷阱 — `linux` `内核` `锁` `spinlock` `mutex` `rcu` `同步`
 - [linux-kernel-tracing](skills/linux-kernel-tracing.md) — 内核追踪实操手册：ftrace函数追踪→kprobe动态探针→perf事件采样→火焰图可视化四类场景 — `linux` `内核` `tracing` `ftrace` `kprobe` `perf` `火焰图`
 - [linux-vmcore-debugging](skills/linux-vmcore-debugging.md) — vmcore崩溃分析实操：crash加载→堆栈回溯→寄存器解读→结构体分析→崩溃类型识别 — `linux` `vmcore` `crash` `崩溃分析` `寄存器` `内核调试`
-- [linux-io-debugging](skills/linux-io-debugging.md) — IO性能排查与压测实操：iostat→fio→dd→blktrace→block_dump四步流程 — `linux` `io` `iostat` `fio` `blktrace` `dd` `性能分析`
+- [linux-io-debugging](skills/linux-io-debugging.md) — IO性能排查与压测实操：iostat→fio→dd→blktrace→block_dump四步流程+SSD TRIM确认启用 — `linux` `io` `iostat` `fio` `blktrace` `dd` `性能分析`
 - [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包+iperf打流+Bonding调试日志开启 — `linux` `网络` `tcpdump` `iperf` `bonding`
 - [gdb-debugging-guide](skills/gdb-debugging-guide.md) — GDB调试实操速查：断点/观察点/执行控制/内存查看/多线程/多进程/Core Dump/QEMU调试 — `linux` `gdb` `调试` `QEMU` `断点` `观察点`
 
@@ -91,8 +91,38 @@ updated: 2026-10-21
 
 - [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾（同时在Concepts中索引） — `linux` `虚拟化` `全景图` `内核` `DFX`
 - [linux-kernel-subsystem-interactions](synthesis/linux-kernel-subsystem-interactions.md) — Linux内核六大子系统交互机制：preempt_count统一上下文追踪、softirq跨子系统分发、Page Cache交汇点、锁跨上下文协调 — `linux` `内核` `子系统交互` `preempt_count` `softirq` `page-cache` `锁`
-- [linux-dfx-tool-landscape](synthesis/linux-dfx-tool-landscape.md) — DFX调试工具全景图：六大领域(CPU/IO/内存/网络/追踪/vmcore)×三种模式(监控/追踪/事后)的工具矩阵与互补关系 — `linux` `DFX` `调试` `工具全景` `性能分析`
+- [linux-dfx-tool-landscape](synthesis/linux-dfx-tool-landscape.md) — DFX调试工具全景图：六大领域(CPU/IO/内存/网络/追踪/vmcore)+代码调试+硬件层×三种模式(监控/追踪/事后)的工具矩阵与互补关系 — `linux` `DFX` `调试` `工具全景` `性能分析`
 - [virtio-architecture-evolution](synthesis/virtio-architecture-evolution.md) — Virtio四种架构演进分析：数据面从软件模拟到硬件直通，性能与灵活性的核心矛盾 — `linux` `虚拟化` `virtio` `vhost` `DPDK` `vDPA`
+
+## Summaries (物理硬件)
+
+- [pcie-error-nvme-drive-loss-guide](summaries/pcie-error-nvme-drive-loss-guide.md) — PCIe三级错误(CE/NFE/FE)与NVMe掉盘根因：掉盘是链路静默失败而非盘坏，链路层错误不写入SMART；四步定位法+四类高频场景+PRS监控 — `硬件` `PCIe` `NVMe` `AER` `故障诊断`
+- [ssd-trim-command](summaries/ssd-trim-command.md) — TRIM指令原理：SSD页读块擦不对称→写放大，TRIM把无效页信息下推给SSD；三方支持检测与三种启用方法(fstrim.timer推荐) — `硬件` `SSD` `TRIM` `写放大` `NAND`
+- [nic-smp-irq-affinity](summaries/nic-smp-irq-affinity.md) — SMP IRQ Affinity：APIC把硬中断绑定到指定CPU，smp_affinity位掩码配置，RPS/RFS补单队列网卡软中断均衡 — `硬件` `网卡` `中断` `affinity` `irqbalance`
+- [bmc-intro](summaries/bmc-intro.md) — BMC带外管理控制器入门：与BIOS经IPMI/SMBus通信，IPMI/SOL/KVM-over-IP/SNMP/Redfish五大管理接口一览 — `硬件` `BMC` `IPMI` `带外管理` `服务器`
+- [ipmi-sol-usage](summaries/ipmi-sol-usage.md) — IPMI SOL串口重定向：BMC把OS/BIOS串口输出转IPMI协议送LAN，远程操控控制台；grub/ESXi重定向配置+ipmitool sol activate — `硬件` `IPMI` `SOL` `串口` `远程管理`
+- [optical-module-basics](summaries/optical-module-basics.md) — 光模块入门：TOSA/ROSA/BOSA三大器件、PIN vs APD探测器、TIA/CDR功能电路、SFP封装与收发两个方向的信号链 — `硬件` `光模块` `光纤` `SFP` `光电转换`
+- [memory-spd-xmp](summaries/memory-spd-xmp.md) — 内存SPD与XMP：SPD是EEPROM自描述参数供BIOS自动配置，XMP是写入SPD的官方超频预设 — `硬件` `内存` `SPD` `XMP` `DDR`
+
+## Entities (物理硬件)
+
+- [bmc-baseboard-management-controller](entities/bmc-baseboard-management-controller.md) — BMC服务器带外管理微控制器：独立于主机OS，IPMI/SOL/KVM-over-IP/SNMP/Redfish五接口生态 — `硬件` `BMC` `IPMI` `带外管理`
+- [optical-transceiver-module](entities/optical-transceiver-module.md) — 光模块：电↔光双向转换的可插拔器件，TOSA/ROSA/BOSA+PIN/APD+TIA/CDR构成收发链 — `硬件` `光模块` `TOSA` `ROSA` `光电转换`
+
+## Concepts (物理硬件)
+
+- [pcie-error-aer-nvme-drive-loss](concepts/pcie-error-aer-nvme-drive-loss.md) — PCIe错误体系与NVMe掉盘机理：CE/NFE/FE三级错误对应协议栈容错层级，链路错误不进SMART形成观测盲区，错误累积触发控制器复位 — `硬件` `PCIe` `AER` `NVMe` `可靠性`
+- [ssd-trim-write-amplification](concepts/ssd-trim-write-amplification.md) — SSD介质语义：NAND页读块擦不对称→read-modify-write与写放大，TRIM缝合文件系统删除语义与介质知情断层 — `硬件` `SSD` `TRIM` `NAND` `写放大`
+- [memory-spd-xmp-ecc](concepts/memory-spd-xmp-ecc.md) — 内存硬件基础：SPD自描述EEPROM+XMP超频预设；ECC纠错从冗余到汉明码——纠1bit检2bit — `硬件` `内存` `SPD` `XMP` `ECC`
+
+## Skills (物理硬件)
+
+- [nvme-pcie-drop-troubleshooting](skills/nvme-pcie-drop-troubleshooting.md) — NVMe掉盘PCIe根因排查实操：lspci链路初筛→AER+dmesg时间戳对齐→nvme-cli设备层深挖→最小系统隔离四步法 — `硬件` `PCIe` `NVMe` `故障诊断` `AER`
+- [ipmi-sol-remote-console](skills/ipmi-sol-remote-console.md) — IPMI SOL远程串口控制台配置：BMC启IPMI over LAN→UEFI串口重定向→grub/ESXi console重定向→ipmitool sol activate — `硬件` `IPMI` `SOL` `串口` `远程运维`
+
+## Synthesis (物理硬件)
+
+- [hardware-layer-debugging-landscape](synthesis/hardware-layer-debugging-landscape.md) — 硬件层调试全景：硬件问题在软件指标中显形的五条规律——静默失败链、信息断层下推、亲和性杠杆、带外观察平面、功耗换时延 — `硬件` `调试` `全景图` `物理层` `性能分析`
 
 ## Concepts (数据结构与算法)
 
@@ -152,6 +182,9 @@ updated: 2026-10-21
 ### Agent框架 (智能体/工具调用)  — 9条（含landscape导航页面+Harness Engineering+Multi-Agent编排+OMO+系统架构设计+通信协议三层）
 
 - [agent-architecture-landscape](concepts/agent-architecture-landscape.md) — Agent架构7个子领域导航枢纽：树状拓扑+4个核心矛盾+子领域连接+LLM基础设施边界 — `AI` `Agent` `RAG` `知识图谱` `全景图`
+- [agent-paradigm-selection](concepts/agent-paradigm-selection.md) — Agent行为范式选型：ReAct(TAO循环)/Plan-Exec/ReWOO(计划前置省80% token)/Reflect/Ralph Loop(无限循环+Stop Hook)/Harness，按任务结构/成本/延迟/可控性四维选型 — `AI` `Agent` `ReAct` `范式` `选型`
+- [agent-reliability-engineering](concepts/agent-reliability-engineering.md) — Agent可靠性工程：幂等键由编排器派生、重试90.8%浪费于幻觉工具名(需错误分类+熔断+确定性路由)、高级工具调用三技术与HITL动态中断 — `AI` `Agent` `可靠性` `幂等性` `工具调用`
+- [loop-engineering](concepts/loop-engineering.md) — Loop Engineering用系统替代人肉提示Agent：六原语+四层循环栈(Agent/验证/事件驱动/爬山)+四次范式跃迁(Prompt→Context→Harness→Loop)+企业级治理 — `AI` `Agent` `Loop` `自动化` `范式演进`
 - [agent-framework-engineering](concepts/agent-framework-engineering.md) — Agent五大支柱：工作流/状态/记忆/工具/协议，可靠Agent=可观测状态机 — `AI` `Agent` `LangGraph` `MCP` `工具调用`
 - [agent-system-architecture](concepts/agent-system-architecture.md) — Agent系统架构设计：执行循环+消息总线+Skill vs Tool+三层Memory+Sub-agent+声明式设计 — `AI` `Agent` `架构设计` `执行循环` `消息总线`
 - [harness-engineering](concepts/harness-engineering.md) — Harness Engineering（驾驭工程）：围绕AI Agent构建约束、反馈回路与执行控制——模型负责推理，Harness负责一切外围工程 — `AI` `Agent架构` `Harness` `约束系统` `工程范式`
@@ -222,6 +255,7 @@ updated: 2026-10-21
 - [k8s-networking](concepts/k8s-networking.md) — K8s网络四层模型：容器内localhost→Pod间CNI→Service ClusterIP+CoreDNS→Ingress L7路由 — `云原生` `Kubernetes` `网络` `CNI` `Service`
 - [k8s-security](concepts/k8s-security.md) — K8s安全五维度加固：RBAC+NetworkPolicy+PSS restricted+Secret加密+API Server管控 — `云原生` `Kubernetes` `安全` `RBAC` `NetworkPolicy`
 - [k8s-cni-comparison](concepts/k8s-cni-comparison.md) — 五大CNI对比：Flannel VXLAN/Calico BGP/Cilium eBPF/Weave Net/Kube-router；iptables O(n)→IPVS→eBPF三代演进 — `云原生` `Kubernetes` `CNI` `网络` `eBPF`
+- [helm-package-management](concepts/helm-package-management.md) — Helm是K8s的包管理器("apt-get/yum of K8s")：Chart打包+Values多环境分离+Release全生命周期；Helm 3移除Tiller转纯CLI — `云原生` `Kubernetes` `Helm` `包管理` `CI/CD`
 
 ### 容器运行时（隔离+存储+安全+性能）  — 6条
 
@@ -250,6 +284,7 @@ updated: 2026-10-21
 ## Skills (云原生)
 
 - [k8s-security-hardening](skills/k8s-security-hardening.md) — K8s安全五维度实操：RBAC+NetworkPolicy默认拒绝+PSS restricted+Secret加密+API Server匿名禁用 — `云原生` `Kubernetes` `安全` `RBAC` `NetworkPolicy`
+- [k8s-network-troubleshooting](skills/k8s-network-troubleshooting.md) — K8s网络故障排查：三类真实故障复盘(网段冲突NAT/主节点DNS断服/容器网络抖动KubeSkoop)+通用五步排查法+命令速查 — `云原生` `Kubernetes` `网络` `排错` `Cilium`
 - [container-network-benchmarking-skill](skills/container-network-benchmarking-skill.md) — 容器网络性能测试方法论：iperf3测吞吐+sockperf测P99+关闭TCP offload；六种方案实测数据 — `云原生` `容器` `网络` `性能测试` `iperf3`
 
 ## Synthesis (云原生)

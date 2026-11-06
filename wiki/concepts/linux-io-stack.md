@@ -12,8 +12,10 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
+  - target: "[[concepts/ssd-trim-write-amplification]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 内核 IO 栈
-source_files: [Linux IO全景介绍.md, Linux IO调度算法.md]
+source_files: [Linux IO全景介绍.md, Linux IO调度算法.md, "物理硬件/磁盘/TRIM擦除指令.md"]
 summary: Linux IO栈分层架构：VFS→Block层→SCSI/NVMe→驱动→硬件。Block层请求排队调度，IO调度器选择指南，设备发现从pci_device_probe开始，gendisk核心结构，hctx tags busy值确认IO阻塞。
 provenance:
   extracted: 0.70
@@ -24,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-09-15
+updated: 2026-11-06
 ---
 
 # Linux IO栈
@@ -54,6 +56,12 @@ IO调度算法源文件（Linux IO调度算法.md）仅为 stub（76字节），
 | L3 | SCSI/NVMe | 协议层，命令封装 | scsi_cmnd, nvme_command |
 | L4 | 驱动 | 硬件交互，DMA设置 | driver特定结构 |
 | L5 | 硬件 | 物理存储设备 | N/A |
+
+### L5 硬件层：SSD介质语义（TRIM与写放大）
+
+IO栈最底层L5并非黑盒：NAND闪存读/写以page为单位、擦除以block为单位且不允许覆盖写，这直接决定上层行为——文件系统的"删除"只标记自身元数据，介质并不知道哪些page无效；无TRIM时SSD必须以read-erase-modify-write整block的方式服务覆盖写，产生写放大并拖慢GC。TRIM指令（Linux的discard请求）把"已删除"信息从文件系统下推到介质。详见 [[concepts/ssd-trim-write-amplification]]，检测与启用实操见 [[skills/linux-io-debugging]]。此外，NVMe设备"从系统消失"类故障往往不在本栈任何一层，而在更底下的PCIe链路——见 [[concepts/pcie-error-aer-nvme-drive-loss]]。
+
+触发来源：物理硬件/磁盘/TRIM擦除指令.md、物理硬件/PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md（2026-11-06 ingest）。
 
 ### Block层核心机制
 

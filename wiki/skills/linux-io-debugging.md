@@ -9,7 +9,7 @@ relationships:
   - target: "[[concepts/linux-io-stack]]"
     type: uses
 source_dir: DFX工具
-source_files: [==IO==/IO常用工具.md, "Linux 操作系统/Linux 内核 IO 栈/Linux IO全景介绍.md"]
+source_files: [==IO==/IO常用工具.md, "Linux 操作系统/Linux 内核 IO 栈/Linux IO全景介绍.md", "物理硬件/磁盘/TRIM擦除指令.md"]
 summary: IO性能排查与压测实操手册：iostat监控磁盘利用率/时延、fio随机/顺序读写压测、dd裸盘读写速率测试、blktrace追踪IO路径、block_dump+SCSI日志开关、hctx tags busy值确认IO阻塞。
 provenance:
   extracted: 0.85
@@ -20,7 +20,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-09-15
+updated: 2026-11-06
 ---
 
 # Linux IO性能排查与压测实操手册
@@ -103,6 +103,27 @@ cat /sys/kernel/debug/block/sdX/hctx0/tags
 - **busy非0** — 存在等待IO返回的请求，可能存在IO阻塞（请求已下发但硬件未完成）
 - 配合阵列卡Cache模式确认：`cat /sys/class/scsi_disk/0\:2\:0\:0/cache_type`（write through直接与磁盘交互；write back经阵列Cache二传手，Cache故障/掉电保护异常时会卡IO）
 
+### 7. SSD TRIM状态确认与启用（物理硬件/磁盘/TRIM擦除指令.md，2026-11-06补充）
+
+SSD写满后性能退化（写入放大+GC负担）时，先确认TRIM链路——需要SSD固件、OS、文件系统三方都支持，缺一不可：
+
+```bash
+# 检测支持（任一方法）：
+cat /sys/block/sdb/queue/discard_granularity   # 非0 = 支持
+lsblk --discard                                 # DISC-GRAN / DISC-MAX 非0 = 支持
+hdparm -I /dev/sdb | grep -i trim
+```
+
+启用三法（推荐定时批量而非实时下发）：
+
+| 方法 | 命令 | 特点 |
+|------|------|------|
+| fstrim.timer（推荐） | `systemctl enable --now fstrim.timer` | CentOS 7+自带，每周定时discard |
+| 手动fstrim | `fstrim -a -v` | 一次性，可入crontab |
+| fstab discard选项 | 挂载参数加`discard` | 实时下发但降低磁盘性能 |
+
+注意：SSD组RAID0后失去TRIM功能。机理（页读块擦不对称→写放大）详见 [[concepts/ssd-trim-write-amplification]]。
+
 ## 常见问题
 
 | 问题 | 原因 | 解决 |
@@ -110,6 +131,7 @@ cat /sys/kernel/debug/block/sdX/hctx0/tags
 | await远大于svctm | IO队列过长 | 优化业务降低IO压力 |
 | util接近100% | 设备饱和 | 升级存储硬件或检查配置 |
 | blktrace报Invalid argument | cpuset cgroup限制 | `echo $$ >> cpuset/cgroup.procs` |
+| SSD用久/写满后掉速 | 写入放大，TRIM未启用 | 启用fstrim.timer定期discard |
 
 ## 来源
 

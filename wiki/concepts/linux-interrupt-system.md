@@ -13,7 +13,7 @@ relationships:
   - target: "[[concepts/linux-interrupt-virtualization]]"
     type: extends
 source_dir: Linux 操作系统/Linux 中断系统
-source_files: [Linux 硬中断irq + 软中断softirq原理.md, Linux 软中断softirq.md, Linux ksoftirqd软中断内核线程详解.md, Linux IPI 核间中断.md]
+source_files: [Linux 硬中断irq + 软中断softirq原理.md, Linux 软中断softirq.md, Linux ksoftirqd软中断内核线程详解.md, Linux IPI 核间中断.md, "物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md"]
 summary: Linux中断分上下半部：硬中断(IRQ)上半部快速响应、软中断(softirq)下半部延迟处理。preempt_count跟踪中断上下文，三种延迟机制对比，ksoftirqd兜底。
 provenance:
   extracted: 0.75
@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-11-06
 ---
 
 # Linux中断系统
@@ -108,6 +108,17 @@ IPI（Inter-Processor Interrupt）是跨核通信机制：
 - 目标可以是特定CPU、所有CPU或除自身外的所有CPU
 - x86 通过 `apic->send_IPI()` 接口实现
 - 常见用途：TLB flush、reschedule interrupt（唤醒其他CPU上的调度器）、stop CPU等
+
+### SMP IRQ Affinity — 硬中断的CPU亲和性绑定
+
+多核系统下，硬件中断可经APIC分发并绑定到特定CPU处理（kernel 2.4+支持，即SMP IRQ Affinity），避免单核被中断风暴打满：
+
+- 绑定接口：`/proc/irq/{IRQ}/smp_affinity`（十六进制CPU位掩码，如`fff`=CPU0-11）与`/proc/irq/{IRQ}/smp_affinity_list`（十进制列表，如`0-11`）；默认值见`/proc/irq/default_smp_affinity`。位掩码解读：8核对应`11111111`，`0x20`（二进制00100000）即绑定CPU5。
+- 手动绑定前必须停止irqbalance等自动调节服务，否则修改会被其覆盖。
+- 多队列网卡（`/proc/interrupts`中`eth0-TxRx-0~N`多个IRQ）可将各队列硬中断分别绑到不同CPU；**单队列网卡配多CPU无效**，需RPS/RFS软件均衡——RPS单纯把包均衡到不同CPU，RFS进一步让软中断处理CPU与应用所在CPU同核，利用CPU cache局部性。
+- 经验法则：一般负载交给irqbalance省心；大量小包系统上irqbalance几乎无效且造成CPU消耗分配不均，应停掉改手动绑定；数据库服务器可"磁盘控制器绑一个CPU、网卡绑另一个CPU"降低响应时间；多网卡多硬盘的网络存储服务器是手动绑定的典型场景。
+
+触发来源：物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md（2026-11-06 ingest）。完整蒸馏见 [[summaries/nic-smp-irq-affinity]]；中断增量观测脚本见 [[summaries/linux-interrupt-monitoring-script]]。
 
 ## 未解问题
 

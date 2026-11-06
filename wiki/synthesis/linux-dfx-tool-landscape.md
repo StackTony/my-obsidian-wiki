@@ -15,8 +15,8 @@ relationships:
   - target: "[[skills/linux-kernel-debugging]]"
     type: extends
 source_dir: DFX工具
-source_files: [==CPU==/perf工具抓取CPU使用率情况.md, ==CPU==/perf工具分析虚拟机的性能事件.md, ==CPU==/perf工具抓取单核CPU的进程调度轨迹.md, ==CPU==/kvmtop的 EXT 各项的理解.md, ==CPU==/分析虚拟机的%ST抢占.md, ==CPU==/查看当前某些CPU上跑的哪些进程.md, ==CPU==/获取qemu所有处于D状态的vcpu和线程.md, ==CPU==/火焰图抓取CPU占用情况.md, ==CPU==/kprobe抓CPU单核调度轨迹.md, ==IO==/IO常用工具.md, ==gdb调试==/gdb常用命令.md, ==gdb调试==/gdb调试qemu初始化流程.md, ==vmcore解析==/vmcore解析.md, ==vmcore解析==/寄存器和地址分布.md, ==vmcore解析==/开源crash网站.md, ==vmcore解析==/调度sched.md, ==vmcore解析==/进程结构task_struct和mm_struct.md, ==中断==/中断数变化实时观测脚本.md, ==内存==/perf工具分析slab内存占用.md, ==内存==/各node上进程内存（含qemu）占用情况.md, ==内存==/查看虚拟机OS预占的内存情况.md, ==网络==/iperf打流.md, ==网络==/网络分析工具tcpdump.md, ==设置trace点==/1 ftrace和kprobe和bpftrace.md, ==设置trace点==/2 perf工具.md, ==设置trace点==/3 火焰图.md, "==设置trace点==/trace：ftrace使用方法.md", "==设置trace点==/trace：kprobe使用方式.md"]
-summary: Linux DFX调试工具全景图：六大领域(CPU/IO/内存/网络/追踪/vmcore) × 三种模式(监控/追踪/事后分析)的工具矩阵，以及工具间的互补关系和选择决策路径。
+source_files: [==CPU==/perf工具抓取CPU使用率情况.md, ==CPU==/perf工具分析虚拟机的性能事件.md, ==CPU==/perf工具抓取单核CPU的进程调度轨迹.md, ==CPU==/kvmtop的 EXT 各项的理解.md, ==CPU==/分析虚拟机的%ST抢占.md, ==CPU==/查看当前某些CPU上跑的哪些进程.md, ==CPU==/获取qemu所有处于D状态的vcpu和线程.md, ==CPU==/火焰图抓取CPU占用情况.md, ==CPU==/kprobe抓CPU单核调度轨迹.md, ==IO==/IO常用工具.md, ==gdb调试==/gdb常用命令.md, ==gdb调试==/gdb调试qemu初始化流程.md, ==vmcore解析==/vmcore解析.md, ==vmcore解析==/寄存器和地址分布.md, ==vmcore解析==/开源crash网站.md, ==vmcore解析==/调度sched.md, ==vmcore解析==/进程结构task_struct和mm_struct.md, ==中断==/中断数变化实时观测脚本.md, ==内存==/perf工具分析slab内存占用.md, ==内存==/各node上进程内存（含qemu）占用情况.md, ==内存==/查看虚拟机OS预占的内存情况.md, ==网络==/iperf打流.md, ==网络==/网络分析工具tcpdump.md, ==设置trace点==/1 ftrace和kprobe和bpftrace.md, ==设置trace点==/2 perf工具.md, ==设置trace点==/3 火焰图.md, "==设置trace点==/trace：ftrace使用方法.md", "==设置trace点==/trace：kprobe使用方式.md", "物理硬件/PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md"]
+summary: Linux DFX调试工具全景图：六大领域(CPU/IO/内存/网络/追踪/vmcore)+代码调试+硬件层(lspci/setpci/nvme-cli/ipmitool) × 三种模式(监控/追踪/事后分析)的工具矩阵，以及工具间的互补关系和选择决策路径。
 provenance:
   extracted: 0.40
   inferred: 0.50
@@ -26,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-06-11
+updated: 2026-11-06
 ---
 
 # Linux DFX调试工具全景图
@@ -50,6 +50,11 @@ DFX工具不是孤立的——它们在分析模式、数据来源和应用场�
 | **追踪** | - | ftrace/kprobe/bpftrace/perf | trace日志分析 |
 | **崩溃** | - | - | crash(vmcore) |
 | **代码调试** | - | [[entities/gdb-tool|GDB]] attach/break | [[entities/gdb-tool|GDB]](core dump) |
+| **硬件层** | lspci(LnkSta)/setpci(AER)/nvme-cli(smart-log)/DDM | AER计数与dmesg时间戳对齐 | BMC SEL日志(带外) |
+
+### 硬件层：软件栈之下的观测手段（物理硬件域，2026-11-06 ingest 补充）
+
+软件栈之下还有一层物理硬件的观测手段：`lspci -vvv` 读PCIe链路协商状态（LnkSta速率/位宽降级=物理层劣化）、`setpci` 读AER错误寄存器、`nvme-cli` 绕过驱动直读控制器日志、`ipmitool` 经BMC带外取数。关键洞察：**NVMe的SMART不记录PCIe链路层错误，单层工具会给"假绿"——硬件层诊断必须跨层取数**。BMC更是构成不依赖OS存活的第三观察平面（带外）。详见 [[synthesis/hardware-layer-debugging-landscape]] 与 [[skills/nvme-pcie-drop-troubleshooting]]、[[skills/ipmi-sol-remote-console]]。
 
 ### 工具互补关系
 

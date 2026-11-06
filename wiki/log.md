@@ -545,3 +545,35 @@ title: Wiki Log
 - 事实校正：SCHED_IDLE 与 idle_sched_class 并非同一件事（前者由 fair 类极低权重实现，后者服务每 CPU idle 线程），已在概念页与摘要页标注 ^[ambiguous]
 - 跳过项：QMD_WIKI_COLLECTION 未设置（无 .env），按 GUARD 跳过 QMD 刷新
 - 未处理（需用户决策）：manifest 顶层 vault_path 仍为过期旧路径 `C:\Users\23363\Data\code\my-obsidian-wiki`，非本次 ingest 范围
+
+## [2026-11-06] INGEST | 物理硬件域首批来源入库（10来源 → 15新页面 + 4更新）
+
+- [2026-11-06T11:45] INGEST mode=append sources=10 pages_created=15 pages_updated=4
+- delta来源（10个，全部为新目录 raw/sources/物理硬件/，manifest此前零记录）：PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md、PCIe/NVMe掉盘真相：PCIe链路错误与AER诊断关系.md、PCIe/芯片功耗.md、串口/BMC介绍.md、串口/IPMI的SOL (Serial Over LAN)原理与使用.md、光模块/光模块简介.md、内存/ECC纠错机制.md、内存/内存频率SPD、XMP.md、磁盘/TRIM擦除指令.md、网卡/网卡中断绑定 smp irq affinity介绍.md
+- 新建页面（15个）：
+  - summaries/pcie-error-nvme-drive-loss-guide — 两篇PCIe文章合并蒸馏（381行指南+37行精要版高度重叠，合并为一个summary，源文件双列source_files）
+  - concepts/pcie-error-aer-nvme-drive-loss — CE/NFE/FE三级错误对应协议栈容错层级、掉盘机制链(Controller Reset 0x04)、观测盲区(链路错误不进SMART)、oaes字段、ASPM双刃剑
+  - skills/nvme-pcie-drop-troubleshooting — 四步排查(lspci初筛→AER+dmesg时间戳对齐→nvme-cli深挖→最小系统隔离)+四场景速查+PRS看板
+  - summaries/ssd-trim-command — TRIM原理与检测/启用命令
+  - concepts/ssd-trim-write-amplification — NAND页读块擦不对称→read-modify-write→写放大→TRIM信息下推；无TRIM vs 有TRIM路径对比表
+  - summaries/nic-smp-irq-affinity — SMP IRQ Affinity、smp_affinity位掩码、RPS/RFS、irqbalance使用经验
+  - entities/bmc-baseboard-management-controller — BMC实体页：IPMI/SOL/KVM-over-IP/SNMP/Redfish五接口生态
+  - entities/optical-transceiver-module — 光模块实体页：TOSA/ROSA/BOSA、PIN vs APD、TIA/CDR、SFP封装、收发链
+  - summaries/ipmi-sol-usage — SOL原理+grub/ESXi控制台重定向+ipmitool用法+RMCP+失败三因
+  - skills/ipmi-sol-remote-console — SOL五步配置实操（BMC→UEFI→OS→连接→排错）
+  - summaries/bmc-intro — BMC与BIOS分工+五接口一览
+  - summaries/optical-module-basics — 光模块组成/封装/工作原理
+  - summaries/memory-spd-xmp — SPD EEPROM自描述+XMP官方超频预设
+  - concepts/memory-spd-xmp-ecc — 内存硬件三件事整合：SPD自描述/XMP预设/ECC纠错(CRC vs 汉明码对比表)
+  - synthesis/hardware-layer-debugging-landscape — 硬件问题在软件指标中显形的五条规律：静默失败链、信息断层下推、亲和性杠杆、带外观察平面、功耗换时延
+- 已有页面更新（4个）：
+  - concepts/linux-interrupt-system — 新增"SMP IRQ Affinity—硬中断的CPU亲和性绑定"一节(smp_affinity位掩码/RPS/RFS/irqbalance经验)；source_files +1；tier保持core
+  - concepts/linux-io-stack — 新增"L5硬件层：SSD介质语义(TRIM与写放大)"小节并链接PCIe链路页；relationships +1；source_files +1
+  - skills/linux-io-debugging — 新增步骤7"SSD TRIM状态确认与启用"(检测三法+启用三法对比表)；常见问题表+1行(SSD掉速)
+  - synthesis/linux-dfx-tool-landscape — 工具矩阵新增"硬件层"行(lspci/setpci/nvme-cli/ipmitool/DDM)+硬件层观测手段小节；source_files +1
+- 稀薄来源处理（2个，不建独立页面）：芯片功耗.md(280B，IPU低功耗模式uncore降频影响时延)并入 synthesis/hardware-layer-debugging-landscape 的"功耗换时延"规律；ECC纠错机制.md(792B，CRC vs 汉明码)并入 concepts/memory-spd-xmp-ecc；manifest均登记产出页面
+- 来源可信度提醒：本批8个来源均为网络博客(CSDN/cnblogs/掘金，quality=0.55)，含大量未经验证的具体数字(CE>50/h阈值、PRS公式、90%/73%/37台等案例数据)，相关claim已标 ^[ambiguous]，全部lifecycle=draft待人工复核；2个工作笔记(芯片功耗/ECC)按unknown(0.4)计
+- 技术性存疑已标注：来源文章将setpci读取的AER状态寄存器(按PCIe规范为按错误类型的位标志)当作累加计数器使用，此用法在summary/concept/skill三页均标注 ^[ambiguous]，dmesg日志流为更可靠证据
+- Manifest更新：新增10条document，total_sources_ingested 928→938，last_ingest 2026-10-21→2026-11-06
+- 索引/hot更新：index.md 新增"物理硬件"域5个分类区块(7摘要+2实体+3概念+2技巧+1综合)、更新4条既有描述、刷新头部；hot.md 语义快照重写
+- 既有lint债务修复（本次顺手处理，超出本批来源范围）：发现5个2026-09-16建的页面存在于磁盘但未入index.md——concepts/agent-paradigm-selection、concepts/agent-reliability-engineering、concepts/loop-engineering、concepts/helm-package-management、skills/k8s-network-troubleshooting（均为Self learn来源，本次已补齐索引条目）；stats按磁盘真实值重算：concepts 82、skills 16、total_pages 166(五分类实际总和，旧值160含9页历史误差)；manifest顶层vault_path仍为过期旧路径（前次ingest已上报，仍未处理，待用户决策）
