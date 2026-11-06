@@ -1,4 +1,5 @@
 原文： [https://zhuanlan.zhihu.com/p/436313908](https://zhuanlan.zhihu.com/p/436313908)
+
 ### **1.1 Page Cache 是什么？**
 
 为了理解 Page Cache，我们不妨先看一下 Linux 的文件 I/O 系统，如下图所示：
