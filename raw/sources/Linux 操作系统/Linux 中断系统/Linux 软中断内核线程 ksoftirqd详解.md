@@ -1,5 +1,5 @@
 ## 前言
-在 [LINUX软中断-softirq](https://blog.csdn.net/mxgsgtc/article/details/128718259?spm=1001.2014.3001.5501) [[Linux 软中断softirq]]的描述中，提到过ksoftirqd，这篇文章就介绍ksoftirqd
+在 [LINUX软中断-softirq](https://blog.csdn.net/mxgsgtc/article/details/128718259?spm=1001.2014.3001.5501) [[Linux 软中断 softirq]]的描述中，提到过ksoftirqd，这篇文章就介绍ksoftirqd
 
 ### ksoftirqd 是什么？
 
