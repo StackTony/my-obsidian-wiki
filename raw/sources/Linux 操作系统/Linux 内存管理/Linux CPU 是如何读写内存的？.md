@@ -1,0 +1,130 @@
+原文： https://zhuanlan.zhihu.com/p/522038503
+
+如果你觉得这是一个非常简单的问题，那么你真应该好好读读本文，**我敢保证这个问题绝没有你想象的那么简单**。注意，一定要完本文，**否则可能会得出错误的结论**。闲话少说，让我们来看看CPU在读写内存时底层究竟发生了什么。
+
+我们第一个要搞清楚的问题是：谁来告诉CPU去读写内存？答案很明显，是程序员，更具体的是[编译器](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E7%BC%96%E8%AF%91%E5%99%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLnvJbor5HlmagiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.2Itq5qOOKbsCw6g0F6bQ_eOqaA9d0fD1axqrVayypVg&zhida_source=entity)。CPU只是按照指令按部就班的执行，机器指令从哪里来的呢？是编译器生成的，程序员通过高级语言编写程序，编译器将其翻译为机器指令，机器指令来告诉CPU去读写内存。在[精简指令集架构](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E7%B2%BE%E7%AE%80%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLnsr7nroDmjIfku6Tpm4bmnrbmnoQiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.7LkvmfE06rJFGM-wgp6CJsYpQyAPMuEnO264MzeUG1s&zhida_source=entity)下会有特定的机器指令，Load/Store指令来读写内存，以[x86](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=x86&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJ4ODYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Js_LJT0KDQ_dg_oIlbhHgP844ee_3vhzsPcPT3ld7yU&zhida_source=entity)为代表的复杂指令集架构下没有特定的访存指令。精简指令集下，一条机器指令操作的数据必须来存放在寄存器中，不能直接操作内存数据，因此RISC下，数据必须先从内存搬运到寄存器，这就是为什么RISC下会有特定的Load/Store[访存指令](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=2&q=%E8%AE%BF%E5%AD%98%E6%8C%87%E4%BB%A4&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLorr_lrZjmjIfku6QiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MiwiemRfdG9rZW4iOm51bGx9.K_TMWbXA1ZN4p5bJAJkf_DbF_gyQCxN0ttAbN1-opQg&zhida_source=entity)，明白了吧。
+
+而x86下无此限制，一条机器指令操作的数据可以来自于寄存器也可以来自内存，因此这样一条机器指令在执行过程中会首先从内存中读取数据。
+
+### **两种内存读写**
+
+现在我们知道了，是特定的机器指令告诉CPU要去访问内存。不过，值得注意的是，不管是RISC下特定的Load/Store指令还是x86下包含在一条指令内部的访存操作，这里读写的都是内存中的数据，除此之外还要意识到，CPU除了从内存中读写数据外，还要从内存中读取下一条要执行的机器指令。毕竟，我们的计算设备都遵从[冯诺依曼架构](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlhq_or7rkvp3mm7zmnrbmnoQiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.cH5nqJGpIRxMwLDojKq6Qfs97nYnTy25ohHEb60rgms&zhida_source=entity)：**程序和数据一视同仁，都可以存放在内存中**。
+
+![](https://pic1.zhimg.com/v2-d01923c722c16132ca851684beae3022_1440w.jpg)
+
+现在，我们清楚了CPU读写内存其实是由两个因素来驱动的：
+
+1. 程序执行过程中需要读写来自内存中的数据
+2. CPU需要访问内存读取下一条要执行的机器指令
+
+然后CPU根据机器指令中包含的内存地址或者PC[寄存器](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=4&q=%E5%AF%84%E5%AD%98%E5%99%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlr4TlrZjlmagiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6NCwiemRfdG9rZW4iOm51bGx9.ja20nH46L8bpKhzvZ4-Cok5geJJcpEGAPxS0jZuwO3E&zhida_source=entity)中下一条[机器指令](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=12&q=%E6%9C%BA%E5%99%A8%E6%8C%87%E4%BB%A4&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLmnLrlmajmjIfku6QiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MTIsInpkX3Rva2VuIjpudWxsfQ.8ilseVZd1W1ryc0i1tuimcPefLvPPVrc1nsehyi4s6o&zhida_source=entity)的地址访问内存。这不就完了吗？有了内存地址，CPU利用硬件通路直接读内存就好了，你可能也是这样的想的。真的是这样吗？别着急，我们接着往下看，这两节只是开胃菜，正餐才刚刚开始。
+
+### **急性子吃货 VS 慢性子厨师**
+
+假设你是一个整天无所事事的吃货，整天无所事事，唯一的爱好就是找一家餐厅吃吃喝喝，由于你是职业吃货，因此吃起来非常职业，1分钟就能吃完一道菜，但这里的厨师就没有那么职业了，炒一道菜速度非常慢，大概需要1小时40分钟才能炒出一道菜，速度比你慢了100倍，如果你是这个吃货，大概率会疯掉的。而CPU恰好就是这样一个吃货，内存就是这样一个慢吞吞的厨师，而且随着时间的推移这两者的速度差异正在越来越大：
+
+![](https://pic2.zhimg.com/v2-91cf8fb87646eb15cc7122eff70e329f_1440w.jpg)
+
+在这种速度差异下，CPU执行一条涉及内存读写指令时需要等**“很长一段时间“**数据才能**”缓缓的“**从内存读取到CPU中，在这种情况**你还认为CPU应该直接读写内存吗**？
+
+### **无处不在的28定律**
+
+CPU执行指令符合28定律，大部分时间都在执行那一少部分指令，这一现象的发现奠定了精简指令集设计的基础。而程序操作的数据也符合类似的定律，只不过不叫28定律，而是叫principle of locality，**[程序局部性原理](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E7%A8%8B%E5%BA%8F%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLnqIvluo_lsYDpg6jmgKfljp_nkIYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.U1S_Hq1jwuovMNs2kcp0ZuoJnpTp78xtZUCFv_jjr74&zhida_source=entity)**。如果我们访问内存中的一个数据A，那么很有可能接下来再次访问到，同时还很有可能访问与数据A相邻的数据B，这分别叫做**[时间局部性](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E6%97%B6%E9%97%B4%E5%B1%80%E9%83%A8%E6%80%A7&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLml7bpl7TlsYDpg6jmgKciLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.zKFEq49B1fKXRyAXCJouXvBAmZZulNUmDgp31BQFNQE&zhida_source=entity)**和**[空间局部性](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E7%A9%BA%E9%97%B4%E5%B1%80%E9%83%A8%E6%80%A7&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLnqbrpl7TlsYDpg6jmgKciLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.m5vd1uMDJXrMz1QPDH0RWVa_eOThBtCQ-Q6aacGuEH0&zhida_source=entity)**。
+
+![](https://pic4.zhimg.com/v2-6feafa80f5ed554838ec4066dd1e27bb_1440w.jpg)
+
+如图所示，该程序占据的内存空间**只有一少部分在程序执行过程经常用到**。有了这个发现重点就来了，既然只用到很少一部分，那么我们能不能把它们**集中起来**呢？就像这样：
+
+![](https://pic2.zhimg.com/v2-a66a73ae4f2d0bc027f928fe7c3438e5_1440w.jpg)
+
+集中起来然后呢？放到哪里呢？当然是放到一种比内存速度更快的存储介质上，这种介质就是我们熟悉的[SRAM](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=SRAM&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJTUkFNIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA0MTQwODA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.U1OS0_ZRxNS1QoMqjFQj82zmDhPtaGqcmcbjDfhN8XQ&zhida_source=entity)，普通内存一般是[DRAM](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=DRAM&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJEUkFNIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA0MTQwODA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.JTFasdIr-xcoh1NJuFVRni-igfszZZPQKq8ZIAlplC0&zhida_source=entity)，这种读写速度更快的介质充当CPU和内存之间的[Cache](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=Cache&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJDYWNoZSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjIwNDE0MDgwNCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.daw4qNsjTcRjeM2klxCJrZ_krZRDKRYUr3py2ZB6itk&zhida_source=entity)，这就是所谓的缓存。
+
+### **四两拨千斤**
+
+我们把经常用到的数据放到cache中存储，CPU访问内存时首先查找cache，如果能找到，也就是命中，那么就赚到了，直接返回即可，找不到再去查找内存并更新cache。我们可以看到，**有了cache，CPU不再直接与内存打交道了**。
+
+![](https://pica.zhimg.com/v2-34b7b2fbbd225eca30ae59b61ec076de_1440w.jpg)
+
+但cache的快速读写能力是有代价的，代价就是Money，造价不菲，**因此我们不能把内存完全替换成cache的SRAM，那样的计算机你我都是买不起的**。因此cache的容量不会很大，但由于程序局部性原理，**因此很小的cache也能有很高的命中率**，从而带来性能的极大提升，有个词叫**四两拨千斤**，用到cache这里再合适不过。
+
+### **天下没有免费的午餐**
+
+虽然小小的cache能带来性能的极大提升，但，这也是有代价的。这个代价出现在写内存时。当CPU需要写内存时该怎么办呢？现在有了cache，CPU不再直接与内存打交道，因此CPU直接写cache，但此时就会有一个问题，那就是cache中的值更新了，但内存中的值还是旧的，这就是所谓的不一致问题，inconsistent.就像下图这样，cache中变量的值是4，但内存中的值是2。
+
+![](https://pic1.zhimg.com/v2-1bea04aa85fbeb589a49c4e02a4ca716_1440w.jpg)
+
+### **[同步缓存](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlkIzmraXnvJPlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.SO_R3p_DcEZbale5kkuLxPdfeC2ssgNBmxlTOazKly0&zhida_source=entity)更新**
+
+常用 redis 的同学应该很熟悉这个问题，**可是你知道吗？这个问题早就在你读这篇文章用的计算设备其包含的CPU中已经遇到并已经解决了。**最简单的方法是这样的，当我们更新cache时一并把内存也更新了，这种方法被称为 write-through，很形象吧。可是如果当CPU写cache时，cache中没有相应的内存数据该怎么呢？这就有点麻烦了，首先我们需要把该数据从内存加载到cache中，然后更新cache，再然后更新内存。
+
+![](https://pic3.zhimg.com/v2-f037682dfdba323885c01e6f2b76683c_1440w.jpg)
+
+这种实现方法虽然简单，但有一个问题，那就是性能问题，在这种方案下**写内存就不得不访问内存**，上文也提到过CPU和内存可是有很大的速度差异哦，因此这种方案性能比较差。有办法解决吗？答案是肯定的。
+
+### **[异步更新缓存](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E7%BC%93%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlvILmraXmm7TmlrDnvJPlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9._4cSBJ4P8Xtah5Ei2APIhG0cQx8KTRyeXV3tWQcijy8&zhida_source=entity)**
+
+这种方法性能差不是因为写内存慢，写内存确实是慢，更重要的原因是CPU在同步等待，因此很自然的，这类问题的统一解法就是把同步改为异步。异步的这种方法是这样的，当CPU写内存时，直接更新cache，然后，注意，更新完cache后CPU就可以认为写内存的操作已经完成了，尽管此时内存中保存的还是旧数据。当包含该数据的cache块被剔除时再更新到内存中，这样CPU更新cache与更新内存就解耦了，也就是说，CPU更新cache后不再等待内存更新，这就是异步，这种方案也被称之为[write-back](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=write-back&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJ3cml0ZS1iYWNrIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA0MTQwODA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.unswTfKBL7SB_Wb-P2dPLlrupXI4CEXCDsLS6CsJbpg&zhida_source=entity)，这种方案相比[write-through](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=2&q=write-through&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJ3cml0ZS10aHJvdWdoIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA0MTQwODA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjIsInpkX3Rva2VuIjpudWxsfQ.r551jR5JG3-4v1lSIKMhqadQPoke2vUls7EgCQi4kho&zhida_source=entity)来说更复杂，但很显然，性能会更好。
+
+![](https://pic1.zhimg.com/v2-e68eeea115b69875e5d4dc1fc1ce1f18_1440w.jpg)
+
+现在你应该能看到，添加cache后会带来一系列问题，更不用说cache的[替换算法](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLmm7_mjaLnrpfms5UiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.GdIEPqlT9qMLXluXyBT6B6ENvfAe12-dMWweuiAMFp0&zhida_source=entity)，毕竟cache的容量有限，当cache已满时，增加一项新的数据就要剔除一项旧的数据，那么该剔除谁就是一个非常关键的问题，限于篇幅就不在这里详细讲述了，你可以参考《深入理解[操作系统](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLmk43kvZzns7vnu58iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.bYKxv1IC_h0qu6gSFB_mfVrYBivgZphcAnLziPQDDrg&zhida_source=entity)》第7章有关于该策略的讲解。
+
+### **[多级cache](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E5%A4%9A%E7%BA%A7cache&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlpJrnuqdjYWNoZSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjIwNDE0MDgwNCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.MfCru6aXlFuZsMOYHveVzEXKGefF_RHTNpVd6yO1tVI&zhida_source=entity)**
+
+现代CPU为了增加CPU读写内存性能，已经在CPU和内存之间增加了多级cache，典型的有三级，L1、L2和L3，CPU读内存时首先从L1 cache找起，能找到直接返回，否则就要在L2 cache中找，L2 cache中找不到就要到L3 cache中找，还找不到就不得不访问内存了。因此我们可以看到，**现代计算机系统CPU和内存之间其实是有一个cache的层级结构的**。
+
+![](https://picx.zhimg.com/v2-a89fb372b45900c4b521086e146dbc4d_1440w.jpg)
+
+越往上，存储介质速度越快，造价越高容量也越小；越往下，存储介质速度越慢，造价越低但容量也越大。[现代操作系统](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E7%8E%B0%E4%BB%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLnjrDku6Pmk43kvZzns7vnu58iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Knq1Bs7-88DqeXG4LmTQwL2pwH8-4evc9YH5J4Tu7l8&zhida_source=entity)巧妙的利用cache，以最小的代价获得了最大的性能。但是，注意这里的但是，**要想获得极致性能是有前提的，那就是程序员写的程序必须具有良好的局部性，充分利用缓存**。[高性能程序](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E9%AB%98%E6%80%A7%E8%83%BD%E7%A8%8B%E5%BA%8F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLpq5jmgKfog73nqIvluo8iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.qWjE0Mt7fgw63lziqfJSC52GiCvscTc32MxKts7uHlw&zhida_source=entity)在充分利用缓存这一环节可谓绞尽脑汁煞费苦心，关于这一话题值得单独成篇，关注公众号“码农的荒岛求生”，并回复“todo”，**你可以看到之前所有挖坑的进展如何**。鉴于cache的重要性，现在增大cache已经成为提升CPU性能的重要因素，因此你去看当今的CPU布局，其很大一部分面积都用在了cache上。
+
+![](https://pic1.zhimg.com/v2-2b0c5bb7e0930f850b48da2f4dccf88e_1440w.jpg)
+
+你以为这就完了吗？哈哈，哪有这么容易的，否则也不会是终面题目了。那么当CPU[读写内存](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=9&q=%E8%AF%BB%E5%86%99%E5%86%85%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLor7vlhpnlhoXlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6OSwiemRfdG9rZW4iOm51bGx9.qdT0BoknkI9uHRT8bbsAA-Z1jwNKmn3BvNXiE3Dn2EI&zhida_source=entity)时除了面临上述问题外还需要处理哪些问题呢？
+
+### **多核，多问题**
+
+当[摩尔定律](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E6%91%A9%E5%B0%94%E5%AE%9A%E5%BE%8B&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLmkanlsJTlrprlvosiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.SS31DsXDVWfHfmUM42HQUmRFFX1Yd499Pyjvz5FpINc&zhida_source=entity)渐渐失效后鸡贼的人类换了另一种提高CPU性能的方法，既然单个CPU性能不好提升了，我们还可以堆数量啊，这样，CPU进入[多核时代](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E5%A4%9A%E6%A0%B8%E6%97%B6%E4%BB%A3&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlpJrmoLjml7bku6MiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.yJAqMyKIifg6Jc7KHAyaIQOz6u5xAhZDgpD-D74SG4c&zhida_source=entity)，程序员开始进入苦逼时代。拥有一堆核心的CPU其实是没什么用的，**关键需要有配套的[多线程程序](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%A8%8B%E5%BA%8F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlpJrnur_nqIvnqIvluo8iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.3Z4EMoV1Q2gDQ6h1CxO61TI3maCuX2M8RP79VaM7IGA&zhida_source=entity)才能真正发挥多核的威力**，但写过多线程程序的程序员都知道，能写出来不容易，能写出来并且能正确运行更不容易，关于多线程与多线程编程的详细阐述请参见《深入理解操作系统》第5、6两章(关注公众号“码农的荒岛求生”并回复“操作系统”)。CPU开始拥有多个核心后不但苦逼了[软件工程师](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLova_ku7blt6XnqIvluIgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.ACQhY5p5LNJjlX2BAuRrG53rtC5jZcVFWh8gkHzA6O4&zhida_source=entity)，硬件工程师也不能幸免。前文提到过，为提高CPU 访存性能，CPU和内存之间会有一个层cache，但当CPU有多个核心后新的问题来了：
+
+![](https://pic2.zhimg.com/v2-a2ff0dfa7fc33eba3563154a1cbd5499_1440w.jpg)
+
+现在假设内存中有一变量X，初始值为2。系统中有两个CPU核心C1和C2，现在C1和C2要分别读取内存中X的值，根据cache的工作原理，首次读取X不能命中cache，因此从内存中读取到X后更新相应的cache，现在C1 cache和C2 cache中都有变量X了，其值都是2。接下来C1需要对X执行+2操作，同样根据cache的工作原理，C1从cache中拿到X的值+2后更新cache，在然后更新内存，此时C1 cache和内存中的X值都变为了4。
+
+![](https://pic2.zhimg.com/v2-986cbfee5ac84027e749bdee929876f7_1440w.jpg)
+
+然后C2也许需要对X执行加法操作，假设需要+4，同样根据cache的工作原理，C2从cache中拿到X的值+4后更新cache，此时cache中的值变为了6（2+4），再更新内存，此时C2 cache和内存中的X值都变为了6。
+
+![](https://pic3.zhimg.com/v2-864d0f16ede089368a880ed7f9eff85a_1440w.jpg)
+
+看出问题在哪里了吗？一个初始值为2的变量，在分别+2和+4后正确的结果应该是2+2+4 = 8，但从上图可以看出**内存中X的值却为6**，问题出在哪了呢？
+
+### **多核cache一致性**
+
+有的同学可能已经发现了，问题出在了内存中一个X变量**在C1和C2的cache中有共计两个副本，当C1更新cache时没有同步修改C2 cache中X的值**。
+
+![](https://pic4.zhimg.com/v2-a21a1dbbadb6d1fef6f699e1fd497785_1440w.jpg)
+
+解决方法是什么呢？显然，如果一个cache中待更新的变量同样存在于其它核心的cache，那么你需要一并将其它cache也更新好。现在你应该看到，CPU更新变量时不再简单的只关心自己的cache和内存，**你还需要知道这个变量是不是同样存在于其它核心中的cache**，如果存在需要一并更新。当然，这还只是简单的读，写就更加复杂了，实际上，现代CPU中有一套协议来专门维护缓存的一致性，比较经典的包括[MESI协议](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=MESI%E5%8D%8F%E8%AE%AE&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJNRVNJ5Y2P6K6uIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA0MTQwODA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.KchUGG8g3Mpc3UvbxrBE8qh6iofPBsJj3R0roRygCbU&zhida_source=entity)等。为什么程序员需要关心这个问题呢？原因很简单，**你最好写出对cache一致性协议友好的程序**，**因为cache频繁维护一致性也是有性能代价的**。同样的，限于篇幅，这个话题不再详细阐述，该主题同样值得单独成篇，敬请期待。
+
+### **够复杂了吧！**
+
+怎么样？到目前为止，是不是CPU读写内存没有看上去那么简单？现代计算机中CPU和内存之间有多级cache，**CPU读写内存时不但要维护cache和内存的一致性，同样需要维护多核间cache的一致性**。
+
+你以为这就完了，NONO，最大的谜团其实是接下来要讲的。
+
+### **你以为的不是你以为的**
+
+现代程序员写程序基本上不需要关心**内存是不是足够这个问题**，但这个问题在远古时代绝对是困扰程序员的一大难题。如果你去想一想，其实现代计算机内存也没有足够大的让我们随便申请的地步，**但是你在写程序时是不是基本上没有考虑过内存不足该怎么办？**为什么我们在内存资源依然处于匮乏的现代可以做到申请内存时却进入内存极大丰富的共产主义理想社会了呢？原来这背后的功臣是我们熟悉的**操作系统**。操作系统对每个进程都维护一个假象，即，每个进程独占系统内存资源；同时给程序员一个承诺，让程序员可以认为在写程序时有一大块连续的内存可以使用。这当然是不可能不现实的，因此操作系统给进程的[地址空间](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlnLDlnYDnqbrpl7QiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.fnCgckBZc_Gx8NIZOshfXz1a98A1sDuZS8HmzgUPaRM&zhida_source=entity)必然不是真的，但我们又不好将其称之为“**假的地址空间**”，这会让人误以为计算机科学界里骗子横行，因此就换了一个好听的名字，**虚拟内存**，一个“**假的地址空间**”更高级的叫法。**进程其实一直活在操作系统精心维护的幻觉当中**，就像《[盗梦空间](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E7%9B%97%E6%A2%A6%E7%A9%BA%E9%97%B4&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLnm5fmoqbnqbrpl7QiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.EbMoekLw5u_B1WuFaG71JoV_DqqkjfWQnLtzyAcJnfM&zhida_source=entity)》一样，
+
+从这个角度看，其实最擅长包装的是计算机科学界，哦，对了，他们不但擅长包装还擅长抽象。
+
+### **天真的CPU**
+
+CPU真的是很傻很天真的存在。上一节讲的操作系统施加的[障眼法](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E9%9A%9C%E7%9C%BC%E6%B3%95&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLpmpznnLzms5UiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.vmioSAVSrys9-uOVODYGG662mKoXG1WSG482CrdZVyQ&zhida_source=entity)把CPU也蒙在鼓里。CPU执行机器指令时，指令指示CPU从[内存地址](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=3&q=%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLlhoXlrZjlnLDlnYAiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MywiemRfdG9rZW4iOm51bGx9.MscHWecPV7vFzfEhuZ7HvyG2X9tYDEP8VSkZHeogUXo&zhida_source=entity)A中取出数据，然后CPU执行机器指令时下发命令：“给我从地址A中取出数据”，尽管真的能从地址A中取出数据，但这个地址A不是真的，不是真的，不是真的。因为这个地址A属于虚拟内存，也就是那个“假的地址空间”，现代CPU内部有一个叫做[MMU](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=MMU&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiJNTVUiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.T2-7oK_tTiy2V1s0eA2XWyqSEuhBvE8woe0olfGmIfA&zhida_source=entity)的模块将这假的地址A转换为真的地址B，将地址A转换为真实的地址B之后才是本文之前讲述的关于cache的那一部分。
+
+![](https://pic4.zhimg.com/v2-3c5cef96e404de2c843df1a248f1f6dd_1440w.jpg)
+
+你以为这终于应该讲完了吧！NONO！CPU给出内存地址，此后该地址被转为真正的[物理内存](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=1&q=%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLniannkIblhoXlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.DDnk4ExTHUu_cjTCv_F4OFLeeyMruJRQ9dywnV479OU&zhida_source=entity)地址，接下来查L1 cache，L1 cache不命中查L2 cache，L2 cache不命中查L3 cache，L3 cache不能命中查内存。各单位注意，各单位注意，到查内存时还不算完，现在有了虚拟内存，**内存其实也是一层cache，是磁盘的cache，也就是说查内存也有可能不会命中**，因为内存中的数据可能被虚拟内存系统放到磁盘中了，**如果内存也不能命中就要查磁盘**。So crazy，限于篇幅这个过程不再展开，《深入理解操作系统》第七章有完整的讲述。至此，CPU读写内存时完整的过程阐述完毕。
+
+### **总结**
+
+现在你还认为CPU读写内存非常简单吗？这一过程涉及到的硬件以及硬件逻辑包括：L1 cache、L2 cache、L3 cache、多核缓存一致性协议、MMU、内存、磁盘；软件主要包括操作系统。**这一看似简单的操作涉及几乎所有[计算机系统](https://zhida.zhihu.com/search?content_id=204140804&content_type=Article&match_order=2&q=%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzgwNDgsInEiOiLorqHnrpfmnLrns7vnu58iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDQxNDA4MDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MiwiemRfdG9rZW4iOm51bGx9.chn3RcwWQP5Nr4a_2dSSV0e0kit6JPr9NUfWjX5hoXQ&zhida_source=entity)中的核心组件，需要软件以及硬件密切配合才能完成**。这个过程给程序员的启示是：1)，现代计算机系统是非常复杂的；2),**你需要写出对cache友好的程序**。

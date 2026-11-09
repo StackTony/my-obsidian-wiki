@@ -577,3 +577,16 @@ title: Wiki Log
 - Manifest更新：新增10条document，total_sources_ingested 928→938，last_ingest 2026-10-21→2026-11-06
 - 索引/hot更新：index.md 新增"物理硬件"域5个分类区块(7摘要+2实体+3概念+2技巧+1综合)、更新4条既有描述、刷新头部；hot.md 语义快照重写
 - 既有lint债务修复（本次顺手处理，超出本批来源范围）：发现5个2026-09-16建的页面存在于磁盘但未入index.md——concepts/agent-paradigm-selection、concepts/agent-reliability-engineering、concepts/loop-engineering、concepts/helm-package-management、skills/k8s-network-troubleshooting（均为Self learn来源，本次已补齐索引条目）；stats按磁盘真实值重算：concepts 82、skills 16、total_pages 166(五分类实际总和，旧值160含9页历史误差)；manifest顶层vault_path仍为过期旧路径（前次ingest已上报，仍未处理，待用户决策）
+
+## [2026-11-09] MAINTAIN | raw来源去重：Linux中断知识点（吐血整理）
+
+- [2026-11-09T14:33] MAINTAIN source="raw/sources/Linux 操作系统/Linux 中断系统/吐血整理！肝翻Linux中断所有知识点（超详细~）.md" action="dedup" removed_lines=96
+- 原因：复制粘贴事故——「/proc/interrupts 过渡段＋中断的注册＋中断的处理」整段重复（原509-603行 vs 605-699行，diff 验证逐字节相同），删除第二份；接缝逻辑已校验（异常向量表→三步骤图→恢复现场）
+- 性质：用户授权的 raw 例外修改，语义内容零变化；该来源尚未 ingest（manifest 无此文件），无 wiki 级联负担
+- 备份：/tmp/wiki-raw-backup/（该文件未被 git 跟踪）；遗留观察：正文称以 el0_irq 为例梳理"保护现场/中断处理/恢复现场"三步，但仅存"恢复现场"小节，缺两节系原始复制缺陷，未凭空补造
+
+## [2026-11-09] MAINTAIN | raw来源增强：中断分类表新增英文全称列
+
+- [2026-11-09T15:05] MAINTAIN source="raw/sources/Linux 操作系统/Linux 中断系统/Linux 中断分类表.md" action="add-column" target="4.1 中断术语汇总表"
+- 变更：「中断术语」列后插入「英文全称」列——SPI=Shared Peripheral Interrupt、PPI=Private、LPI=Locality-specific、MSI/MSI-X=Message Signaled Interrupt(eXtended)、IPI=Inter-Processor、SGI=Software Generated、LVT=Local Vector Table、NMI=Non-Maskable、INT n/SVC=Interrupt Instruction/Supervisor Call、Softirq=Software Interrupt；Fault/Trap/Abort 本身即英文全称，标"——"
+- 性质：用户授权的 raw 增列，其余各列内容逐字节不变（脚本插列）；该文件已被 git 跟踪可随时 diff/回退，另有 /tmp 备份；manifest 与 wiki 均无此文件引用，无级联负担
