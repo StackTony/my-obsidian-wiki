@@ -2,18 +2,18 @@
 
 ### 1.1 中断术语汇总表
 
-| 中断术语                     | 英文全称 | 所属大类        | 触发驱动来源                             | 管理/规范体系             | 是否可被软件屏蔽   |
-| ------------------------ | ------------------------ | ----------- | ---------------------------------- | ------------------- | ---------- |
-| **SPI**                  | Shared Peripheral Interrupt | 异步硬中断       | 外部物理硬件外设（如串口、老的网卡）                 | ARM GIC 体系          | 是          |
-| **PPI**                  | Private Peripheral Interrupt | 异步硬中断       | CPU 核心私有硬件（如 Local Timer）          | ARM GIC 体系          | 是          |
-| **LPI**                  | Locality-specific Peripheral Interrupt | 异步硬中断       | PCIe 等设备基于内存写入的硬件消息                | ARM GICv3/v4（ITS）   | 是          |
+| 中断术语                     | 英文全称                                                             | 所属大类        | 触发驱动来源                             | 管理/规范体系             | 是否可被软件屏蔽   |
+| ------------------------ | ---------------------------------------------------------------- | ----------- | ---------------------------------- | ------------------- | ---------- |
+| **SPI**                  | Shared Peripheral Interrupt                                      | 异步硬中断       | 外部物理硬件外设（如串口、老的网卡）                 | ARM GIC 体系          | 是          |
+| **PPI**                  | Private Peripheral Interrupt                                     | 异步硬中断       | CPU 核心私有硬件（如 Local Timer）          | ARM GIC 体系          | 是          |
+| **LPI**                  | Locality-specific Peripheral Interrupt                           | 异步硬中断       | PCIe 等设备基于内存写入的硬件消息                | ARM GICv3/v4（ITS）   | 是          |
 | **MSI / MSI-X**          | Message Signaled Interrupt / Message Signaled Interrupt eXtended | 异步硬中断       | PCIe 总线报文消息（网卡、nvme磁盘）             | PCI/PCIe 局部总线标准     | 是          |
-| **IPI（x86）/ SGI（ARM）**   | Inter-Processor Interrupt / Software Generated Interrupt | 异步硬中断       | 另一个 CPU 核心发出                       | x86 APIC / ARM GIC  | 是          |
-| **本地中断（x86 LVT）**        | Local Interrupt（Local Vector Table） | 异步硬中断       | CPU 核心内部本地资源（定时器、性能计数器、温控、APIC 错误） | x86 Local APIC（LVT） | 是          |
-| **NMI**                  | Non-Maskable Interrupt | 异步硬中断       | 硬件灾难性故障信号/高级硬件采样                   | x86 / 各种 CPU 架构     | **否**      |
-| **INT n / SVC（软中断指令）**   | Interrupt Instruction / Supervisor Call | 同步中断（陷阱）    | 软件代码明确编写的系统调用指令                    | CPU 指令集架构           | 否（直接陷入）    |
-| **Fault / Trap / Abort** | ——（本身即英文全称） | 同步中断（异常）    | 指令执行错误或主动调试/检测点                    | CPU 指令集架构           | 否（同步，不可屏蔽） |
-| **Softirq**              | Software Interrupt | 内核机制（非硬件中断） | Linux 内核为缓解硬中断压力的软件延时机制            | Linux 操作系统          | ——         |
+| **IPI（x86）/ SGI（ARM）**   | Inter-Processor Interrupt / Software Generated Interrupt         | 异步硬中断       | 另一个 CPU 核心发出                       | x86 APIC / ARM GIC  | 是          |
+| **本地中断（x86 LVT）**        | Local Interrupt（Local Vector Table）                              | 异步硬中断       | CPU 核心内部本地资源（定时器、性能计数器、温控、APIC 错误） | x86 Local APIC（LVT） | 是          |
+| **NMI**                  | Non-Maskable Interrupt                                           | 异步硬中断       | 硬件灾难性故障信号/高级硬件采样                   | x86 / 各种 CPU 架构     | **否**      |
+| **INT n / SVC（软中断指令）**   | Interrupt Instruction / Supervisor Call                          | 同步中断（陷阱）    | 软件代码明确编写的系统调用指令                    | CPU 指令集架构           | 否（直接陷入）    |
+| **Fault / Trap / Abort** | ——（本身即英文全称）                                                      | 同步中断（异常）    | 指令执行错误或主动调试/检测点                    | CPU 指令集架构           | 否（同步，不可屏蔽） |
+| **Softirq**              | Software Interrupt                                               | 内核机制（非硬件中断） | Linux 内核为缓解硬中断压力的软件延时机制            | Linux 操作系统          | ——         |
 
 ### 1.2 同步异常 vs 异步中断核心对比
 
@@ -114,7 +114,7 @@
 ### 3. 处理器间中断（IPI / SGI）
 
 - **核心特征**：多核系统中==🟡**CPU 核心之间主动发送的**==中断，是核间协同的核心机制。
-- **架构对应**：x86 平台通过本地 APIC（LAPIC）发送 IPI；ARM 平台通过 SGI（软件生成中断）实现同等功能。
+- **架构对应**：x86 平台通过本地 APIC（LAPIC）发送 IPI；ARM 平台通过 SGI（Software Generated Interrupt 软件生成中断）实现同等功能。
 - **典型场景**：TLB 刷新（x86 的 TLB Shootdown）、调度抢占、函数广播、缓存一致性同步、系统停机时的多核停机、时钟事件广播等。
 - **分类归属注意**：SGI 虽然由软件写寄存器**发起**，但它经 GIC 以硬件中断的形式**异步投递**到目标核心，因此归类属于异步硬件中断（GIC 的中断类型之一），不属于指令级的"软中断"（后者指 INT n / SVC 这类 CPU 指令）。
 

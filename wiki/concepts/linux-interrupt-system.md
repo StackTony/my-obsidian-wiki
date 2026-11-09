@@ -12,9 +12,11 @@ relationships:
     type: uses
   - target: "[[concepts/linux-interrupt-virtualization]]"
     type: extends
+  - target: "[[summaries/linux-interrupt-classification]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 中断系统
-source_files: [Linux 硬中断irq + 软中断softirq原理.md, Linux 软中断softirq.md, Linux ksoftirqd软中断内核线程详解.md, Linux IPI 核间中断.md, "物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md"]
-summary: Linux中断分上下半部：硬中断(IRQ)上半部快速响应、软中断(softirq)下半部延迟处理。preempt_count跟踪中断上下文，三种延迟机制对比，ksoftirqd兜底。
+source_files: ["Linux 中断分类表.md", "Linux中断所有知识点.md", "Linux 硬中断 irq + 软中断 softirq原理.md", "Linux 软中断 softirq.md", "Linux 软中断内核线程 ksoftirqd详解.md", "Linux IPI 核间中断.md", "物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md"]
+summary: Linux中断全景：同步/异步四维分类框架、上下半部两阶段设计、preempt_count上下文跟踪、三种延迟机制、GIC类型与irq_domain映射、ksoftirqd兜底。
 provenance:
   extracted: 0.75
   inferred: 0.20
@@ -24,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-06
+updated: 2026-11-09
 ---
 
 # Linux中断系统
@@ -33,12 +35,22 @@ Linux中断系统是内核响应硬件事件的核心机制，采用上下半部
 
 ## 核心观点
 
+- 中断分类有四个正交维度：同步/异步（触发时机，最本质主轴）、软/硬（通俗叫法）、上/下半部（处理阶段）、功能/用途；"软中断"在不同语境分别指指令陷阱（`INT n`/`SVC`）、广义异常或内核 Softirq。
 - 中断分上下半部：硬中断(IRQ)上半部在关中断状态下快速响应，只做最紧急的工作；软中断(softirq)下半部在开中断状态下延迟处理耗时操作。
 - `preempt_count` 是内核跟踪当前执行上下文的关键机制，通过 HARDIRQ_OFFSET 和 SOFTIRQ_OFFSET 嵌入 `thread_info.preempt_count`，任何代码都可判断自己是否在中断上下文中。 ^[inferred]
 - 三种延迟机制各有适用场景：softirq 适合高频率网络收包，tasklet 适合低频率驱动回调，workqueue 适合可睡眠的耗时操作。
 - ksoftirqd 是每个CPU的内核线程，当 softirq 持续触发超出 MAX_SOFTIRQ_TIME 或 MAX_SOFTIRQ_RESTART 限制时，由 ksoftirqd 在进程上下文中兜底处理。
 
 ## 关键细节
+
+### 中断分类框架
+
+中断分类存在四个正交维度：**同步/异步**（触发时机，最本质主轴）、**软/硬**（通俗叫法）、**上/下半部**（处理阶段划分，Linux 特有）、**功能/用途**（I/O 中断、定时器中断等叫法属此维度，与机制类别正交）。
+
+- **异步硬中断五类**：外设引脚中断（ARM GIC 的 PPI 每核私有/SPI 全系统共享，SMP 中断亲和性的硬件基础）；消息信令中断（MSI 最多 32 个连续向量、MSI-X 最多 2048 个独立向量；ARM GICv3+ 上由 ITS 翻译成 LPI 投递，x86 上直接落入 Local APIC）；处理器间中断（x86 IPI/ARM SGI）；不可屏蔽中断 NMI（`cli` 关不掉，用于看门狗与 perf 硬件采样）；本地中断（x86 LAPIC LVT：本地定时器/性能计数器/温控/APIC 错误，概念上对应 ARM 的 PPI）。
+- **同步异常三类**：Fault（PC 指向当前指令，可恢复后重新执行，如缺页/#GP）、Trap（PC 指向下一条指令，主动触发，软中断指令 `INT n`/`SVC` 即其子类）、Abort（不可恢复，如 #DF 双重故障/#MC 机器检查）。
+- **GICv3 硬件组成**：Distributor 管理 SPI（全局使能/优先级/分发），Redistributor 管理每核 SGI/PPI/LPI，CPU interface 负责应答与向核投递；多中断控制器下硬件中断号重复，内核用 **irq_domain** 将 hwirq 映射为虚拟中断号 virq，`request_threaded_irq` 注册的线程化中断以 SCHED_FIFO 内核线程执行。
+- 完整分类表、术语速查与易混淆澄清见 [[summaries/linux-interrupt-classification]]；GIC 硬件、irq_domain 映射与 ARM64 处理全链路见 [[summaries/linux-interrupt-lifecycle]]。
 
 ### 上下半部机制
 
@@ -50,6 +62,7 @@ Linux中断系统是内核响应硬件事件的核心机制，采用上下半部
 下半部（softirq/tasklet/workqueue）的设计原则：
 - 开中断运行，允许新中断嵌套
 - 执行网络协议栈处理、块设备完成回调等较耗时的工作
+- workqueue 运行在进程上下文（kworker 线程），允许睡眠与调度；bound 队列每 CPU 有 nice 0 和 -20 两个 worker_pool，unbound 队列可跨核迁移
 
 ### preempt_count 跟踪机制
 
@@ -79,9 +92,9 @@ Linux中断系统是内核响应硬件事件的核心机制，采用上下半部
 | 适用场景 | 网络收包等高频率 | 驱动回调等低频率 | 需睡眠的耗时操作 |
 | 定义方式 | 静态编译(HI_SOFTIRQ等) | 动态注册 | 动态创建kworker |
 
-### 9种静态 softirq 类型
+### 10 种静态 softirq 类型
 
-内核定义了 9 种静态 softirq，优先级从高到低：
+内核定义了 10 种静态 softirq（5.10 内核 enum，NR_SOFTIRQS=10；部分文献沿用旧内核的 9 种计数，以 enum 列表为准）^[ambiguous]，优先级从高到低：
 
 1. HI_SOFTIRQ — 高优先级tasklet
 2. TIMER_SOFTIRQ — 定时器
@@ -97,7 +110,7 @@ Linux中断系统是内核响应硬件事件的核心机制，采用上下半部
 ### ksoftirqd 内核线程
 
 每个CPU有一个 ksoftirqd/%u 内核线程：
-- 触发条件：`__do_softirq()` 在处理 softirq 时，如果重启次数超过 MAX_SOFTIRQ_RESTART（通常10次），或执行时间超过 MAX_SOFTIRQ_TIME（2ms），则唤醒 ksoftirqd
+- 触发条件：`__do_softirq()` 在处理 softirq 时，如果重启次数超过 MAX_SOFTIRQ_RESTART（10次），或执行时间超过 MAX_SOFTIRQ_TIME（2 jiffies，1000Hz 系统≈2ms、200Hz 系统=10ms），则唤醒 ksoftirqd
 - 运行方式：在进程上下文中作为 SCHED_OTHER 级别线程运行，可被抢占
 - 设计意图：防止 softirq 连续触发导致普通进程长时间无法获得CPU
 
@@ -106,8 +119,8 @@ Linux中断系统是内核响应硬件事件的核心机制，采用上下半部
 IPI（Inter-Processor Interrupt）是跨核通信机制：
 - 通过 ICR（Interrupt Command Register）寄存器发送
 - 目标可以是特定CPU、所有CPU或除自身外的所有CPU
-- x86 通过 `apic->send_IPI()` 接口实现
-- 常见用途：TLB flush、reschedule interrupt（唤醒其他CPU上的调度器）、stop CPU等
+- x86 通过 `apic->send_IPI()` 接口实现；ARM 平台由 GIC 的 SGI（Software Generated Interrupt，软件写 GICD_SGIR 发起）实现同等功能——SGI 虽由软件发起，但经 GIC 异步投递到目标核，归类属于硬件中断而非指令级"软中断"
+- 常见用途：TLB flush（TLB Shootdown，见 [[summaries/linux-tlb-management]]）、reschedule interrupt（唤醒其他CPU上的调度器）、调度负载均衡、时钟事件广播、stop CPU等
 
 ### SMP IRQ Affinity — 硬中断的CPU亲和性绑定
 
@@ -134,6 +147,8 @@ IPI（Inter-Processor Interrupt）是跨核通信机制：
 
 ## 来源
 
+- [[summaries/linux-interrupt-classification]] — 中断分类四维度框架与术语速查（2026-11-09 ingest）
+- [[summaries/linux-interrupt-lifecycle]] — GIC硬件、irq_domain映射、中断注册与ARM64处理全链路（2026-11-09 ingest）
 - [[summaries/linux-softirq-detail]] — softirq原理与ksoftirqd详解
 - [[summaries/linux-rcu-lock]] — RCU softirq相关
 - [[summaries/linux-network-protocol-stack-impl]] — NET_RX_SOFTIRQ在网络收包中的应用

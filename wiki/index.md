@@ -16,7 +16,7 @@ updated: 2026-11-06
 
 ## Summaries (Linux)
 
-- [linux-softirq-detail](summaries/linux-softirq-detail.md) — Linux软中断的完整实现：preempt_count防抢占机制、__do_softirq执行流、ksoftirqd溢出处理 — `linux` `kernel` `softirq` `interrupt` `ksoftirqd`
+- [linux-softirq-detail](summaries/linux-softirq-detail.md) — Linux软中断完整实现：注册与raise触发、__do_softirq预算控制、ksoftirqd兜底、tasklet串行保证与临界区保护选择 — `linux` `kernel` `softirq` `interrupt` `ksoftirqd`
 - [linux-fs-mount-process](summaries/linux-fs-mount-process.md) — mount系统调用逐函数分析：mountpoint/mount/vfsmount三结构体、do_mount五分支、vfs_kern_mount+do_add_mount两步挂载 — `linux` `内核` `mount` `VFS` `文件系统`
 - [linux-meminfo-params](summaries/linux-meminfo-params.md) — /proc/meminfo各字段含义与关系：内存黑洞、LRU分类、HugePages与THP区别、关键公式 — `linux` `kernel` `memory` `meminfo` `page-cache`
 - [linux-page-cache](summaries/linux-page-cache.md) — Page Cache机制：基数树结构、预读算法、Write Through与Write Back一致性、Dirty page回写 — `linux` `kernel` `page-cache` `file-io` `memory`
@@ -27,6 +27,8 @@ updated: 2026-11-06
 - [crash-vmcore-analysis](summaries/crash-vmcore-analysis.md) — crash工具分析vmcore的基本操作：bt/struct/dis/rd/kmem常用命令、时间戳转换 — `linux` `vmcore` `crash` `崩溃分析`
 - [crash-register-address](summaries/crash-register-address.md) — x86_64和ARM64寄存器体系、函数调用约定、栈回溯原理、常见崩溃场景分析 — `linux` `寄存器` `x86` `ARM64` `崩溃分析` `调用约定`
 - [linux-interrupt-monitoring-script](summaries/linux-interrupt-monitoring-script.md) — 不依赖额外模块的bash脚本：基于/proc/interrupts两次采样的每秒中断增量观测 — `linux` `中断` `监控脚本` `/proc/interrupts`
+- [linux-interrupt-classification](summaries/linux-interrupt-classification.md) — 中断分类四维框架：同步/异步主轴、"软中断"歧义、上下半部阶段、功能×机制映射；SPI/PPI/LPI/MSI-X/IPI/NMI/LVT与Fault/Trap/Abort术语速查 — `linux` `中断` `分类` `IRQ` `架构`
+- [linux-interrupt-lifecycle](summaries/linux-interrupt-lifecycle.md) — ARM GICv3中断全链路：三组件分工、中断号段、irq_domain映射hwirq→virq、request_irq注册与线程化中断、ARM64异常向量处理、workqueue五元组 — `linux` `中断` `GIC` `ARM` `irq_domain`
 - [linux-ftrace-kprobe-overview](summaries/linux-ftrace-kprobe-overview.md) — ftrace(静态/开销大) vs kprobe(动态/灵活) vs bpftrace(eBPF)三大追踪框架概览 — `linux` `tracing` `ftrace` `kprobe` `bpftrace`
 - [kernel-bonding-debug-log](summaries/kernel-bonding-debug-log.md) — 内核网络Bonding调试日志开启：printk级别调整+dynamic debug开启bond_3ad/bond_main源码打印 — `linux` `内核` `网络` `bonding` `dynamic-debug`
 - [virtio-io-notification-mechanism](summaries/virtio-io-notification-mechanism.md) — Virtio前后端双向零拷贝通知：ioeventfd(Guest→Host)和irqfd(Host→Guest) — `linux` `虚拟化` `virtio` `ioeventfd` `irqfd`
@@ -49,7 +51,7 @@ updated: 2026-11-06
 ## Concepts (Linux 操作系统)
 
 - [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
-- [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断系统：IRQ/softirq两阶段设计、三种延迟机制、ksoftirqd、SMP IRQ Affinity多核中断绑定 — `linux` `kernel` `interrupt` `irq` `softirq`
+- [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断全景：同步/异步四维分类、IRQ/softirq两阶段设计、三种延迟机制、GIC组件与irq_domain映射、ksoftirqd、SMP IRQ Affinity — `linux` `kernel` `interrupt` `irq` `softirq`
 - [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、LRU与Write策略，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
 - [virtual-memory-and-paging](concepts/virtual-memory-and-paging.md) — 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(PCID/ASID与shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优) — `linux` `内存` `虚拟内存` `分页` `页面置换`
 - [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈：五层IO架构、IO调度器、设备发现与gendisk结构、hctx tags busy值IO阻塞确认，向下衔接L5硬件层SSD介质语义(TRIM)与PCIe链路 — `linux` `kernel` `io` `block` `scheduler`
@@ -307,5 +309,9 @@ updated: 2026-11-06
 - [2026-05-18](recommendations/2026-05-18.md) — LangChain/LangGraph 学习推荐
 - [2026-05-16](recommendations/2026-05-16.md) — 云原生 学习推荐
 - [2026-05-15](recommendations/2026-05-15.md) — 大模型基础设施 学习推荐
+
+## Projects
+
+- [my-obsidian-wiki](projects/my-obsidian-wiki.md) — 本 vault 自身的项目知识枢纽：三层架构、架构决策索引、运营模式（重叠合并/稀薄折叠/backup 流）、知识域扩张史与待办债务 — `obsidian` `wiki` `知识管理` `llm`
 
 ## Journal

@@ -590,3 +590,27 @@ title: Wiki Log
 - [2026-11-09T15:05] MAINTAIN source="raw/sources/Linux 操作系统/Linux 中断系统/Linux 中断分类表.md" action="add-column" target="4.1 中断术语汇总表"
 - 变更：「中断术语」列后插入「英文全称」列——SPI=Shared Peripheral Interrupt、PPI=Private、LPI=Locality-specific、MSI/MSI-X=Message Signaled Interrupt(eXtended)、IPI=Inter-Processor、SGI=Software Generated、LVT=Local Vector Table、NMI=Non-Maskable、INT n/SVC=Interrupt Instruction/Supervisor Call、Softirq=Software Interrupt；Fault/Trap/Abort 本身即英文全称，标"——"
 - 性质：用户授权的 raw 增列，其余各列内容逐字节不变（脚本插列）；该文件已被 git 跟踪可随时 diff/回退，另有 /tmp 备份；manifest 与 wiki 均无此文件引用，无级联负担
+
+## [2026-11-09] INGEST | Linux中断系统目录完整重蒸馏（2新增+4修改来源）
+
+- [2026-11-09T16:13] INGEST source="Linux 操作系统/Linux 中断系统/Linux 中断分类表.md" pages_created=1 pages_updated=1
+- [2026-11-09T16:13] INGEST source="Linux 操作系统/Linux 中断系统/Linux中断所有知识点.md" pages_created=1 pages_updated=1
+- [2026-11-09T16:13] INGEST source="Linux 操作系统/Linux 中断系统/Linux IPI 核间中断.md" (重蒸馏,hash变更) pages_updated=1
+- [2026-11-09T16:13] INGEST source="Linux 操作系统/Linux 中断系统/Linux 软中断内核线程 ksoftirqd详解.md" (重命名+重蒸馏) pages_updated=1
+- [2026-11-09T16:13] INGEST source="Linux 操作系统/Linux 中断系统/Linux 硬中断 irq + 软中断 softirq原理.md" (重命名+重蒸馏) pages_updated=2
+- [2026-11-09T16:13] INGEST source="Linux 操作系统/Linux 中断系统/Linux 软中断 softirq.md" (重命名+重蒸馏) pages_updated=2
+- 新建页面：summaries/linux-interrupt-classification（四维分类框架+术语速查表+分类树+易混淆澄清，蒸馏自中断分类表）；summaries/linux-interrupt-lifecycle（GICv3三组件/irq_domain映射/request_irq注册/ARM64异常处理/workqueue五元组，蒸馏自中断所有知识点）
+- hub更新 concepts/linux-interrupt-system(tier=core)：新增"中断分类框架"小节（异步五类/同步三类/GIC组件/irq_domain）、核心观点+分类维度条目、IPI节补ARM SGI对应与TLB/负载均衡用途、下半部节补workqueue进程上下文特性、修正"9种softirq"计数为10种（enum为准）^[ambiguous]、source_files全部刷新为重命名后文件名+2新来源
+- 重蒸馏 summaries/linux-softirq-detail：新增softirq注册与raise触发三阶段、preempt_count防重入与__irq_svc抢占、tasklet per-cpu链表与tasklet_action流程、NAPI收包示例与RPS、临界区保护表补spin_lock_irqsave行；source_files刷新
+- 交叉链接新增：hub↔两新summary、hub→linux-tlb-management（TLB Shootdown=IPI用例）、softirq-detail→nic-smp-irq-affinity（软硬侧均衡配对）
+- Manifest：3条目重键至重命名后路径、4条目hash刷新、新增2条目；total_sources_ingested 938→940、total_summaries 41→43、total_pages 166→168、last_ingest→2026-11-09
+- 说明：中断分类表为用户协同整理并已人工审核的分类参考（quality按documentation 0.85计，单来源base_confidence 0.6）；中断所有知识点为知乎blog(0.55)，GIC结构体字段级细节保留在raw、wiki只蒸馏角色与关系
+
+## [2026-11-09] WIKI_UPDATE | my-obsidian-wiki 项目首次同步（vault 自身）
+
+- [2026-11-09T17:10] WIKI_UPDATE project="my-obsidian-wiki" source_repo="github.com/StackTony/my-obsidian-wiki" last_commit_synced="1565714fdc7401009f50f04c3f820c7bd7daa912" pages_created=1 pages_updated=0
+- 首次以 /wiki-update 将 vault 自身同步为项目：新建 projects/my-obsidian-wiki.md（项目知识枢纽——三层架构索引、7 条架构决策、6 条运营模式、4 项待办债务、规模快照 11 域/940 来源/169 页）
+- 判定依据：CLAUDE.md 已是约定权威，项目页只做索引与"3 个月后零上下文恢复"状态记录，不重复 schema 全文
+- manifest 新增顶层 projects 节（source_repo + last_commit_synced）；total_pages 168→169；index.md 新增 ## Projects 区块（Journal 前）
+- QMD skipped: QMD_WIKI_COLLECTION 未设置（vault 纯 markdown 为 source of truth）
+- 观察备忘：git 暂存区已备好一批"Linux 内存管理"raw 文件（CPU Cache 一致性新增、内存屏障、TLB 改名），是下次 /wiki-ingest 的输入

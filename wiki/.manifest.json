@@ -158,20 +158,22 @@
       ]
     },
     "Linux 操作系统/Linux 中断系统/Linux IPI 核间中断.md": {
-      "ingested_at": "2026-06-01",
-      "size_bytes": 238,
-      "content_hash": "sha256:6148ae948e1a71e60c7329fec49a1da92c846747b5335fc4ab1ffc73bc70a71e",
+      "ingested_at": "2026-11-09",
+      "size_bytes": 232,
+      "content_hash": "sha256:6eb932ccfea9e1787d64324ce32ebf8e4bb3ca9fc6f3f33c8534cc137b7f3249",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-interrupt-system.md"
       ],
-      "pages_updated": []
+      "pages_updated": [
+        "concepts/linux-interrupt-system.md"
+      ]
     },
-    "Linux 操作系统/Linux 中断系统/Linux ksoftirqd软中断内核线程详解.md": {
-      "ingested_at": "2026-06-01",
-      "size_bytes": 6713,
-      "content_hash": "sha256:d182a772bc500bb0fe6bd8b58a1252ffcd0f1b76ee0b4a3a0b03da288681448a",
+    "Linux 操作系统/Linux 中断系统/Linux 软中断内核线程 ksoftirqd详解.md": {
+      "ingested_at": "2026-11-09",
+      "size_bytes": 6465,
+      "content_hash": "sha256:032c61a19cebab8f51b301bd92631d60e1de045d4a2dfeb8217d04224bdb34bc",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -182,25 +184,53 @@
         "skills/linux-kernel-debugging.md"
       ]
     },
-    "Linux 操作系统/Linux 中断系统/Linux 硬中断irq + 软中断softirq原理.md": {
-      "ingested_at": "2026-06-01",
-      "size_bytes": 22039,
-      "content_hash": "sha256:e489e18fbda07a2df45633861da92a8c79feebbe1f865f1d777496fec9da35db",
+    "Linux 操作系统/Linux 中断系统/Linux 硬中断 irq + 软中断 softirq原理.md": {
+      "ingested_at": "2026-11-09",
+      "size_bytes": 21559,
+      "content_hash": "sha256:419f803247e2e1a991ace62e3e61532d5ddc811ddf077a70a3d6d6dcde08f03c",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-interrupt-system.md"
       ],
-      "pages_updated": []
+      "pages_updated": [
+        "concepts/linux-interrupt-system.md"
+      ]
     },
-    "Linux 操作系统/Linux 中断系统/Linux 软中断softirq.md": {
-      "ingested_at": "2026-06-01",
-      "size_bytes": 23290,
-      "content_hash": "sha256:2970b9426a42a7913a67792cf38691220a3f71dab70b8d956df057bcf51495ba",
+    "Linux 操作系统/Linux 中断系统/Linux 软中断 softirq.md": {
+      "ingested_at": "2026-11-09",
+      "size_bytes": 22770,
+      "content_hash": "sha256:bbd61123f3a3eed9e51c5257190adb20eb2ec0bf9ab7ef8d7757ceb16c8c65bf",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "summaries/linux-softirq-detail.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-interrupt-system.md"
+      ]
+    },
+    "Linux 操作系统/Linux 中断系统/Linux 中断分类表.md": {
+      "ingested_at": "2026-11-09",
+      "size_bytes": 20680,
+      "content_hash": "sha256:8c8e4ef346fed4f3df8873fdbe0da216b80210900bdd72f76fe3b8008cc8e77a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-interrupt-classification.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-interrupt-system.md"
+      ]
+    },
+    "Linux 操作系统/Linux 中断系统/Linux中断所有知识点.md": {
+      "ingested_at": "2026-11-09",
+      "size_bytes": 52959,
+      "content_hash": "sha256:f71859c90a9ea72c80e76a08f558f615140f512c606d179cf3484808ae3e06f0",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-interrupt-lifecycle.md"
       ],
       "pages_updated": [
         "concepts/linux-interrupt-system.md"
@@ -11363,16 +11393,26 @@
       "modified_at": "2026-11-05T15:30"
     }
   },
-  "last_ingest": "2026-11-06",
+  "projects": {
+    "my-obsidian-wiki": {
+      "source_repo": "github.com/StackTony/my-obsidian-wiki",
+      "last_synced": "2026-11-09",
+      "last_commit_synced": "1565714fdc7401009f50f04c3f820c7bd7daa912",
+      "pages_in_vault": [
+        "projects/my-obsidian-wiki.md"
+      ]
+    }
+  },
+  "last_ingest": "2026-11-09",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 938,
-    "total_pages": 166,
+    "total_sources_ingested": 940,
+    "total_pages": 169,
     "total_concepts": 82,
-    "total_summaries": 41,
+    "total_summaries": 43,
     "total_entities": 20,
     "total_skills": 16,
     "total_synthesis": 7,
-    "last_updated": "2026-11-06"
+    "last_updated": "2026-11-09"
   }
 }

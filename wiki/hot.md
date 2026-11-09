@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-11-06
+updated: 2026-11-09
 ---
 
 # Hot Cache
@@ -9,27 +9,30 @@ updated: 2026-11-06
 
 ## Recent Activity
 
-- [2026-11-06] INGEST — 物理硬件域首批10来源（PCIe错误×2、SSD TRIM、网卡IRQ绑定、BMC、IPMI SOL、光模块、内存SPD/XMP、ECC、芯片功耗）→ 15新页面 + 4更新。manifest 928→938条目，last_ingest → 2026-11-06
-- [2026-10-21] INGEST — Linux 内存/调度/零拷贝/devmem 增量8来源 → 6新页面 + 5更新
-- [2026-08-03] INGEST — AI Agent 协议+平台增量：11新来源 → 7新页面+3更新
+- [2026-11-09] WIKI_UPDATE — vault 自身首次作为项目同步：新建 [[projects/my-obsidian-wiki]] 项目枢纽页（架构决策索引+运营模式+待办债务）；manifest 新增 projects 节（last_commit_synced=1565714）；total_pages 169
+- [2026-11-09] INGEST — Linux中断系统目录完整重蒸馏（2新增来源：中断分类表/中断所有知识点 + 4修改来源，其中3个被用户重命名）→ 2新页面（linux-interrupt-classification、linux-interrupt-lifecycle）+ hub与softirq-detail重蒸馏。manifest 938→940，total_pages 166→168
+- [2026-11-09] MAINTAIN — raw侧：吐血整理文dedup（复制粘贴事故，删96行重复）后用户重命名为"Linux中断所有知识点.md"；中断分类表新增英文全称列（用户手工增强）
+- [2026-11-06] INGEST — 物理硬件域首批10来源（PCIe错误、SSD TRIM、网卡IRQ绑定、BMC/IPMI、光模块、SPD/ECC等）→ 15新页面 + 4更新
 
 ## Active Threads
 
-- **新领域：物理硬件层**——此前wiki全部知识止步于软件栈（内核/虚拟化/AI infra），本批补上软件栈之下的物理世界：PCIe错误体系、SSD介质语义、中断亲和性、带外管理、光器件、内存硬件
-- **掉盘=PCIe链路静默失败**：`concepts/pcie-error-aer-nvme-drive-loss` 的核心洞察——链路错误在Root Complex的AER里、不在盘的SMART里，"SMART全绿但掉盘"是分层日志的边界效应而非工具失灵 ^[inferred]
-- **SMP IRQ Affinity 并入中断系统**：`concepts/linux-interrupt-system` 新增硬中断CPU亲和性一节（smp_affinity位掩码、RPS/RFS补单队列网卡、irqbalance经验法则），补上了软中断知识的物理层配对杠杆
-- **IO栈打通到介质层**：`concepts/linux-io-stack` 新增L5硬件层小节——TRIM缝合"文件系统知道已删除、介质不知道"的信息断层；`skills/linux-io-debugging` 增加TRIM确认启用步骤
-- **DFX工具矩阵加硬件层行**：`synthesis/linux-dfx-tool-landscape` 从六域扩展到含硬件层（lspci/setpci/nvme-cli/ipmitool），新综合页 `synthesis/hardware-layer-debugging-landscape` 提炼五条显形规律
+- **下一批待消化**：git 暂存区已备好"Linux 内存管理"来源（CPU Cache 一致性新增、内存屏障、TLB 改名），是下次 /wiki-ingest 的输入
+- **vault 元枢纽建立**：[[projects/my-obsidian-wiki]] 记录了 vault 作为项目的架构决策索引与运营模式（重叠合并/稀薄折叠/backup 流/skill 外置），manifest 开始跟踪 projects 节
+- **中断知识线闭环** ^[inferred]：中断分类表（四维框架）+ 中断所有知识点（GIC硬件→irq_domain→注册→ARM64处理全链路）+ softirq三件套（原理/实现/内核线程）已全部蒸馏完毕，hub `concepts/linux-interrupt-system` 成为中断域唯一枢纽；与 `concepts/linux-interrupt-virtualization`（VGIC）、`summaries/nic-smp-irq-affinity`（硬件侧亲和）、`summaries/linux-tlb-management`（IPI用例TLB Shootdown）完成交叉链接
+- **"软中断"歧义是最大混淆点**：指令级软中断（INT n/SVC=同步Trap）、广义软件中断（=异常Exception）、Linux Softirq（下半部机制）三重含义——分类页与hub均已建立澄清
+- **此前活跃**：物理硬件层（PCIe错误体系、掉盘=链路静默失败、带外管理BMC）；IO栈L5硬件层（TRIM）；DFX工具矩阵硬件层行
 
 ## Key Takeaways
 
-- **硬件问题显形的五条规律** ^[inferred]：静默失败链（每层只记自己层的错误）、信息断层下推（TRIM/IRQ affinity/SPD同属"上层知识显式传给下层"模式）、亲和性杠杆（局部性从调度器贯穿到中断控制器）、带外观察平面（BMC是perf在线/vmcore事后之外的第三平面）、功耗换时延（IPU降uncore、ASPM致掉盘、discard改定时——电源管理永远在重分配功耗-时延-稳定性三角）
-- **诊断语法与软件栈同构**：用硬件寄存器说话（setpci↔devmem）、用时间戳对齐（AER vs dmesg↔perf时间窗）、用排除法定界（最小系统法↔二分法）
-- **两篇PCIe文章高度重叠**（381行+37行）→ 合并蒸馏为一个summary（source_files双列），37行版贡献"高速公路"隐喻与错误演进路径
-- **稀薄笔记折叠而非建页**：芯片功耗(280B)→synthesis功耗规律、ECC(792B)→内存硬件concept，manifest登记产出页面
+- **中断分类四维度正交** ^[inferred]：同步/异步（触发时机，最本质主轴）× 软/硬（通俗叫法）× 上/下半部（处理阶段）× 功能/用途（I/O、定时器等叫法）；功能标签与机制类别不在同一层级——"网卡中断"的机制实现是MSI-X，跨层混比产生"谁包含谁"类无意义问题
+- **MSI/MSI-X与LPI是两层不是两种**：MSI/MSI-X是设备侧发出形式（PCIe总线协议层），LPI是GICv3+侧接收类型（ITS翻译后经Redistributor投递）；x86上同样的MSI写直接落入Local APIC，无LPI中间层
+- **SGI归类澄清**：软件发起但经GIC异步投递→归异步硬件中断，非指令级软中断；ARM的IPI功能由SGI实现（实现×功能对应）
+- **GIC三组件分工**：Distributor管SPI（全局）、Redistributor管每核SGI/PPI/LPI、CPU interface管应答与投递；多控制器hwirq重复→irq_domain映射为virq
+- **workqueue五元组**：work→workqueue→pool_workqueue(中介)→worker_pool(bound型每CPU两个，nice 0/-20)→worker(kworker线程)；进程上下文可睡眠是与softirq/tasklet的本质差异
+- **softirq执行借用被中断任务上下文**（代码mask/unmask PF_MEMALLOC佐证）；预算超限三条件判断（时间/need_resched/重启次数）→ksoftirqd兜底
 
 ## Flagged Contradictions
 
-- **AER寄存器语义存疑** ^[ambiguous]：来源将setpci读的AER状态寄存器当"计数器"用，但按PCIe规范它是按错误类型的位标志——三页均已标注，dmesg为更可靠证据，待规范原文裁定
-- **博客级可信度** ^[ambiguous]：本批8来源均为blog(0.55)，CE>50/h、PRS公式、"90%掉盘是链路问题"等数字均为作者单方声明，全部标 ^[ambiguous] 待人工复核
-- **既有lint债务**（部分已处理）：5个2026-09-16建的Self learn页面（agent-paradigm-selection、agent-reliability-engineering、loop-engineering、helm-package-management、k8s-network-troubleshooting）漏入index——本次ingest已补齐索引条目并重算stats(concepts 82/skills 16/total_pages 166)；manifest顶层vault_path仍为过期旧路径——待用户决策
+- **softirq计数9 vs 10** ^[ambiguous]：源文档正文一处写"内置的9种softirq"但其贴出的5.10 enum为10项（NR_SOFTIRQS=10）——hub已修正为10种并标注，以enum为准
+- **中断所有知识点为知乎blog级可信度**(0.55)：GIC结构体字段级细节、GICD_PIDR2版本编码等未对照内核源码复核，lifecycle=draft；中断分类表为用户协同整理并人工审核（按documentation 0.85计，base_confidence 0.6）
+- **历史遗留**：5个2026-09-16建的Self learn页面已补入index（2026-11-06处理）；manifest顶层vault_path仍为过期旧路径——待用户决策
