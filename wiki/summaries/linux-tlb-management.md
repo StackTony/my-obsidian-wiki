@@ -4,8 +4,8 @@ category: summaries
 tags: [linux, 内核, TLB, 分页, PCID]
 aliases: [TLB原理, 转换检测缓冲区, TLB shootdown, PCID, ASID]
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux 内存管理 TLB.md]
-summary: TLB作为MMU内的页表缓存：表项结构、ARM Cortex-A72两级TLB、进程切换刷新的global/local权衡、多核TLB shootdown与PCID(CR4.PCID/4.15全面启用)、ARM的ASID对应机制。
+source_files: [Linux TLB（页表项Cahce）.md]
+summary: TLB作为MMU内的页表缓存：表项结构(标识区+数据区)、ARM Cortex-A72两级TLB、进程切换刷新的global/local权衡、多核TLB shootdown与PCID(CR4.PCID/4.15全面启用)、ARM的ASID对应机制。
 provenance:
   extracted: 0.88
   inferred: 0.10
@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-10-21
 tier: supporting
 created: 2026-10-21
-updated: 2026-10-21
+updated: 2026-11-10
 ---
 
 # Linux 内存管理 TLB
@@ -24,7 +24,7 @@ TLB（Translation Lookaside Buffer，转换检测缓冲区）是 MMU 内部用�
 
 ## 核心观点
 
-- **TLB 本质是页表的缓存**："TLB 命中率"与"缓存命中率"是同一类问题——目的是避免每次访存都去读内存中的页表。
+- **TLB 本质是页表的缓存**：与指令 cache/数据 cache 解决"CPU访问main memory慢"的问题类似，TLB 解决的是"地址翻译慢"的问题——避免每次访存都遍历多级 Translation table 读取内存中的页表。原文将其定位为"地址转换后援缓冲器"或"快表"。
 - **TLB 表项 = 标识区 + 数据区**：标识区存放虚拟地址中用于比对的位，数据区存放物理页号与状态位（有效位、引用位、脏位），与页表项字段一一对应。
 - **TLB 是每个 CPU 核私有的**，因此"进程切换"和"多核一致性"各自都需要额外的刷新机制——这是 TLB 管理的两大成本来源。
 - 内核地址映射被所有进程共享，因此硬件允许把页表描述符标记为 **global/local**：global 表项在进程切换时**不必**失效，只刷新进程私有的 local 表项即可。 ^[inferred]
@@ -42,6 +42,24 @@ TLB（Translation Lookaside Buffer，转换检测缓冲区）是 MMU 内部用�
 
 - **每个 CPU 核有独立 TLB**，缺失时按 L1 → L2 → 页表遍历（page table walk）的层级查找。
 - TLB 容量很小，因此进程刚被调度上来时 TLB 为空，会出现一段 **cold TLB** 性能下降期；工作集超过 TLB 容量则出现 **TLB 颠簸（thrashing）**。
+
+### TLB 表项数据区字段
+
+数据区包含物理页号和以下辅助信息：
+
+| 字段 | 含义 | 更新时机 |
+|------|------|----------|
+| 有效位(Valid) | 为1表示页在内存，为0触发缺页异常（需到外存查找并加载） | 页调入/调出时 |
+| 引用位(Reference) | 用于LRU替换算法选择被淘汰的TLB项；页表中也有引用位 | TLB命中时由硬件置1 |
+| 脏位(Dirty) | 标记页是否被修改过，移除时脏页需先写回外存 | TLB命中且为写操作时由硬件置1 |
+
+### TLB 访问流程
+
+1. CPU 收到虚拟地址 → 在 TLB 中根据 Tag 寻找
+2. TLB 命中且有效位=1 → 直接获取物理页号
+3. 有效位=0 → 缺页异常，CPU从外存调入页面并更新页表和TLB
+4. TLB 未命中 → 通过分页机制遍历页表查找
+5. TLB 已满 → 根据替换算法（如LRU，利用引用位）选择淘汰项
 
 ### 进程切换时的 TLB 处理
 
@@ -83,4 +101,4 @@ TLB（Translation Lookaside Buffer，转换检测缓冲区）是 MMU 内部用�
 - [[concepts/virtual-memory-and-paging]] — 虚拟内存与分页的原理基础
 - [[concepts/linux-memory-management]] — Linux 内存管理总览
 - [[summaries/linux-memory-cpu-relationship]] — 教材视角的分页与 TLB
-- `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存管理 TLB.md`（原文：developer.aliyun.com/article/1479067）
+- `raw/sources/Linux 操作系统/Linux 内存管理/Linux TLB（页表项Cahce）.md`（原文：developer.aliyun.com/article/1479067）

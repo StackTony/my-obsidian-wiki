@@ -11,8 +11,8 @@ relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md, Linux 内存与CPU之间的关系.md, Linux 内存管理 TLB.md]
-summary: Linux内存管理：meminfo参数体系、Page Cache架构(基数树+预读)、内存黑洞(alloc_pages不可追踪)、LRU分类与Write策略，向下承接虚拟内存/分页与TLB的原理基础。
+source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md, Linux 内存与CPU之间的关系.md, Linux TLB（页表项Cahce）.md]
+summary: Linux内存管理：meminfo参数体系(含Bounce/DirectMap)、Page Cache架构(基数树+预读)、内存黑洞(alloc_pages不可追踪)、LRU分类与Write策略，向下承接虚拟内存/分页与TLB的原理基础。
 provenance:
   extracted: 0.82
   inferred: 0.13
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-10-21
+updated: 2026-11-10
 ---
 
 # Linux内存管理
@@ -70,6 +70,8 @@ Linux内存管理是内核最复杂的子系统之一，涵盖物理内存分配
 | SUnreclaim | 不可回收的Slab | 内核不可释放的slab对象 |
 | HugePages | 预分配的大页数量 | hugetlb相关 |
 | AnonHugePages | THP(透明大页)数量 | mm/huge_memory |
+| Bounce | bounce buffer占用的内存（低端内存DMA跳转） | 与swiotlb相关，见 [[skills/swiotlb-troubleshooting]] |
+| DirectMap4k/2M | 反映TLB效率的指标（大页映射减少TLB条目） | 不是内存使用统计 |
 
 ### Page Cache 计算公式
 
@@ -135,6 +137,12 @@ Linux默认使用 Write Back 策略，通过 pdflush/kworker 线程定期将脏�
 
 综合分析：[[synthesis/linux-kernel-subsystem-interactions]]
 
+内存与CPU的硬件交互：[[concepts/cpu-cache-coherence]]（CPU缓存一致性）、[[concepts/memory-barriers]]（内存屏障）——理解内存可见性与有序性的硬件基础。IO内存管理见 [[concepts/linux-io-models]]。
+
+缓存体系：[[concepts/page-cache-vs-buffer-cache]] — Page Cache与Buffer Cache在2.4后统一的历史演进与区别本质。
+
+设备DMA与IOMMU：[[summaries/linux-iommu-deep-dive]]（swiotlb 用 `memblock_alloc_low` 从低地址预留 bounce 池，是内核早期内存分配的实例）、[[concepts/linux-dma-mapping]]（IOVA/IOMMU页表翻译——IOMMU页表与MMU页表相互独立但原理相同）。
+
 ## 来源
 
 - [[summaries/linux-meminfo-params]] — meminfo参数详解
@@ -142,4 +150,4 @@ Linux默认使用 Write Back 策略，通过 pdflush/kworker 线程定期将脏�
 - [[summaries/linux-memory-cpu-relationship]] — 虚拟内存与页面置换算法原理
 - [[summaries/linux-tlb-management]] — TLB 硬件细节与 PCID
 - `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存与CPU之间的关系.md`（原文：zhuanlan.zhihu.com/p/450505454）
-- `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存管理 TLB.md`（原文：developer.aliyun.com/article/1479067）
+- `raw/sources/Linux 操作系统/Linux 内存管理/Linux TLB（页表项Cahce）.md`（原文：developer.aliyun.com/article/1479067）

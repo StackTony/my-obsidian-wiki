@@ -13,8 +13,8 @@ relationships:
   - target: "[[concepts/linux-os-virtualization-landscape]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux 内存与CPU之间的关系.md, Linux 内存管理 TLB.md]
-summary: 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(含PCID/ASID与TLB shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优)。
+source_files: [Linux 内存与CPU之间的关系.md, Linux TLB（页表项Cahce）.md]
+summary: 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(含软件TLB管理/PCID/ASID与TLB shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优)、工作集与颠簸。
 provenance:
   extracted: 0.85
   inferred: 0.12
@@ -24,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-10-21
 tier: supporting
 created: 2026-10-21
-updated: 2026-10-21
+updated: 2026-11-10
 ---
 
 # 虚拟内存与分页
@@ -79,6 +79,10 @@ TLB 缓存的失败分两类：页在内存但 TLB 未命中（**软失效**）�
 
 **PCID / ASID**：把 TLB 表项从 (VA → PA) 扩展为 (VA + 进程上下文 ID → PA)。设置 `CR4.PCID = 1` 后**加载 CR3 不再刷新 TLB**，进程切换成本大幅下降；PCID 位数有限（最多 4096 个 ID）。ARM 对应机制为 **ASID**。代价是全局生效的映射变更必须靠 **IPI 触发 TLB shootdown**。Linux 在 **4.14 部分支持、4.15 全面启用 PCID**。
 
+**软件 TLB 管理**：RISC 机器（SPARC、MIPS、HP PA）几乎所有页面管理由软件完成——TLB miss 时不由MMU查页表，而是生成TLB失效交给OS处理，须用少量指令完成。CISC（x86）则由硬件管理TLB，仅在page fault时陷入OS。 ^[inferred]
+
+**TLB miss 的三种缺页情形**：(1) 页已在内存但未记录在进程页表 → 次要缺页错误（minor page fault），只需重新映射；(2) 需从磁盘调入 → 严重缺页错误（major page fault）；(3) 非法地址 → 段错误（segmentation fault），只有第三种属于程序错误。
+
 ### 大地址空间：两种页表方案
 
 | 方案 | 思路 | 代价 |
@@ -101,6 +105,12 @@ TLB 缓存的失败分两类：页在内存但 TLB 未命中（**软失效**）�
 | 工作集 | 记录最近 k 次访问时间，换出窗口外页 | 效果好，有时间戳开销 |
 | **WSClock** | 工作集 + 时钟：R=0 且 age>τ 即换出 | **推荐** |
 
+### 工作集与颠簸（thrashing）
+
+**工作集（working set）**：进程当前正在使用的页面集合 w(k,t)——最近 k 次内存访问访问过的页面。基于**局部性原理（locality of reference）**：程序在任一执行阶段只引用一小部分页面。工作集随时间缓慢变化。
+
+**颠簸（thrashing）**：内存太小无法容纳整个工作集 → 大量缺页中断 → 执行几条指令就中断（一条指令约几纳秒，磁盘读一页约十毫秒）→ 运行极慢。**预调页（prepaging）** 在进程运行前先装入工作集页面以减少初始缺页中断。 ^[inferred]
+
 ### 与 Linux 具体实现的对应
 
 | 理论概念 | Linux 实现 |
@@ -115,7 +125,7 @@ TLB 缓存的失败分两类：页在内存但 TLB 未命中（**软失效**）�
 ## 未解问题
 
 - 页面大小的定量权衡（内部碎片 vs 页表规模 vs 缺页次数 vs IO 效率）缺少量化结论。 ^[ambiguous]
-- 原文对预调页、颠簸（thrashing）与工作集模型的定量关系讨论较浅。 ^[inferred]
+- 虽然原文给出了工作集与颠簸的定义，但预调页（prepaging）的实现策略与工作集模型的定量关系仍讨论较浅。 ^[inferred]
 - 教材视角与 Linux 实际（四级页表、folio、多级 LRU、memory cgroup 的 per-cgroup LRU）之间还有一层映射需要专门来源补齐。 ^[inferred]
 - 虚拟化场景下的二级地址翻译（EPT/NPT）与 TLB 的交互未涉及。 ^[inferred]
 
@@ -126,3 +136,5 @@ TLB 缓存的失败分两类：页在内存但 TLB 未命中（**软失效**）�
 - [[concepts/linux-memory-management]] — Linux 内存管理具体机制
 - [[concepts/linux-vmcore-analysis]] — 页表结构在崩溃分析中的应用
 - [[concepts/linux-process-scheduling]] — 上下文切换中的地址空间切换
+- `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存与CPU之间的关系.md`（原文：zhuanlan.zhihu.com/p/450505454）
+- `raw/sources/Linux 操作系统/Linux 内存管理/Linux TLB（页表项Cahce）.md`（原文：developer.aliyun.com/article/1479067）

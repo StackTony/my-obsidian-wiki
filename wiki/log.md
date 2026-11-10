@@ -641,3 +641,50 @@ title: Wiki Log
 - [2026-11-09T21:34] CAPTURE type=skills page="skills/swiotlb-troubleshooting" title="swiotlb buffer is full 排查实操手册" sources="conversation:2026-11-09 + raw:Linux meminfo参数详细解释.md(Bounce字段)" pages_created=1
 - 用户确认沉淀（查询回复后主动提议，用户回复"沉淀下吧"）；obsidian-wiki CLI 不可用，index/log/hot 按 CLAUDE.md 格式手工更新；无 manifest 变更（conversation 来源非 raw ingest）
 - 附带修复：无；关联债：summaries/linux-meminfo-params 蒸馏时漏掉 Bounce 字段（已在 hot.md Active Threads 记录）
+
+## [2026-11-10] INGEST | Linux 操作系统目录重组增量（24新+9修改+2重命名+5空占位 → 7新页面 + 30更新）
+
+- [2026-11-10T11:37] INGEST mode=append source_dir="Linux 操作系统" pages_created=7 pages_updated=30（agents更新22 + 跨批次中心补写8处）
+- delta构成（manifest SHA-256比对，等待源文件编辑稳定后冻结快照）：24个新文件、9个修改（重蒸馏）、2个纯重命名（内容哈希逐位一致）、7个旧key失效（改名/转html/移动后由新key替代）、5个0字节空占位（仅登记，无产出）
+- 新建页面（7个）：
+  - concepts/cpu-cache-coherence — CPU读写内存完整路径、cache line与局部性、MESI/MESIF/MOESI协议演进、伪共享与缓存友好编程（CPU Cache一致性+CPU读写内存两文合并）
+  - concepts/memory-barriers — 内存屏障：编译器/CPU重排、Store Buffer/Invalid Queue弱一致性、读/写/全屏障、x86-TSO仅需StoreLoad
+  - concepts/linux-io-models — 五种IO模型、select/poll/epoll对比（红黑树+就绪链表O(1)）、缓存IO vs 直接IO（IO类型+IO多路复用+缓存直接IO三文合并）
+  - concepts/page-cache-vs-buffer-cache — PC(页/逻辑) vs BC(块/物理)：2.4前双重缓存、统一后BC成PC子集（b_page指向）
+  - concepts/linux-dma-mapping — Coherent vs Streaming两类映射、SWIOTLB bounce触发、IOMMU下DMA地址为IOVA（蒸馏自IOMMU六部曲之6）
+  - summaries/pci-bar-dma-space — PCIe驱动四大支柱：枚举/BAR映射/DMA/MSI-X，BAR配置错误为驱动故障最常见根因
+  - summaries/linux-iommu-deep-dive — IOMMU六部曲全文蒸馏：SWIOTLB软件bounce vs Intel VT-d硬件I/O页表、两者互斥、初始化流程、DMA Coherent Mapping（Linux 5.5.4/x86-64）
+- 已有页面更新（agents 22个）：
+  - summaries/linux-meminfo-params — 全量重写：40+字段、MemAvailable三因子、Bounce/SwapCached语义（关闭2026-11-09 CAPTURE记录的Bounce遗漏债）
+  - summaries/linux-tlb-management、summaries/linux-memory-cpu-relationship、concepts/virtual-memory-and-paging、concepts/linux-memory-management（hub：+IOMMU/PC-BC链接）
+  - concepts/linux-io-stack（hub重写：IO生命周期+四大调度器+PC/BC层次，嵌入raw/resources全景图）、summaries/linux-zero-copy-impl、concepts/zero-copy-memory-mapping、summaries/linux-page-cache
+  - concepts/linux-network-stack、summaries/linux-network-protocol-stack-impl（+三张表/ARP/MAC老化/IP分片）
+  - concepts/linux-process-scheduling、summaries/linux-cfs-scheduler-impl
+  - concepts/linux-lock-mechanisms（10→13种锁：+qspinlock/WW Mutex/Tasks RCU；修正Mutex owner编码为低2位）、skills/linux-lock-selection、synthesis/linux-kernel-subsystem-interactions、summaries/linux-rcu-lock（+Tasks RCU行+链表RCU操作）
+  - concepts/linux-device-passthrough（+Intel VT-d IOMMU章节呼应）、skills/swiotlb-troubleshooting（数字获文档级佐证，0.55→0.58）
+- 跨批次中心补写（8处）：swiotlb进阶用法+Bounce观测+DMA/CPU缓存一致性(dma_wmb)；memory-mgmt/io-stack延伸阅读补链接；kernel-debugging +RSS≥PSS≥USS公式；io-debugging +IO调度器查看切换节；network-debugging +ARP/路由三张表排查节；rcu-lock +Tasks RCU表行；linux-page-cache来源补链
+- 矛盾处理：Mutex性能数据修正（mutex 6x/semaphore 8x，原页面反了）；Deadline读FIFO超时500ms vs 5ms标 ^[ambiguous]；sendfile提升50%标 ^[ambiguous]（原文自述未亲测）；radix tree vs xarray标 ^[ambiguous]（不同内核版本口径）
+- 空占位文件处理（5个，Linux MMU/页表/PCIe枚举/BAR映射/DMA传输）：0字节，无内容可蒸馏，manifest登记空产出条目；其SHA-256(e3b0c442...)与3个不相关空文件条目（Ollma/有向无环图/ACL）相同属空输入哈希必然碰撞，非数据损坏——已向用户核实解释；填充内容后哈希变化将触发下次ingest
+- Manifest：移除7个失效key、迁移2个重命名key（中断分类表/中断流程介绍，保留原ingested_at）、写入33内容条目+5占位条目；total_sources_ingested 940→962、total_pages 169→176、total_concepts 82→87、total_summaries 43→45、total_skills 16→17（磁盘重算，修正旧统计遗漏）、last_ingest→2026-11-10
+- 索引/hot更新：index.md 新增7条目（5概念+2摘要）、更新11条既有描述、刷新头部；hot.md 语义快照重写
+- 跳过项：QMD_WIKI_COLLECTION 未设置，按 GUARD 跳过 QMD 刷新
+- 未处理（需用户决策）：manifest 顶层 vault_path 仍为过期旧路径（多次上报）；lint报告的 provenance 漂移72页/provisional提升候选36页不在本次范围
+
+## [2026-11-10] INGEST | Linux IOMMU、SMMU(ARM)技术图解（1新来源 → 4新页面 + 3更新）
+
+- [2026-11-10T14:07] INGEST mode=append source="Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md" pages_created=4 pages_updated=3
+- 来源：知乎图解文章（30.7KB，图为主、正文较少），SHA-256=b323f6f2...；与既有IOMMU六部曲（x86/VT-d视角）互补，补齐ARM SMMU、内核抽象层、Group/Domain、虚拟化地址链四个盲区
+- 新建页面（4个）：
+  - summaries/linux-iommu-smmu-illustrated — 主蒸馏页：IOMMU/MMU对偶、框架五层、SVA、Group/Domain、VFIO、GPA/HVA/HPA链、透传一致性
+  - concepts/linux-iommu-subsystem — 内核统一IOMMU抽象层（屏蔽VT-d/AMD/SMMU差异）、DMA-MAP/IOVA+RCACHE/IO页表/驱动/VFIO五层、SVA共享页表
+  - concepts/iommu-group-domain-isolation — Group=DMA隔离最小单元、domain=页表PGD单元、PCIe BDF标记、PCIe-PCI桥Source Identifier同组案例、VFIO Group/Container、VFIO_IOMMU_MAP_DMA四步
+  - concepts/vm-address-translation-chain — GVA→GPA(虚机页表,遍历经EPT)→HPA(EPT)、HVA两作用(Qemu mmap+KVM_SET_USER_MEMORY_REGION/vm_exit处理)、透通HPA1==HPA2
+- 已有页面更新（3个）：
+  - concepts/linux-device-passthrough — 解决未解问题"VFIO group/container抽象"；补BDF设备级隔离(TLP标记vs早期PCI仲裁无BDF)、Group直通铁律、透传映射一致性章节；provenance→0.60/0.30/0.10，base_confidence 0.58→0.78（5来源重算）
+  - concepts/linux-dma-mapping — 解决未解问题"scatter-gather在IOMMU页表中的处理"（分散物理页聚合映射为连续IOVA区间）；补IOMMU三大作用；base_confidence 0.61→0.78（3来源重算）
+  - summaries/linux-iommu-deep-dive — 引言补多厂商统一抽象层背景（Intel/AMD/ARM SMMU），Domain节点补Group交叉引用
+- 矛盾/存疑处理：源文IOVA映射示例排版残损（"00x100000对应DRAM 0x100000000x10100000"），按size=1MB推定为区间0x0~0x100000→0x10000000~0x10100000，两处标 ^[ambiguous]；SMMU软硬件交互/SVA/SMMU位置三节源文以图为主正文为空，未蒸馏内容记入未解问题
+- 来源限制：原文多节为外部图片（zhimg链接），图片语义未能蒸馏——图解类来源的固有局限，待相关来源补充
+- Manifest：+1内容条目（pages_created=4/pages_updated=3）；total_sources_ingested 962→963、total_pages 176→180、total_concepts 87→90、total_summaries 45→46；JSON经node验证合法
+- 协调记录：与并行会话8b（同日目录重组ingest）互认写入范围，无页面冲突；追踪文件重读后增量追加，未覆盖其条目
+- 跳过项：QMD_WIKI_COLLECTION 未设置，按 GUARD 跳过 QMD 刷新；obsidian-wiki CLI 不可用，追踪文件手工更新

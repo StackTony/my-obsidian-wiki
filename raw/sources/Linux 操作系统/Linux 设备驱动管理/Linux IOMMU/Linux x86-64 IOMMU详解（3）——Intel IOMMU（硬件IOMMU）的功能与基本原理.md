@@ -12,7 +12,7 @@
 1. 了解DMA（直接内存访问）的基本原理。
 2. 了解虚拟内存中的页表机制。
 3. 使用过虚拟机（例如VMWare Workstation）。
-4. 了解SWIOTLB原理（可翻阅本系列[[Linux x86-64 IOMMU详解（二）——SWIOTLB（软件IOMMU）]]）。
+4. 了解SWIOTLB原理（可翻阅本系列[[Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）]]）。
 
 ### 术语汇总
 

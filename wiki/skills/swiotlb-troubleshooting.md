@@ -8,21 +8,28 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-virtio-architecture]]"
     type: related_to
+  - target: "[[summaries/linux-iommu-deep-dive]]"
+    type: derived_from
+  - target: "[[concepts/linux-dma-mapping]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux meminfo参数详细解释.md]
+source_files:
+  - Linux meminfo参数详细解释.md
+  - Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
+  - Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md
 sources:
   - conversation:2026-11-09
 summary: 无IOMMU环境swiotlb buffer is full四步排查：dmesg确认池大小→slots统计分流根因（泄漏/单映射超限/容量不足）→定位guest或宿主机与设备→修复矩阵：扩池/q35机型/驱动升级/dma_debug查泄漏/max_sectors_kb限请求。
 provenance:
-  extracted: 0.70
-  inferred: 0.20
+  extracted: 0.68
+  inferred: 0.22
   ambiguous: 0.10
-base_confidence: 0.55
+base_confidence: 0.58
 lifecycle: draft
 lifecycle_changed: 2026-11-09
 tier: supporting
 created: 2026-11-09
-updated: 2026-11-09
+updated: 2026-11-10
 ---
 
 # swiotlb buffer is full 排查实操手册
@@ -32,7 +39,7 @@ updated: 2026-11-09
 ## 前置条件
 
 - root 权限；可改内核 cmdline（GRUB）并重启——经典 swiotlb 池大小启动即定，改参必须重启
-- 理解 bounce buffering 概念：老设备只能访问低端内存，内核在低端分配临时 buffer 中转，见 `raw/sources/Linux 操作系统/Linux 内存管理/Linux meminfo参数详细解释.md` 的 Bounce 字段一节；IOMMU 的 DMA 地址翻译角色见 [[concepts/linux-device-passthrough]]
+- 理解 bounce buffering 概念：老设备只能访问低端内存，内核在低端分配临时 buffer 中转，见 `raw/sources/Linux 操作系统/Linux 内存管理/Linux meminfo参数详细解释.md` 的 Bounce 字段一节；文档级原理佐证见[[summaries/linux-iommu-deep-dive]]（SWIOTLB用memblock从低地址预留连续物理内存，默认64MB，按2KB粒度切分为slab，io_tlb_list数组管理连续空闲slab，IO_TLB_SEGSIZE=128限制单次映射≤256KB）；IOMMU 的 DMA 地址翻译角色见 [[concepts/linux-device-passthrough]]
 - 先确认环境形态：物理机 / KVM 宿主机 / KVM guest / Hyper-V / Xen——修复路径完全不同
 
 ## 步骤
@@ -44,7 +51,7 @@ cat /proc/cmdline               # 是否已有 swiotlb= 参数
 dmesg | grep -i swiotlb         # boot 打印实际大小："software IO TLB: mapped [mem ...] (64MB)"
 ```
 
-x86_64 默认仅 64MB；不同架构/内核版本默认值与槽位大小有差异，一律以 dmesg 打印为准。^[ambiguous]
+x86_64 默认 64MB（IO_TLB_DEFAULT_SIZE），slab粒度2KB（IO_TLB_SHIFT=11），每段上限128 slab（IO_TLB_SEGSIZE，由x86 PCIe规范每次DMA有效数据≤128字节决定），单次映射≤256KB——文档级佐证见[[summaries/linux-iommu-deep-dive]]。不同架构/内核版本默认值与槽位大小有差异，一律以 dmesg 打印为准。^[ambiguous]
 
 ### 2. 解读报错自带的统计
 
@@ -100,13 +107,21 @@ dmesg | grep -i swiotlb
 ## 进阶用法
 
 - **泄漏 vs 容量的鉴别**：用报错行的 used slots 做趋势监控（周期抓 dmesg），只增不减即泄漏；泄漏场景下扩池只是延长故障间隔，最终要靠 dma_debug 定位驱动 bug
-- **槽位与架构**：x86_64 槽位 2KB、每段 128 槽；ARM64 64K 页内核槽位不同，单段上限随之变化——跨架构现网不能照搬 x86 数字 ^[ambiguous]
-- **池的内存代价**：swiotlb 从启动早期 memblock 预留，扩到 1GB 意味着业务可用内存直接少 1GB；扩池值应基于实测的峰值在途 bounce 量而非拍脑袋 ^[inferred]
+- **槽位与架构**：x86_64 槽位 2KB（IO_TLB_SHIFT=11）、每段 128 槽（IO_TLB_SEGSIZE）；ARM64 64K 页内核槽位不同，单段上限随之变化——跨架构现网不能照搬 x86 数字。文档级佐证：IO_TLB_SEGSIZE=128由x86 PCIe规范（每次DMA有效数据≤128字节）确定，见[[summaries/linux-iommu-deep-dive]] ^[ambiguous]
+- **池的内存代价**：swiotlb 从启动早期 memblock 分配器预留（`memblock_alloc_low` 强制低地址），扩到 1GB 意味着业务可用内存直接少 1GB；扩池值应基于实测的峰值在途 bounce 量而非拍脑袋 ^[inferred]
+- **Coherent Mapping不走swiotlb**：Linux 4.0+ 仅 DMA Streaming Mapping 触发 SWIOTLB，DMA Coherent Mapping 与之无关——排查时若报错伴随大buffer分配，方向应转向 coherent 内存不足而非 swiotlb 池。见[[concepts/linux-dma-mapping]] ^[inferred]
+- **Intel IOMMU启用后swiotlb会被释放**：`intel_iommu_init()` 将 `swiotlb=0` 后 `swiotlb_exit()` 释放整个池——启用IOMMU的环境本不应出现swiotlb buffer full，若出现需检查IOMMU是否真正生效（`dmesg | grep DMAR`）或设备走了identity mapping旁路。见[[summaries/linux-iommu-deep-dive]] ^[inferred]
+- **Bounce 字段可作为压力观测指标**：`/proc/meminfo` 的 Bounce 字段反映 bounce 池占用的低端内存大小，纳入周期监控可提前发现 swiotlb 压力趋势（字段详解见 [[summaries/linux-meminfo-params]]）
+- **DMA 与 CPU 缓存一致性**：设备 DMA 绕过 CPU cache 直接访问内存，CPU 写入的数据可能仍在 Store Buffer/Cache 中未刷回——内核用 `dma_wmb()` 等屏障原语保证数据对设备可见，屏障语义见 [[concepts/memory-barriers]]、[[concepts/cpu-cache-coherence]] ^[inferred]
 
 ## 来源
 
 - conversation:2026-11-09 — 现网"不使用 IOMMU + swiotlb buffer is full"排查咨询（LLM 领域知识综合，版本相关细节已作存疑标注）
 - `raw/sources/Linux 操作系统/Linux 内存管理/Linux meminfo参数详细解释.md` — Bounce 字段一节（bounce buffering 概念与内核内存统计公式）
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — 文档级佐证：SWIOTLB Buffer默认64MB、slab粒度2KB、IO_TLB_SEGSIZE=128、io_tlb_list管理结构、map函数三种行为、swiotlb_bounce→memcpy
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md` — 文档级佐证：物理内存>4GB触发SWIOTLB初始化、Intel IOMMU初始化后swiotlb=0、swiotlb_exit释放池
+- [[summaries/linux-iommu-deep-dive]] — IOMMU六部曲系列摘要（SWIOTLB原理+Intel VT-d初始化竞争时序）
+- [[concepts/linux-dma-mapping]] — DMA Coherent vs Streaming映射类型、IOVA/IOMMU页表
 - [[concepts/linux-device-passthrough]] — IOMMU 的 DMA 翻译与隔离
 - [[concepts/linux-virtio-architecture]] — virtio 设备模型（q35/non-transitional 方案的机制背景）
 - [[skills/virsh-vm-management]] — virsh 查询机型等实操命令

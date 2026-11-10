@@ -3,18 +3,18 @@ title: Linux RCU锁详解
 category: summaries
 tags: [linux, 内核, rcu, 锁, 同步]
 source_dir: Linux 操作系统/Linux 锁机制
-source_files: [Linux RCU锁.md]
+source_files: [Linux RCU锁.md, 1 Linux 锁机制全景介绍.md]
 summary: RCU读零开销哲学：读侧仅preempt_disable约15-30周期、写侧拷贝-修改-替换指针后等宽限期释放旧数据。适用条件：R/W比>100:1。
 provenance:
-  extracted: 0.80
-  inferred: 0.15
+  extracted: 0.78
+  inferred: 0.17
   ambiguous: 0.05
 base_confidence: 0.775
 lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-11-10
 ---
 
 # Linux RCU锁详解
@@ -58,6 +58,9 @@ rcu_read_unlock()  // preempt_enable
 | SRCU | 显式srcu_struct | ✅ | 需要睡眠的路径 |
 | RCU-sched | preempt_disable | ❌ | 调度器路径 |
 | RCU-bh | local_bh_disable | ❌ | 网络softirq |
+| Tasks RCU | rcu_read_lock_trace() 标记 | ✅（以自愿上下文切换为宽限期边界） | BPF trampoline 等无法用传统抢占/bh原语划界的路径 ^[inferred] |
+
+链表RCU操作模式：`list_add_rcu()`/`list_del_rcu()` 写侧无锁插入删除，`list_for_each_entry_rcu()` 读侧安全遍历（配合宽限期回收延迟释放旧节点）——见 [[concepts/linux-lock-mechanisms]]。
 
 ### 适用条件
 

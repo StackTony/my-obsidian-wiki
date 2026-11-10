@@ -16,15 +16,15 @@ source_dir: Linux 操作系统/Linux 进程调度
 source_files: [Linux 进程调度器.md, Linux 进程调度策略.md, Linux CFS调度器.md, Linux 完全公平调度器CFS.md]
 summary: Linux内核进程调度：CFS用红黑树按vruntime选下一个进程，五个调度类(stop>dl>rt>fair>idle)决定优先级层级，实时进程绝对优先于普通进程，六种调度策略覆盖不同场景。
 provenance:
-  extracted: 0.72
-  inferred: 0.22
+  extracted: 0.74
+  inferred: 0.20
   ambiguous: 0.06
-base_confidence: 0.77
+base_confidence: 0.78
 lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-10-21
+updated: 2026-11-10
 ---
 
 # Linux进程调度
@@ -33,7 +33,7 @@ Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核
 
 ### 重要说明
 
-早期来源仅约3.5KB，内容稀疏；本次 ingest 补入两篇 CFS 源码分析（`Linux CFS调度器.md`、`Linux 完全公平调度器CFS.md`），补齐了 vruntime 换算公式、调度周期/粒度、`cfs_rq`/`sched_class` 结构与调度类优先级体系，置信度由 0.538 提升至 0.77。实现层细节见 [[summaries/linux-cfs-scheduler-impl]]。
+早期来源（`Linux 进程调度器.md`、`Linux 进程调度策略.md`）约 3.5KB，内容稀疏；2026-10-21 补入两篇 CFS 源码分析后补齐了核心体系。2026-11-10 重蒸馏核对来源最新修改，补充了调度类 `next` 链表遍历机制、调度粒度内不可抢占保证、CFS 对 CPU/IO 消耗型进程的统一处理、主调度器与周期调度器双触发路径等细节。实现层细节见 [[summaries/linux-cfs-scheduler-impl]]。
 
 ## 核心观点
 
@@ -52,6 +52,7 @@ Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核
 - 不使用固定时间片，而是通过vruntime追踪每个进程已获得的"加权CPU时间"
 - 目标：让所有进程的vruntime尽可能接近——越接近越"公平"
 - 实现：红黑树按键vruntime排序，O(log n)插入和查找最小值
+- CFS不区分CPU消耗型进程还是IO消耗型进程，统一采用红黑树管理所有调度实体
 
 **vruntime 计算**：
 - `vruntime += 实际运行时间 × (NICE_0_LOAD / 进程权重)`
@@ -65,6 +66,17 @@ Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核
 3. 如果当前进程的vruntime不再是红黑树中最小的，或已运行超过ideal_runtime
 4. 触发抢占：选择红黑树中vruntime最小的进程投入运行
 
+### 主调度器与周期调度器
+
+Linux 调度器有两个触发入口：
+
+| 调度器 | 触发方式 | 典型场景 | 入口函数 |
+|--------|----------|----------|----------|
+| 主调度器 | 进程主动让出 CPU | 阻塞、睡眠、`sched_yield()` | `schedule()` |
+| 周期调度器 | 固定频率自动调用 | 时钟中断定期检查运行时间 | `scheduler_tick()` → `task_tick()` |
+
+主调度器负责进程主动放弃 CPU 时的切换；周期调度器根据进程运行时间判断是否需要触发抢占。二者最终都通过调度类的接口完成进程选择和上下文切换。
+
 ### 调度类与优先级体系
 
 调度器的第一层判断不是"哪个进程优先级高"，而是"哪个**调度类**有活干"：
@@ -72,6 +84,8 @@ Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核
 ```
 stop_sched_class > dl_sched_class > rt_sched_class > fair_sched_class > idle_sched_class
 ```
+
+调度类通过 `sched_class` 结构体中的 `next` 指针串成链表。调度核心选择下一个 task 时，按优先级顺序遍历各调度类的 `pick_next_task` 函数，只有高优先级类无可运行任务时才会落到下一层。
 
 | 调度类 | 负责的策略 | 说明 |
 |--------|-----------|------|
@@ -132,6 +146,8 @@ vruntime = runtime × nice_0_weight / weight        # nice_0_weight = 1024
 | 多 CPU | × (1 + log2(ncpus)) | 同样放大 |
 
 8 核机器：粒度 = 0.75 ms × (1 + log2 8) = 3 ms，调度周期 = 6 ms × 4 = 24 ms。 ^[inferred]
+
+**粒度内不可抢占保证**：在调度粒度时间内，进程是不能被抢占的。这确保每个被选中的进程至少能运行一个粒度周期，避免过于频繁的上下文切换。
 
 **核心数据结构**：
 

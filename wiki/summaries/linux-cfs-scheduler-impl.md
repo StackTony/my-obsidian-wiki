@@ -7,15 +7,15 @@ source_dir: Linux 操作系统/Linux 进程调度
 source_files: [Linux CFS调度器.md, Linux 完全公平调度器CFS.md]
 summary: CFS实现细节：vruntime与权重换算公式、调度周期/延迟(6ms与0.75ms粒度、多核×(1+log2(ncpus)))、rq/cfs_rq/task_group/sched_entity数据结构、五个调度类优先级顺序、六种调度策略枚举与关键函数流程。
 provenance:
-  extracted: 0.80
-  inferred: 0.15
+  extracted: 0.82
+  inferred: 0.13
   ambiguous: 0.05
-base_confidence: 0.608
+base_confidence: 0.625
 lifecycle: draft
 lifecycle_changed: 2026-10-21
 tier: supporting
 created: 2026-10-21
-updated: 2026-10-21
+updated: 2026-11-10
 ---
 
 # Linux CFS调度器实现
@@ -125,6 +125,12 @@ stop_sched_class > dl_sched_class > rt_sched_class > fair_sched_class > idle_sch
 | `task_tick_fair()` | 时钟中断驱动的周期性检查 |
 | `yield_task_fair()` | 打 `skip` 标记并把实体放回红黑树**最右端** |
 | `put_prev_task_fair()` | 若前一实体仍为 `TASK_RUNNING`，重新插入红黑树最右端 |
+
+**`pick_next_task_fair` 流程细节**：当前一任务（prev_task）不属于 CFS 调度类时，走 simple 分支，调用 `put_prev_task` 通知系统任务切换；当 prev_task 属于 CFS 时，调用 `pick_next_entity` 选择下一个实体——若实体对应 task 则 do-while 遍历一次，若对应 `task_group` 则遍历任务组。之后 `put_prev_entity` 做切换前准备（更新统计、`curr` 置 NULL），`set_next_entity` 设置下一个运行实体（设置 `curr` 指针），若启用了 hrtimer 则将到期时间设为该实体剩余运行时间。
+
+**`yield_task` 快速路径**：当 `nr_running == 1` 时直接返回，`schedule` 不产生上下文切换；否则标记 `skip` 状态，调度器在红黑树选任务时跳过该实体。
+
+**Wakeup Preemption**：`check_preempt_curr` 在任务入队后检查是否应抢占当前运行任务，CFS 在调度延迟满足与任务运行时间保证之间取舍，提供预定义 Threshold 调优。
 
 ### 主调度器 vs 周期调度器
 

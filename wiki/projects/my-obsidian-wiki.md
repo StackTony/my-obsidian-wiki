@@ -4,7 +4,7 @@ category: projects
 tags: [obsidian, wiki, 知识管理, llm]
 aliases: [本vault, my-obsidian-wiki]
 sources: [projects/my-obsidian-wiki]
-summary: 本 vault 自身的项目知识枢纽：Karpathy 式 LLM wiki（raw/wiki/schema 三层），2026-06-01 经 wiki-setup 诞生，11 个知识域、940 来源、169 页；架构决策索引、运营模式、git 备份流与待办债务。
+summary: 本 vault 自身的项目知识枢纽：Karpathy 式 LLM wiki（raw/wiki/schema 三层），2026-06-01 经 wiki-setup 诞生，11 个知识域、963 来源、180 页；架构决策索引、运营模式、git 备份流与待办债务。
 provenance:
   extracted: 0.70
   inferred: 0.27
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-11-09
 tier: supporting
 created: 2026-11-09
-updated: 2026-11-09
+updated: 2026-11-10
 relationships:
   - target: "[[concepts/linux-os-virtualization-landscape]]"
     type: related_to
@@ -28,7 +28,7 @@ relationships:
 
 - **定位**：基于 obsidian-wiki 框架的 Karpathy 式 LLM wiki，老板的知识第二大脑——LLM 负责所有整理维护（写 `wiki/`），人类是产品经理和审核者。
 - **诞生**：2026-06-01 经 `/wiki-setup` 初始化（首日即执行过 rebuild，快照存于 `wiki/_archives/2026-06-01-rebuild/`）。
-- **规模快照**（2026-11-09）：11 个知识域、940 个已 ingest 来源、169 个 wiki 页面、66 个 git 提交。
+- **规模快照**（2026-11-10）：11 个知识域、963 个已 ingest 来源、180 个 wiki 页面、69 个 git 提交。
 - **仓库**：GitHub `StackTony/my-obsidian-wiki`；工作流为定期"vault backup"全量提交 + remote 推送。
 - **双重身份**：既是知识库，又是 Obsidian 沉浸式主页——根目录 `dashboard.md` 定义沉浸式面板（快捷操作/天气/倒数日/音乐卡片），`.dashboard-backup/` 存面板配置备份。
 

@@ -73,6 +73,7 @@ relationships:
 **关键公式：**
 - Page Cache = Buffers + Cached + SwapCached = Active(file) + Inactive(file) + Shmem + SwapCached
 - Active(anon) + Inactive(anon) ≈ AnonPages + Shmem
+- 进程内存口径：RSS ≥ PSS ≥ USS（PSS按共享页均摊，是容器/多进程内存对账的推荐口径）——三种统计口径（LRU口径/Page Cache口径/RSS+PSS口径）的完整推导见 [[summaries/linux-meminfo-params]]
 
 **HugePages 相关：**
 - `echo 128 > /proc/sys/vm/nr_hugepages` — 预分配128个2MB大页

@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-10-21
+updated: 2026-11-10
 relationships:
   - target: "[[concepts/kafka-architecture]]"
     type: uses
@@ -84,6 +84,8 @@ ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
 
 **结果：2次DMA拷贝 + 2次上下文切换，CPU零拷贝。**
 
+sendfile 相对传统 I/O 可将网络数据 I/O 性能提高 50% 以上（原文声称，未亲测）。 ^[ambiguous]
+
 逐步推导与内核数据结构关系见 [[summaries/linux-zero-copy-impl]]。
 
 ### sendfile()限制
@@ -121,6 +123,15 @@ Linux 4.13引入内核TLS，配合sendfile()数据在内核加密后DMA发送到
 不是严格零拷贝，但消除"内核缓冲区→用户缓冲区"的CPU拷贝：
 - **结果**：3次拷贝（2次DMA + 1次CPU），比传统路径少1次CPU拷贝
 - 用户指针直接指向页缓存数据，无需`read()`系统调用
+
+### mmap()内部机制（请求页面）
+
+mmap 采用请求页面机制实现延迟加载：
+
+1. 应用程序调用 `mmap()` → 内核调用 `dommappgoff()` → 从地址空间分配区域，用 VMA（vm_area_struct）代表 → 返回用户态
+2. 应用程序访问映射地址时虚实映射尚未建立 → 触发**缺页中断**
+3. 内核通过 VMA 判断为文件映射 → 调用具体文件系统接口读入 Page Cache 项 → 填写虚实映射表
+4. 此后应用程序正常访问该内存区域
 
 ### mmap()优势
 1. 随机访问高效（指针偏移即可，无需lseek+read）
@@ -215,4 +226,4 @@ Kafka零拷贝失效场景：
 - [[concepts/linux-io-stack]] — 数据从文件系统到网卡经过的内核层次
 - [[concepts/linux-memory-management]] — Page Cache 与用户态缓冲区的内存侧机制
 - `raw/sources/消息队列/零拷贝与内存映射-数据搬运极致优化.md` — 工具组选型视角
-- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux 零拷贝（Zero-Copy）.md`（原文：zhuanlan.zhihu.com/p/430848775）
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/2 Linux IO零拷贝（Zero-Copy）技术.md`（原文：zhuanlan.zhihu.com/p/430848775）

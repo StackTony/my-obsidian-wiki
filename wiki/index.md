@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-11-09
+updated: 2026-11-10
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-09 (Capture：swiotlb buffer is full 排查实操手册，DMA/swiotlb 域首个页面)*
+*自动维护。上次更新：2026-11-10 (Ingest：Linux IOMMU、SMMU(ARM)技术图解——新增IOMMU子系统/SMMU、Group-Domain隔离、VM地址转换链、图解综述4页，更新直通/DMA映射/IOMMU六部曲3页)*
 
 ## Summaries (数据结构与算法)
 
@@ -18,10 +18,10 @@ updated: 2026-11-09
 
 - [linux-softirq-detail](summaries/linux-softirq-detail.md) — Linux软中断完整实现：注册与raise触发、__do_softirq预算控制、ksoftirqd兜底、tasklet串行保证与临界区保护选择 — `linux` `kernel` `softirq` `interrupt` `ksoftirqd`
 - [linux-fs-mount-process](summaries/linux-fs-mount-process.md) — mount系统调用逐函数分析：mountpoint/mount/vfsmount三结构体、do_mount五分支、vfs_kern_mount+do_add_mount两步挂载 — `linux` `内核` `mount` `VFS` `文件系统`
-- [linux-meminfo-params](summaries/linux-meminfo-params.md) — /proc/meminfo各字段含义与关系：内存黑洞、LRU分类、HugePages与THP区别、关键公式 — `linux` `kernel` `memory` `meminfo` `page-cache`
-- [linux-page-cache](summaries/linux-page-cache.md) — Page Cache机制：基数树结构、预读算法、Write Through与Write Back一致性、Dirty page回写 — `linux` `kernel` `page-cache` `file-io` `memory`
+- [linux-meminfo-params](summaries/linux-meminfo-params.md) — /proc/meminfo 40+字段全景：MemAvailable三因子估算、内存黑洞、LRU五类、HugePages与THP、Slab/SReclaimable、Bounce/SwapCached语义 — `linux` `kernel` `memory` `meminfo` `page-cache`
+- [linux-page-cache](summaries/linux-page-cache.md) — Page Cache机制：基数树/XArray组织、预读窗口算法、Write Back一致性、Dirty page回写与丢失问题、Buffered/Direct IO选择 — `linux` `kernel` `page-cache` `file-io` `memory`
 - [linux-network-protocol-stack-impl](summaries/linux-network-protocol-stack-impl.md) — Linux网络协议栈收发路径、sk_buff零拷贝机制与NAPI接收模型 — `linux` `kernel` `network` `tcp` `ip` `sk_buff` `protocol-stack`
-- [linux-rcu-lock](summaries/linux-rcu-lock.md) — RCU读零开销哲学：宽限期机制、Tree RCU分层检测、SRCU可睡眠变体与适用条件 — `linux` `kernel` `rcu` `lock` `synchronization`
+- [linux-rcu-lock](summaries/linux-rcu-lock.md) — RCU读零开销哲学：宽限期机制、Tree RCU分层检测、五种变体(含Tasks RCU)与链表RCU操作、R/W比适用条件 — `linux` `kernel` `rcu` `lock` `synchronization`
 - [gdb-common-commands](summaries/gdb-common-commands.md) — hellogcc/100-gdb-tips整理的GDB常用命令速查：断点/观察点/执行控制/内存查看/多线程/多进程/TUI — `linux` `gdb` `调试` `命令速查`
 - [linux-task-struct-mm-struct](summaries/linux-task-struct-mm-struct.md) — task→mm→VMA→pgd四级链式结构、多线程共享mm、内核线程active_mm借用机制 — `linux` `内核` `task_struct` `mm_struct` `进程` `内存`
 - [crash-vmcore-analysis](summaries/crash-vmcore-analysis.md) — crash工具分析vmcore的基本操作：bt/struct/dis/rd/kmem常用命令、时间戳转换 — `linux` `vmcore` `crash` `崩溃分析`
@@ -39,6 +39,9 @@ updated: 2026-11-09
 - [linux-zero-copy-impl](summaries/linux-zero-copy-impl.md) — 零拷贝机制推导：CPU COPY vs DMA COPY分工、read+send四次拷贝/四次上下文切换、sendfile(2.1)三次拷贝、sendfile+SG-DMA(2.4)零CPU拷贝 — `linux` `零拷贝` `sendfile` `DMA` `性能优化`
 - [linux-cfs-scheduler-impl](summaries/linux-cfs-scheduler-impl.md) — CFS实现细节：vruntime换算公式、调度周期/粒度(6ms与0.75ms、多核×(1+log2(ncpus)))、rq/cfs_rq/sched_entity结构、五个调度类优先级与六种策略枚举 — `linux` `内核` `调度器` `CFS` `vruntime`
 - [kernel-devmem-register-access](summaries/kernel-devmem-register-access.md) — devmem命令用法与/dev/mem依赖、内核配置项、open+mmap映射物理地址的实现原理——无需写驱动即可验证寄存器行为 — `linux` `内核调试` `devmem` `寄存器` `物理地址`
+- [pci-bar-dma-space](summaries/pci-bar-dma-space.md) — PCIe驱动四大支柱：设备枚举(BIOS扫描配置空间)、BAR空间映射(ioremap)、DMA传输、MSI-X中断；BAR配置错误是驱动故障最常见根因 — `linux` `pcie` `bar` `dma` `驱动`
+- [linux-iommu-deep-dive](summaries/linux-iommu-deep-dive.md) — IOMMU六部曲：SWIOTLB软件bounce(memcpy)与Intel VT-d硬件I/O页表重映射互斥、初始化流程、DMA Coherent Mapping实践(Linux 5.5.4/x86-64) — `linux` `iommu` `vt-d` `swiotlb` `dma`
+- [linux-iommu-smmu-illustrated](summaries/linux-iommu-smmu-illustrated.md) — IOMMU/SMMU图解综述：IOMMU与MMU对偶、内核框架五层、ARM SMMU、SVA共享页表、Group/Domain、VFIO MAP_DMA、GPA/HVA/HPA地址链与透传一致性 — `linux` `IOMMU` `SMMU` `虚拟化` `ARM`
 
 ## Entities (Linux)
 
@@ -54,11 +57,11 @@ updated: 2026-11-09
 - [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断全景：同步/异步四维分类、IRQ/softirq两阶段设计、三种延迟机制、GIC组件与irq_domain映射、ksoftirqd、SMP IRQ Affinity — `linux` `kernel` `interrupt` `irq` `softirq`
 - [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、LRU与Write策略，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
 - [virtual-memory-and-paging](concepts/virtual-memory-and-paging.md) — 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(PCID/ASID与shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优) — `linux` `内存` `虚拟内存` `分页` `页面置换`
-- [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈：五层IO架构、IO调度器、设备发现与gendisk结构、hctx tags busy值IO阻塞确认，向下衔接L5硬件层SSD介质语义(TRIM)与PCIe链路 — `linux` `kernel` `io` `block` `scheduler`
+- [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈全景：VFS→Block→SCSI五层架构、IO生命周期与下发流程、四大IO调度器、Page/Buffer Cache缓存层次、hctx tags busy阻塞确认，向下衔接SSD介质语义与PCIe链路 — `linux` `kernel` `io` `block` `scheduler`
 - [linux-fs-mount](concepts/linux-fs-mount.md) — 文件系统与Mount机制：mount/mountpoint/vfsmount三大结构+sys_mount五分支+do_new_mount两步挂载+lookup_mnt穿越挂载点 — `linux` `内核` `mount` `VFS` `文件系统`
 - [linux-boot-shutdown](concepts/linux-boot-shutdown.md) — Linux启动与关机：10步启动流程、关机多子系统协调、systemd与架构差异 — `linux` `kernel` `boot` `shutdown` `systemd`
-- [linux-network-stack](concepts/linux-network-stack.md) — Linux网络栈：TCP/IP四层模型、三张核心表、sk_buff零拷贝、NAPI混合模式 — `linux` `kernel` `network` `tcp` `ip` `sk_buff`
-- [linux-lock-mechanisms](concepts/linux-lock-mechanisms.md) — Linux内核同步机制的完整框架：从Spinlock到RCU的演进与选择指南 — `linux` `kernel` `synchronization` `lock` `spinlock` `mutex` `rcu`
+- [linux-network-stack](concepts/linux-network-stack.md) — Linux网络栈：TCP/IP四层模型、ARP/MAC/路由三张表与MAC老化、IP分片与PMTU、sk_buff零拷贝、NAPI混合模式 — `linux` `kernel` `network` `tcp` `ip` `sk_buff`
+- [linux-lock-mechanisms](concepts/linux-lock-mechanisms.md) — Linux内核13种同步机制全景：qspinlock/Mutex/信号量/读写锁/WW Mutex/seqlock/RCU等演进与选择指南 — `linux` `kernel` `synchronization` `lock` `spinlock` `mutex` `rcu`
 - [linux-namespace-cgroups](concepts/linux-namespace-cgroups.md) — Linux内核资源隔离双引擎：Namespace实现视图隔离，Cgroups实现资源限制 — `linux` `kernel` `namespace` `cgroups` `container` `isolation`
 - [linux-process-scheduling](concepts/linux-process-scheduling.md) — Linux内核进程调度核心：CFS的vruntime红黑树机制、五个调度类优先级体系(stop>dl>rt>fair>idle)与六种调度策略 — `linux` `kernel` `scheduler` `CFS` `process` `scheduling`
 - [linux-system-v-ipc](concepts/linux-system-v-ipc.md) — System V IPC三大机制：信号量集合、共享内存、消息队列的原理与API — `linux` `ipc` `semaphore` `shared-memory` `message-queue` `system-v`
@@ -66,23 +69,31 @@ updated: 2026-11-09
 - [linux-cpu-performance-analysis](concepts/linux-cpu-performance-analysis.md) — CPU性能分析三大场景：perf采样/kvmtop VM-Exit/%ST抢占率 — `linux` `cpu` `性能分析` `虚拟化` `perf`
 - [linux-vmcore-analysis](concepts/linux-vmcore-analysis.md) — vmcore崩溃转储分析：crash工具、x86/ARM64寄存器、task/mm结构体、栈回溯，辅以devmem在线读写寄存器 — `linux` `vmcore` `crash` `崩溃分析` `寄存器`
 - [linux-io-performance-analysis](concepts/linux-io-performance-analysis.md) — IO性能分析：iostat监控/fio压测/dd测速/blktrace追踪/block_dump日志 — `linux` `io` `性能分析` `iostat` `fio`
+- [cpu-cache-coherence](concepts/cpu-cache-coherence.md) — CPU读写内存完整路径(寄存器→L1/L2/L3→内存)、cache line与局部性原理、MESI/MESIF/MOESI缓存一致性协议演进、伪共享与缓存友好编程 — `linux` `cpu` `cache` `mesi` `缓存一致性`
+- [memory-barriers](concepts/memory-barriers.md) — 内存屏障：编译器重排与CPU乱序执行、Store Buffer/Invalid Queue引入弱缓存一致性、读/写/全屏障精细控制、x86-TSO仅需StoreLoad屏障 — `linux` `内存屏障` `x86-tso` `store-buffer` `乱序执行`
+- [linux-io-models](concepts/linux-io-models.md) — 五种IO模型、select/poll/epoll对比(epoll红黑树+就绪链表O(1))、缓存IO vs 直接IO(O_DIRECT绕过Page Cache) — `linux` `io` `epoll` `多路复用` `direct-io`
+- [page-cache-vs-buffer-cache](concepts/page-cache-vs-buffer-cache.md) — Page Cache(页/逻辑层)与Buffer Cache(块/物理层)：2.4前双重缓存问题、统一后buffer_head的b_page指向Page Cache页、Buffer Cache成为子集 — `linux` `page-cache` `buffer-cache` `缓存` `内核`
+- [linux-dma-mapping](concepts/linux-dma-mapping.md) — DMA映射两类：Coherent(一致性/长期映射)与Streaming(流式/按需map，可触发SWIOTLB bounce)；Intel IOMMU启用后DMA地址为IOVA经I/O页表翻译；IOMMU可把分散物理页聚合为连续IOVA — `linux` `dma` `iommu` `iova` `内存`
+- [linux-iommu-subsystem](concepts/linux-iommu-subsystem.md) — Linux内核统一IOMMU抽象层：屏蔽Intel VT-d/AMD/ARM SMMU差异；框架五层(DMA-MAP API/IOVA+RCACHE/IO页表/驱动回调/VFIO接口)；SVA让CPU与设备共享页表 — `linux` `IOMMU` `SMMU` `ARM` `内核`
 
 ## Concepts (Linux 虚拟化)
 
 - [linux-virtio-architecture](concepts/linux-virtio-architecture.md) — Virtio半虚拟化IO框架：前后端分离+四种架构演进(传统→vhost→vhost-user→vDPA) — `linux` `虚拟化` `virtio` `IO虚拟化` `半虚拟化`
 - [linux-interrupt-virtualization](concepts/linux-interrupt-virtualization.md) — 中断虚拟化三种场景：物理设备中断→vCPU、虚拟外设中断→vCPU、Guest IPI — `linux` `虚拟化` `中断` `VGIC` `KVM`
-- [linux-device-passthrough](concepts/linux-device-passthrough.md) — 设备直通三大技术：IOMMU(DMA翻译+隔离)、SR-IOV(PF/VF)、VFIO(用户态驱动) — `linux` `虚拟化` `直通` `IOMMU` `SR-IOV` `VFIO`
+- [linux-device-passthrough](concepts/linux-device-passthrough.md) — 设备直通三大技术：IOMMU(Intel VT-d DMA重映射+隔离，PCIe TLP以BDF标记设备)、SR-IOV(PF/VF)、VFIO(用户态驱动，Group/Container)；透通要求EPT与IOMMU映射一致 — `linux` `虚拟化` `直通` `IOMMU` `SR-IOV` `VFIO`
+- [iommu-group-domain-isolation](concepts/iommu-group-domain-isolation.md) — IOMMU Group是DMA隔离最小硬件单元(同组共享domain页表PGD，须整体直通)；PCIe-PCI桥下游共享Source Identifier被迫同组；VFIO_IOMMU_MAP_DMA四步映射流程 — `linux` `IOMMU` `VFIO` `隔离` `虚拟化`
+- [vm-address-translation-chain](concepts/vm-address-translation-chain.md) — 虚拟化四层地址空间：GVA→GPA(虚机页表，遍历本身经EPT)→HPA(EPT)；HVA由Qemu mmap+KVM_SET_USER_MEMORY_REGION桥接；设备透传要求HPA1(EPT)==HPA2(IOMMU) — `linux` `虚拟化` `EPT` `KVM` `内存`
 
 ## Skills (Linux 操作系统)
 
-- [linux-kernel-debugging](skills/linux-kernel-debugging.md) — 内核各子系统监控命令、常见问题排查路径与调试技巧：softirq/meminfo/Page Cache/IO/关机/cgroup/IPC — `linux` `内核` `调试` `监控` `性能分析`
-- [swiotlb-troubleshooting](skills/swiotlb-troubleshooting.md) — 无IOMMU环境swiotlb buffer is full排查：slots统计分流根因（泄漏/单映射超限/容量不足）+修复矩阵（扩池/q35机型/驱动升级/dma_debug/max_sectors_kb） — `linux` `kernel` `DMA` `swiotlb` `调试`
+- [linux-kernel-debugging](skills/linux-kernel-debugging.md) — 内核各子系统监控命令与排查路径：softirq/meminfo(RSS≥PSS≥USS)/Page Cache/IO/关机/cgroup/IPC — `linux` `内核` `调试` `监控` `性能分析`
+- [swiotlb-troubleshooting](skills/swiotlb-troubleshooting.md) — swiotlb buffer is full排查：slots统计分流根因+修复矩阵（扩池/q35/dma_debug），meminfo Bounce字段观测与IOMMU互斥关系 — `linux` `kernel` `DMA` `swiotlb` `调试`
 - [linux-ipc-programming](skills/linux-ipc-programming.md) — System V IPC三大机制C编程实操：信号量集合+共享内存+消息队列的API速查与demo — `linux` `ipc` `编程` `信号量` `共享内存` `消息队列`
 - [linux-lock-selection](skills/linux-lock-selection.md) — 内核锁类型选择决策树与API速查：Spinlock/Mutex/RCU等10种锁的适用场景与常见陷阱 — `linux` `内核` `锁` `spinlock` `mutex` `rcu` `同步`
 - [linux-kernel-tracing](skills/linux-kernel-tracing.md) — 内核追踪实操手册：ftrace函数追踪→kprobe动态探针→perf事件采样→火焰图可视化四类场景 — `linux` `内核` `tracing` `ftrace` `kprobe` `perf` `火焰图`
 - [linux-vmcore-debugging](skills/linux-vmcore-debugging.md) — vmcore崩溃分析实操：crash加载→堆栈回溯→寄存器解读→结构体分析→崩溃类型识别 — `linux` `vmcore` `crash` `崩溃分析` `寄存器` `内核调试`
-- [linux-io-debugging](skills/linux-io-debugging.md) — IO性能排查与压测实操：iostat→fio→dd→blktrace→block_dump四步流程+SSD TRIM确认启用 — `linux` `io` `iostat` `fio` `blktrace` `dd` `性能分析`
-- [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包+iperf打流+Bonding调试日志开启 — `linux` `网络` `tcpdump` `iperf` `bonding`
+- [linux-io-debugging](skills/linux-io-debugging.md) — IO性能排查与压测实操：iostat→fio→dd→blktrace→block_dump四步流程+SSD TRIM确认+IO调度器查看切换 — `linux` `io` `iostat` `fio` `blktrace` `dd` `性能分析`
+- [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包+iperf打流+Bonding调试日志+ARP/路由三张表排查 — `linux` `网络` `tcpdump` `iperf` `bonding`
 - [gdb-debugging-guide](skills/gdb-debugging-guide.md) — GDB调试实操速查：断点/观察点/执行控制/内存查看/多线程/多进程/Core Dump/QEMU调试 — `linux` `gdb` `调试` `QEMU` `断点` `观察点`
 
 ## Skills (Linux 虚拟化)

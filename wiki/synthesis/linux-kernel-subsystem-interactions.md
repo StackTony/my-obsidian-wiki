@@ -3,7 +3,7 @@ title: Linux内核子系统交互全景
 category: synthesis
 tags: [linux, 内核, 子系统交互, preempt_count, softirq, page-cache, 锁]
 source_dir: Linux 操作系统
-source_files: ["Linux 中断系统/Linux 硬中断 irq + 软中断 softirq原理.md", "Linux 中断系统/Linux 软中断 softirq.md", Linux 内存管理/Linux meminfo参数详细解释.md, "Linux 内存管理/Linux 页缓存 Page Cache.md", Linux 内核 IO 栈/Linux IO全景介绍.md, "Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md", Linux 网络/Linux 网络协议栈.md, Linux 资源隔离/Linux Namespace与Cgroups介绍.md, "Linux 资源隔离/System V IPC/Linux Namespace  -  IPC.md", Linux 进程调度/Linux 进程调度器.md", Linux 锁机制/Linux 锁机制全景介绍.md, Linux 锁机制/Linux SpinLock锁.md, Linux 锁机制/Linux Mutex锁.md, Linux 锁机制/Linux RCU锁.md]
+source_files: ["Linux 中断系统/Linux 硬中断 irq + 软中断 softirq原理.md", "Linux 中断系统/Linux 软中断 softirq.md", Linux 内存管理/Linux meminfo参数详细解释.md, "Linux 内存管理/Linux 页缓存 Page Cache.md", Linux 内核 IO 栈/Linux IO全景介绍.md, "Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md", Linux 网络/Linux 网络协议栈.md, Linux 资源隔离/Linux Namespace与Cgroups介绍.md, "Linux 资源隔离/System V IPC/Linux Namespace  -  IPC.md", "Linux 进程调度/Linux 进程调度器.md", "Linux 锁机制/1 Linux 锁机制全景介绍.md", Linux 锁机制/Linux SpinLock锁.md, Linux 锁机制/Linux Mutex锁.md, Linux 锁机制/Linux RCU锁.md]
 summary: Linux内核六大子系统交互机制：preempt_count统一上下文追踪、softirq跨子系统延迟分发、Page Cache作为IO/内存/文件系统交汇点、锁机制作为跨上下文协调原语、关机作为终极子系统协调测试、Namespace+Cgroup互补容器原语。
 provenance:
   extracted: 0.70
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-06-13
+updated: 2026-11-10
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: extends
@@ -120,16 +120,23 @@ IPC(共享内存) ── tmpfs实现 ← Page Cache
 | Spinlock | ✅ | ✅ | ✅(需_irqsave) | 调度器(preempt_disable) |
 | Mutex | ✅ | ❌ | ❌ | 调度器(schedule睡眠) |
 | RCU(读) | ✅ | ✅ | ✅ | 调度器(preempt_disable) |
+| WW Mutex | ✅ | ❌ | ❌ | GPU/DRM子系统 |
 
-**Spinlock 的双重职责**：锁提供**跨核互斥**（保护数据），irqsave 提供**同核防递归死锁**（禁用中断防止ISR在同CPU再次获取）。一个 API 同时解决了跨子系统(锁+中断)和同子系统(并发+递归)的问题 ^[inferred]。
+**Spinlock 的双重职责**：锁提供**跨核互斥**（保护数据），irqsave 提供**同核防递归死锁**（禁用本地中断防止ISR在同CPU再次获取）。一个 API 同时解决了跨子系统(锁+中断)和同子系统(并发+递归)的问题 ^[inferred]。
 
-**Mutex 依赖 Spinlock**：`struct mutex { spinlock_t wait_lock; }`——Mutex 内部用 Spinlock 保护等待队列，锁之间形成依赖链 ^[inferred]。
+**锁与内存屏障子系统的耦合**：Spinlock 的 acquire/release 隐含 acquire/release 屏障语义，保证跨核可见性——锁不只是调度原语，也是[[concepts/memory-barriers|内存屏障]]的使用者。qspinlock 的 MCS 队列通过 `atomic_try_cmpxchg_acquire`/`atomic_set_release` 实现屏障，避免缓存行争用——锁、屏障、[[concepts/cpu-cache-coherence|缓存一致性]]三者构成跨子系统底座 ^[inferred]。
+
+**Mutex 依赖 Spinlock**：`struct mutex { spinlock_t wait_lock; ... struct optimistic_spin_queue osq; }`——Mutex 内部用 Spinlock 保护等待队列，用 osq 做乐观自旋，锁之间形成依赖链 ^[inferred]。
+
+**RT Mutex 连接锁与红黑树**：`struct rt_mutex { raw_spinlock_t wait_lock; struct rb_root_cached waiters; }`——等待者用红黑树按优先级排序，锁状态直接操作数据结构子系统 ^[inferred]。
 
 **Priority Inheritance 跨子系统影响**：rt_mutex 的优先级继承暂时修改调度器优先级——锁状态直接改变了调度行为 ^[inferred]。
 
-**PREEMPT_RT 的全局影响**：Spinlock 在 RT 内核下变为 rt_mutex（可睡眠锁），根本性地改变了中断/软中断/进程三个子系统的锁交互模式 ^[inferred]。
+**WW Mutex 连接锁与 GPU/DRM 子系统**：Wound-Wait 事务锁专门为 GPU/图形驱动的多锁获取设计，通过 `ww_acquire_ctx` 解决无序锁获取死锁——锁机制为特定子系统定制 ^[inferred]。
 
-→ [[concepts/linux-lock-mechanisms]]、[[concepts/linux-interrupt-system]]、[[concepts/linux-process-scheduling]]
+**PREEMPT_RT 的全局影响**：Spinlock 在 RT 内核下变为 rt_mutex（可睡眠锁），raw_spinlock 豁免（调度器/中断核心仍用真忙等），根本性地改变了中断/软中断/进程三个子系统的锁交互模式 ^[inferred]。
+
+→ [[concepts/linux-lock-mechanisms]]、[[concepts/linux-interrupt-system]]、[[concepts/linux-process-scheduling]]、[[concepts/memory-barriers]]
 
 ### 5. 关机 — 终极子系统协调测试
 

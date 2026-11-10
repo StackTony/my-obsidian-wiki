@@ -133,6 +133,25 @@ echo 7 > /proc/sys/kernel/printk   # 恢复默认级别
 
 详见 [[summaries/kernel-bonding-debug-log]]。
 
+### 4. ARP/路由表排查（三张表）
+
+三张表（ARP/MAC/路由）的机制详见 [[concepts/linux-network-stack]]：
+
+**ARP表**（IP→MAC解析）：
+```bash
+ip neigh show              # 查看ARP缓存（REACHABLE/STALE/FAILED状态）
+cat /proc/net/arp          # 直接读取ARP表
+arp -d <ip>                # 删除指定表项（换网卡/换端口后排查用）
+```
+注意：MAC表动态老化——设备换端口/换网卡后旧记录需等超时或手工清除。^[inferred]
+
+**路由表**（跨网段选路）：
+```bash
+ip route show              # 查看路由表（CIDR表示法）
+ip route get <dst>          # 查看到特定目的的实际选路（含出接口/下一跳）
+traceroute <dst>            # 基于ICMP Time Exceeded逐跳追踪
+```
+
 ## 常见问题
 
 | 问题 | 排查方向 |
@@ -141,6 +160,7 @@ echo 7 > /proc/sys/kernel/printk   # 恢复默认级别
 | UDP丢包 | iperf测试带宽 + tcpdump确认丢包位置 |
 | TCP连接异常 | tcpdump tcp端口抓包 → Wireshark分析 |
 | Bonding聚合异常 | 开启 dynamic debug 调试日志 → dmesg -wT \| grep bond 分析 |
+| IP分片丢包（大包不通小包通） | tcpdump观察 ICMP unreachable(type=3) + 检查DF标志与PMTU设置 |
 
 ## 来源
 

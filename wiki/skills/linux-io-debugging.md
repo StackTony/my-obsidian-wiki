@@ -124,6 +124,16 @@ hdparm -I /dev/sdb | grep -i trim
 
 注意：SSD组RAID0后失去TRIM功能。机理（页读块擦不对称→写放大）详见 [[concepts/ssd-trim-write-amplification]]。
 
+### 8. IO调度器查看与切换
+
+```bash
+cat /sys/block/sdX/queue/scheduler          # 查看当前与可用调度器（[方括号]为当前）
+echo deadline > /sys/block/sdX/queue/scheduler   # 运行时切换（无需重启）
+```
+
+- 内核启动参数 `elevator=noop|deadline|cfq` 可设定默认调度器
+- 选择依据（四调度器对比见 [[concepts/linux-io-stack]]）：SSD无寻道开销用 noop/none 即可；数据库类延迟敏感用 deadline；CFQ适合多进程混跑的通用场景 ^[inferred]
+
 ## 常见问题
 
 | 问题 | 原因 | 解决 |

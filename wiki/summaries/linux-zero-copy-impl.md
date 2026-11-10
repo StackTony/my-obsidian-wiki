@@ -4,18 +4,18 @@ category: summaries
 tags: [linux, 零拷贝, sendfile, DMA, 性能优化]
 aliases: [零拷贝原理, Zero-Copy, CPU COPY, DMA COPY]
 source_dir: Linux 操作系统/Linux 内核 IO 栈
-source_files: [Linux 零拷贝（Zero-Copy）.md]
+source_files: [==Linux IO技术==/2 Linux IO零拷贝（Zero-Copy）技术.md]
 summary: 零拷贝的机制推导：CPU COPY vs DMA COPY分工、Page/Buffer Cache与VFS关系、read+send的四次拷贝与四次上下文切换、sendfile(2.1)三次拷贝、sendfile+scatter-gather(2.4)零CPU拷贝。
 provenance:
-  extracted: 0.92
-  inferred: 0.06
+  extracted: 0.90
+  inferred: 0.08
   ambiguous: 0.02
 base_confidence: 0.442
 lifecycle: draft
 lifecycle_changed: 2026-10-21
 tier: supporting
 created: 2026-10-21
-updated: 2026-10-21
+updated: 2026-11-10
 ---
 
 # Linux 零拷贝（Zero-Copy）
@@ -37,8 +37,18 @@ updated: 2026-10-21
 ### 内核数据结构关系
 
 - 早期 Page Cache 与 Buffer Cache 是两套独立缓存，**2.4 之后合并**。
-- 层次关系：**VFS 只与 Page Cache 交互**，具体文件系统通过 Buffer Cache 与块设备交互。
+- 层次关系：**VFS 只与 Page Cache 交互**，具体文件系统通过 Buffer Cache 与块设备交互。每一个 Page Cache 包含若干 Buffer Cache。
 - 页缓存的核心属性包括**基数树（Radix Tree）索引 + LRU 链表 + address_space**，`mmap` 让用户态指针直接落在页缓存上，从而省掉"内核缓冲区→用户缓冲区"的拷贝。详见 [[summaries/linux-page-cache]]。
+- 操作系统在内核态维护"内核缓冲区"（kernel buffer）出于两项性能优化需要：**readahead cache**（预读后续数据）和**异步写入**（write 后不必等磁盘完成）。但这也导致数据在到达应用程序前可能被多次拷贝。
+
+### mmap 的内部机制
+
+mmap 将 Cache 项映射到用户空间，使应用程序可像使用内存指针一样访问文件。内核采用请求页面机制实现：
+
+1. 应用程序调用 `mmap()`，陷入内核调用 `dommappgoff()`，从地址空间分配一段区域作为映射地址，用 VMA（vm_area_struct）结构代表该区域后返回
+2. 应用程序访问返回的地址指针时，虚实映射尚未建立，触发**缺页中断**
+3. 缺页中断处理函数通过 VMA 判断该区域属于文件映射，调用具体文件系统的接口读入相应的 Page Cache 项，并填写虚实映射表
+4. 此后应用程序即可正常访问相应的内存区域
 
 ### 模型一：read + send（传统路径）
 
@@ -72,6 +82,8 @@ updated: 2026-10-21
 
 这就是"真正的零拷贝"——数据在用户态与内核态之间没有任何拷贝。
 
+sendfile 相对传统 I/O 通过减少 2 次上下文切换和 1 次 CPU COPY，可将网络数据 I/O 性能提高 50% 以上。 ^[ambiguous]
+
 ### 接口约束
 
 ```c
@@ -86,8 +98,8 @@ ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
 
 ## 未解问题
 
-- 原文在此处中断，未给出零拷贝的定量收益数据与选型总结。 ^[ambiguous]
-- Socket 缓冲区残留的那 1 次 CPU 拷贝（模型二）与页缓存-描述符机制（模型三）的取舍条件未说明：何种网卡/驱动配置下 SG-DMA 才可用。 ^[inferred]
+- sendfile 的 50% 性能提升为原文声称的网络数据场景数据（原文标注"未亲测"），实际收益取决于文件大小、网卡能力和并发量。 ^[ambiguous]
+- Socket 缓冲区残留的那 1 次 CPU 拷贝（模型二）与页缓存-描述符机制（模型三）的取舍条件：何种网卡/驱动配置下 SG-DMA 才可用，原文未详细说明。 ^[inferred]
 - 零拷贝与 Direct I/O、io_uring 的组合关系原文未涉及。 ^[inferred]
 
 ## 来源
@@ -95,4 +107,4 @@ ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
 - [[concepts/zero-copy-memory-mapping]] — 零拷贝工具组与选型指南
 - [[summaries/linux-page-cache]] — Page Cache 的基数树与 LRU 结构
 - [[concepts/linux-io-stack]] — Linux IO 栈层次
-- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux 零拷贝（Zero-Copy）.md`（原文：zhuanlan.zhihu.com/p/430848775）
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/2 Linux IO零拷贝（Zero-Copy）技术.md`（原文：zhuanlan.zhihu.com/p/430848775）
