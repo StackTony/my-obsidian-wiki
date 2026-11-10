@@ -67,9 +67,9 @@ read(file_fd, tmp_buf, len);
 
 ![](https://ask.qcloudimg.com/http-save/yehe-6361488/a9a48651f1253fd41dcd4373fc74992c.png)
 
-1. 零拷贝（Zero-Copy）技术 [[2 Linux IO零拷贝（Zero-Copy）技术]]
-2. 多路复用（select、poll、epoll）技术 [[1 Linux IO多路复用（select、poll、epoll）技术]]
-3. 页缓存（PageCache）技术 [[3 Linux IO页缓存（Page Cache）技术]]
+1. 页缓存（PageCache）技术 [[1 Linux IO页缓存（Page Cache）技术]]
+2. 零拷贝（Zero-Copy）技术 [[2 Linux IO零拷贝（Zero-Copy）技术]]
+3. 多路复用（select、poll、epoll）技术 [[3 Linux IO多路复用（select、poll、epoll）技术]]
 
 其中，**页缓存（PageCache）**是操作系统对文件的缓存，用来减少对磁盘的 I/O 操作，以页为单位的，内容就是磁盘上的物理块，页缓存能帮助程序对文件进行顺序读写的速度几乎接近于内存的读写速度，主要原因就是由于 OS 使用 PageCache 机制对读写访问操作进行了性能优化。
 
@@ -88,7 +88,26 @@ read(file_fd, tmp_buf, len);
 2. 脏页在内存中驻留超过一个特定的阈值时。
 3. 当用户进程调用 sync() 和 fsync() 系统调用时。
 
+## 高性能优化的 I/O
+
+### **libaio（内核原生异步 AIO，io_submit）** 
+传统 POSIX AIO 用户态实现性能差，一般说 libaio 指内核 AIO；常和 `O_DIRECT` 搭配，数据库经典组合。
+### **io_uring（当前主流，5.1 + 内核）** 
+批量提交、少 syscall、支持读写、fsync、poll、timeout、multishot，是现在 Linux 高性能 I/O 首选。
+### **SPDK（用户态存储 I/O，绕过内核块层）** 
+用户态驱动、轮询、无中断、无锁，NVMe SSD 高性能存储，绕过内核 I/O 栈。
+### **RDMA（网络 + 存储高性能，RoCE/InfiniBand）** 
+绕过内核 TCP 协议栈，支持远程直接内存访问，减少内核拷贝，多用于存储集群、HPC。
+### **DPDK（高性能网络 I/O，用户态网卡驱动）** 
+轮询收发包，绕开内核协议栈，适合网关、报文转发。
+### **零拷贝系列（属于优化手段，常归类在这里）**
+    - sendfile /splice/tee：内核内部转发，用户态不碰数据
+    - MSG_ZEROCOPY（socket 零拷贝）
+
+
 ## **存储设备的 I/O 栈**
+
+基本路径：（VFS → PageCache → 块层 → bio → request → 驱动 → 硬件）
 
 ![](https://ask.qcloudimg.com/http-save/yehe-6361488/2af8a5ec136aa0627f255398d80e5c21.png)
 
@@ -175,7 +194,8 @@ stdio 中实现的文件操作函数有自己的 stdio buffer，这是在用户�
 
 #### Page Cache
 
-[[3 Linux IO页缓存（Page Cache）技术]]
+[[1 Linux IO页缓存（Page Cache）技术]]
+
 #### Buffer Cache
 
 [[Linux Page Cache与Buffer Cache的区别]]

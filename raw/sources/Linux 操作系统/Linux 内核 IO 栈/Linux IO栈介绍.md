@@ -1,4 +1,4 @@
-#### Linux的IO栈：
+#### Linux的存储IO栈：
 <https://zhuanlan.zhihu.com/p/39721251>
 ![[Pasted image 20260424165505.png]]
 
