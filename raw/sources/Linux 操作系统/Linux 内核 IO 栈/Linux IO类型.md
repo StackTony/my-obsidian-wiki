@@ -62,9 +62,9 @@ read(file_fd, tmp_buf, len);
 
 ![](https://ask.qcloudimg.com/http-save/yehe-6361488/a9a48651f1253fd41dcd4373fc74992c.png)
 
-1. 零拷贝（Zero-Copy）技术 [[Linux IO零拷贝（Zero-Copy）技术]]
-2. 多路复用（select、poll、epoll）技术 [[Linux IO多路复用（select、poll、epoll）技术]]
-3. 页缓存（PageCache）技术 [[Linux IO页缓存（Page Cache）技术]]
+1. 零拷贝（Zero-Copy）技术 [[2 Linux IO零拷贝（Zero-Copy）技术]]
+2. 多路复用（select、poll、epoll）技术 [[1 Linux IO多路复用（select、poll、epoll）技术]]
+3. 页缓存（PageCache）技术 [[3 Linux IO页缓存（Page Cache）技术]]
 
 其中，**页缓存（PageCache）**是操作系统对文件的缓存，用来减少对磁盘的 I/O 操作，以页为单位的，内容就是磁盘上的物理块，页缓存能帮助程序对文件进行顺序读写的速度几乎接近于内存的读写速度，主要原因就是由于 OS 使用 PageCache 机制对读写访问操作进行了性能优化。
 
