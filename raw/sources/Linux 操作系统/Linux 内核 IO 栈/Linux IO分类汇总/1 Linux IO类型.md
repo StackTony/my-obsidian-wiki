@@ -7,6 +7,10 @@
 	- 网络 I/O
 	- 磁盘 I/O
 - 高性能优化的 I/O
+	- libaio异步AIO
+	- io_uring
+	- SPDK
+	- DPDK
 - 存储设备的 I/O 栈
 	- 缓存IO
 	- mmap
@@ -101,8 +105,14 @@ read(file_fd, tmp_buf, len);
 ### **DPDK（高性能网络 I/O，用户态网卡驱动）** 
 轮询收发包，绕开内核协议栈，适合网关、报文转发。
 ### **零拷贝系列（属于优化手段，常归类在这里）**
-    - sendfile /splice/tee：内核内部转发，用户态不碰数据
-    - MSG_ZEROCOPY（socket 零拷贝）
+    - sendfile() 
+    内核内：文件 PageCache → socket 缓冲区，**数据不进用户空间**；只能文件→socket；支持 DMA scatter-gather 进一步省掉内核内 CPU 拷贝。
+    - splice() 
+    通用版 sendfile，依托管道中转；任意 fd 之间搬运（文件、socket、pipe），数据全程留在内核，不拷贝到用户态；一端必须是 pipe
+    - MSG_ZEROCOPY 
+    socket 发送零拷贝：内核 pin 用户页面，DMA 直接从用户页发网卡，不再拷贝到内核 socket 缓冲区；发送完成后通过错误队列通知用户可以复用 bufferLinux Kern...
+    - mmap + write（经典方案） 
+    把文件 PageCache 映射到用户虚拟地址，省去内核→用户态这一次 CPU 拷贝；⚠️ 注意：mmap 本身不是完整零拷贝，write 时依然会把页缓存拷贝到 socket 缓冲区，只是少一次拷贝。
 
 
 ## **存储设备的 I/O 栈**

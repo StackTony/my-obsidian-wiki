@@ -34,9 +34,11 @@ DMA(DIRECT MEMORY ACCESS) 是现代计算机的重要功能，它有一个重要
 
 现在我们对零拷贝有一定的概念基础了，接下来，让我们深入去了解一下 Linux 操作系统 与 IO 复制之间的来龙去脉。
 
+
+
 ## **- 原理篇 -**
 
-## **1、内存管理**
+### **1、内存管理**
 
 Linux 内存管理结构的历史：在 Linux 内核2.4版本之前，内存管理结构中 page cache 和 buffer cache 是分开的，分别是两个独立的。
 
@@ -118,7 +120,7 @@ Socket.send(socket, buf, len);
 
 Linux 的零拷贝技术就是为了优化掉这两次**不必要的拷贝。**
 
-### **3、[sendFile](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=sendFile&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJzZW5kRmlsZSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjE4Mzg3MzA2MiwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.mLC8d8AJ9702geCMnBmOkpbXDnGZtk6DroeT2YTQNHo&zhida_source=entity) 系统调用的IO流程**
+### **3、以[sendFile](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=sendFile&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJzZW5kRmlsZSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjE4Mzg3MzA2MiwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.mLC8d8AJ9702geCMnBmOkpbXDnGZtk6DroeT2YTQNHo&zhida_source=entity) 为例的系统调用的IO流程**
 
 **Linux 内核2.1**开始引入一个叫 sendFile 系统调用,这个系统调用可以在内核态内把数据从内核缓冲区直接复制到套接字(SOCKET)缓冲区内, 从而可以减少上下文的切换和不必要数据的复制。
 
