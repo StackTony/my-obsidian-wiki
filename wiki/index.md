@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-11-06
+updated: 2026-11-09
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-06 (Ingest：物理硬件域首批10来源——PCIe错误/NVMe掉盘、SSD TRIM、网卡IRQ绑定、BMC/IPMI SOL、光模块、内存SPD/XMP/ECC)*
+*自动维护。上次更新：2026-11-09 (Capture：swiotlb buffer is full 排查实操手册，DMA/swiotlb 域首个页面)*
 
 ## Summaries (数据结构与算法)
 
@@ -76,6 +76,7 @@ updated: 2026-11-06
 ## Skills (Linux 操作系统)
 
 - [linux-kernel-debugging](skills/linux-kernel-debugging.md) — 内核各子系统监控命令、常见问题排查路径与调试技巧：softirq/meminfo/Page Cache/IO/关机/cgroup/IPC — `linux` `内核` `调试` `监控` `性能分析`
+- [swiotlb-troubleshooting](skills/swiotlb-troubleshooting.md) — 无IOMMU环境swiotlb buffer is full排查：slots统计分流根因（泄漏/单映射超限/容量不足）+修复矩阵（扩池/q35机型/驱动升级/dma_debug/max_sectors_kb） — `linux` `kernel` `DMA` `swiotlb` `调试`
 - [linux-ipc-programming](skills/linux-ipc-programming.md) — System V IPC三大机制C编程实操：信号量集合+共享内存+消息队列的API速查与demo — `linux` `ipc` `编程` `信号量` `共享内存` `消息队列`
 - [linux-lock-selection](skills/linux-lock-selection.md) — 内核锁类型选择决策树与API速查：Spinlock/Mutex/RCU等10种锁的适用场景与常见陷阱 — `linux` `内核` `锁` `spinlock` `mutex` `rcu` `同步`
 - [linux-kernel-tracing](skills/linux-kernel-tracing.md) — 内核追踪实操手册：ftrace函数追踪→kprobe动态探针→perf事件采样→火焰图可视化四类场景 — `linux` `内核` `tracing` `ftrace` `kprobe` `perf` `火焰图`

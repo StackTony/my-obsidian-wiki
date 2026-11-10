@@ -52,7 +52,7 @@ Linux 内核提供函数 **`barrier()`** 用于让编译器保证其之前的内
 - 2、写操作barrier，仅保证写操作有序，`wmb()`和`smp_wmb()`
 - 3、读操作barrier，仅保证读操作有序，`rmb()`和`smp_rmb()`
 
-## 有什么[优化方法](https://zhida.zhihu.com/search?content_id=207412046&content_type=Article&match_order=1&q=%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzODc1NjQsInEiOiLkvJjljJbmlrnms5UiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDc0MTIwNDYsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.5P8u3T6WmYav9MrTz19lt534_wudQlKaFF4GhCdtmYc&zhida_source=entity)？
+## 有什么优化方法？
 
 **硬件上的优化**
 

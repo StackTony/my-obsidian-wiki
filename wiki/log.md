@@ -613,4 +613,31 @@ title: Wiki Log
 - 判定依据：CLAUDE.md 已是约定权威，项目页只做索引与"3 个月后零上下文恢复"状态记录，不重复 schema 全文
 - manifest 新增顶层 projects 节（source_repo + last_commit_synced）；total_pages 168→169；index.md 新增 ## Projects 区块（Journal 前）
 - QMD skipped: QMD_WIKI_COLLECTION 未设置（vault 纯 markdown 为 source of truth）
-- 观察备忘：git 暂存区已备好一批"Linux 内存管理"raw 文件（CPU Cache 一致性新增、内存屏障、TLB 改名），是下次 /wiki-ingest 的输入
+- 观察备忘：git 暂存区已备好一批“Linux 内存管理”raw 文件（CPU Cache 一致性新增、内存屏障、TLB 改名），是下次 /wiki-ingest 的输入
+
+## [2026-11-09] LINT | 全库健康检查（report-only，无自动修复）
+
+- [2026-11-09T20:04] LINT issues_found=244 orphans=6 broken_links=0 stale=117 contradictions=0 prov_issues=72 missing_summary=1 fragmented_clusters=4 visibility_issues=1 promotion_candidates=36 synthesis_gaps=7 relationship_issues=0 temporal_issues=0 lifecycle_issues=0 oversized=0
+- 附加计数：tags_over5=50（软）；uncovered_sources=739（rebuild 时代 manifest 批量登记未回填 pages 数组，201/940 有记录）；hash_mismatch=27（其中 16 条影响产出页）；dead_manifest_keys=5（raw 侧重命名/删除）；pending_raw=17（下次 ingest 输入，lint 运行期间 16→17 仍在实时增长）
+- 真孤儿 6 页（正文 wikilink 与 frontmatter 关系边均零入链）：concepts/helm-package-management、concepts/obsidian-ai-toolchain、concepts/ood-principles-and-patterns、entities/dsh-plugin-ecosystem、entities/headroom-tool、summaries/bmc-intro；另有 7 页仅靠 relationships 边连通（正文零链接，cross-linker 候选）；projects/my-obsidian-wiki 仅 hot.md 单链
+- 断链 0：两条疑似均为假阳性已排除——log.md:401 行内反引号内的历史修复记录（展示旧链接本身）、linux-interrupt-monitoring-script 的 `[[:space:]]` POSIX 字符类撞 wikilink 语法；另 8 条为 recommendations 外网 .md 结尾 URL
+- 方法修正：关系边入链未计入曾致 7 页误报孤儿（kafka-architecture/binary-tree-basics/b-tree-bplus-tree/graph-algorithms/mq-selection-comparison/speculative-decoding-mtp/llm-training-pipeline），复核后剔除
+- Schema 完整性零缺陷：必填 8 字段 0 缺失、lifecycle/tier 枚举 0 越界、base_confidence 全 [0,1]、summaries/entities/concepts 的 source_dir/source_files 0 缺失、supersession 0、链接隔离 0 违规
+- 过期 117 页全部 lifecycle=draft（无 verified+stale 高危）；来源漂移 16 条影响页：linux-lock-mechanisms/linux-lock-selection/linux-kernel-subsystem-interactions（锁机制全景，06-01 ingest 后源被改）、virtio-io-notification-mechanism/linux-virtio-architecture（ioeventfd）、linux-io-stack/linux-io-debugging（IO全景）、OMO 8 页、ACP 3 页、obsidian-ai-toolchain 3 页、kafka-architecture、agent-system-architecture 4 页等
+- Provenance 系统性漂移 72 页：frontmatter 估计（多页 inferred 0.25~0.85）与标记重算（默认=提取约定）偏差 >0.20，最重为 landscape 导航页（fm extracted 0.10~0.15 vs 重算 0.83~1.00）；修复方向=随下次 re-ingest 逐页标记或校准，不建议现在批量改数
+- 碎片化标签 4 个：#linux(62页,cohesion 0.08)、#ai(57页,0.08)、#llm(16页,0.10)、#消息队列(5页,0.10)；#学习推荐/#每日报告(12页,0)为 recommendations 链接隔离的设计结果，不计
+- 提升候选（入链≥5 且 tier≠core）36 页，头部：linux-io-stack(18)、linux-tracing-frameworks(11)、tool-calling-mcp/multi-agent-framework-comparison/oh-my-opencode(9)；降级候选 2 页（0入链+90天未更新）：ood-principles-and-patterns(140d)、headroom-tool(98d)
+- Manifest：中断“Linux中断所有知识点”确认为纯重命名（hash 与 2026-11-09 ingest 记录逐位一致）→ dead key 可安全重键；5 个 dead keys 中 4 个对应用户 raw 重命名（下批 ingest 处理）、1 个已删除（ClickHouse cpp_blog）
+- 旧案未决：manifest 顶层 vault_path 仍为过期旧机器路径（多次上报待老板决策）；raw/sources/Obsidian使用/*.json 明文 token 已随历史 commit 推送 GitHub（2026-10-21 已报，raw 不可变，建议轮换密钥）
+- 未执行：undated-claims 线级检查（obsidian-wiki CLI 不可用，grep 版噪声大跳过）；矛盾检测为抽样（中断域昨日全量重蒸馏已核对 + softirq 计数/预算口径复查通过，非全库语义比对）
+
+## [2026-11-09] QUERY | swiotlb buffer is full 排查咨询
+
+- [2026-11-09T21:08] QUERY query="现网不使用iommu，报错swiotlb buffer is full，解决方法或规避方法" result_pages=3 mode=normal candidates_seen=4 candidates_used=3 dropped=1
+- 附加说明：obsidian-wiki CLI 不可用，按 CLAUDE.md 日志格式手工追加；wiki 无 swiotlb 专页（检索缺口），bounce 概念仅存在于 raw meminfo 原文，已向用户提议沉淀
+
+## [2026-11-09] CAPTURE | swiotlb buffer is full 排查知识沉淀
+
+- [2026-11-09T21:34] CAPTURE type=skills page="skills/swiotlb-troubleshooting" title="swiotlb buffer is full 排查实操手册" sources="conversation:2026-11-09 + raw:Linux meminfo参数详细解释.md(Bounce字段)" pages_created=1
+- 用户确认沉淀（查询回复后主动提议，用户回复"沉淀下吧"）；obsidian-wiki CLI 不可用，index/log/hot 按 CLAUDE.md 格式手工更新；无 manifest 变更（conversation 来源非 raw ingest）
+- 附带修复：无；关联债：summaries/linux-meminfo-params 蒸馏时漏掉 Bounce 字段（已在 hot.md Active Threads 记录）

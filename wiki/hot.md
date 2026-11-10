@@ -9,6 +9,7 @@ updated: 2026-11-09
 
 ## Recent Activity
 
+- [2026-11-09] CAPTURE — swiotlb buffer is full 排查咨询沉淀为 [[skills/swiotlb-troubleshooting]]（DMA/swiotlb 域首个页面；conversation 来源+meminfo Bounce 字段佐证，base_confidence 0.55，版本相关细节已 ^[ambiguous] 标注）
 - [2026-11-09] WIKI_UPDATE — vault 自身首次作为项目同步：新建 [[projects/my-obsidian-wiki]] 项目枢纽页（架构决策索引+运营模式+待办债务）；manifest 新增 projects 节（last_commit_synced=1565714）；total_pages 169
 - [2026-11-09] INGEST — Linux中断系统目录完整重蒸馏（2新增来源：中断分类表/中断所有知识点 + 4修改来源，其中3个被用户重命名）→ 2新页面（linux-interrupt-classification、linux-interrupt-lifecycle）+ hub与softirq-detail重蒸馏。manifest 938→940，total_pages 166→168
 - [2026-11-09] MAINTAIN — raw侧：吐血整理文dedup（复制粘贴事故，删96行重复）后用户重命名为"Linux中断所有知识点.md"；中断分类表新增英文全称列（用户手工增强）
@@ -16,7 +17,8 @@ updated: 2026-11-09
 
 ## Active Threads
 
-- **下一批待消化**：git 暂存区已备好"Linux 内存管理"来源（CPU Cache 一致性新增、内存屏障、TLB 改名），是下次 /wiki-ingest 的输入
+- **下一批待消化**：git 暂存区已备好"Linux 内存管理"来源（CPU Cache 一致性新增、内存屏障、TLB 改名），是下次 /wiki-ingest 的输入；[[skills/swiotlb-troubleshooting]] 与该批次同域（DMA/bounce），ingest 时注意交叉链接
+- **DMA/swiotlb 域开启**：首个页面已落地，后续 meminfo Bounce 字段可回补到 [[summaries/linux-meminfo-params]]（蒸馏时漏掉了该字段）
 - **vault 元枢纽建立**：[[projects/my-obsidian-wiki]] 记录了 vault 作为项目的架构决策索引与运营模式（重叠合并/稀薄折叠/backup 流/skill 外置），manifest 开始跟踪 projects 节
 - **中断知识线闭环** ^[inferred]：中断分类表（四维框架）+ 中断所有知识点（GIC硬件→irq_domain→注册→ARM64处理全链路）+ softirq三件套（原理/实现/内核线程）已全部蒸馏完毕，hub `concepts/linux-interrupt-system` 成为中断域唯一枢纽；与 `concepts/linux-interrupt-virtualization`（VGIC）、`summaries/nic-smp-irq-affinity`（硬件侧亲和）、`summaries/linux-tlb-management`（IPI用例TLB Shootdown）完成交叉链接
 - **"软中断"歧义是最大混淆点**：指令级软中断（INT n/SVC=同步Trap）、广义软件中断（=异常Exception）、Linux Softirq（下半部机制）三重含义——分类页与hub均已建立澄清
@@ -30,6 +32,7 @@ updated: 2026-11-09
 - **GIC三组件分工**：Distributor管SPI（全局）、Redistributor管每核SGI/PPI/LPI、CPU interface管应答与投递；多控制器hwirq重复→irq_domain映射为virq
 - **workqueue五元组**：work→workqueue→pool_workqueue(中介)→worker_pool(bound型每CPU两个，nice 0/-20)→worker(kworker线程)；进程上下文可睡眠是与softirq/tasklet的本质差异
 - **softirq执行借用被中断任务上下文**（代码mask/unmask PF_MEMALLOC佐证）；预算超限三条件判断（时间/need_resched/重启次数）→ksoftirqd兜底
+- **无IOMMU环境swiotlb是设备寻址兜底**：32-bit DMA设备够不到的缓冲区靠启动预留bounce池中转（x86_64默认仅64MB），池满=IO故障非告警；报错三元组（sz/total/used slots）可直接分流根因；KVM i440fx机型virtio全量bounce是现网重灾区，q35/virtio-non-transitional根治
 
 ## Flagged Contradictions
 

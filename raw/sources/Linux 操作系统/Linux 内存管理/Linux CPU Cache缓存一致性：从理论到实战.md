@@ -24,7 +24,7 @@
 - 参考资料
     
 
-## **01 存储体系结构**  
+## **01 存储体系结构**
 
 速度快的存储硬件成本高、容量小，速度慢的成本低、容量大。为了权衡成本和速度，计算机存储分了很多层次，扬长避短，有**寄存器**、**L1 cache**、**L2 cache**、**L3 cache**、**主存**（内存）和**硬盘**等。图1 展示了现代存储体系结构。
 
@@ -42,7 +42,7 @@
 
 ### **2.1 缓存的工作原理**
 
-**cache line（缓存行）**是缓存进行管理的最小存储单元，也叫缓存块，每个 cache line 包含 **Flag**、**Tag** 和 **Data** ，通常 Data 大小是 **64 字节**，但不同型号 CPU 的 Flag 和 Tag 可能不相同。从内存向缓存加载数据是按整个缓存行加载的，一个缓存行和一个相同大小的**内存块**对应。
+**cache line（缓存行）**是缓存进行管理的最小存储单元，也叫缓存块，每个 cache line 包含 **Flag**、**Tag** 和 **Data** ，通常 Data 大小是 **64 字节**，但不同型号 CPU 的 Flag 和 Tag 可能不相同。从内存向缓存加载数据是按整个缓存行加载的，一个缓存行和一个相同大小的**内存块**对应。
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/vAs533UlQGZB8m0TXl7oz1bXFAHZiaD3bGf28hJ44JqjPPB4g7YguUz3ztLCWvYfn7ZCibyiaA8gWJiaTssgpYxakA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=2)
 
@@ -149,7 +149,7 @@ for(int j = 0; j < N; j++)
         a[i][j]++;
 ```
 
-结果：循环 100000000 次，耗时 1187 ms。没有利用程序局部性原理，缓存命中率低，所以耗时增加了 2 倍。
+结果：循环 100000000 次，耗时 1187 ms。没有利用程序局部性原理，缓存命中率低，所以耗时增加了 2 倍。
 
 ### **2.5 伪共享（false-sharing）**
 
@@ -186,7 +186,7 @@ struct S {
 
 结果：耗时 181 ms，原因是通过 long long noop[8] 把两个数据（a 和 b）划分到两个不同的缓存行中，不再互相使对方的缓存失效，所以速度变快了。  
 
-本小节的测试代码都没有开启编译器优化，即编译选项为**-O0** 。   
+本小节的测试代码都没有开启编译器优化，即编译选项为**-O0** 。   
 
 ---
 
@@ -228,7 +228,7 @@ struct S {
 - **写不分配（Not Write Allocate）**在写入数据时，直接将数据写入内存，并不先将数据块读入缓存。当数据块中的数据在未来使用的概率较低时，写不分配性能较好。
     
 
-### **3.2 MESI 协议**  
+### **3.2 MESI 协议**
 
 MESI协议是⼀个基于**失效**的缓存⼀致性协议，是⽀持**写回（write-back）**缓存的最常⽤协议。也称作伊利诺伊协议 (Illinois protocol，因为是在伊利诺伊⼤学厄巴纳-⾹槟分校被发明的)。
 
@@ -247,7 +247,7 @@ MESI协议是⼀个基于**失效**的缓存⼀致性协议，是⽀持**写回�
 
 这些状态信息实际上存储在**缓存行**（**cache line**）的 **Flag** 里。
 
-### **3.2.2 事件**  
+### **3.2.2 事件**
 
 - 处理器对缓存的请求:
     
@@ -271,7 +271,7 @@ MESI协议是⼀个基于**失效**的缓存⼀致性协议，是⽀持**写回�
 - **FlushOpt**：总线嗅探器收到一个缓存块被放置在总线以提供给另一核心的请求，和 Flush 类似，但只不过是从缓存到缓存的传输请求。
     
 
-### **3.2.3 状态机**
+### **3.2.3 状态机**
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/vAs533UlQGY8De4tDdxCz6lBmUR1iaw5cuvtKrTtW5dEzQwf5H9P6xnoiaABEBlzrUZHpAxibVpJoUKoCGoFnHtdA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=6)
 
@@ -332,7 +332,7 @@ MESIF 是一个**缓存一致性**和**记忆连贯**协议，该协议由五个
 
 **M，E，S 和 I 状态与 MESI 协议一致**。**F 状态是 S 状态的一种特殊形式**，当系统中有多个 S 时，必须选取一个转换为 F，只有 F 状态的负责应答。通常是最后持有该副本的转换为 F，注意 **F 是干净的数据**。
 
-该协议与 MOESI 协议有较大的不同，也远比 MOESI 协议复杂。该协议由 Intel 的 快速通道互联 **QPI**（QuickPath Interconnect）技术引入，其主要目的是解决“**基于点到点互联的非一致性内存访问（**Non-uniform memory access，**NUMA****）处理器系统**”的缓存一致性问题，而不是“**基于共享总线的一致性内存访问（**Uniform Memory Access， **UMA****）处理器系统**”的缓存一致性问题。
+该协议与 MOESI 协议有较大的不同，也远比 MOESI 协议复杂。该协议由 Intel 的 快速通道互联 **QPI**（QuickPath Interconnect）技术引入，其主要目的是解决“**基于点到点互联的非一致性内存访问（**Non-uniform memory access，**NUMA****）处理器系统**”的缓存一致性问题，而不是“**基于共享总线的一致性内存访问（**Uniform Memory Access， **UMA****）处理器系统**”的缓存一致性问题。
 
 ---
 
@@ -340,25 +340,25 @@ MESIF 是一个**缓存一致性**和**记忆连贯**协议，该协议由五个
 
 编译器和处理器都必须遵守重排序规则。在单处理器的情况下，不需要任何额外的操作便能保持正确的顺序。但是对于多处理器来说，保证一致性通常需要增加内存屏障指令。即使编译器可以优化掉字段的访问（例如因为未使用加载到的值），编译器仍然需要生成内存屏障，就好像字段访问仍然存在一样（可以单独将内存屏障优化掉）。
 
-内存屏障只与内存模型中的高级概念（例如 **acquire** 和 **release**）间接相关。内存屏障指令只直接控制 CPU 与其缓存的交互，以及它的写缓冲区（持有等待刷新到内存的数据的存储）和它的用于等待加载或推测执行指令的缓冲。这些影响可能导致缓存、主内存和其他处理器之间的进一步交互。
+内存屏障只与内存模型中的高级概念（例如 **acquire** 和 **release**）间接相关。内存屏障指令只直接控制 CPU 与其缓存的交互，以及它的写缓冲区（持有等待刷新到内存的数据的存储）和它的用于等待加载或推测执行指令的缓冲。这些影响可能导致缓存、主内存和其他处理器之间的进一步交互。
 
 几乎所有的处理器都至少支持一个粗粒度的屏障指令（通常称为 **Fence**，也叫**全屏障**），它保证了严格的有序性：在 Fence 之前的所有读操作（load）和写操作（store）先于在 Fence 之后的所有读操作（load）和写操作（store）执行完。对于任何的处理器来说，这通常都是最耗时的指令之一（它的开销通常接近甚至超过原子操作指令）。大多数处理器还支持更细粒度的屏障指令。
 
-- **LoadLoad Barrier（读读屏障）**
+- **LoadLoad Barrier（读读屏障）**
     
     指令 **Load1; LoadLoad; Load2** 保证了 Load1 先于 Load2 和后续所有的 load 指令加载数据。通常情况下，在执行预测读（speculative loads）或乱序处理（out-of-order processing）的处理器上需要显式的 LoadLoad Barrier。在始终保证读顺序（load ordering）的处理器上，这些屏障相当于无操作（no-ops）。
     
-- **StoreStore Barrier（写写屏障）**
+- **StoreStore Barrier（写写屏障）**
     
-    指令 **Store1; StoreStore; Store2** 保证了 Store1 的数据先于 Store2 及后续 store 指令的数据对其他处理器可见（刷新到内存）。通常情况下，在不保证严格按照顺序从写缓冲区（store buffers）或者 缓存（caches）刷新到其他处理器或内存的处理器上，需要使用 StoreStore Barrier。
+    指令 **Store1; StoreStore; Store2** 保证了 Store1 的数据先于 Store2 及后续 store 指令的数据对其他处理器可见（刷新到内存）。通常情况下，在不保证严格按照顺序从写缓冲区（store buffers）或者 缓存（caches）刷新到其他处理器或内存的处理器上，需要使用 StoreStore Barrier。
     
-- **LoadStore Barrier（读写屏障）**
+- **LoadStore Barrier（读写屏障）**
     
     指令 **Load1; LoadStore; Store2** 保证了 Load1 的加载数据先于 Store2 及后续 store 指令刷新数据到主内存。只有在乱序（out-of-order）处理器上，等待写指令（waiting store instructions）可以绕过读指令（loads）的情况下，才会需要使用 LoadStore 屏障。
     
-- **StoreLoad Barrier（写读屏障）刷新写缓冲区，最耗时**
+- **StoreLoad Barrier（写读屏障）刷新写缓冲区，最耗时**
     
-    指令 **Store1; StoreLoad; Load2** 保证了 Store1 的数据对其他处理器可见（刷新数据到内存）先于 Load2 及后续的 load 指令加载数据。StoreLoad 屏障可以防止后续的读操作错误地使用了 Store1 写的数据，而不是使用来自另一个处理器的更近的对同一位置的写。因此只有需要将对同一个位置的写操作（stores）和随后的读操作（loads）分开时，才严格需要 StoreLoad 屏障。StoreLoad 屏障通常是开销最大的屏障，几乎所有的现代处理器都需要该屏障。之所以开销大，部分原因是它需要禁用绕过缓存（cache）从写缓冲区（Store Buffer）读取数据的机制。这可以通过让缓冲区完全刷新，外加暂停其他操作来实现，这就是 **Fence** 的效果。一般用 **Fence** 代替 StoreLoad Barrier ，所以事实上，执行 StoreLoad 指令同时也获得了其他三个屏障的效果，但是通过组合其他屏障通常不能获得与 StoreLoad Barrier 相同的效果。
+    指令 **Store1; StoreLoad; Load2** 保证了 Store1 的数据对其他处理器可见（刷新数据到内存）先于 Load2 及后续的 load 指令加载数据。StoreLoad 屏障可以防止后续的读操作错误地使用了 Store1 写的数据，而不是使用来自另一个处理器的更近的对同一位置的写。因此只有需要将对同一个位置的写操作（stores）和随后的读操作（loads）分开时，才严格需要 StoreLoad 屏障。StoreLoad 屏障通常是开销最大的屏障，几乎所有的现代处理器都需要该屏障。之所以开销大，部分原因是它需要禁用绕过缓存（cache）从写缓冲区（Store Buffer）读取数据的机制。这可以通过让缓冲区完全刷新，外加暂停其他操作来实现，这就是 **Fence** 的效果。一般用 **Fence** 代替 StoreLoad Barrier ，所以事实上，执行 StoreLoad 指令同时也获得了其他三个屏障的效果，但是通过组合其他屏障通常不能获得与 StoreLoad Barrier 相同的效果。
     
 
 表2 是各处理器支持的内存屏障和原子操作
@@ -369,19 +369,19 @@ MESIF 是一个**缓存一致性**和**记忆连贯**协议，该协议由五个
 
 ### **4.1 写缓冲与写屏障**
 
-严格按照MESI协议，核心0 在修改本地缓存之前，需要向其他核心发送 Invalid 消息，其他核心收到消息后，使他们本地对应的缓存行失效，并返回 Invalid acknowledgement 消息，核心0 收到后修改缓存行。这里核心0 等待其他核心返回确认消息的时间对核心来说是漫长的。
+严格按照MESI协议，核心0 在修改本地缓存之前，需要向其他核心发送 Invalid 消息，其他核心收到消息后，使他们本地对应的缓存行失效，并返回 Invalid acknowledgement 消息，核心0 收到后修改缓存行。这里核心0 等待其他核心返回确认消息的时间对核心来说是漫长的。
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_jpg/vAs533UlQGbPhDhWh7u9WvLh2p0ibH55CKOhXX8fQ1zptu5AWu30pFVpRgB1qrFVmiczfh3HKnKWXkPLhKJewOnA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=9)
 
 图6
 
-为了解决这个问题，引入了 **Store Buffer** ，当核心想修改缓存时，直接写入 **Store uffer** ，无需等待，继续处理其他事情，由 **Store Buffer** 完成后续工作。
+为了解决这个问题，引入了 **Store Buffer** ，当核心想修改缓存时，直接写入 **Store uffer** ，无需等待，继续处理其他事情，由 **Store Buffer** 完成后续工作。
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_jpg/vAs533UlQGbPhDhWh7u9WvLh2p0ibH55CzLYmjwB9vs78TcAYzl4JlfX64FEGyrhAkkEic4TmMmGm2bV0O4HNFaQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=10)
 
 图7
 
-这样一来写的速度加快了，但是引来了新问题，下面代码的 bar 函数中的断言可能会失败。
+这样一来写的速度加快了，但是引来了新问题，下面代码的 bar 函数中的断言可能会失败。
 
 ```
 int a = 0, b = 0;
@@ -399,7 +399,7 @@ void bar() {
 
 第一种情况：CPU 为了提升运行效率和提高缓存命中率，采用了**乱序执行**；
 
-第二种情况：**Store Buffer** 在写入时，b 所对应的缓存行是 **E** 状态，a 所对应的缓存行是 **S** 状态，因为对 b 的修改不需要核心间同步，但是修改 a 则需要，也就是 b 会先写入缓存。与之对应 CPU1 中 a 是 **S** 状态，b 是 **I** 状态，由于 b 所对应的缓存区域是 **I** 状态，它就会向总线发出 BusRd 请求，那么 CPU1 就会先把 b 的最新值读到本地，完成变量 b 值的更新，但是从缓存直接读取 a 值是 0 。
+第二种情况：**Store Buffer** 在写入时，b 所对应的缓存行是 **E** 状态，a 所对应的缓存行是 **S** 状态，因为对 b 的修改不需要核心间同步，但是修改 a 则需要，也就是 b 会先写入缓存。与之对应 CPU1 中 a 是 **S** 状态，b 是 **I** 状态，由于 b 所对应的缓存区域是 **I** 状态，它就会向总线发出 BusRd 请求，那么 CPU1 就会先把 b 的最新值读到本地，完成变量 b 值的更新，但是从缓存直接读取 a 值是 0 。
 
 举一个更极端的例子
 
@@ -432,7 +432,7 @@ void bar() {
 
 加上内存屏障后，保证了 a 和 b 的写入缓存顺序。
 
-**总的来说，Store Buffer 提升了写性能，但放弃了缓存的顺序一致性，这种现象称为****弱缓存一致性**。通常情况下，多个 CPU 一起操作同一个变量的情况是比较少的，所以 Store Buffer 可以大幅提升程序的性能。但在需要核间同步的情况下，还是需要通过手动添加内存屏障来保证缓存一致性。
+**总的来说，Store Buffer 提升了写性能，但放弃了缓存的顺序一致性，这种现象称为弱缓存一致性**。通常情况下，多个 CPU 一起操作同一个变量的情况是比较少的，所以 Store Buffer 可以大幅提升程序的性能。但在需要核间同步的情况下，还是需要通过手动添加内存屏障来保证缓存一致性。
 
 上面解决了核间同步的写问题，但是核间同步还有一个瓶颈，那就是读。
 
@@ -440,7 +440,7 @@ void bar() {
 
 前面引入 Store Buffer 提升了写入速度，那么 invalid 消息确认速度相比起来就慢了，带来了**速度不匹配**，很容易导致 Store Buffer 的内容还没及时写到缓存里，自己就满了，从而失去了加速的作用。
 
-为了解决这个问题，又引入了 **Invalid Queue**。收到 Invalid 消息的核心立刻返回 Invalid acknowledgement 消息，然后把 Invalid 消息加入 Invalid Queue ，等到空闲的时候再去处理 Invalid 消息。
+为了解决这个问题，又引入了 **Invalid Queue**。收到 Invalid 消息的核心立刻返回 Invalid acknowledgement 消息，然后把 Invalid 消息加入 Invalid Queue ，等到空闲的时候再去处理 Invalid 消息。
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/vAs533UlQGZyjLhX8ngl4uWYZVwSHnEW5nedZibYMVYLmGqxVw9RfEFiaWGpxxnM7ZltFCBqVIj0iaibHOwCsc8XXA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=11)
 
@@ -448,7 +448,7 @@ void bar() {
 
 运行上面增加内存屏障的代码，第 11 行的断言又可能失败了。
 
-核心0 中 a 所对应的缓存行是 **S** 状态，b 所对应的缓存行是 **E** 状态；核心1中 a  所对应的缓存行是 **S** 状态，b   所对应的缓存行是 **I** 状态；
+核心0 中 a 所对应的缓存行是 **S** 状态，b 所对应的缓存行是 **E** 状态；核心1中 a  所对应的缓存行是 **S** 状态，b   所对应的缓存行是 **I** 状态；
 
 - 因为有内存屏障在，a 和 b的写入缓存的顺序不会乱。
     
@@ -458,12 +458,12 @@ void bar() {
     
 - 核心0 收到确认消息后把 a 写入缓存，继续处理 b 的写入，由于 b 是 **E** 状态，直接写入缓存；
     
-- 核心1 发送 BusRd 消息，读取到新的 b 值，然后获取 a（**S** 状态）值是0，因为使其无效的消息还在 Invalid Queue 中，第 11 行断言失败。
+- 核心1 发送 BusRd 消息，读取到新的 b 值，然后获取 a（**S** 状态）值是0，因为使其无效的消息还在 Invalid Queue 中，第 11 行断言失败。
     
 
 引入 Invalid Queue 后，对核心1 来说看到的 a 和 b 的写入又出现乱序了。
 
-解决办法是继续加内存屏障，核心1 想越过屏障必须清空 Invalid Queue，及时处理了对 a 的无效，然后读取到新的 a 值，如下代码：
+解决办法是继续加内存屏障，核心1 想越过屏障必须清空 Invalid Queue，及时处理了对 a 的无效，然后读取到新的 a 值，如下代码：
 
 ```
 int a = 0, b = 0;
@@ -485,7 +485,7 @@ void bar() {
 
 ### **4.3 读写屏障分离**
 
-**分离的写屏障和读屏障的出现，是为了更加精细地控制** **Store Buffer** **和** **Invalid Queue** **的顺序。**
+**分离的写屏障和读屏障的出现，是为了更加精细地控制** **Store Buffer** **和** **Invalid Queue** **的顺序。**
 
 - **读屏障**不允许其前后的读操作越过屏障；
     
@@ -510,7 +510,7 @@ void bar() {
 }
 ```
 
-这种修改只有在区分读写屏障的体系结构里才会有作用，比如 **alpha** 结构。在 **x86** 和 **Arm** 中是没有作用的，因为 x86 采用了 TSO 模型，后面会详细介绍，而 Arm 采用了单向屏障。
+这种修改只有在区分读写屏障的体系结构里才会有作用，比如 **alpha** 结构。在 **x86** 和 **Arm** 中是没有作用的，因为 x86 采用了 TSO 模型，后面会详细介绍，而 Arm 采用了单向屏障。
 
 ### **4.4 单向屏障**
 
@@ -518,18 +518,18 @@ void bar() {
 
 - **stlr** 的全称是 store release register，包括 StoreStore barrier 和 LoadStore barrier（场景少），通常使用 release 语义将寄存器的值写入内存；
     
-- **ldar** 的全称是 load acquire register，包括 LoadLoad barrier 和 LoadStore barrier（对，你没看错，我没写错），通常使用 acquire 语义从内存中将值加载入寄存器；
+- **ldar** 的全称是 load acquire register，包括 LoadLoad barrier 和 LoadStore barrier（对，你没看错，我没写错），通常使用 acquire 语义从内存中将值加载入寄存器；
     
 - **release** 语义的内存屏障只不允许其前面的读写向后越过屏障，**挡前不挡后**；
     
-- **acquire** 语义的内存屏障只不允许其后面的读写向前越过屏障，**挡后不挡前****;**
+- **acquire** 语义的内存屏障只不允许其后面的读写向前越过屏障，**挡后不挡前**;
     
 - StoreLoad barrier 就只能使用 **dmb**（全屏障） 代替了。
     
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/vAs533UlQGbPhDhWh7u9WvLh2p0ibH55CKFomfqv2gobBPOslmtlic9ib7stesIL3laFlLhDAjiasO8xiaJwXUQXQTw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=12)
 
-图9 ARM Figure 13.2. One-way barriers
+图9 ARM Figure 13.2. One-way barriers
 
 理论普及的差不多了，接下单独来说说服务端同学工作中最常用的 x86 内存模型，填一下 4.3 中留下的坑。
 
@@ -537,7 +537,7 @@ void bar() {
 
 ## **05 x86-TSO**
 
-x86-TSO（ **Total Store Order**）采用的是图10 模型。
+x86-TSO（ **Total Store Order**）采用的是图10 模型。
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/vAs533UlQGaiacP3xJPrqKaPYvDJbk6ts0Xk1egibfuwDib6b8QTplYTDtO7VzPUX8JjU0FTxtknt4734xnXmQadw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=13)
 
@@ -545,21 +545,21 @@ x86-TSO（ **Total Store Order**）采用的是图10 模型。
 
 x86-TSO 有下面几个特点：
 
-- **Store Buffer** 被实现为 **FIFO** 队列，CPU 务必优先读取本地 **Store Buffer** 中的值（如果有的话），否则去缓存或内存里读取；
+- **Store Buffer** 被实现为 **FIFO** 队列，CPU 务必优先读取本地 **Store Buffer** 中的值（如果有的话），否则去缓存或内存里读取；
     
-- 因为 **Store Buffer** 是 **FIFO**，所以写写不会重排，也就不需要 **StoreStore barrier**；
+- 因为 **Store Buffer** 是 **FIFO**，所以写写不会重排，也就不需要 **StoreStore barrier**；
     
-- **MFENCE** 指令用于清空本地 Store Buffer，并将数据刷到缓存和内存；
+- **MFENCE** 指令用于清空本地 Store Buffer，并将数据刷到缓存和内存；
     
-- 某 CPU 执行 **lock 前缀**的指令时，会去争抢全局锁，拿到锁后其他线程的读取操作会被阻塞，在释放锁之前，会清空该线程的本地的 **Store Buffer**，这里和 **MFENCE** 执行逻辑类似；
+- 某 CPU 执行 **lock 前缀**的指令时，会去争抢全局锁，拿到锁后其他线程的读取操作会被阻塞，在释放锁之前，会清空该线程的本地的 **Store Buffer**，这里和 **MFENCE** 执行逻辑类似；
     
-- **Store Buffer** 被写入变量后，除了被其他线程持有锁以外的情况，在任何时刻均有可能写回内存。
+- **Store Buffer** 被写入变量后，除了被其他线程持有锁以外的情况，在任何时刻均有可能写回内存。
     
-- 因为没有引入 **Invalid Queue**，所以不需要 **LoadLoad barrier**；
+- 因为没有引入 **Invalid Queue**，所以不需要 **LoadLoad barrier**；
     
-- **LoadStore barrier** 仅在乱序(**out-of-order**)处理器上有效，因为等待写指令可以绕过读指令；而 x86-TSO 相对其他平台缓存一致性是最严格的，读操作不会延后，不会使读写重排；
+- **LoadStore barrier** 仅在乱序(**out-of-order**)处理器上有效，因为等待写指令可以绕过读指令；而 x86-TSO 相对其他平台缓存一致性是最严格的，读操作不会延后，不会使读写重排；
     
-- 那么最后只有 **StoreLoad barrier** 是有效的，其他屏障都是**no-op**。
+- 那么最后只有 **StoreLoad barrier** 是有效的，其他屏障都是**no-op**。
     
 
 下面的代码是 Linux 在 x86 下的内存屏障定义
@@ -581,11 +581,11 @@ x86-TSO 有下面几个特点：
 
 - 如果 核心0 和 核心1 各有自己的 Store Buffer，会造成上述情况；
     
-- 核心0 将 x = 1 缓存在自己的 Store Buffer 里，同样 核心1 也将 y = 1 缓存在自己的 Store Buffer 里，核心0 从共享存储中获取 y = 0；
+- 核心0 将 x = 1 缓存在自己的 Store Buffer 里，同样 核心1 也将 y = 1 缓存在自己的 Store Buffer 里，核心0 从共享存储中获取 y = 0；
     
 - 同理，核心1 从共享存储中获取 x = 0，无法见到 x = 1；
     
-- 现代 Intel CPU 和 AMD x86 中都有 Store Buffer 结构。
+- 现代 Intel CPU 和 AMD x86 中都有 Store Buffer 结构。
     
 
 - 解决
@@ -593,9 +593,9 @@ x86-TSO 有下面几个特点：
 
 - 这个测试中从其他核心角度看当前核心的读操作提前了，就是因为有 Store Buffer 的存在，导致了从其他核心角度看写操作被延后了；
     
-- 所以需要引入 ******StoreLoad**** barrier**  来防止读操作提前写操作延后；
+- 所以需要引入 **StoreLoad barrier**  来防止读操作提前写操作延后；
     
-- 在 x86 中，带 **lock** **前缀**的指令 / **XCHG**指令 / **MFENCE**，会清空Store Buffer，使得当前核心之前的写操作立马可以被其他核心看见。
+- 在 x86 中，带 **lock** **前缀**的指令 / **XCHG**指令 / **MFENCE**，会清空Store Buffer，使得当前核心之前的写操作立马可以被其他核心看见。
     
 - 下面有两种解决办法示意图：
     
@@ -616,13 +616,13 @@ x86-TSO 有下面几个特点：
 - **解析**
     
 
-- 如果 核心0 和 核心2 共享一个 Store Buffer，核心1 和 核心3 共享一个 Store Buffer 会出现上述情况；
+- 如果 核心0 和 核心2 共享一个 Store Buffer，核心1 和 核心3 共享一个 Store Buffer 会出现上述情况；
     
-- 因为读取时会先去 Store Buffer 读取修改，所以 核心0 执行的 x = 1 会被 核心2 读取到，故 EAX = 1 ；
+- 因为读取时会先去 Store Buffer 读取修改，所以 核心0 执行的 x = 1 会被 核心2 读取到，故 EAX = 1 ；
     
 - 因为 核心1 和 核心2 不共享 StoreBuffer，核心1 的 y = 1 操作缓存在自己和 核心3 的共享 Store Buffer 中，所以 EBX = 0 ；
     
-- 核心3 的ECX = 1 和 EDX = 0 与上述同理。
+- 核心3 的ECX = 1 和 EDX = 0 与上述同理。
     
 
 - 总结
@@ -642,9 +642,9 @@ x86-TSO 有下面几个特点：
 
 - 如果 核心0 和 核心1 有各自的 Store Buffer；
     
-- 核心0 将 x = 1 缓存在自己的 Store Buffer 中，并且根据 Store Forwarding 原则，核心0 读取 x 到 EAX 的时候会读取自己的 Store Buffer (中 x = 1)，故 EAX = 1；
+- 核心0 将 x = 1 缓存在自己的 Store Buffer 中，并且根据 Store Forwarding 原则，核心0 读取 x 到 EAX 的时候会读取自己的 Store Buffer (中 x = 1)，故 EAX = 1；
     
-- 同理，核心1 也会缓存自己的写操作， 即缓存 y = 2 和 x = 2 到自己的  Store Buffer，因此 y = 2 这个操作不会被核心0 观察到，核心0 从共享存储中读到 y = 0 ，故 EBX = 0；
+- 同理，核心1 也会缓存自己的写操作， 即缓存 y = 2 和 x = 2 到自己的  Store Buffer，因此 y = 2 这个操作不会被核心0 观察到，核心0 从共享存储中读到 y = 0 ，故 EBX = 0；
     
 
 - 总结
@@ -660,7 +660,6 @@ x86-TSO 有下面几个特点：
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/vAs533UlQGaqTtic2eqy7EPDL6ic2aV1RYQIToaB6TRjbj5sz8f78AK4gC9Wz9tuLCpbXXCfww3iaInUfRQYWF4cQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=20)
 
 ### **6.2 测试 CPU 是否乱序执行**
-**
 
 ### **6.2.1 测试：StoreStore 乱序**
 
@@ -669,7 +668,7 @@ x86-TSO 有下面几个特点：
 - **解析**
     
 
-- 在 x86-TSO 上，从 核心1 的角度看 核心0，x 和 y 的写入顺序不能颠倒；
+- 在 x86-TSO 上，从 核心1 的角度看 核心0，x 和 y 的写入顺序不能颠倒；
     
 - 因为写操作会按照 FIFO 的规则进入Store Buffer，并且按照 FIFO 的顺序刷入共享存储，所以写操作无法重排序；
     
@@ -683,9 +682,9 @@ x86-TSO 有下面几个特点：
 - 总结
     
 
-- 在 x86 上 Store Buffer 是 **FIFO** 队列，**写操作不允许重排序**，无论是从自己还是其他核心角度看都不会发生重排序；
+- 在 x86 上 Store Buffer 是 **FIFO** 队列，**写操作不允许重排序**，无论是从自己还是其他核心角度看都不会发生重排序；
     
-- 在乱序（**out-of-order**）CPU 上，比如 Arm 上可能发生 StoreStore 重排序，所以需要 **************Store************Store **barrier******** ；  
+- 在乱序（**out-of-order**）CPU 上，比如 Arm 上可能发生 StoreStore 重排序，所以需要 **StoreStore barrier** ；  
     
 
 ### **6.2.2 测试：LoadStore 乱序**
@@ -699,7 +698,7 @@ x86-TSO 有下面几个特点：
     
 - 由于 x86-TSO 的**读操纵不能延后**，所以 EBX = y 的操作在 x = 1 之前执行；
     
-- 同理，EAX = x 这个读操作也不能延后到 y = 1 之后执行;
+- 同理，EAX = x 这个读操作也不能延后到 y = 1 之后执行;
     
 - 所以 EBX = y 先于 x = 1 ，x = 1 先于 EAX = x, EAX = x 先于 y = 1 , 所以 EBX 不可能等于 1；
     
@@ -707,9 +706,9 @@ x86-TSO 有下面几个特点：
 - 总结
     
 
-- 在 x86 上**读操作不能延****后，但是可以提前**（9.1.1 中就是读提前了）；
+- 在 x86 上**读操作不能延后，但是可以提前**（9.1.1 中就是读提前了）；
     
-- 在乱序（**out-of-order**）CPU 上，因为**等待写指令**可以绕过**读指令**，比如 Arm 上可能发生 LoadStore 重排序，所以需要 ******Load******Store **barrier******；
+- 在乱序（**out-of-order**）CPU 上，因为**等待写指令**可以绕过**读指令**，比如 Arm 上可能发生 LoadStore 重排序，所以需要 **LoadStore barrier**；
     
 
 ### **6.3 测试 n5 / n4b：两个核心同时修改同一个变量**
@@ -723,7 +722,7 @@ x86-TSO 有下面几个特点：
 
 - 假如 核心0 和 核心1 都有自己的 Store Buffer；
     
-- 如果 EAX = 2，那么说明 核心1 的 Store Buffer 中 x = 2已经刷到了共享存储， 那么 x = 2 必然在 x = 1 和 EAX = x 之间执行，因为 EAX 会优先读取 Store Buffer 中的 x ，既然 EAX = 2，说明 核心0 的 Store Buffer 中的 x = 1 已经刷到了共享存储，并且在 x = 2 之前执行的；
+- 如果 EAX = 2，那么说明 核心1 的 Store Buffer 中 x = 2已经刷到了共享存储， 那么 x = 2 必然在 x = 1 和 EAX = x 之间执行，因为 EAX 会优先读取 Store Buffer 中的 x ，既然 EAX = 2，说明 核心0 的 Store Buffer 中的 x = 1 已经刷到了共享存储，并且在 x = 2 之前执行的；
     
 - EBX 会优先读取 核心1 中的 Store Buffer ，所以 EBX 不可能等于 1 ；
     
@@ -763,7 +762,7 @@ x86-TSO 有下面几个特点：
 
 - 在 x86-TSO 上，对于 核心1，如果 EAX = 1 ，那么说明 核心1 已经见到了 核心0 的动作；
     
-- 对于 核心2，EBX = 1，说明 核心2 已经见到了 核心1 的动作，又根据之前的 x86-TSO 上**读操作不能延后**，EAX = x 不能延迟到 y = 1 之后，所以 核心2 必能见到 核心0 的动作，所以 ECX = x 不能为 0。
+- 对于 核心2，EBX = 1，说明 核心2 已经见到了 核心1 的动作，又根据之前的 x86-TSO 上**读操作不能延后**，EAX = x 不能延迟到 y = 1 之后，所以 核心2 必能见到 核心0 的动作，所以 ECX = x 不能为 0。
     
 
 - 总结
@@ -797,11 +796,11 @@ bool AtomQueue<T>::Pop(T& v)
 }
 ```
 
-在使用上，通常会记录下某块内存中的**_旧值_**，通过对**_旧值_** 进行一系列的操作后得到**_新值_**，然后通过 **CAS** 操作将**_新值_** 与**_旧值_** 进行交换。
+在使用上，通常会记录下某块内存中的**_旧值_**，通过对**_旧值_** 进行一系列的操作后得到**_新值_**，然后通过 **CAS** 操作将**_新值_** 与**_旧值_** 进行交换。
 
-如果这块内存的值在这期间内没被修改过，则**_旧值_** 会与内存中的数据相同，这时 **CAS** 操作将会成功执行，使内存中的数据变为**_新值_**。
+如果这块内存的值在这期间内没被修改过，则**_旧值_** 会与内存中的数据相同，这时 **CAS** 操作将会成功执行，使内存中的数据变为**_新值_**。
 
-如果内存中的值在这期间内被修改过，则一般来说**_旧值_** 会与内存中的数据不同，这时 **CAS** 操作将会失败，**_新值_** 将不会被写入内存。
+如果内存中的值在这期间内被修改过，则一般来说**_旧值_** 会与内存中的数据不同，这时 **CAS** 操作将会失败，**_新值_** 将不会被写入内存。
 
 ### **7.1 应用**
 
@@ -859,9 +858,9 @@ pop()
 
 ### **7.3 实现**
 
-**CAS 操作基于 CPU 提供的原子操作指令实现。对于 Intel X86 处理器，可通过在汇编指令前增加** **lock** **前缀****来锁定系统总线，使系统总线在汇编指令执行时无法访问相应的内存地址。而各个编译器根据这个特点实现了各自的原子操作函数。**
+CAS 操作基于 CPU 提供的原子操作指令实现。对于 Intel X86 处理器，可通过在汇编指令前增加 **lock 前缀**来锁定系统总线，使系统总线在汇编指令执行时无法访问相应的内存地址。而各个编译器根据这个特点实现了各自的原子操作函数。
 
-- C语言，C11的头文件<stdatomic.h>。由GNU提供了对应的__sync系列函数完成原子操作。 
+- C语言，C11的头文件<stdatomic.h>。由GNU提供了对应的__sync系列函数完成原子操作。 
     
 - C++11，STL 提供了atomic 系列函数。
     
@@ -928,7 +927,7 @@ C++11 原子操作的很多函数都有个 std::memory_order 参数，这个参�
     
 - **memory_order_acq_rel**：**获得释放操作**，一个**读‐修改‐写**操作同时具有_获得_语义和_释放_语义，即它前后的任何读写操作都不允许重排，并且其他线程在对同一个原子对象释放之前的所有内存写入都在当前线程可见，当前线程的所有内存写入都在对同一个原子对象进行获取的其他线程可见；  
     
-- ****memory_order_seq_cst****：**顺序一致性语义**，对于读操作相当于_获得_，对于写操作相当于_释放_，对于读‐修改‐写操作相当于_获得释放_，是所有原子操作的**默认内存序**，并且会对所有使用此模型的原子操作建立一个**全局顺序**，保证了**多个原子变量**的操作在所有线程里观察到的操作顺序相同，当然它是最慢的同步模型。
+- **memory_order_seq_cst**：**顺序一致性语义**，对于读操作相当于_获得_，对于写操作相当于_释放_，对于读‐修改‐写操作相当于_获得释放_，是所有原子操作的**默认内存序**，并且会对所有使用此模型的原子操作建立一个**全局顺序**，保证了**多个原子变量**的操作在所有线程里观察到的操作顺序相同，当然它是最慢的同步模型。
     
 
 在不同的 CPU 架构上，这些模型的具体实现方式可能不同，但是 C++11 帮你屏蔽了内部细节，不用考虑内存屏障，只要符合上面的使用规则，就能得到想要的效果。可能有时使用的模型粒度比较大，会损耗性能，当然还是使用各平台底层的内存屏障粒度更准确，效率也会更高，对程序员的功底要求也高。
@@ -943,19 +942,19 @@ C++11 原子操作的很多函数都有个 std::memory_order 参数，这个参�
 
 ## **09 无锁队列**
 
- 本节是 CPU 缓存一致性的实战部分，通过运用前面的理论知识实现一个**无锁队列**，达到学以致用的目的。
+本节是 CPU 缓存一致性的实战部分，通过运用前面的理论知识实现一个**无锁队列**，达到学以致用的目的。
 
-下面是我采用 **CAS** 实现了一个**多生产者多消费者无锁队列**，设计参考 **Disruptor** ，最高可达 **660万**QPS（单生产者单消费者）和 **160万**QPS（10个生产者10个消费者）。
+下面是我采用 **CAS** 实现了一个**多生产者多消费者无锁队列**，设计参考 **Disruptor** ，最高可达 **660万**QPS（单生产者单消费者）和 **160万**QPS（10个生产者10个消费者）。
 
 ### **9.1 设计思路**
 
-1、如图15，使用 2 个**环形数组**，数组元素均非原子变量，一个存储 **T** 范型数据（一般为指针），另一个是可用性检查数组（**uint8_t**）。**Head** 是所有**生产者**的竞争标记，**Tail** 是所有**消费者**的竞争标记。**红色区**表示**待生产位置**，**绿色区**表示**待消费位置**。 
+1、如图15，使用 2 个**环形数组**，数组元素均非原子变量，一个存储 **T** 范型数据（一般为指针），另一个是可用性检查数组（**uint8_t**）。**Head** 是所有**生产者**的竞争标记，**Tail** 是所有**消费者**的竞争标记。**红色区**表示**待生产位置**，**绿色区**表示**待消费位置**。 
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/vAs533UlQGaSE8tIWia9Sibze74xv3rjrLORiaGKO2dZfyf0Pj6m1Ks3EUgwg3kWp7ibbDAQDJDjIzTJnr9NFzj89g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=29)
 
 图15
 
-2、生产者们通过 **CAS** 来竞争和移动 **Head**，抢到 **Head** 的生产者，先将 **Head** 加1，再生产原 **Head** 位置的数据；同样的消费者们通过 **CAS** 来竞争和移动 **Tail，**抢到 **Tail** 的消费者，先将 **Tail** 加1，再消费原 **Tail** 位置的数据 。
+2、生产者们通过 **CAS** 来竞争和移动 **Head**，抢到 **Head** 的生产者，先将 **Head** 加1，再生产原 **Head** 位置的数据；同样的消费者们通过 **CAS** 来竞争和移动 **Tail，**抢到 **Tail** 的消费者，先将 **Tail** 加1，再消费原 **Tail** 位置的数据 。
 
 ### **9.2 实现细节**
 
@@ -988,7 +987,7 @@ private:
 };
 ```
 
-细心的你会看到 **head_** 和 **tail_** 还有后面的变量中加添加了无意义的字段 **P0**、**P1** 和 **P2** ，因为 **head_** 和 **tail_** 频繁变化，目的是防止出现前面讲过的**伪共享**导致性能下降问题。
+细心的你会看到 **head_** 和 **tail_** 还有后面的变量中加添加了无意义的字段 **P0**、**P1** 和 **P2** ，因为 **head_** 和 **tail_** 频繁变化，目的是防止出现前面讲过的**伪共享**导致性能下降问题。
 
 ### **9.2.2 构造函数与析构函数**
 
@@ -1016,7 +1015,7 @@ AtomQueue<T>::~AtomQueue()
 }
 ```
 
-构造函数中强制传入的队列大小（size）必须为 2 的幂数，目的是想用 & 而不是 % 取模，因为 & 比 % 快 2ns，最求极致性能。
+构造函数中强制传入的队列大小（size）必须为 2 的幂数，目的是想用 & 而不是 % 取模，因为 & 比 % 快 2ns，最求极致性能。
 
 ### **9.2.3 生产者调用的 Push 函数 和 消费者调用的 Pop 函数**
 
@@ -1059,7 +1058,7 @@ bool AtomQueue<T>::Pop(T& v)
 
 - 当刚初始化的队列，队列还是空的，这时核心0 执行 Push 函数，同时核心1 执行 Pop 函数；
     
-- Push 里的条件**（tail <= head ? tail + size_ <= head + 1 : tail <= head + 1）**为 **true**，表示队列已经满了，所以生产失败，其实队列还是空的；
+- Push 里的条件**（tail <= head ? tail + size_ <= head + 1 : tail <= head + 1）**为 **true**，表示队列已经满了，所以生产失败，其实队列还是空的；
     
 - Pop 里的条件**（tail == head_ || !valid_[tail]）**为 **false**，表示队列有数据，并且消费 **tail** 位置数据，实际上 **tail** 位置还没数据；
     
@@ -1098,19 +1097,19 @@ return false;
 400a9e:  eb 40                  jmp    400ae0 <_ZN9AtomQueueIiE3PopERi+0xcc>
 ```
 
-发现 __sync_bool_compare_and_swap 函数对应的汇编代码为：
+发现 __sync_bool_compare_and_swap 函数对应的汇编代码为：
 
 ```
 400a8a:  f0 48 0f b1 0a         lock cmpxchg %rcx,(%rdx)
 ```
 
-是带 **lock** 前缀的命令，前面讲过，在 x86-TSO 上，带有 **lock** 前缀的命令具有刷新 Store Buffer 的功能，也就是 **head_** 和 **tail_** 的修改都能及时被其他核心观察到，可以做到及时生产和消费。
+是带 **lock** 前缀的命令，前面讲过，在 x86-TSO 上，带有 **lock** 前缀的命令具有刷新 Store Buffer 的功能，也就是 **head_** 和 **tail_** 的修改都能及时被其他核心观察到，可以做到及时生产和消费。
 
 ---
 
 ## **10 参考资料**
 
-- Alder Lake - 维基百科，自由的百科全书
+- Alder Lake - 维基百科，自由的百科全书
     
 - CPU Cache：访存速度是如何大幅提升的？
     
@@ -1122,9 +1121,9 @@ return false;
     
 - https://www.scss.tcd.ie/Jeremy.Jones/VivioJS/caches/MESIHelp.htm
     
-- MESIF协议 - 维基百科，自由的百科全书
+- MESIF协议 - 维基百科，自由的百科全书
     
-- MOESI协议 - 维基百科，自由的百科全书
+- MOESI协议 - 维基百科，自由的百科全书
     
 - 为什么在 x86 架构下只有 StoreLoad 屏障是有效指令？
     
@@ -1136,7 +1135,7 @@ return false;
     
 - 从 Java 内存模型看内部细节
     
--  比较并交换 - 维基百科，自由的百科全书
+-  比较并交换 - 维基百科，自由的百科全书
     
 - https://en.wikipedia.org/wiki/Compare-and-swap
     
