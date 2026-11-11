@@ -1,7 +1,7 @@
 
 https://blog.csdn.net/whbing1471/article/details/105468139
 
-### 一、 Linux 内存总览图
+### 一、 Linux 内存分配总览图
 
 ![[0364f882842e5e2cfb2f7ab60888f05e.jpeg|Linux内存分布图]]
 

@@ -1,35 +1,35 @@
 原文： https://zhuanlan.zhihu.com/p/1985043608181678205
 
 
-当你频繁访问同一文件时，是否好奇为何后续打开速度会大幅提升？当系统处理磁盘数据时，又是什么在背后缓解CPU与硬盘的速度鸿沟？答案，就藏在Linux内核两大[缓存机制](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLnvJPlrZjmnLrliLYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.11HJndin8xIMgN6ESbx_ENBVtCGXn2UEq3v_2KsryUQ&zhida_source=entity)——Page Cache与[Buffer Cache](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=Buffer+Cache&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiJCdWZmZXIgQ2FjaGUiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.4enBfBcbL6d6PD8V-u0G6evXS5jZels9A-UiylcSYHA&zhida_source=entity)中。它们如同系统的“数据中转站”，悄无声息地优化着存储I/O性能，却是许多开发者与运维人员容易混淆的技术点。
+当你频繁访问同一文件时，是否好奇为何后续打开速度会大幅提升？当系统处理磁盘数据时，又是什么在背后缓解CPU与硬盘的速度鸿沟？答案，就藏在Linux内核两大缓存机制——Page Cache与Buffer Cache中。它们如同系统的“数据中转站”，悄无声息地优化着存储I/O性能，却是许多开发者与运维人员容易混淆的技术点。
 
 有人将二者视为“孪生兄弟”，也有人困惑于它们的分工边界。实际上，Page Cache以“页”为单位缓存文件数据，Buffer Cache则聚焦磁盘块级别的元数据与原始数据，二者协同工作又各有侧重。理解它们的核心原理，不仅能搞懂系统卡顿、I/O瓶颈的根源，更能在性能调优、故障排查中精准发力。本文将跳出复杂的内核源码，用通俗语言拆解二者的工作机制：从数据缓存的触发时机，到内存中的存储方式；从相互配合的协同逻辑，到实际场景中的功能差异，带你快速建立清晰认知，真正读懂这两大Linux缓存“基石”。
 
-在深入了解它们的[工作机制](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=2&q=%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLlt6XkvZzmnLrliLYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MiwiemRfdG9rZW4iOm51bGx9.g0abzz6tLsiM5--o5yRBP2-b5alRqYSQMXAoTOeBhlI&zhida_source=entity)之前，我们先来搞清楚 Page Cache 和 Buffer Cache 到底是什么，它们在系统中扮演着怎样的基础角色。
+在深入了解它们的工作机制之前，我们先来搞清楚 Page Cache 和 Buffer Cache 到底是什么，它们在系统中扮演着怎样的基础角色。
 
-### 1.1Page Cache：文件数据的高速 “暂存站”
+### 1.1 Page Cache：文件数据的高速 “暂存站”
 
-Page Cache，中文叫[页缓存](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E9%A1%B5%E7%BC%93%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLpobXnvJPlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.M-t2Or-fBZTGlWlNM1hG2aZHZTN8Ss_o8bnre_yeHT0&zhida_source=entity) ，是 Linux 内核用于缓存文件数据的一种机制。简单来说，它就像是一个高速 “暂存站”，把磁盘上的文件数据临时存放在内存里。这样一来，当系统后续需要访问这些文件数据的时候，就可以直接从内存中读取，而不用每次都傻乎乎地去磁盘里找，大大提升了文件读写的性能。
+Page Cache，中文叫页缓存 ，是 Linux 内核用于缓存文件数据的一种机制。简单来说，它就像是一个高速 “暂存站”，把磁盘上的文件数据临时存放在内存里。这样一来，当系统后续需要访问这些文件数据的时候，就可以直接从内存中读取，而不用每次都傻乎乎地去磁盘里找，大大提升了文件读写的性能。
 
 打个比方，Page Cache 就好比是图书馆里的热门书籍存放区。我们都知道，图书馆里的书成千上万，如果每次都要在庞大的书架中去找自己想要的书，那得花不少时间。于是，图书馆管理员就把那些经常被借阅的热门书籍专门挑出来，放在一个更方便取阅的区域。下次有人再来借这些热门书的时候，直接去这个专门的区域找就行了，一下子就能找到，节省了大量的时间和精力。Page Cache 也是如此，它把那些经常被访问的文件数据缓存起来，系统下次访问时就能快速获取，就像在图书馆的热门书籍存放区找书一样快捷 。
 
-Page Cache 是**以 “页” 为单位来缓存文件数据**的，这个 “页” 的大小通常是 4KB。也就是说，它会把文件数据按照 4KB 的大小，划分成一个个的页，然后把这些页缓存到内存中。这样做的好处是，在读取文件时，如果系统需要的数据已经在 Page Cache 的某个页中，那就可以直接从内存中读取这一页的数据，避免了对磁盘的 [I/O 操作](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=I%2FO+%E6%93%8D%E4%BD%9C&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiJJL08g5pON5L2cIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjY3ODM2NDg0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.5uTVNS1WA5RppZckiFKp-R_HPwPot-J8Ny2RCCat2ts&zhida_source=entity)。要知道，磁盘的 I/O 操作可是非常耗时的，而内存的读取速度要比磁盘快得多，这就好比从家门口的便利店买东西和从遥远的仓库取货的区别，Page Cache 大大提高了文件读取的效率。
+Page Cache 是**以 “页” 为单位来缓存文件数据**的，这个 “页” 的大小通常是 4KB。也就是说，它会把文件数据按照 4KB 的大小，划分成一个个的页，然后把这些页缓存到内存中。这样做的好处是，在读取文件时，如果系统需要的数据已经在 Page Cache 的某个页中，那就可以直接从内存中读取这一页的数据，避免了对磁盘的 I/O 操作。要知道，磁盘的 I/O 操作可是非常耗时的，而内存的读取速度要比磁盘快得多，这就好比从家门口的便利店买东西和从遥远的仓库取货的区别，Page Cache 大大提高了文件读取的效率。
 
-### 1.2Buffer Cache：磁盘块的贴心 “管家”
+### 1.2 Buffer Cache：磁盘块的贴心 “管家”
 
-Buffer Cache，也就是块缓存，主要负责缓存**磁盘块级别的元数据与原始数据**。它就像是一个仓库的管理员，不仅要管理货物（数据），还要管理货物存放的位置信息（[元数据](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=3&q=%E5%85%83%E6%95%B0%E6%8D%AE&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLlhYPmlbDmja4iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MywiemRfdG9rZW4iOm51bGx9.GtawEv3XvF6UfDMjgwue91MmV1pvaI9RT9SJuW18AF0&zhida_source=entity)）。当系统对磁盘进行 I/O 操作时，Buffer Cache 就会发挥作用，它会把磁盘块的数据和相关的元数据缓存起来，以便后续的操作能够更快地进行 。
+Buffer Cache，也就是块缓存，主要负责缓存**磁盘块级别的元数据与原始数据**。它就像是一个仓库的管理员，不仅要管理货物（数据），还要管理货物存放的位置信息（元数据）。当系统对磁盘进行 I/O 操作时，Buffer Cache 就会发挥作用，它会把磁盘块的数据和相关的元数据缓存起来，以便后续的操作能够更快地进行 。
 
 比如，当我们要在磁盘上创建一个文件时，文件系统需要记录这个文件的一些元数据，像文件的创建时间、文件大小、文件所有者等等，这些元数据就会被 Buffer Cache 缓存起来。同时，文件的原始数据在写入磁盘之前，也会先存放在 Buffer Cache 中。这样，在后续对这个文件进行操作时，系统就可以先从 Buffer Cache 中查找相关的元数据和数据，而不用每次都去磁盘上读取，减少了磁盘 I/O 的次数，提高了操作的效率 。
 
-再举个更形象的例子，假设我们有一个大仓库，里面存放着各种各样的货物。仓库管理员为了能快速找到货物，会给每个货物都贴上标签，记录货物的名称、存放位置等信息，这些标签就相当于磁盘块的元数据。当有货物需要进出仓库时，管理员会先把货物存放在一个临时区域（相当于 Buffer Cache），方便管理和操作。等一切准备就绪，再把货物正式存入仓库或者从仓库取出。Buffer Cache 就是这样，在[磁盘块](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=6&q=%E7%A3%81%E7%9B%98%E5%9D%97&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLno4Hnm5jlnZciLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6NiwiemRfdG9rZW4iOm51bGx9.LMErjoWH0_0xskHyivArQEyUXXDVYaax5EWPS_2tO2w&zhida_source=entity)数据的读写过程中，起到了一个临时存储和管理的作用，就像仓库管理员贴心地管理着货物和货物信息一样 。
+再举个更形象的例子，假设我们有一个大仓库，里面存放着各种各样的货物。仓库管理员为了能快速找到货物，会给每个货物都贴上标签，记录货物的名称、存放位置等信息，这些标签就相当于磁盘块的元数据。当有货物需要进出仓库时，管理员会先把货物存放在一个临时区域（相当于 Buffer Cache），方便管理和操作。等一切准备就绪，再把货物正式存入仓库或者从仓库取出。Buffer Cache 就是这样，在磁盘块数据的读写过程中，起到了一个临时存储和管理的作用，就像仓库管理员贴心地管理着货物和货物信息一样 。
 
-### 1.3**两类缓存的逻辑关系**
+### 1.3 **两类缓存的逻辑关系**
 
-从Linux内核版本2.6.18的源码实现来看，Page Cache与Buffer Cache本质上是同一内存管理机制在不同层次上的体现：对于同一个物理页（Page），在文件系统层面，它作为某个文件的页缓存（Page Cache）存在；而在底层块设备驱动层面，该页又表现为设备上的一组[缓冲区缓存](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E7%BC%93%E5%86%B2%E5%8C%BA%E7%BC%93%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLnvJPlhrLljLrnvJPlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.rOpxBVTb2ch2lSHhldK7tSMTDS_K5yqLEkU6LiM_g88&zhida_source=entity)（Buffer Cache）。
+从Linux内核版本2.6.18的源码实现来看，Page Cache与Buffer Cache本质上是同一内存管理机制在不同层次上的体现：对于同一个物理页（Page），在文件系统层面，它作为某个文件的页缓存（Page Cache）存在；而在底层块设备驱动层面，该页又表现为设备上的一组缓冲区缓存（Buffer Cache）。
 
 ![](https://pica.zhimg.com/v2-b118671a270851f9881b16c40c093cf4_1440w.jpg)
 
-在文件系统的地址空间管理中，文件被按4KB（页大小）的粒度划分为[逻辑单元](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E9%80%BB%E8%BE%91%E5%8D%95%E5%85%83&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLpgLvovpHljZXlhYMiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.z8R7Cj-EWRKfru-1i9XXzkBNDuT5_ip5lcqGxEWnIZo&zhida_source=entity)。每个4KB单元**可能**映射到一个[物理内存页](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E9%A1%B5&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLniannkIblhoXlrZjpobUiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.-VwddWrdjcgNMKU-KJ7ZT-iT3eI1DQ0uqWGOBgGWfz8&zhida_source=entity)（Page）——这里的“可能”指仅当该部分数据被实际缓存时才会建立[映射](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=2&q=%E6%98%A0%E5%B0%84&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLmmKDlsIQiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MiwiemRfdG9rZW4iOm51bGx9.JCBVRrZ3vJXcervL2qQTyTfSUO7dL8RqpZXTRN1WzXw&zhida_source=entity)，未被缓存的部分则无对应关系。这个被映射的4KB物理页即构成该文件的**Page Cache**。
+在文件系统的地址空间管理中，文件被按4KB（页大小）的粒度划分为逻辑单元。每个4KB单元**可能**映射到一个物理内存页（Page）——这里的“可能”指仅当该部分数据被实际缓存时才会建立映射，未被缓存的部分则无对应关系。这个被映射的4KB物理页即构成该文件的**Page Cache**。
 
 从存储视角看，最终需要将文件的Page Cache落盘到磁盘块中。若磁盘块大小为1KB，则每个4KB的Page Cache会对应一组（4个）磁盘块的缓冲区缓存（Buffer Cache）。每个Buffer Cache通过一个称为buffer_head 的描述符进行管理，该结构记录了对应缓冲区所映射的磁盘块的具体物理位置信息。
 
@@ -258,20 +258,20 @@ int main() {
 
 ## 二、Page Cache与Buffer Cache工作原理
 
-### 2.1Page Cache 的工作流程
+### 2.1 Page Cache 的工作流程
 
 **（1）读取操作：命中与未命中的故事**
 
 当我们在 Linux 系统中读取一个文件时，Page Cache 就开始发挥它的关键作用了。内核首先会像一个敏锐的侦探一样，在 Page Cache 中仔细检查我们所需要的数据是否已经被缓存起来。这个检查过程非常迅速，就像是在一本精心编排的索引书中查找特定的内容一样。
 
-1. [缓存命中](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLnvJPlrZjlkb3kuK0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.3v_q1eWHrG7SfOaYaKRTJn3npsHXG9kPxagnpiBe758&zhida_source=entity)：如果数据已经在 Page Cache 中，恭喜，这就是所谓的缓存命中。此时，内核就可以直接从内存中读取数据，就像从自家的书架上随手拿下一本书一样轻松，完全不需要去打扰速度相对较慢的磁盘。这大大节省了数据读取的时间，使得文件能够快速地被打开或者处理，我们在操作电脑时就能感受到那种流畅和迅速。
+1. 缓存命中：如果数据已经在 Page Cache 中，恭喜，这就是所谓的缓存命中。此时，内核就可以直接从内存中读取数据，就像从自家的书架上随手拿下一本书一样轻松，完全不需要去打扰速度相对较慢的磁盘。这大大节省了数据读取的时间，使得文件能够快速地被打开或者处理，我们在操作电脑时就能感受到那种流畅和迅速。
 2. 缓存未命中：但如果 Page Cache 中没有找到我们需要的数据，也就是缓存未命中，那就得麻烦磁盘 “出山” 了。内核会向磁盘发送读取请求，磁盘就像一个勤劳的仓库管理员，从它那庞大的存储空间中找到对应的数据块，然后把数据读取出来。数据读取出来后，内核会把这些数据填充到 Page Cache 中，就像把新到的货物存放到仓库的热门区域一样，方便下次再被访问时能够快速获取。同时，内核还会把这些数据返回给请求的进程，让进程能够继续它的工作 。
 
 这里还有一个有趣的小细节，为了进一步提高读取效率，内核在从磁盘读取数据时，往往会采用预读机制。简单来说，就是内核会猜测进程接下来可能还会需要哪些数据，然后提前把这些数据也一起读取到 Page Cache 中。就好比我们去超市买东西，虽然只列了一张购物清单，但想到可能还会用到其他东西，就顺手多买了一些备用。这样一来，当进程后续真的需要这些数据时，就很有可能在 Page Cache 中直接命中，避免了再次从磁盘读取的开销，大大提高了数据读取的连贯性和效率 。
 
 **（2）写入操作：延迟与回写的策略**
 
-在文件写入操作中，Page Cache 采用了一种非常巧妙的策略，叫做延迟写入和[回写策略](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E5%9B%9E%E5%86%99%E7%AD%96%E7%95%A5&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLlm57lhpnnrZbnlaUiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.iY6wV3YMBcIiARzGcKJdBIbokCn16dKyz2mSzvevFDg&zhida_source=entity) 。  
+在文件写入操作中，Page Cache 采用了一种非常巧妙的策略，叫做**延迟写入**和**回写**策略 。  
 当一个进程要向文件写入数据时，内核同样会先检查 Page Cache 中是否已经存在该文件对应的缓存页。如果存在，进程就直接把数据写入到这个缓存页中；如果不存在，内核会先分配一个新的缓存页，然后把数据写入进去。不管是哪种情况，写入数据后的缓存页都会被标记为 “脏页”，这就像是在告诉系统：“嘿，我这里面的数据和磁盘上的不一样啦，得找个时间把新数据同步到磁盘上去 。”
 
 但是，内核并不会马上把脏页中的数据写入磁盘，而是会等待一段时间。这是因为如果每次有少量数据写入就立刻同步到磁盘，磁盘的 I/O 操作会非常频繁，效率会很低。就好比我们寄快递，如果每次有一件小物品都要单独寄一次，不仅麻烦，而且快递费用也会很高。所以，内核会把这些脏页先放在 Page Cache 中，等积累到一定数量，或者满足特定的条件时，再统一进行回写操作 。
@@ -279,13 +279,13 @@ int main() {
 1. 时间间隔：系统会定期（比如每隔 5 秒或者 30 秒）唤醒一个专门负责回写的内核线程，这个线程会扫描 Page Cache 中的脏页，把符合条件的脏页写回磁盘。就像是快递员会按照固定的时间间隔来收取快递一样 。
 2. 内存压力：当系统可用内存不足时，内核需要回收一些内存页来分配给新的需求。如果要回收的内存页是脏页，那就得先把它写回磁盘，确保数据不会丢失，然后才能释放这个内存页 。
 3. 脏页比例：当系统中脏页的数量超过一定阈值时，为了保证数据的一致性和系统的稳定性，也会触发脏页回写操作 。
-4. 显式同步：应用程序可以通过调用 fsync ()、fdatasync () 或 sync () 等[系统调用](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLns7vnu5_osIPnlKgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.YKPTqh_g8FaI2R05BEpBMblUh2hiZH9Q3dXkvHW7dyQ&zhida_source=entity)，强制把文件和文件系统的脏页刷新到磁盘上。这就像是我们有非常紧急的快递，等不及快递员的固定收取时间，直接打电话让快递员马上来取件一样 。
+4. 显式同步：应用程序可以通过调用 fsync ()、fdatasync () 或 sync () 等系统调用，强制把文件和文件系统的脏页刷新到磁盘上。这就像是我们有非常紧急的快递，等不及快递员的固定收取时间，直接打电话让快递员马上来取件一样 。
 
 在回写过程中，内核线程会找到需要回写的脏页，然后发起磁盘 I/O 操作，把脏页中的数据写回到磁盘文件对应的位置。写成功后，这个脏页就会被标记为 “干净页”，表示它里面的数据已经和磁盘上的完全一致了 。通过这种延迟写入和回写策略，Page Cache 大大减少了磁盘 I/O 的次数，提高了文件写入的性能，同时也保证了数据的持久性和一致性 。
 
-### 2.2Buffer Cache 的工作流程
+### 2.2 Buffer Cache 的工作流程
 
-**（1）[数据缓冲](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E6%95%B0%E6%8D%AE%E7%BC%93%E5%86%B2&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLmlbDmja7nvJPlhrIiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.aGEK0JFO5OrC08hFDlfiedmc6U498ZYgVRmJ_zRWeSg&zhida_source=entity)：磁盘 I/O 的优化之道**
+**（1）数据缓冲：磁盘 I/O 的优化之道**
 
 在数据写入磁盘的过程中，Buffer Cache 充当了一个至关重要的角色。当我们要把数据写入磁盘时，数据并不会直接就被写入磁盘，而是会先被存放在 Buffer Cache 中。这就好比我们在寄快递时，不会直接把包裹送到快递站，而是先把包裹放在家里的一个临时存放点，等积累到一定数量或者到了合适的时间再一起送去快递站 。
 
@@ -303,7 +303,7 @@ int main() {
 
 再比如，当我们要删除一个文件时，文件系统首先会在 Buffer Cache 中查找这个文件的元数据，确认文件的相关信息，然后再进行删除操作。如果没有 Buffer Cache 对元数据的缓存，每次进行文件系统操作都需要从磁盘上读取元数据，这会大大增加磁盘 I/O 的负担，降低系统的响应速度 。所以说，Buffer Cache 的元数据缓存功能就像是文件系统的幕后英雄，默默地支持着文件系统的各种操作，让我们在使用文件系统时能够更加顺畅和高效 。
 
-### 2.3二者之间的区别
+### 2.3 二者之间的区别
 
 为了更清晰地看出 Page Cache 和 Buffer Cache 的差异，我们通过下面的表格来对比一下：
 
@@ -320,7 +320,7 @@ int main() {
 
 ## 三、协同与差异：它们的关系解读
 
-### 3.1协同工作：Linux 存储 I/O 的完美搭档
+### 3.1 协同工作：Linux 存储 I/O 的完美搭档
 
 在 Linux 系统的存储 I/O 体系中，Page Cache 和 Buffer Cache 并不是各自为战的，它们就像一对配合默契的搭档，相互协作，共同优化着数据的读写过程，确保系统能够高效地运行 。
 
@@ -330,7 +330,7 @@ int main() {
 
 为了更直观地理解它们的协同工作过程，我们可以用一个生活中的例子来比喻。假设我们要从图书馆借阅一本小说，然后把自己的读书笔记写进这本小说里。首先，图书馆管理员会从书架上找到这本小说（相当于磁盘读取数据到 Buffer Cache），然后把小说交给我们（相当于 Buffer Cache 传递数据到 Page Cache）。我们在阅读小说的过程中，会把自己的读书笔记写在一张纸上（相当于数据写入 Page Cache）。当我们读完小说，要把读书笔记正式写进小说里时，我们会先把写好的读书笔记交给图书馆管理员（相当于 Page Cache 传递脏页数据到 Buffer Cache），管理员会把我们的读书笔记整理好，然后再把它们写进小说里（相当于 Buffer Cache 写入数据到磁盘） 。通过这个比喻，我们可以清楚地看到 Page Cache 和 Buffer Cache 在数据读写过程中是如何相互配合，共同完成任务的 。
 
-### 3.2应用场景
+### 3.2 应用场景
 
 **（1）Page Cache 应用场景**
 
@@ -339,10 +339,10 @@ int main() {
 
 **（2）Buffer Cache 应用场景**
 
-1. [大数据存储](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLlpKfmlbDmja7lrZjlgqgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.KmU6GwMhh7w-7U2shUtktwyUJEnoNk5ROBimTeWrPFQ&zhida_source=entity)：在大数据存储场景中，数据的读写操作十分频繁且数据量巨大，Buffer Cache 能够有效提升数据处理效率。以 Hadoop 分布式文件系统（HDFS）为例，HDFS 中的数据块会频繁地进行读写操作 。当一个 [MapReduce](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=MapReduce&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiJNYXBSZWR1Y2UiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.crhRNqmwBZNWpx6Pb2gn50z4GCvuPjiZ5rHNDwccD_U&zhida_source=entity) 任务需要读取 HDFS 中的数据块时，数据首先会被读取到 Buffer Cache 中 。假设一个数据分析任务需要处理一个包含数十亿条记录的日志文件，这个文件被存储在 HDFS 上并分成多个数据块 。MapReduce 任务在读取这些数据块时，如果数据块在 Buffer Cache 中，就可以直接从这里获取，避免了直接访问磁盘的开销，提高了数据读取速度 。在写入数据时，如将分析结果写回 HDFS，数据先存入 Buffer Cache，等积累到一定量后再批量写入磁盘，减少了磁盘 I/O 的次数，提升了大数据处理的效率 。
-2. 文件系统元数据操作：在文件系统中，对元数据（如 inode、dentry、超级块等 ）的操作非常频繁，Buffer Cache 在这方面发挥着重要作用。当我们在 Linux 系统中创建一个新文件时，文件系统需要更新文件的元数据，如创建新的 inode，记录文件的权限、所有者、大小等信息 。这些元数据的读写操作会先经过 Buffer Cache 。假设我们在一个目录下创建多个文件，每次创建文件时对 inode 等元数据的更新操作都会先在 Buffer Cache 中进行缓存 。当后续需要再次访问这些元数据时，就可以直接从 Buffer Cache 中获取，减少了对磁盘的访问次数，提高了文件系统操作的速度和稳定性 。在删除文件时，对[文件元数据](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E6%96%87%E4%BB%B6%E5%85%83%E6%95%B0%E6%8D%AE&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLmlofku7blhYPmlbDmja4iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.EADjV7ruk8VFSUcesGZGIL8D6WOLr1SUhg8_eX263u8&zhida_source=entity)的删除操作同样先在 Buffer Cache 中缓存，等合适时机再同步到磁盘，保证了文件系统元数据操作的高效性 。
+1. 大数据存储：在大数据存储场景中，数据的读写操作十分频繁且数据量巨大，Buffer Cache 能够有效提升数据处理效率。以 Hadoop 分布式文件系统（HDFS）为例，HDFS 中的数据块会频繁地进行读写操作 。当一个 MapReduce 任务需要读取 HDFS 中的数据块时，数据首先会被读取到 Buffer Cache 中 。假设一个数据分析任务需要处理一个包含数十亿条记录的日志文件，这个文件被存储在 HDFS 上并分成多个数据块 。MapReduce 任务在读取这些数据块时，如果数据块在 Buffer Cache 中，就可以直接从这里获取，避免了直接访问磁盘的开销，提高了数据读取速度 。在写入数据时，如将分析结果写回 HDFS，数据先存入 Buffer Cache，等积累到一定量后再批量写入磁盘，减少了磁盘 I/O 的次数，提升了大数据处理的效率 。
+2. 文件系统元数据操作：在文件系统中，对元数据（如 inode、dentry、超级块等 ）的操作非常频繁，Buffer Cache 在这方面发挥着重要作用。当我们在 Linux 系统中创建一个新文件时，文件系统需要更新文件的元数据，如创建新的 inode，记录文件的权限、所有者、大小等信息 。这些元数据的读写操作会先经过 Buffer Cache 。假设我们在一个目录下创建多个文件，每次创建文件时对 inode 等元数据的更新操作都会先在 Buffer Cache 中进行缓存 。当后续需要再次访问这些元数据时，就可以直接从 Buffer Cache 中获取，减少了对磁盘的访问次数，提高了文件系统操作的速度和稳定性 。在删除文件时，对文件元数据的删除操作同样先在 Buffer Cache 中缓存，等合适时机再同步到磁盘，保证了文件系统元数据操作的高效性 。
 
-### 3.3功能差异：不同场景下的各司其职
+### 3.3 功能差异：不同场景下的各司其职
 
 虽然 Page Cache 和 Buffer Cache 在很多情况下协同工作，但它们在功能上也有着明显的差异，在不同的实际场景中发挥着各自独特的作用 。
 
@@ -350,13 +350,13 @@ int main() {
 
 而 Buffer Cache 在文件系统元数据的管理和磁盘块级别的操作中则起着关键作用 。当我们执行一些涉及文件系统元数据的操作时，比如创建文件、删除文件、修改文件权限等，Buffer Cache 就会发挥重要作用 。因为这些操作需要频繁地读取和更新文件系统的元数据，而 Buffer Cache 缓存了这些元数据，使得系统能够快速地获取和修改它们，提高了操作的效率 。例如，当我们使用ls命令查看目录下的文件列表时，系统需要读取目录的元数据来获取文件的相关信息，这些元数据就存储在 Buffer Cache 中，所以我们能够快速地看到文件列表 。
 
-再比如，在进行磁盘块级别的操作时，如使用[dd命令](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=dd%E5%91%BD%E4%BB%A4&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiJkZOWRveS7pCIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjI2NzgzNjQ4NCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.aOrK53UNo2jmywjTGuu6lh4AIi6sUJscn8Fl21_troI&zhida_source=entity)直接对磁盘进行读写，Buffer Cache 就成为了主角 。因为dd命令是直接操作磁盘块，而 Buffer Cache 正是缓存磁盘块数据的地方 。它可以有效地减少磁盘 I/O 的次数，提高磁盘块操作的效率 。假设我们要使用dd命令复制一个磁盘分区，数据会先被读取到 Buffer Cache 中，然后再从 Buffer Cache 写入到目标分区，这样可以避免频繁地直接访问磁盘，加快复制的速度 。
+再比如，在进行磁盘块级别的操作时，如使用dd命令直接对磁盘进行读写，Buffer Cache 就成为了主角 。因为dd命令是直接操作磁盘块，而 Buffer Cache 正是缓存磁盘块数据的地方 。它可以有效地减少磁盘 I/O 的次数，提高磁盘块操作的效率 。假设我们要使用dd命令复制一个磁盘分区，数据会先被读取到 Buffer Cache 中，然后再从 Buffer Cache 写入到目标分区，这样可以避免频繁地直接访问磁盘，加快复制的速度 。
 
 综上所述，Page Cache 和 Buffer Cache 虽然都与数据缓存和 I/O 优化有关，但它们的功能重点和适用场景有所不同 。Page Cache 主要针对文件数据的读写进行优化，通过缓存文件内容来提高文件访问速度；而 Buffer Cache 则侧重于磁盘块级别的数据缓存和文件系统元数据的管理，在涉及磁盘块操作和文件系统元数据操作时发挥着重要作用 。在实际的系统运行中，它们相互配合，共同为 Linux 系统的存储 I/O 性能提供保障 。
 
 ## 四、实际应用：性能优化与故障排查
 
-### 4.1性能优化：利用缓存提升系统速度
+### 4.1 性能优化：利用缓存提升系统速度
 
 在实际的 Linux 系统应用中，合理利用 Page Cache 和 Buffer Cache 能够显著提升系统的整体性能。而调整相关的内核参数以及优化文件读写顺序，是充分发挥这两大缓存机制优势的关键 。
 
@@ -368,7 +368,7 @@ int main() {
 
 在写入文件时，同样要注意顺序性 。尽量将相关的数据一次性写入，避免频繁的小写入操作 。因为频繁的小写入会导致 Buffer Cache 中的数据频繁更新，增加了回写的次数和开销 。比如，我们要向一个文件中写入一批用户的登录日志，如果我们能够将这些日志数据先在内存中组装好，然后一次性写入文件，就可以减少 Buffer Cache 的操作次数，提高写入效率 。同时，这种方式也有利于 Buffer Cache 将多个小写入合并成一个大的写入操作，进一步提升磁盘写入的性能 。
 
-### 4.2故障排查：从缓存角度找问题根源
+### 4.2 故障排查：从缓存角度找问题根源
 
 当 Linux 系统出现 I/O 瓶颈、卡顿等问题时，Page Cache 和 Buffer Cache 的使用情况往往能为我们提供重要的线索，帮助我们快速定位问题的根源 。
 
@@ -378,7 +378,7 @@ int main() {
 
 另一种可能是应用程序的访问模式不合理，导致缓存无法有效利用 。比如，应用程序频繁地随机读写文件，这种访问模式会破坏缓存的预读和合并机制，使得缓存难以发挥作用 。对于这种情况，我们需要分析应用程序的代码，尽量优化其文件访问方式，使其更符合缓存的工作原理 。比如，可以将随机读写转换为顺序读写，或者采用批量读写的方式，减少 I/O 操作的次数 。
 
-除了缓存命中率，我们还可以通过查看系统的 I/O 统计信息来进一步定位问题 。[iostat](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=iostat&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiJpb3N0YXQiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.vGgyYqszB3C3ylo28UHIagY494UPn__896tXkEEOJ_4&zhida_source=entity)工具可以提供详细的磁盘 I/O 统计数据，包括磁盘的读写速率、I/O 请求的平均等待时间、磁盘的使用率等 。如果我们发现磁盘的使用率持续过高，比如超过 80%，并且 I/O 请求的平均等待时间很长，那就说明磁盘 I/O 出现了瓶颈 。这可能是由于大量的 I/O 请求同时到达，或者缓存机制失效，导致磁盘无法及时响应所有的请求 。此时，我们可以结合缓存的使用情况来分析，如果缓存命中率正常，但磁盘 I/O 仍然繁忙，那就可能是磁盘本身的性能问题，比如磁盘老化、磁盘阵列配置不合理等，需要进一步检查磁盘硬件和相关配置 。
+除了缓存命中率，我们还可以通过查看系统的 I/O 统计信息来进一步定位问题 。iostat工具可以提供详细的磁盘 I/O 统计数据，包括磁盘的读写速率、I/O 请求的平均等待时间、磁盘的使用率等 。如果我们发现磁盘的使用率持续过高，比如超过 80%，并且 I/O 请求的平均等待时间很长，那就说明磁盘 I/O 出现了瓶颈 。这可能是由于大量的 I/O 请求同时到达，或者缓存机制失效，导致磁盘无法及时响应所有的请求 。此时，我们可以结合缓存的使用情况来分析，如果缓存命中率正常，但磁盘 I/O 仍然繁忙，那就可能是磁盘本身的性能问题，比如磁盘老化、磁盘阵列配置不合理等，需要进一步检查磁盘硬件和相关配置 。
 
 另外，iotop工具可以帮助我们找出系统中占用 I/O 资源最多的进程 。当系统出现 I/O 问题时，通过iotop查看各个进程的 I/O 读写情况，我们可能会发现某个进程在疯狂地进行磁盘读写操作，导致系统 I/O 资源被耗尽 。比如，某个日志记录进程不停地往磁盘写入大量的日志数据，就可能会造成 I/O 瓶颈 。找到这个问题进程后，我们可以对其进行优化，比如调整日志记录的频率，或者采用异步写入的方式，减少对磁盘 I/O 的直接占用 。
 
@@ -392,9 +392,9 @@ int main() {
 
 **（2）Buffer Cache 优化策略**
 
-1. 优化缓冲区大小：对于数据库系统等对 Buffer Cache 依赖较大的应用，合理调整缓冲区大小至关重要 。在 Oracle 数据库中，可以通过DB_CACHE_SIZE参数来调整 Buffer Cache 的大小 。如果数据库以 OLTP（[联机事务处理](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E8%81%94%E6%9C%BA%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLogZTmnLrkuovliqHlpITnkIYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.KADquMN1GlIR-Oi-gMVozJ4RHD3gOTj-d14HS5_tqtE&zhida_source=entity)）业务为主，数据读写频繁且对响应速度要求高，可以适当增大DB_CACHE_SIZE ，如设置为物理内存的 40% - 60% 。假设一个银行的核心交易系统，每天处理大量的联机交易，将DB_CACHE_SIZE设置为物理内存的 50% ，可以有效提高数据读写性能，减少磁盘 I/O 操作，提升交易处理的速度和稳定性 。可以通过修改数据库配置文件或者使用ALTER SYSTEM SET DB_CACHE_SIZE=xxxSCOPE=BOTH（xxx为具体大小值 ）命令来动态调整 。
+1. 优化缓冲区大小：对于数据库系统等对 Buffer Cache 依赖较大的应用，合理调整缓冲区大小至关重要 。在 Oracle 数据库中，可以通过DB_CACHE_SIZE参数来调整 Buffer Cache 的大小 。如果数据库以 OLTP（联机事务处理）业务为主，数据读写频繁且对响应速度要求高，可以适当增大DB_CACHE_SIZE ，如设置为物理内存的 40% - 60% 。假设一个银行的核心交易系统，每天处理大量的联机交易，将DB_CACHE_SIZE设置为物理内存的 50% ，可以有效提高数据读写性能，减少磁盘 I/O 操作，提升交易处理的速度和稳定性 。可以通过修改数据库配置文件或者使用ALTER SYSTEM SET DB_CACHE_SIZE=xxxSCOPE=BOTH（xxx为具体大小值 ）命令来动态调整 。
 2. 调整写入策略：选择合适的写入策略可以显著提升 Buffer Cache 的性能 。常见的写入策略有写直达（Write Through）和写回（Write Back） 。写直达策略是指数据在写入 Buffer Cache 的同时，也立即写入磁盘，这种策略能保证数据的一致性，但会增加磁盘 I/O 次数 ；写回策略是指数据先写入 Buffer Cache，标记为脏数据，等缓冲区满或者满足特定条件时再批量写入磁盘，这种策略减少了磁盘 I/O 次数，但存在数据丢失的风险 。对于一些对数据一致性要求不是特别高，但对性能要求较高的场景，如大数据存储中的一些日志数据写入，可以采用写回策略 。而对于数据库等对数据一致性要求极高的应用，可能更适合写直达策略 。在 Linux 系统中，可以通过一些文件系统相关的参数来间接调整写入策略，比如ext4文件系统中的data=writeback挂载选项，启用写回模式 。
-3. 监控缓冲区命中率：缓冲区命中率是衡量 Buffer Cache 性能的重要指标 。在 Oracle 数据库中，可以通过查询V$BUFFER_POOL_STATISTICS视图来计算缓冲区命中率，公式为命中率 = 1 - 物理读 / 逻辑读 ，理想情况下命中率应高于 95% 。如果命中率较低，比如低于 90% ，说明缓冲区的性能不佳，可能需要增大缓冲区大小或者优化[数据访问模式](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%BC%8F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiLmlbDmja7orr_pl67mqKHlvI8iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.wqJKC9C84SlKo56m8kOmnlrxFfOMg996G2KDSZ6uyVI&zhida_source=entity) 。假设一个电商订单管理系统，发现 Buffer Cache 命中率只有 85% ，通过分析发现是因为一些频繁访问的小表没有被有效缓存，导致大量物理读 。可以将这些小表设置为缓存表（使用表的CACHE选项 ），提高它们在 Buffer Cache 中的缓存概率，从而提升命中率 。
+3. 监控缓冲区命中率：缓冲区命中率是衡量 Buffer Cache 性能的重要指标 。在 Oracle 数据库中，可以通过查询V$BUFFER_POOL_STATISTICS视图来计算缓冲区命中率，公式为命中率 = 1 - 物理读 / 逻辑读 ，理想情况下命中率应高于 95% 。如果命中率较低，比如低于 90% ，说明缓冲区的性能不佳，可能需要增大缓冲区大小或者优化数据访问模式 。假设一个电商订单管理系统，发现 Buffer Cache 命中率只有 85% ，通过分析发现是因为一些频繁访问的小表没有被有效缓存，导致大量物理读 。可以将这些小表设置为缓存表（使用表的CACHE选项 ），提高它们在 Buffer Cache 中的缓存概率，从而提升命中率 。
 
 Page Cache 专注于文件数据的缓存，通过预读和延迟写入策略，大大提高了文件读写的速度和效率；而 Buffer Cache 则侧重于磁盘块级别的数据缓存和文件系统元数据的管理，在磁盘 I/O 操作和文件系统相关操作中发挥着关键作用 。它们相互配合，共同构成了 Linux 系统高效的存储 I/O 体系 。
 
@@ -404,9 +404,9 @@ Page Cache（页缓存）和 Buffer Cache（缓冲区缓存）是 Linux 内核�
 
 本文将通过两个典型实战案例，分析 Page Cache 和 Buffer Cache 在生产环境中的性能影响、故障定位及优化方法，并结合代码实现还原核心原理。
 
-### 5.1案例一：电商平台大文件下载的 Page Cache 优化
+### 5.1 案例一：电商平台大文件下载的 Page Cache 优化
 
-**（1）问题背景：**某电商平台的商品视频下载服务出现高延迟、高磁盘 IO 利用率问题：用户下载 1GB 以上的视频文件时，平均下载速度仅为 10MB/s，服务器磁盘 IO Util 达到 95% 以上，且多用户并发下载时性能进一步恶化。
+**（1）问题背景：** 某电商平台的商品视频下载服务出现高延迟、高磁盘 IO 利用率问题：用户下载 1GB 以上的视频文件时，平均下载速度仅为 10MB/s，服务器磁盘 IO Util 达到 95% 以上，且多用户并发下载时性能进一步恶化。
 
 **（2）问题分析**
 
@@ -592,9 +592,9 @@ int main() {
 下载速度：120.50 MB/s
 ```
 
-### 5.2案例二：数据库写入的 Buffer Cache 性能瓶颈
+### 5.2 案例二：数据库写入的 Buffer Cache 性能瓶颈
 
-**（1）问题背景：**某金融系统的 MySQL 数据库（存储引擎为 InnoDB）在执行批量插入操作时，每秒仅能插入 1000 条记录，远低于预期的 10000 条 / 秒。通过show engine innodb status发现：Pending disk writes持续增加，且Buffer pool hit rate仅为 85%（正常应高于 99%）。
+**（1）问题背景：** 某金融系统的 MySQL 数据库（存储引擎为 InnoDB）在执行批量插入操作时，每秒仅能插入 1000 条记录，远低于预期的 10000 条 / 秒。通过show engine innodb status发现：Pending disk writes持续增加，且Buffer pool hit rate仅为 85%（正常应高于 99%）。
 
 **（2）问题分析**
 
@@ -611,9 +611,9 @@ Buffer Cache 的核心作用是合并分散的磁盘块写操作：
 
 **（4）优化方案**
 
-**①数据库层优化：**通过调整InnoDB刷盘策略（innodb_flush_log_at_trx_commit=2）、增大缓冲池（innodb_buffer_pool_size至总内存70%）以及使用LOAD DATA INFILE替代批量INSERT，可显著减少磁盘写操作频率并提升I/O效率。
+**①数据库层优化：** 通过调整InnoDB刷盘策略（innodb_flush_log_at_trx_commit=2）、增大缓冲池（innodb_buffer_pool_size至总内存70%）以及使用LOAD DATA INFILE替代批量INSERT，可显著减少磁盘写操作频率并提升I/O效率。
 
-**②内核层优化：**通过调整内核刷盘参数（vm.dirty_ratio=40、vm.dirty_background_ratio=10）并启用磁盘写缓存（[hdparm](https://zhida.zhihu.com/search?content_id=267836484&content_type=Article&match_order=1&q=hdparm&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQxMjcxNDUsInEiOiJoZHBhcm0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjc4MzY0ODQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.JPAVlHtqOUMg12XtFY6W_T3lRJd8cogiVH_cp9N134Y&zhida_source=entity) -W 1），可在保障数据安全的前提下提升脏块合并效率与I/O性能。
+**②内核层优化：** 通过调整内核刷盘参数（vm.dirty_ratio=40、vm.dirty_background_ratio=10）并启用磁盘写缓存（hdparm -W 1），可在保障数据安全的前提下提升脏块合并效率与I/O性能。
 
 **（5）代码实现： Buffer Cache 的写合并机制**
 

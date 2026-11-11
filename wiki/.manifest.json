@@ -2486,9 +2486,9 @@
     },
     "Linux 操作系统/Linux 文件系统/Linux 文件系统mount过程.md": {
       "ingested_at": "2026-09-15",
-      "size_bytes": 32666,
+      "size_bytes": 28061,
       "modified_at": "2026-09-15T15:18",
-      "content_hash": "sha256:d760cabf182238d018d3334d80fbcb43921d159912f63cec9a33fdea32c4f2fa",
+      "content_hash": "sha256:e66d9e09059952f8894ffb78318e6559570209a7bad9cf8f61e0225e451210fc",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11059,10 +11059,10 @@
       ],
       "modified_at": "2026-10-19T09:33"
     },
-    "Linux 操作系统/Linux 内存管理/Linux 内存与CPU之间的关系.md": {
+    "Linux 操作系统/Linux 内存管理/1 Linux 内存管理总览.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 113670,
-      "content_hash": "sha256:f552380a485b37dd11c3a9adcd5624ec0f6f371db74148db2faa7d73bac0d4d9",
+      "size_bytes": 77963,
+      "content_hash": "sha256:25cbcdc255ae970618d435c0f99b27e0591fa357c040580b4f21743e729c3ef3",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -11070,12 +11070,13 @@
         "summaries/linux-memory-cpu-relationship.md",
         "concepts/virtual-memory-and-paging.md",
         "concepts/linux-memory-management.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 进程调度/Linux CFS调度器.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 27991,
-      "content_hash": "sha256:59bf6fad2e05f6048d0933383dbfe756ba57766d005543b009b9b5d37e31ec94",
+      "size_bytes": 13844,
+      "content_hash": "sha256:733ef5cb0f27bdc652957a1a03bb17c0953263ca8590ad9e36549f8af73edd2f",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -11085,8 +11086,8 @@
     },
     "Linux 操作系统/Linux 进程调度/Linux 完全公平调度器CFS.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 28096,
-      "content_hash": "sha256:0604e00627c61ceeaa14dc49c3b4af80fb410bbe532577f6536314d4c909b733",
+      "size_bytes": 16968,
+      "content_hash": "sha256:2442595b3a516245c2a87be00599789039dd22e6fc318ded6ee2a35c1f1cf74f",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -11271,8 +11272,8 @@
     },
     "Linux 操作系统/Linux 中断系统/Linux 中断流程介绍.md": {
       "ingested_at": "2026-11-09",
-      "size_bytes": 52959,
-      "content_hash": "sha256:f71859c90a9ea72c80e76a08f558f615140f512c606d179cf3484808ae3e06f0",
+      "size_bytes": 41087,
+      "content_hash": "sha256:6e3f91e37f8d67cd4700cc2f6ed1ca7d1a739abbc70160887a819a91f8fd991b",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11295,8 +11296,8 @@
     },
     "Linux 操作系统/Linux 内存管理/Linux CPU是如何读写内存的？.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 31670,
-      "content_hash": "sha256:6616fcba5efaa61a4c42ef3c2a8b2f8be42287c8014ebc4d1ad7c8f42a6f7db6",
+      "size_bytes": 16274,
+      "content_hash": "sha256:1d8ed3acb657d615d729355224aef216738be4ab78c37d4d8a0f9741b221e368",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11304,10 +11305,10 @@
       ],
       "pages_updated": []
     },
-    "Linux 操作系统/Linux 内存管理/Linux 内存屏障（Memory Barrier）.md": {
+    "Linux 操作系统/Linux 内存管理/Linux Memory Barrier（内存屏障）.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 19540,
-      "content_hash": "sha256:8c9bded58cc702bf22f270f49bb75f92daa62c91d859b2b66d699eab71a315ca",
+      "size_bytes": 12499,
+      "content_hash": "sha256:acd1640882f0070eb977420565ac910839497f0e090ab8be6a95f2dcb37da404",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11316,7 +11317,8 @@
       "pages_updated": [
         "concepts/cpu-cache-coherence.md",
         "skills/swiotlb-troubleshooting.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 内存管理/Linux TLB（页表项Cahce）.md": {
       "ingested_at": "2026-11-10",
@@ -11353,16 +11355,17 @@
         "concepts/linux-io-stack.md"
       ]
     },
-    "Linux 操作系统/Linux 内核 IO 栈/1 Linux IO类型.md": {
+    "Linux 操作系统/Linux 内核 IO 栈/Linux IO分类汇总/1 Linux IO类型.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 10297,
-      "content_hash": "sha256:674696d3362ee89a87b51d528a18a3159e94f79eff5802f9583a90a5460e0101",
+      "size_bytes": 17070,
+      "content_hash": "sha256:fba2dd22917231eb6890cdb9f7adede9246b120ad00988108437499cc910261f",
       "source_type": "document",
       "project": null,
       "pages_created": [
         "concepts/linux-io-models.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO下发流程.md": {
       "ingested_at": "2026-11-10",
@@ -11375,7 +11378,7 @@
         "concepts/linux-io-stack.md"
       ]
     },
-    "Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/1 Linux IO多路复用（select、poll、epoll）技术.md": {
+    "Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/3 Linux IO多路复用（select、poll、epoll）技术.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 10911,
       "content_hash": "sha256:89e41f2ec78951e663e5adaabdc5d102b7144fbd8f9cf504cc650a0bc887941b",
@@ -11384,7 +11387,8 @@
       "pages_created": [
         "concepts/linux-io-models.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux 缓存IO和直接IO.md": {
       "ingested_at": "2026-11-10",
@@ -11401,8 +11405,8 @@
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO调度算法/Linux 内核的 4 大 IO 调度算法.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 13168,
-      "content_hash": "sha256:867bd3d57afecbb58cda8880966500498beb318b714bcf48ed6f329056c1fa5f",
+      "size_bytes": 11848,
+      "content_hash": "sha256:bec9f416aa1af7a241c9379720a640fb92fc87f22eeaca882834955498696462",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -11423,21 +11427,22 @@
         "concepts/zero-copy-memory-mapping.md"
       ]
     },
-    "Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/3 Linux IO页缓存（Page Cache）技术.md": {
+    "Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/1 Linux IO页缓存（Page Cache）技术.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 34075,
-      "content_hash": "sha256:cef786601d31f29017b10799969821914791e6c0406432731d5b33bfaa43afad",
+      "size_bytes": 15395,
+      "content_hash": "sha256:6d77fd9e8e91b0797416375e6be3b81dbf8dae62ce885d45461b03099696453e",
       "source_type": "document",
       "project": null,
       "pages_created": [],
       "pages_updated": [
         "summaries/linux-page-cache.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/Linux 深入理解 Page Cache.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 45564,
-      "content_hash": "sha256:d5e2f3a80eede3773380f1121552d37ea87a7dc18a675efcc4c63c9264acfa69",
+      "size_bytes": 24562,
+      "content_hash": "sha256:0007bedcd820b1108b9419ab1619ca24d10b551074336c21b6085afa47b08f58",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -11447,8 +11452,8 @@
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/Linux Page Cache与Buffer Cache的区别.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 74102,
-      "content_hash": "sha256:aba67fddf9f0e07945928095c280e3853b4075aa0fc42b7ea7c026ba3d37461f",
+      "size_bytes": 63741,
+      "content_hash": "sha256:16d0c09fb19ae37f4cc1764899dc0bd322f8b17522157e9477a2f474ce455ca9",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11485,7 +11490,7 @@
         "summaries/linux-rcu-lock.md"
       ]
     },
-    "Linux 操作系统/Linux 设备驱动管理/1 Linux PCI Bar空间和DMA空间.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux PCI Bar空间和DMA空间.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 5656,
       "content_hash": "sha256:319c4da3ff4b893ef13d96847ce09b13993e4ca1873ac1f2e261742e08cd0b8a",
@@ -11494,9 +11499,10 @@
       "pages_created": [
         "summaries/pci-bar-dma-space.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（1）——IOMMU简介.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（1）——IOMMU简介.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 3616,
       "content_hash": "sha256:9d2bfcd247cea3b8d375a05eb782cd3051258131b1c2c50a9a5f833e22de8867",
@@ -11508,9 +11514,10 @@
       "pages_updated": [
         "concepts/linux-io-stack.md",
         "concepts/linux-memory-management.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 22009,
       "content_hash": "sha256:9b5c3cf22b9abbca01d682aeffa5c73cbd6e66aee54462385d93ba390eb4113b",
@@ -11521,9 +11528,10 @@
       ],
       "pages_updated": [
         "skills/swiotlb-troubleshooting.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（3）——Intel IOMMU（硬件IOMMU）的功能与基本原理.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（3）——Intel IOMMU（硬件IOMMU）的功能与基本原理.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 9039,
       "content_hash": "sha256:e0e8272c1ee18474de5c413579f71f08572d2df16919394badb85ee98deaa085",
@@ -11534,9 +11542,10 @@
       ],
       "pages_updated": [
         "concepts/linux-device-passthrough.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（4）——启用Intel IOMMU的配置_bios iommu.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（4）——启用Intel IOMMU的配置_bios iommu.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 1482,
       "content_hash": "sha256:75410fce9f5f75b869da50064e37909d4cff45a45b9fca222b8582c096b60630",
@@ -11545,9 +11554,10 @@
       "pages_created": [
         "summaries/linux-iommu-deep-dive.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 14869,
       "content_hash": "sha256:ab5c8a0431ea042e91f70dda43afa31ddba68adb1ccff37abcbc8c42777fa6e7",
@@ -11558,9 +11568,10 @@
       ],
       "pages_updated": [
         "skills/swiotlb-troubleshooting.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 13309,
       "content_hash": "sha256:7b640a1174d7bfeccd79505ad1c7a8de49b3e1954955c6bab12458f0dcb1873d",
@@ -11570,12 +11581,13 @@
         "summaries/linux-iommu-deep-dive.md",
         "concepts/linux-dma-mapping.md"
       ],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md": {
       "ingested_at": "2026-11-11",
-      "size_bytes": 30763,
-      "content_hash": "sha256:b323f6f29629205fcecb6a69d2d0b97d2952138075eb1d95fb2dd0534523961c",
+      "size_bytes": 12212,
+      "content_hash": "sha256:00eb62da6995b682cc2bbcbb7eebd7318d69d54a8ec74c61b04dddf5881b6de3",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11588,9 +11600,10 @@
         "concepts/linux-device-passthrough.md",
         "concepts/linux-dma-mapping.md",
         "summaries/linux-iommu-deep-dive.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md": {
       "ingested_at": "2026-11-11",
       "size_bytes": 1425,
       "content_hash": "sha256:811f82fa3e7fbece15b991a552552c8156361794f8b1f8023ef4d6db070908ff",
@@ -11602,36 +11615,40 @@
       "pages_updated": [
         "concepts/linux-iommu-subsystem.md",
         "skills/swiotlb-troubleshooting.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 内存管理/Linux MMU.md": {
+    "Linux 操作系统/Linux 内存管理/Linux MMU（内存管理单元）.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 0,
       "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 内存管理/Linux 页表.md": {
+    "Linux 操作系统/Linux 内存管理/Linux 页表管理.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 0,
       "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux PCIe设备枚举.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux PCIe设备枚举.md": {
       "ingested_at": "2026-11-10",
       "size_bytes": 0,
       "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": []
+      "pages_updated": [],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux BAR空间资源映射.md": {
+    "Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux BAR空间资源映射.md": {
       "ingested_at": "2026-11-11",
       "size_bytes": 2753,
       "content_hash": "sha256:dcd56b3e8ac414834b12fe0ed95ac45f2ef337c69c095d513332527a9ddd1edb",
@@ -11640,7 +11657,8 @@
       "pages_created": [],
       "pages_updated": [
         "summaries/pci-bar-dma-space.md"
-      ]
+      ],
+      "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 设备驱动管理/Linux DMA传输.md": {
       "ingested_at": "2026-11-10",
@@ -11656,9 +11674,10 @@
     "my-obsidian-wiki": {
       "source_repo": "github.com/StackTony/my-obsidian-wiki",
       "last_synced": "2026-11-11",
-      "last_commit_synced": "95831c7f7555b394f399458d40a5583f29dc3715",
+      "last_commit_synced": "54665cf9ea13bbecbba2e78ca6ad3e4487d600df",
       "pages_in_vault": [
-        "projects/my-obsidian-wiki.md"
+        "projects/my-obsidian-wiki.md",
+        "skills/raw-source-link-sanitization.md"
       ]
     }
   },
@@ -11666,11 +11685,11 @@
   "created": "2026-06-01",
   "stats": {
     "total_sources_ingested": 964,
-    "total_pages": 181,
+    "total_pages": 182,
     "total_concepts": 90,
     "total_summaries": 47,
     "total_entities": 20,
-    "total_skills": 17,
+    "total_skills": 18,
     "total_synthesis": 7,
     "last_updated": "2026-11-11"
   }

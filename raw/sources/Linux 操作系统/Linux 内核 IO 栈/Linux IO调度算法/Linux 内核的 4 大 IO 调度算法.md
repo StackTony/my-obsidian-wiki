@@ -108,7 +108,7 @@ CFQ和DEADLINE考虑的焦点在于满足零散IO请求上。对于连续的IO�
 
 IO调度器算法的选择，既取决于硬件特征，也取决于应用场景。
 
-在传统的SAS盘上，CFQ、DEADLINE、ANTICIPATORY都是不错的选择；对于专属的[数据库服务](https://cloud.tencent.com/product/tencentdb-catalog?from_column=20065&from=20065)器，DEADLINE的吞吐量和响应时间都表现良好。然而在新兴的固态硬盘比如SSD、Fusion IO上，最简单的NOOP反而可能是最好的算法，因为其他三个算法的优化是基于缩短寻道时间的，而固态硬盘没有所谓的寻道时间且IO响应时间非常短。
+在传统的SAS盘上，CFQ、DEADLINE、ANTICIPATORY都是不错的选择；对于专属的数据库服务器，DEADLINE的吞吐量和响应时间都表现良好。然而在新兴的固态硬盘比如SSD、Fusion IO上，最简单的NOOP反而可能是最好的算法，因为其他三个算法的优化是基于缩短寻道时间的，而固态硬盘没有所谓的寻道时间且IO响应时间非常短。
 
 ![](https://ask.qcloudimg.com/http-save/7175224/hn3dagcg1w.png)
 
@@ -146,4 +146,4 @@ For the workloads used in this test, the Deadline scheduler was a better choice 
 
 ## 参考资料
 
-[https://www.bilibili.com/read/cv4365546](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Flinks.jianshu.com%2Fgo%3Fto%3Dhttps%253A%252F%252Fwww.bilibili.com%252Fread%252Fcv4365546&objectId=1615744&objectType=1&contentType=undefined) [https://www.cnblogs.com/gomysql/p/3582185.html](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Flinks.jianshu.com%2Fgo%3Fto%3Dhttps%253A%252F%252Fwww.cnblogs.com%252Fgomysql%252Fp%252F3582185.html&objectId=1615744&objectType=1&contentType=undefined) [https://www.cnblogs.com/cobbliu/p/5389556.html](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Flinks.jianshu.com%2Fgo%3Fto%3Dhttps%253A%252F%252Fwww.cnblogs.com%252Fcobbliu%252Fp%252F5389556.html&objectId=1615744&objectType=1&contentType=undefined) [https://www.cnblogs.com/zhfan/archive/2013/06/08/3125856.html](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Flinks.jianshu.com%2Fgo%3Fto%3Dhttps%253A%252F%252Fwww.cnblogs.com%252Fzhfan%252Farchive%252F2013%252F06%252F08%252F3125856.html&objectId=1615744&objectType=1&contentType=undefined) [https://www.ibm.com/support/knowledgecenter/en/linuxonibm/performance/tuneforsybase/ioschedulers.htm](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Flinks.jianshu.com%2Fgo%3Fto%3Dhttps%253A%252F%252Fwww.ibm.com%252Fsupport%252Fknowledgecenter%252Fen%252Flinuxonibm%252Fperformance%252Ftuneforsybase%252Fioschedulers.htm&objectId=1615744&objectType=1&contentType=undefined)
+https://www.bilibili.com/read/cv4365546 https://www.cnblogs.com/gomysql/p/3582185.html https://www.cnblogs.com/cobbliu/p/5389556.html https://www.cnblogs.com/zhfan/archive/2013/06/08/3125856.html https://www.ibm.com/support/knowledgecenter/en/linuxonibm/performance/tuneforsybase/ioschedulers.htm

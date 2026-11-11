@@ -704,3 +704,15 @@ title: Wiki Log
 - 交叉引用：新摘要页 ↔ IOMMU子系统、Group/Domain隔离、DMA映射、SWIOTLB排查三向互链；bypass页标 relationships extends→linux-iommu-subsystem
 - Manifest：键迁移1（SMMU图解文→Linux IOMMU/子目录）、更新1（BAR：2753B/dcd56b3e...）、新增1（IO Bypass：1425B/811f82fa...）；total_sources_ingested 963→964、total_pages 180→181、total_summaries 46→47；JSON经node验证合法（964键）
 - 跳过项：同目录 8 个未变文件（含2个0字节占位：PCIe设备枚举、DMA传输）按 hash 跳过；obsidian-wiki CLI 不可用，delta 由手工 SHA-256 比对得出；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新
+
+## [2026-11-11] WIKI_UPDATE | my-obsidian-wiki 项目同步（3 提交 delta + raw 维护入库）
+
+- [2026-11-11T16:24] WIKI_UPDATE project=my-obsidian-wiki commits=3 pages_created=1 pages_updated=1
+- delta 提交：`31dfcf9` SMMU IO Bypass ingest（wiki 侧已由 /wiki-ingest 消化）；`d77a48a` DMA介绍/DMA传输/DMA和IOMMU 源文档入库；`54665cf` 目录重命名 + 五大子系统源文档（PCI 242KB/网络 231KB/SCSI 139KB/块设备 54KB/DMA与IOMMU 52KB）
+- 新建页面（1个）：
+  - skills/raw-source-link-sanitization — 中文技术站导入源追踪链接清洗流程：zhida/cloud.tencent/link.zhihu 三类形态识别、perl 字节级正则、计数闭合验证、manifest 只同步哈希不重蒸馏、单文件回滚；含 0 字节哈希碰撞等 6 类常见问题
+- 已有页面更新（1个）：
+  - projects/my-obsidian-wiki — 规模快照刷新为 964 来源/196 内容页/76 提交；关键模式新增"导入源追踪链接清洗""raw 目录按子系统重组"，manifest 键迁移条目补 2026-11-11 18 键批量对账；待办重写为 14 个待 ingest 积压、wiki 来源路径过期 17 处、manifest 残留 3 条、3 个空占位来源
+- 交叉引用：新技能页 ↔ 项目枢纽页、SMMU 图解摘要页；index 新增「Skills (知识管理与维护)」分区
+- 维护记录（本同步期间完成，raw 侧）：437 处追踪链接清洗（14 文件）+ manifest 18 键迁移与哈希同步；详见 [[skills/raw-source-link-sanitization]]
+- 跳过项：obsidian-wiki CLI 不可用，manifest/index/log/hot 手工更新；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新；Step 3b code-understand 不适用（纯 markdown vault，无代码）

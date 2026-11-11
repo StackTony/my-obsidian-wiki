@@ -5,7 +5,7 @@ updated: 2026-11-11
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-11 (Ingest：设备驱动管理目录增量——新增SMMU IO Bypass摘要1页，更新IOMMU子系统/SWIOTLB排查，BAR映射细节并入PCI BAR摘要；迁移SMMU图解文路径至Linux IOMMU子目录)*
+*自动维护。上次更新：2026-11-11 (WIKI_UPDATE：项目枢纽页同步 3 个提交 delta，新增 raw 源追踪链接清洗技能页)*
 
 ## Summaries (数据结构与算法)
 
@@ -101,6 +101,10 @@ updated: 2026-11-11
 
 - [virsh-vm-management](skills/virsh-vm-management.md) — virsh管理KVM虚拟机的实操指南：生命周期、热迁移、CPU绑定等常用命令组合 — `linux` `虚拟化` `virsh` `运维` `操作手册`
 - [linux-vm-debugging](skills/linux-vm-debugging.md) — 虚拟化调试实操：kvmtop EXT/%ST抢占/D状态vcpu/中断脚本/NUMA/QEMU gdb七大场景 — `linux` `虚拟化` `调试` `kvmtop` `虚拟机监控` `NUMA`
+
+## Skills (知识管理与维护)
+
+- [raw-source-link-sanitization](skills/raw-source-link-sanitization.md) — 中文技术站导入源追踪链接清洗：三类跳转链识别、perl正则替换、计数闭合验证、manifest哈希同步（不重蒸馏）、单文件回滚 — `obsidian` `wiki` `维护` `正则` `来源清洗`
 
 ## Synthesis (Linux)
 
@@ -325,6 +329,6 @@ updated: 2026-11-11
 
 ## Projects
 
-- [my-obsidian-wiki](projects/my-obsidian-wiki.md) — 本 vault 自身的项目知识枢纽：三层架构、架构决策索引、运营模式（重叠合并/稀薄折叠/backup 流）、知识域扩张史与待办债务 — `obsidian` `wiki` `知识管理` `llm`
+- [my-obsidian-wiki](projects/my-obsidian-wiki.md) — 本 vault 自身的项目知识枢纽：三层架构、架构决策索引、运营模式（重叠合并/稀薄折叠/backup 流/链接清洗/键迁移）、知识域扩张史与待办债务 — `obsidian` `wiki` `知识管理` `llm`
 
 ## Journal

@@ -8,22 +8,22 @@
 
 [深入了解使用linux查看磁盘io使用情况](https://zhuanlan.zhihu.com/p/474111479)
 
-那么今天就来看看内核是如何建立[挂载点](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=%E6%8C%82%E8%BD%BD%E7%82%B9&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiLmjILovb3ngrkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMjI5MzExNTMsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Op1K-c9wrB6eVUOpSA2HGVWN8mGoz-0B-80m7TO2-k8&zhida_source=entity)目录项与挂载文件系统的呢？我们接着下面的图，学习整个mount的过程。
+那么今天就来看看内核是如何建立挂载点目录项与挂载文件系统的呢？我们接着下面的图，学习整个mount的过程。
 
 ![](https://pic2.zhimg.com/v2-3dc2f26c14948d86553adefbccf79045_1440w.jpg)
 
 ## 1、数据结构
 
-[虚拟文件系统](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiLomZrmi5_mlofku7bns7vnu58iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMjI5MzExNTMsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.0MhhRjo8tDYW62tNpdpugguqsKTb1KQjgUEW4eVB9mQ&zhida_source=entity)通过目录项dentry实例组成的跟文件系统管理内核所有的文件，具体文件系统根目录需要关联到内核跟文件系统中某一目录项（**挂载点**）才能接入跟文件系统，如下图所示
+虚拟文件系统通过目录项dentry实例组成的跟文件系统管理内核所有的文件，具体文件系统根目录需要关联到内核跟文件系统中某一目录项（**挂载点**）才能接入跟文件系统，如下图所示
 
 ![](https://pica.zhimg.com/v2-5581cc7785a79073ffabd9dd48aa5796_1440w.jpg)
 
 - 将磁盘分区sda1的文件系统根目录与跟文件系统中的/mnt目录项建立关联，称之为挂载，/mnt目录项称之为挂载点
 - 根文件系统中的挂载点可以同时挂载多个文件系统，sda2在da1分区之后挂载，则分区sda2文件系统可见，分区sda1被引藏，当分区sda2文件系统被卸载时，分区sda1文件系统将自动可见
 
-所以挂载操作是一个很复杂的过程，那么就需要为文件系统创建[超级块](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=%E8%B6%85%E7%BA%A7%E5%9D%97&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiLotoXnuqflnZciLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMjI5MzExNTMsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Z7Wd9EXfTyeo3inpG02P2IRfMojQTlckEpUOhnV20pk&zhida_source=entity)，根目录项dentry和[inode](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=inode&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiJpbm9kZSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjIyMjkzMTE1MywiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.VhHmgE9r-R6pU-n90Vjw1O8mSvhPc3F_ZpL2wBWqtO8&zhida_source=entity)结构体实例，这些上一章中都已经介绍了，那么首选要建立挂载点目录项与挂载的文件系统根目录项之间的关联。
+所以挂载操作是一个很复杂的过程，那么就需要为文件系统创建超级块，根目录项dentry和inode结构体实例，这些上一章中都已经介绍了，那么首选要建立挂载点目录项与挂载的文件系统根目录项之间的关联。
 
-内核定义了一个[mountpoint](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=mountpoint&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiJtb3VudHBvaW50IiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjIyOTMxMTUzLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.tvOziH21evfdgj5L3kJikQH6RP-vcM5VUIPXDwiovrc&zhida_source=entity) 结构体表示根文件系统中的挂载点，挂载点对应到跟文件系统中的一个dentry实例，定义了一个mount结构体表示一次挂载操作。定义如下([fs/mount.h](https://link.zhihu.com/?target=https%3A//elixir.bootlin.com/linux/latest/source/fs/mount.h%23L32)):
+内核定义了一个mountpoint 结构体表示根文件系统中的挂载点，挂载点对应到跟文件系统中的一个dentry实例，定义了一个mount结构体表示一次挂载操作。定义如下(fs/mount.h):
 
 ```
 struct mountpoint {
@@ -34,14 +34,14 @@ struct mountpoint {
 };
 ```
 
-mountpoint 结构体成员简介如下,定义如下([fs/mount.h](https://link.zhihu.com/?target=https%3A//elixir.bootlin.com/linux/latest/source/fs/mount.h%23L32)):
+mountpoint 结构体成员简介如下,定义如下(fs/mount.h):
 
 - m_hash： 散列链表节点成员，将mountpoint实例添加到全局散列表mountpoint_hashtable
 - m_dentry： 指向挂载点dentry实例，根文件系统中的的目录项，不是挂载文件系统的根目录项
 - m_list： 挂载点挂载操作的Mount实例，链表头
 - m_count： 挂载点执行挂载操作的次数
 
-mount结构体表示一次挂载操作，[结构体定义](https://link.zhihu.com/?target=https%3A//so.csdn.net/so/search%3Fq%3D%25E7%25BB%2593%25E6%259E%2584%25E4%25BD%2593%25E5%25AE%259A%25E4%25B9%2589%26spm%3D1001.2101.3001.7020)在/fs/mount.h[头文件](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=%E5%A4%B4%E6%96%87%E4%BB%B6&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiLlpLTmlofku7YiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMjI5MzExNTMsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.ASCK_wwGrSJkE_7myfTnzZZBMpoRhInJ50YXs-GXEq4&zhida_source=entity)：
+mount结构体表示一次挂载操作，结构体定义在/fs/mount.h头文件：
 
 ```
 struct mount {
@@ -88,7 +88,7 @@ struct mount {
 } __randomize_layout;
 ```
 
-mount结构体实例在内核中组成父子的层次结构，同时由全局[散列表](https://link.zhihu.com/?target=https%3A//so.csdn.net/so/search%3Fq%3D%25E6%2595%25A3%25E5%2588%2597%25E8%25A1%25A8%26spm%3D1001.2101.3001.7020)管理，结构体中主要成员简介如下：
+mount结构体实例在内核中组成父子的层次结构，同时由全局散列表管理，结构体中主要成员简介如下：
 
 - **mnt_hash： 散列链表节点成员，将实例添加到全局散列表mount_hashtable**
 - **mnt_mountpoint：指向挂载点dentry实例**
@@ -98,7 +98,7 @@ mount结构体实例在内核中组成父子的层次结构，同时由全局[�
 - **mnt_list：双链表节点成员，将mount实例链接到挂载命名空间mnt_namespace实例中的双链表**
 - mnt：vfsmount结构体成员，用于建立Mount实例与挂载文件系统的关联
 
-vfsmount结构体成员，用于建立mount实例与挂载文件系统之间的关联，结构体定义在头文件[include/linux/mount.h](https://link.zhihu.com/?target=https%3A//elixir.bootlin.com/linux/latest/source/include/linux/mount.h%23L71)：
+vfsmount结构体成员，用于建立mount实例与挂载文件系统之间的关联，结构体定义在头文件include/linux/mount.h：
 
 ```
 struct vfsmount {
@@ -166,7 +166,7 @@ out_type:
 }
 ```
 
-在学习do_mount之前，先了解[path](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=path&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiJwYXRoIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjIyOTMxMTUzLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.rxKlN9CZ_jMazZvFxnQrTkb2HYYl6ZE5TZJyghk0SbE&zhida_source=entity)结构体的定义，用于后面的挂载，结构体定义在include/linux/path头文件内
+在学习do_mount之前，先了解path结构体的定义，用于后面的挂载，结构体定义在include/linux/path头文件内
 
 ```
 struct path {
@@ -440,7 +440,7 @@ static struct dentry *ext4_mount(struct file_system_type *fs_type, int flags,
 函数内直接调用通用的mount_bdev()函数，需要注意的是最后一个参数ext4_fill_super是一个函数指针，mount_bdev()函数内会调用此函数完成超级块实例的填充和初始化，包括dentry和inode实例的创建
 
 - ext4_fill_super的一个函数指针作为参数传递给**get_sb_bdev** 。该函数用于填充一个超级块对象，如果内存中没有适当的超级块对象，数据就必须从硬盘读取。
-- mount_bdev是个公用的函数，一般[磁盘文件系统](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiLno4Hnm5jmlofku7bns7vnu58iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMjI5MzExNTMsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.qgTIHlIdwXi9t_0uVzrjnBraKyGIXmVt-tIUAxO1kmA&zhida_source=entity)会使用它来根据具体文件系统的fill_super方法来读取磁盘上的超级块并在创建内存超级块。
+- mount_bdev是个公用的函数，一般磁盘文件系统会使用它来根据具体文件系统的fill_super方法来读取磁盘上的超级块并在创建内存超级块。
 
 我们来看下mount_bdev的实现，它执行完成之后会创建vfs的三大数据结构 super_block、根inode和根dentry
 
@@ -582,7 +582,7 @@ unlock:
 }
 ```
 
-- （1）调用lock_mount(path)函数创建（或查找）挂载点mountpoint实例，建立其与挂载点dentry实例的关联，设置挂载点dentry实例DCACHE_MOUNTED标记位（d_set_[mounted](https://zhida.zhihu.com/search?content_id=222931153&content_type=Article&match_order=1&q=mounted&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODk2MjkzNDksInEiOiJtb3VudGVkIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjIyOTMxMTUzLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.h2kwRa8Szao4LHzLXbbR5G3YMhUtsUgVI0PuUF1pXTk&zhida_source=entity)(dentry)），并将mountpoint实例添加到全局散列表。
+- （1）调用lock_mount(path)函数创建（或查找）挂载点mountpoint实例，建立其与挂载点dentry实例的关联，设置挂载点dentry实例DCACHE_MOUNTED标记位（d_set_mounted(dentry)），并将mountpoint实例添加到全局散列表。
 - （2）调用graft_tree()函数，建立mount实例与mountpoint、挂载点dentry实例之间的关联，并将mount实例插入到全局散列链表的头部，以及加入到内核mount实例的层次（父子关系）结构中。  
     do_add_mount()函数调用关系如下图所示：
 

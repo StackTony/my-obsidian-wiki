@@ -2,7 +2,7 @@
 
 ## **GIC 硬件原理**
 
-GIC，Generic Interrupt Controller。是ARM公司提供的一个通用的[中断控制器](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLkuK3mlq3mjqfliLblmagiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.asv2Og6C9cMFxR-DpQ4FapueUHmaMsrjCNRf7hwM77M&zhida_source=entity)。主要作用为：接受[硬件中断](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E7%A1%AC%E4%BB%B6%E4%B8%AD%E6%96%AD&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLnoazku7bkuK3mlq0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.TmgnNg4iasWG8n_MIMvXOe_PXahahpRkdL0Ep16PFX4&zhida_source=entity)信号，并经过一定处理后，分发给对应的CPU进行处理。
+GIC，Generic Interrupt Controller。是ARM公司提供的一个通用的中断控制器。主要作用为：接受硬件中断信号，并经过一定处理后，分发给对应的CPU进行处理。
 
 当前GIC 有四个版本，GIC v1~v4, 本文主要介绍GIC v3控制器。
 
@@ -10,12 +10,12 @@ GIC，Generic Interrupt Controller。是ARM公司提供的一个通用的[中断
 
 GICv3定义了以下中断类型：
 
-- [SGI](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=SGI&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJTR0kiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Miaw79NstDXU-LNNu7I6f-oyCRA0VYwGHHwGHqyUszo&zhida_source=entity) (Software Generated Interrupt)：软件触发的中断。软件可以通过写 GICD_SGIR 寄存器来触发一个中断事件，一般用于核间通信，内核中的 [IPI](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=IPI&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJJUEkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.kD1E4brCwBafqfZDNOXmRzZez6BuXHUUdP3WbHGE_Ds&zhida_source=entity)：inter-processor interrupts 就是基于 SGI。
-- [PPI](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=PPI&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJQUEkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.wS-QxS1r9O2RuBRFVxw0iwwk0vvtwXcXhq1TtpaIKjc&zhida_source=entity) (Private Peripheral Interrupt)：私有外设中断。这是每个核心私有的中断。PPI会送达到指定的CPU上，应用场景有CPU本地时钟。
-- [SPI](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=SPI&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJTUEkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.b0xkKEDCAsvU8qsqvQrLRvpEo8gtazqsckVvnOoAe6Y&zhida_source=entity) (Shared Peripheral Interrupt)：公用的外部设备中断，也定义为[共享中断](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E5%85%B1%E4%BA%AB%E4%B8%AD%E6%96%AD&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLlhbHkuqvkuK3mlq0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.QRDqoK6fm5adT6drGDF8vXHT-aXhDtKF1Mnzhpq2V7s&zhida_source=entity)。中断产生后，可以分发到某一个CPU上。比如按键触发一个中断，手机触摸屏触发的中断。
-- [LPI](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=LPI&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJMUEkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.r4zCxOtzA4ONXypfUHBDQVxYRc6dTcjoc47P888g_Ps&zhida_source=entity) (Locality-specific Peripheral Interrupt)：LPI 是 GICv3 中的新特性，它们在很多方面与其他类型的中断不同。LPI 始终是基于消息的中断，它们的配置保存在表中而不是寄存器。比如 PCIe 的 MSI/MSI-x 中断。
+- SGI (Software Generated Interrupt)：软件触发的中断。软件可以通过写 GICD_SGIR 寄存器来触发一个中断事件，一般用于核间通信，内核中的 IPI：inter-processor interrupts 就是基于 SGI。
+- PPI (Private Peripheral Interrupt)：私有外设中断。这是每个核心私有的中断。PPI会送达到指定的CPU上，应用场景有CPU本地时钟。
+- SPI (Shared Peripheral Interrupt)：公用的外部设备中断，也定义为共享中断。中断产生后，可以分发到某一个CPU上。比如按键触发一个中断，手机触摸屏触发的中断。
+- LPI (Locality-specific Peripheral Interrupt)：LPI 是 GICv3 中的新特性，它们在很多方面与其他类型的中断不同。LPI 始终是基于消息的中断，它们的配置保存在表中而不是寄存器。比如 PCIe 的 MSI/MSI-x 中断。
 
-|中断类型|硬件[中断号](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E4%B8%AD%E6%96%AD%E5%8F%B7&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLkuK3mlq3lj7ciLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.stN6cE-2jz2nUnHVfXs17lviI4ueDh_A0ZGPVECwynM&zhida_source=entity)|
+|中断类型|硬件中断号|
 |---|---|
 |SGI|0-15|
 |PPI|16-31|
@@ -29,12 +29,12 @@ GICv3定义了以下中断类型：
 
 GICv3 控制器由以下三部分组成:
 
-- [Distributor](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=Distributor&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJEaXN0cmlidXRvciIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjIwNTY1ODg4MCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.stQ5twPfbXdIIb1buSXA4gdSdCpLYV4QG3W0KOG3vnw&zhida_source=entity)：SPI 中断的管理，将中断发送给 [Redistributor](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=Redistributor&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJSZWRpc3RyaWJ1dG9yIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA1NjU4ODgwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.nucXsVnwMH7K1TZuFH2IQfT17wB3uL42hPicE_RjdeY&zhida_source=entity)
+- Distributor：SPI 中断的管理，将中断发送给 Redistributor
 
-1. 打开或关闭每个中断。Distributor对中断的控制分成两个级别。一个是[全局中断](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E5%85%A8%E5%B1%80%E4%B8%AD%E6%96%AD&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLlhajlsYDkuK3mlq0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.cA7PvbBvotZ7Aj35rAkSLjmcr02FX0FCNVSqgLtcxzA&zhida_source=entity)的控制（GIC_DIST_CTRL）。一旦关闭了全局的中断，那么任何的中断源产生的中断事件都不会被传递到 [CPU interface](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=CPU+interface&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJDUFUgaW50ZXJmYWNlIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA1NjU4ODgwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.hRjUU1THaNfNpKDx63Cd-NX3WF1Ud9sLXvibC3WAJTI&zhida_source=entity)。另外一个级别是对针对各个中断源进行控制（GIC_DIST_ENABLE_CLEAR），关闭某一个中断源会导致该中断事件不会分发到 CPU interface，但不影响其他中断源产生[中断事件](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=4&q=%E4%B8%AD%E6%96%AD%E4%BA%8B%E4%BB%B6&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLkuK3mlq3kuovku7YiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6NCwiemRfdG9rZW4iOm51bGx9.8IDFbhzvIoLubNx3jiakujjH9q7ti_rpd2NsFbIfosg&zhida_source=entity)的分发。
+1. 打开或关闭每个中断。Distributor对中断的控制分成两个级别。一个是全局中断的控制（GIC_DIST_CTRL）。一旦关闭了全局的中断，那么任何的中断源产生的中断事件都不会被传递到 CPU interface。另外一个级别是对针对各个中断源进行控制（GIC_DIST_ENABLE_CLEAR），关闭某一个中断源会导致该中断事件不会分发到 CPU interface，但不影响其他中断源产生中断事件的分发。
 2. 控制将当前优先级最高的中断事件分发到一个或者一组 CPU interface。当一个中断事件分发到多个 CPU interface 的时候，GIC 的内部逻辑应该保证只 assert 一个CPU。
-3. [优先级控制](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E4%BC%98%E5%85%88%E7%BA%A7%E6%8E%A7%E5%88%B6&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLkvJjlhYjnuqfmjqfliLYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.jHvl6_2p99l9aBwS_lQSo90PlcUgDi6gNflVvPKeJHQ&zhida_source=entity)。
-4. interrupt属性设定。设置每个外设中断的触发方式：[电平触发](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E7%94%B5%E5%B9%B3%E8%A7%A6%E5%8F%91&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLnlLXlubPop6blj5EiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.YQnWT9v-xtKnv-p5smeNNSEOkc0OEc-sCENCSv13DGY&zhida_source=entity)、边缘触发；
+3. 优先级控制。
+4. interrupt属性设定。设置每个外设中断的触发方式：电平触发、边缘触发；
 5. interrupt group的设定。设置每个中断的 Group，其中 Group0 用于安全中断，支持 FIQ 和 IRQ，Group1 用于非安全中断，只支持 IRQ；
 
 - Redistributor：SGI，PPI，LPI 中断的管理，将中断发送给 CPU interface
@@ -45,7 +45,7 @@ GICv3 控制器由以下三部分组成:
 4. 将每个 SGI 和 PPI 分配给中断组。
 5. 控制 SGI 和 PPI 的状态。
 6. 内存中数据结构的基址控制，支持 LPI 的相关中断属性和挂起状态。
-7. [电源管理](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLnlLXmupDnrqHnkIYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.UKVe2TIivv0TCFoQ1gHiruiaMCRZWq11Jk6Z52MGiGg&zhida_source=entity)支持。
+7. 电源管理支持。
 
 - CPU interface：传输中断给 Core
 
@@ -62,11 +62,11 @@ GICv3 控制器内部模块和各中断类型的关系如下图所示：
 
 ### **中断路由**
 
-GICv3 使用 [hierarchy](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=hierarchy&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJoaWVyYXJjaHkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.efqBbn7qoGtHeHmg7vuxlWJ9sjPy2VdKmSfAV_NOjG0&zhida_source=entity) 来标识一个具体的 core, 如下图是一个四层的结构(aarch64)：
+GICv3 使用 hierarchy 来标识一个具体的 core, 如下图是一个四层的结构(aarch64)：
 
 ![](https://pic3.zhimg.com/v2-b74c32ed0cdc9754178c31c44fed11a4_1440w.jpg)
 
-用 <affinity level 3>.<[affinity](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=2&q=affinity&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJhZmZpbml0eSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjIwNTY1ODg4MCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoyLCJ6ZF90b2tlbiI6bnVsbH0.d2p0KCZI0DEZIVmCX4Ye-HzH7D9irw9rh0SLImzuvJI&zhida_source=entity) level 2>.<affinity level 1>.<affinity level 0> 的形式组成一个 PE 的路由。每一个 core 的 affnity 值可以通过 [MPDIR_EL1](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=MPDIR_EL1&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJNUERJUl9FTDEiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.NhzABqBTjh4_nGnMU_evDaEnpQyYq2_CPsrdbSRNUE0&zhida_source=entity) [寄存器](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=4&q=%E5%AF%84%E5%AD%98%E5%99%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLlr4TlrZjlmagiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6NCwiemRfdG9rZW4iOm51bGx9.9gqW0Sq7a0l-yZnA9-P_6PcNcfwX6rMd81IA628YNEc&zhida_source=entity)获取， 每一个 affinity 占用8bit。配置对应 core 的 MPIDR 值，可以将中断路由到该 core 上。
+用 <affinity level 3>.<affinity level 2>.<affinity level 1>.<affinity level 0> 的形式组成一个 PE 的路由。每一个 core 的 affnity 值可以通过 MPDIR_EL1 寄存器获取， 每一个 affinity 占用8bit。配置对应 core 的 MPIDR 值，可以将中断路由到该 core 上。
 
 各个 affinity 的定义是根据 SOC 自己的定义，比如：
 
@@ -75,7 +75,7 @@ GICv3 使用 [hierarchy](https://zhida.zhihu.com/search?content_id=205658880&con
 <group of processors>.<processor>.<core>.<thread>
 ```
 
-中断亲和性的设置的通用函数为 [irq_set_affinity](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=irq_set_affinity&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJpcnFfc2V0X2FmZmluaXR5IiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjA1NjU4ODgwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.mPsDBvbtGg8Inb21gryd3Q7rREWpA4P3LVRVSqa-0Xg&zhida_source=entity)，后面会做详细介绍。
+中断亲和性的设置的通用函数为 irq_set_affinity，后面会做详细介绍。
 
 ### **中断状态机**
 
@@ -98,7 +98,7 @@ GICv3 使用 [hierarchy](https://zhida.zhihu.com/search?content_id=205658880&con
 
 ## **GIC 驱动**
 
-这里主要分析 linux [kernel](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=kernel&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiJrZXJuZWwiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.zCjHTs39EV7cUdjPypGQ6UNNKPXxHYrERejdKeo5zFs&zhida_source=entity) 中 GIC v3 中断控制器的代码(drivers/irqchip/irq-gic-v3.c)。
+这里主要分析 linux kernel 中 GIC v3 中断控制器的代码(drivers/irqchip/irq-gic-v3.c)。
 
 ### **设备树**
 
@@ -121,7 +121,7 @@ gic: interrupt-controller@51a00000 {
 ```
 
 - compatible：用于匹配GICv3驱动
-- reg ：GIC的[物理基地址](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E7%89%A9%E7%90%86%E5%9F%BA%E5%9C%B0%E5%9D%80&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLniannkIbln7rlnLDlnYAiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.r4gRcEz6CpUqAt9PiVFJlstsp_Dh56DFcH3hB2gpNpw&zhida_source=entity)，分别对应GICD,GICR,GICC…
+- reg ：GIC的物理基地址，分别对应GICD,GICR,GICC…
 - #interrupt-cells：这是一个中断控制器节点的属性。它声明了该中断控制器的中断指示符(interrupts)中 cell 的个数
 - interrupt-controller: 表示该节点是一个中断控制器
 - interrupts：分别代表中断类型，中断号，中断类型， PPI中断亲和， 保留字段
@@ -163,7 +163,7 @@ __irqchip_of_table 在链接脚本 vmlinux.lds 里，被放到了 __irqchip_begi
 #endif
 ```
 
-在内核启动初始化中断的函数中，of_irq_init 函数会去查找设备节点信息，该函数的传入参数就是 __irqchip_of_table 段，由于 IRQCHIP_DECLARE 已经将信息填充好了，of_irq_init 函数会根据 “arm,gic-v3” 去查找对应的设备节点，并获取设备的信息。or_irq_init 函数中，最终会回调 IRQCHIP_DECLARE 声明的[回调函数](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLlm57osIPlh73mlbAiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.H8aJPvodKjJgANYfgV8FSX-8x55NbJRRQFKACsSqtw0&zhida_source=entity)，也就是 gic_of_init，而这个函数就是 GIC 驱动的初始化入口。
+在内核启动初始化中断的函数中，of_irq_init 函数会去查找设备节点信息，该函数的传入参数就是 __irqchip_of_table 段，由于 IRQCHIP_DECLARE 已经将信息填充好了，of_irq_init 函数会根据 “arm,gic-v3” 去查找对应的设备节点，并获取设备的信息。or_irq_init 函数中，最终会回调 IRQCHIP_DECLARE 声明的回调函数，也就是 gic_of_init，而这个函数就是 GIC 驱动的初始化入口。
 
 2. gic_of_init 流程：
 
@@ -292,7 +292,7 @@ static int __init gic_init_bases(void __iomem *dist_base,
 
 irq_domain 的引入相当于一个中断控制器就是一个 irq_domain。这样一来所有的中断控制器就会出现级联的布局。利用树状的结构可以充分的利用 irq 数目，而且每一个 irq_domain 区域可以自己去管理自己 interrupt 的特性。
 
-每一个中断控制器对应多个中断号， 而硬件中断号在不同的中断控制器上是会重复编码的， 这时仅仅用[硬中断](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E7%A1%AC%E4%B8%AD%E6%96%AD&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLnoazkuK3mlq0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Nxq-rYJbU57BtqO7lXHzJYxamwnSGBsif7ATpANIudQ&zhida_source=entity)号已经不能唯一标识一个外设中断，因此 linux kernel 提供了一个[虚拟中断](https://zhida.zhihu.com/search?content_id=205658880&content_type=Article&match_order=1&q=%E8%99%9A%E6%8B%9F%E4%B8%AD%E6%96%AD&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQzNzc0NTksInEiOiLomZrmi5_kuK3mlq0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMDU2NTg4ODAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.EufKKoS6_XQOSy2I5f6mJh1u4-I0JZrbT6mY80FRKvc&zhida_source=entity)号的概念。
+每一个中断控制器对应多个中断号， 而硬件中断号在不同的中断控制器上是会重复编码的， 这时仅仅用硬中断号已经不能唯一标识一个外设中断，因此 linux kernel 提供了一个虚拟中断号的概念。
 
 接下来我们看下硬件中断号是如何映射到虚拟中断号的。
 

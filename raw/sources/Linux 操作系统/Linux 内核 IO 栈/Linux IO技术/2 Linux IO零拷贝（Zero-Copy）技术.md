@@ -20,11 +20,11 @@ DMA 负责内核间的 IO 传输，CPU 负责内核和应用间的 IO 传输。
 
 两种拷贝类型：
 
-（1）[CPU COPY](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=CPU+COPY&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJDUFUgQ09QWSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjE4Mzg3MzA2MiwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.JVOCzBPgsQu7GacZipN3FJ6XroUHcnAEycaq4QhcWQk&zhida_source=entity)
+（1）CPU COPY
 
 通过计算机的组成原理我们知道, 内存的读写操作是需要 CPU 的协调数据总线，地址总线和控制总线来完成的因此在"拷贝"发生的时候,往往需要 CPU 暂停现有的处理逻辑,来协助内存的读写，这种我们称为 CPU COPY。CPU COPY 不但占用了 CPU 资源,还占用了总线的带宽。
 
-（2）[DMA COPY](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=DMA+COPY&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJETUEgQ09QWSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjE4Mzg3MzA2MiwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.HJgtENcE2IchnCbmotxEaTk5b-eGGOxw1cPDYWTFkgg&zhida_source=entity)
+（2）DMA COPY
 
 DMA(DIRECT MEMORY ACCESS) 是现代计算机的重要功能，它有一个重要特点：当需要与外设进行数据交换时, CPU 只需要初始化这个动作便可以继续执行其他指令,剩下的数据传输的动作完全由DMA来完成可以看到 DMA COPY 是可以避免大量的 CPU 中断的。
 
@@ -48,7 +48,7 @@ Linux 内存管理结构的历史：在 Linux 内核2.4版本之前，内存管�
 
 Linux 内核的文件 Cache 管理机制来进行实现的，在 Linux 的实现中，文件 Cache 分为两个层面，一是 Page Cache，另一个 Buffer Cache，每一个 Page Cache 包含若干 Buffer Cache。
 
-内存管理系统和 VFS 只与 Page Cache 交互，内存管理系统负责维护每项 Page Cache 的分配和回收，同时在使用 [memory map](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=memory+map&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJtZW1vcnkgbWFwIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MTgzODczMDYyLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.-8P7Dt4KdWBRlPTouFvYCsHxXR7Pb1bGRSzUipTp-fY&zhida_source=entity) 方式访问时负责建立映射。
+内存管理系统和 VFS 只与 Page Cache 交互，内存管理系统负责维护每项 Page Cache 的分配和回收，同时在使用 memory map 方式访问时负责建立映射。
 
 VFS 负责 Page Cache 与用户空间的数据交换。而具体文件系统则一般只与 Buffer Cache 交互，它们负责在外围存储设备和 Buffer Cache 之间交换数据。
 
@@ -60,7 +60,7 @@ VFS 负责 Page Cache 与用户空间的数据交换。而具体文件系统则�
 
 将 Cache 项映射到用户空间，使得应用程序可以像使用内存指针一样访问文件，Memory map 访问 Cache 的方式在内核中是采用请求页面机制实现的：
 
-• 当我们应用程序调用 mmap（下图中1），陷入到内核中后调用 dommappgoff （图中2）该函数从应用程序的地址空间中分配一段区域作为映射的内存地址，并使用一个 [VMA](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=VMA&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJWTUEiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoxODM4NzMwNjIsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.rRL0jgGmct4jN7um8Uo-qLQqJe2n375G1zE1YI39UZ8&zhida_source=entity)（vmareastruct）结构代表该区域，之后就返回到应用程序（图中3）；
+• 当我们应用程序调用 mmap（下图中1），陷入到内核中后调用 dommappgoff （图中2）该函数从应用程序的地址空间中分配一段区域作为映射的内存地址，并使用一个 VMA（vmareastruct）结构代表该区域，之后就返回到应用程序（图中3）；
 
 • 然后当应用程序访问 mmap 所返回的地址指针时（图中4），由于虚实映射尚未建立，会触发**缺页中断**（图中5）；
 
@@ -77,7 +77,7 @@ VFS 负责 Page Cache 与用户空间的数据交换。而具体文件系统则�
 
 操作系统为了保护系统不被应用程序有意或无意地破坏，为操作系统设置了用户态和内核态两种状态，用户态想要获取系统资源(例如访问硬盘)，必须通过系统调用进入到内核态, 由内核态获取到系统资源，再切换回用户态返回应用程序。
 
-出于 "readahead cache" 和[异步写入](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=%E5%BC%82%E6%AD%A5%E5%86%99%E5%85%A5&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiLlvILmraXlhpnlhaUiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoxODM4NzMwNjIsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.5NT8hokCtVx8BEwsDb-xf6kMFIE5FrZXpqnonFzfRlE&zhida_source=entity)等等性能优化的需要, 操作系统在内核态中也增加了一个"内核缓冲区"(kernel buffer)。读取数据时并不是直接把数据读取到应用程序的 buffer， 而先读取到 kernel buffer， 再由 kernel buffer 复制到应用程序的 buffer。因此,数据在被应用程序使用之前，可能需要被多次拷贝。
+出于 "readahead cache" 和异步写入等等性能优化的需要, 操作系统在内核态中也增加了一个"内核缓冲区"(kernel buffer)。读取数据时并不是直接把数据读取到应用程序的 buffer， 而先读取到 kernel buffer， 再由 kernel buffer 复制到应用程序的 buffer。因此,数据在被应用程序使用之前，可能需要被多次拷贝。
 
 ### **2、非零拷贝IO流程**
 
@@ -120,7 +120,7 @@ Socket.send(socket, buf, len);
 
 Linux 的零拷贝技术就是为了优化掉这两次**不必要的拷贝。**
 
-### **3、以[sendFile](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=sendFile&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJzZW5kRmlsZSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjE4Mzg3MzA2MiwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.mLC8d8AJ9702geCMnBmOkpbXDnGZtk6DroeT2YTQNHo&zhida_source=entity) 为例的系统调用的IO流程**
+### **3、以sendFile 为例的系统调用的IO流程**
 
 **Linux 内核2.1**开始引入一个叫 sendFile 系统调用,这个系统调用可以在内核态内把数据从内核缓冲区直接复制到套接字(SOCKET)缓冲区内, 从而可以减少上下文的切换和不必要数据的复制。
 
@@ -165,7 +165,7 @@ ssize_t senfile(int out_fd,int in_fd,off_t* offset,size_t count);
 
 ### **4、零拷贝的IO流程**
 
-支持 [scatter-gather](https://zhida.zhihu.com/search?content_id=183873062&content_type=Article&match_order=1&q=scatter-gather&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTAxNTE3MzUsInEiOiJzY2F0dGVyLWdhdGhlciIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjE4Mzg3MzA2MiwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.4tLb5B4v0yxkF12YtfWjcmnsi1fmrBrJoLbcBpXrfyQ&zhida_source=entity) 特性的 sendFile 的 IO 流程：
+支持 scatter-gather 特性的 sendFile 的 IO 流程：
 
 **Linux在内核2.4**以后的版本中, Linux 内核对 socket 缓冲区描述符做了优化。通过这次优化, sendFile 系统调用可以在只复制 kernel buffer 的少量元信息的基础上, 把数据直接从 kernel buffer 复制到网卡的 buffer 中去，从而避免了从"内核缓冲区"拷贝到"socket缓冲区"的这一次拷贝。
 

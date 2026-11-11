@@ -9,6 +9,7 @@ updated: 2026-11-11
 
 ## Recent Activity
 
+- [2026-11-11] WIKI_UPDATE — 项目枢纽页同步 3 个提交 delta：规模刷新至 964 来源/196 页/76 提交；新增 [[skills/raw-source-link-sanitization]]（437 处追踪链接清洗流程）；记录 raw 目录按子系统重组与 18 个 manifest 键迁移；待办重写为 14 个待 ingest 积压（五大子系统文档 ~600KB）+ wiki 来源路径过期 17 处 + manifest 残留 3 条
 - [2026-11-11] INGEST — 设备驱动管理目录增量（1新+1修改+1重命名）：新建 [[summaries/linux-smmu-io-bypass]]（STE=Bypass 旁路、三模式对比、内核参数）；BAR 枚举流程并入 [[summaries/pci-bar-dma-space]]；[[concepts/linux-iommu-subsystem]] 增 SMMU IO Bypass 小节、[[skills/swiotlb-troubleshooting]] 增三模式辨析；SMMU图解文迁入 `Linux IOMMU/` 子目录并同步 7 页路径。manifest 963→964，total_pages 180→181
 - [2026-11-10] INGEST — Linux IOMMU、SMMU(ARM)技术图解（单来源）：新建 linux-iommu-subsystem（内核IOMMU抽象层+SMMU+SVA）/ iommu-group-domain-isolation（Group/Domain+VFIO+BDF）/ vm-address-translation-chain（GVA/GPA/HVA/HPA+EPT）3概念页 + linux-iommu-smmu-illustrated 摘要页；更新直通页（解决VFIO group/container未解问题）、DMA映射页（scatter-gather聚合）、IOMMU六部曲页（补抽象层引言）。manifest 962→963，total_pages 176→180
 - [2026-11-10] INGEST — Linux 操作系统目录重组增量（24新+9修改+2重命名+5空占位）：新建 cpu-cache-coherence / memory-barriers / linux-io-models / page-cache-vs-buffer-cache / linux-dma-mapping 5个概念页 + pci-bar-dma-space / linux-iommu-deep-dive 2个摘要页；更新30页（含 meminfo 全量重写、io-stack hub 重写、锁机制10→13种）。manifest 940→962，total_pages 176
@@ -17,7 +18,7 @@ updated: 2026-11-11
 
 ## Active Threads
 
-- **下一批待消化**：BAR空间资源映射.md 已消化（BAR探测分配流程并入 [[summaries/pci-bar-dma-space]]）；SMMU的IO Bypass.md 已消化（新页 linux-smmu-io-bypass）；剩余4个0字节占位（Linux MMU / 页表 / PCIe设备枚举 / DMA传输）仍待填充，与 [[concepts/virtual-memory-and-paging]] 天然成对
+- **待 ingest 积压 14 个**：`Linux 驱动管理/` 五大子系统文档（PCI 242KB / 网络 231KB / SCSI 139KB / 块设备 54KB / DMA与IOMMU 52KB）是下一批主菜，另有驱动架构/DMA介绍/直接IO/文件一致性小文；4 个 0 字节占位（页面置换算法 / 异步AIO / 用户态驱动IO / NAT协议）待填充。此前的 BAR空间、SMMU IO Bypass 已消化完毕
 - **DMA/IOMMU域成型（双轴完备）** ^[inferred]：x86轴=IOMMU六部曲（SWIOTLB软件bounce vs Intel VT-d硬件I/O页表，互斥）+ DMA映射两类 + swiotlb排查skill；ARM/框架轴=SMMU图解（内核统一抽象层、Group/Domain隔离、VFIO Group/Container、[[concepts/vm-address-translation-chain]] GPA/HVA/HPA地址链）+ [[summaries/linux-smmu-io-bypass]]（STE级旁路与三模式）；[[concepts/linux-device-passthrough]] 的VFIO group/container未解问题已闭环。剩余缺口：SMMUv3命令队列/event queue细节、STE位域编码、SVA实现、IRT中断重映射（多页未解问题待源）
 - **缓存一致性与内存序线开启**：cpu-cache-coherence（MESI/MESIF/MOESI）与 memory-barriers（Store Buffer/x86-TSO）为本批新建，向上衔接 [[concepts/linux-lock-mechanisms]]（锁的内存序语义）、向下支撑 dma_wmb 等DMA一致性屏障
 - **中断知识线已闭环**（2026-11-09）：hub [[concepts/linux-interrupt-system]] 为中断域唯一枢纽，与VGIC/IRQ亲和/TLB Shootdown完成交叉链接
