@@ -9,40 +9,39 @@ updated: 2026-11-11
 
 ## Recent Activity
 
-- [2026-11-11] WIKI_UPDATE — 项目枢纽页同步 3 个提交 delta：规模刷新至 964 来源/196 页/76 提交；新增 [[skills/raw-source-link-sanitization]]（437 处追踪链接清洗流程）；记录 raw 目录按子系统重组与 18 个 manifest 键迁移；待办重写为 14 个待 ingest 积压（五大子系统文档 ~600KB）+ wiki 来源路径过期 17 处 + manifest 残留 3 条
-- [2026-11-11] INGEST — 设备驱动管理目录增量（1新+1修改+1重命名）：新建 [[summaries/linux-smmu-io-bypass]]（STE=Bypass 旁路、三模式对比、内核参数）；BAR 枚举流程并入 [[summaries/pci-bar-dma-space]]；[[concepts/linux-iommu-subsystem]] 增 SMMU IO Bypass 小节、[[skills/swiotlb-troubleshooting]] 增三模式辨析；SMMU图解文迁入 `Linux IOMMU/` 子目录并同步 7 页路径。manifest 963→964，total_pages 180→181
-- [2026-11-10] INGEST — Linux IOMMU、SMMU(ARM)技术图解（单来源）：新建 linux-iommu-subsystem（内核IOMMU抽象层+SMMU+SVA）/ iommu-group-domain-isolation（Group/Domain+VFIO+BDF）/ vm-address-translation-chain（GVA/GPA/HVA/HPA+EPT）3概念页 + linux-iommu-smmu-illustrated 摘要页；更新直通页（解决VFIO group/container未解问题）、DMA映射页（scatter-gather聚合）、IOMMU六部曲页（补抽象层引言）。manifest 962→963，total_pages 176→180
-- [2026-11-10] INGEST — Linux 操作系统目录重组增量（24新+9修改+2重命名+5空占位）：新建 cpu-cache-coherence / memory-barriers / linux-io-models / page-cache-vs-buffer-cache / linux-dma-mapping 5个概念页 + pci-bar-dma-space / linux-iommu-deep-dive 2个摘要页；更新30页（含 meminfo 全量重写、io-stack hub 重写、锁机制10→13种）。manifest 940→962，total_pages 176
-- [2026-11-09] CAPTURE — swiotlb buffer is full 排查沉淀为 [[skills/swiotlb-troubleshooting]]；[2026-11-09] INGEST — 中断系统目录重蒸馏（2新页面+hub更新）；[2026-11-06] INGEST — 物理硬件域首批10来源→15新页面
-- [2026-11-10] 用户核实的delta异常：5个空占位文件哈希与3个不相关旧条目（Ollma/有向无环图/ACL）相同——系0字节文件SHA-256(e3b0c442...)必然碰撞，非数据损坏，已解释并按独立新条目登记
+- [2026-11-11] INGEST — `Linux 操作系统` append 增量（10 新 / 10 仅格式变更 / 41 未变 / 7 空占位）：五个子系统手册（PCI 242KB、网络 231KB、SCSI 139KB、块设备 54KB、DMA与IOMMU 52KB）蒸馏为 5 篇摘要 [[summaries/linux-pci-subsystem]] / [[summaries/linux-network-device-subsystem]] / [[summaries/linux-scsi-subsystem]] / [[summaries/linux-block-subsystem]] / [[summaries/linux-dma-iommu-subsystem]]，加总纲 [[concepts/linux-driver-model]]；更新 [[concepts/linux-io-stack]]（blk-mq 双层队列、SCSI 中间层定位、fsync/fdatasync/sync）、[[concepts/linux-dma-mapping]]（三类 DMA 内存口径对齐、四步工作流）、[[concepts/linux-iommu-subsystem]]（iommu_domain/map/attach/flush API 面）、[[concepts/linux-network-stack]]（net_device 抽象层）、[[concepts/linux-io-models]]（三类 IO 各自动机）；`设备驱动管理`→`驱动管理` 路径在 11 页全量对齐。manifest 964→974，total_pages 197→203
+- [2026-11-11] WIKI_UPDATE — 项目枢纽页同步 3 个提交 delta；新增 [[skills/raw-source-link-sanitization]]（437 处追踪链接清洗流程）；记录 raw 目录按子系统重组与 18 个 manifest 键迁移
+- [2026-11-11] INGEST — 设备驱动管理目录（1新+1修改+1重命名）：新建 [[summaries/linux-smmu-io-bypass]]（STE=Bypass 旁路、三模式对比、内核参数）；BAR 枚举流程并入 [[summaries/pci-bar-dma-space]]；SMMU图解文迁入 `Linux IOMMU/` 子目录
+- [2026-11-10] INGEST — IOMMU/SMMU 图解单来源：新建 [[concepts/linux-iommu-subsystem]] / [[concepts/iommu-group-domain-isolation]] / [[concepts/vm-address-translation-chain]] + [[summaries/linux-iommu-smmu-illustrated]]
+- [2026-11-10] INGEST — 目录重组增量（24新+9修改）：cpu-cache-coherence / memory-barriers / linux-io-models / page-cache-vs-buffer-cache / linux-dma-mapping 五概念页 + 2 摘要页
+- [2026-11-10] 0 字节占位文件哈希碰撞（`e3b0c442...`）已解释并按独立新条目登记，非数据损坏
 
 ## Active Threads
 
-- **待 ingest 积压 14 个**：`Linux 驱动管理/` 五大子系统文档（PCI 242KB / 网络 231KB / SCSI 139KB / 块设备 54KB / DMA与IOMMU 52KB）是下一批主菜，另有驱动架构/DMA介绍/直接IO/文件一致性小文；4 个 0 字节占位（页面置换算法 / 异步AIO / 用户态驱动IO / NAT协议）待填充。此前的 BAR空间、SMMU IO Bypass 已消化完毕
-- **DMA/IOMMU域成型（双轴完备）** ^[inferred]：x86轴=IOMMU六部曲（SWIOTLB软件bounce vs Intel VT-d硬件I/O页表，互斥）+ DMA映射两类 + swiotlb排查skill；ARM/框架轴=SMMU图解（内核统一抽象层、Group/Domain隔离、VFIO Group/Container、[[concepts/vm-address-translation-chain]] GPA/HVA/HPA地址链）+ [[summaries/linux-smmu-io-bypass]]（STE级旁路与三模式）；[[concepts/linux-device-passthrough]] 的VFIO group/container未解问题已闭环。剩余缺口：SMMUv3命令队列/event queue细节、STE位域编码、SVA实现、IRT中断重映射（多页未解问题待源）
-- **缓存一致性与内存序线开启**：cpu-cache-coherence（MESI/MESIF/MOESI）与 memory-barriers（Store Buffer/x86-TSO）为本批新建，向上衔接 [[concepts/linux-lock-mechanisms]]（锁的内存序语义）、向下支撑 dma_wmb 等DMA一致性屏障
-- **中断知识线已闭环**（2026-11-09）：hub [[concepts/linux-interrupt-system]] 为中断域唯一枢纽，与VGIC/IRQ亲和/TLB Shootdown完成交叉链接
-- **历史遗留待用户决策**：manifest顶层vault_path过期旧路径；lint报告provenance漂移72页、提升候选36页（linux-io-stack 18入链为头号）
+- **驱动域骨架已闭环** ^[inferred]：驱动架构 + PCI/SCSI/Block/网络设备/IOMMU 五个子系统手册 + DMA 介绍，共覆盖"LDM 总线模型 → 各类控制器 → 框架层结构体/API → 数据面通路"。上游总纲为 [[concepts/linux-driver-model]]，与 [[concepts/linux-io-stack]]、[[concepts/linux-interrupt-system]]、[[concepts/linux-dma-mapping]] 交叉成网
+- **剩余空占位 7 个（0 字节）**：`Linux MMU（内存管理单元）.md`、`Linux 页表管理.md`、`Linux 页面置换算法.md`、`Linux 异步AIO libaio、io_uring.md`、`Linux 用户态驱动IO（SPDK、DPDK）.md`、`Linux NAT协议.md`、`Linux PCIe设备枚举.md`。补内容后再 ingest；0 字节文件 SHA-256 相同，不可作改名判据
+- **子系统解析下一步缺口**：SCSI 的 ULD（sd/sr/st）与 LLD 具体驱动、Block 的 io_uring 直通路径（当前源仅讲 bio/blk-mq 与 libaio）、网络 NAPI 与 XDP 的分界、DTS 中断/clk/reset 属性全集
+- **DMA/IOMMU 域双轴完备**：x86 轴（SWIOTLB 软件 bounce vs Intel VT-d 硬件 I/O 页表，互斥）+ ARM/框架轴（统一抽象层、Group/Domain 隔离、SVA、STE 级 bypass）
+- **待人工审核**：几乎全库 `lifecycle: draft`；manifest 顶层 `vault_path` 仍为旧机器路径（`C:\Users\23363\Data\code\...`），实际在 `D:\lkj_Data\`——多次上报待老板决策；manifest 残留 2 条（`Linux 缓存IO和直接IO.md` 旧键、ClickHouse 源已删）
 
 ## Key Takeaways
 
-- **MESI四态的演进方向都是解决Invalid延迟** ^[inferred]：MESIF加F态（转发者唯一，省共享读总线流量）、MOESI加O态（脏数据可直接转发免写回）；伪共享=多核频繁争用同一cache line不同字段，靠`__cacheline_aligned`对齐规避
-- **内存屏障的两层根源**：编译器重排（barrier()即可）与CPU乱序（需体系结构屏障）；x86-TSO只允许StoreLoad重排，故x86全屏障=StoreLoad屏障；弱序架构（ARM）需读/写/全屏障精细控制
-- **epoll O(1)的核心是就绪链表**：红黑树存监听fd（增删O(logN)）、事件到达时callback摘入rdllist就绪链表，epoll_wait只扫就绪链表而非全量fd——与select/poll每次线性扫描的本质差异
-- **Page Cache与Buffer Cache在2.4统一**：此前双重缓存（文件走PC、块设备走BC）浪费内存；统一后buffer_head的b_page指向PC页，BC降为PC的块映射子集（日志文件系统仍需buffer_head）
-- **IOMMU本质是DMA地址翻译环节**：无IOMMU时32-bit设备够不到高地址→SWIOTLB用启动预留bounce池memcpy中转（x86_64默认64MB）；Intel VT-d用I/O页表做硬件重映射后DMA地址=IOVA；两者互斥，VT-d初始化完成后释放SWIOTLB buffer
-- **DMA映射两类选型**：Coherent（一致性映射，长期持有，硬件自动cache同步，适合小控制块）vs Streaming（流式，map/unmap配对，可用IOMMU映射分散物理页，可触发SWIOTLB bounce）
-- **锁全景扩至13种**：qspinlock（MCS队列化自旋，解决锁争用cache line乒乓）、WW Mutex（死锁免疫，GPU/DMA预约场景）、Tasks RCU（以自愿上下文切换为宽限期边界，服务BPF trampoline）
-- **Group是隔离粒度、Domain是地址空间粒度**：同group设备共享domain页表PGD，必须整体直通同一VM（拆分即DMA攻击面）；PCIe-PCI桥为下游设备生成共享Source Identifier（device/func=0）→被迫同组；早期PCI仲裁独占总线、DMA请求无BDF，硬件上做不到设备级隔离
-- **透传一致性=两条翻译路径殊途同归**：GPA经EPT→HPA1、经IOMMU→HPA2，HPA1==HPA2透通才成立；VMM把HVA作vaddr传VFIO_IOMMU_MAP_DMA保证相等。细节：虚机页表存于HPA但CR3/表项装GPA，遍历页表本身也要经EPT
-- **Linux IOMMU是"框架+驱动"抽象**：DMA-MAP API→IOVA(RCACHE)→IO页表→SMMU/IOMMU驱动回调→VFIO接口五层，屏蔽Intel VT-d/AMD/ARM SMMU三种硬件；SVA（CPU与设备共享页表）是统一地址空间的延伸方向
-- **IO Bypass≠关闭SMMU**：SMMU上电即工作，把设备对应STE配成Bypass即令该SID的DMA直通PA（不经S1/S2、不查IOTLB、不查页表权限）；BIOS关闭才是整个硬件不工作。三模式（正常翻译IOVA / bypass直通PA / BIOS关闭PA+SWIOTLB）是排查"设备为何在用物理地址"的第一分叉，且bypass不解决32位设备够不到高内存——bounce仍可能发生 ^[inferred]
-- **BAR大小是探测出来的**：向BAR写全1再读回，最低非零位定2^n大小，按对齐分配后基址写入高位；BAR在设备端，多个BAR可并存，低位只读兼表大小与类型
+- **内核所有设备子系统都是"框架层 + 驱动实现层"同构** ^[inferred]：PCI 是 pci_driver+pci_ops、SCSI 是 host_template+scsi_host、Block 是 blk_mq_ops.queue_rq、网络是 net_device_ops、IOMMU 是 iommu_ops——注册回调、框架统一调度
+- **blk-mq 是双层队列**：软件队列 `mq_ctx`（每 CPU 一份，避免锁争用）+ 硬件队列 `hw_ctx`（对应设备队列），`blk_mq_tag_set` 分配 tag、`blk_mq_ops.queue_rq` 是驱动唯一必填回调，完成走 `blk_mq_end_request`
+- **SCSI 三层是"协议栈式"抽象**：较高层（sd/sr/st，懂块语义）→ 中间层（把 bio/request 翻成 CDB）→ 较低层（HBA 驱动发命令），CDB 长度决定命令族（6/10/16 字节，opcode 0x28 READ10 / 0x2A WRITE10 / 0x25 READ CAPACITY）
+- **网络收包是"中断 + 轮询"混合**：硬中断只唤醒 NAPI，`napi_struct` 在软中断上下文按 budget 轮询收包，兼顾低延迟与高吞吐；`sk_buff` 用 head/data/tail/end 四个指针在单块 buffer 内做各层头部的增删
+- **IOMMU API 四步**：`iommu_domain_alloc` → `iommu_map` → `iommu_attach_device`（映射才对设备生效）→ 解绑释放；改完映射必须 `iommu_flush_iotlb_all`
+- **驱动域的三类设备模型**：PCI（内存读写式，靠 BAR+MMIO）/ 字符设备（流式字节）/ 块设备（按扇区随机寻址，走 bio→request→blk-mq），三者驱动写法完全不同但共享 LDM 的 bus-device-driver 与 sysfs/devtmpfs/udev 基础设施
+- **MESI 四态演进都在解 Invalid 延迟** ^[inferred]：MESIF 加 F 态（唯一转发者）、MOESI 加 O 态（脏数据直接转发免写回）
+- **内存屏障两层根源**：编译器重排（`barrier()`）与 CPU 乱序（体系结构屏障）；x86-TSO 只允许 StoreLoad 重排，故 x86 全屏障=StoreLoad 屏障
+- **IOMMU 本质是 DMA 地址翻译环节**：无 IOMMU 时 32-bit 设备够不到高地址→SWIOTLB 用预留 bounce 池 memcpy 中转；Intel VT-d 用 I/O 页表做硬件重映射后 DMA 地址=IOVA
+- **IO Bypass≠关闭 SMMU**：SMMU 上电即工作，把设备对应 STE 配成 Bypass 才令该 SID 直通 PA（不经 S1/S2、不查 IOTLB 与页表权限）；BIOS 关闭才是硬件不工作
+- **BAR 大小是探测出来的**：向 BAR 写全 1 再读回，最低非零位定 2^n，按对齐分配后基址写入高位
+- **Group 是隔离粒度、Domain 是地址空间粒度**：同 group 设备共享 domain 页表，必须整体直通同一 VM
 
 ## Flagged Contradictions
 
-- **Deadline调度器读FIFO超时 500ms vs 5ms** ^[ambiguous]：不同来源数值不一致（相差100倍），两处并存标注；write超时5ms各源一致
-- **sendfile提升50%吞吐** ^[ambiguous]：源文自述"未亲测"，仅作参考量级；零拷贝收益依赖SG-DMA硬件支持
-- **Page Cache组织结构 radix tree vs xarray** ^[ambiguous]：不同内核版本口径（4.x起xarray替代radix tree），摘要页并存标注
-- **Mutex owner编码**（已修正）：低2位为标志位而非低3位——锁机制页原记录有误，本批按全景介绍源文修正；mutex/semaphore性能倍数亦修正（6x/8x）
-- **swiotlb关键数字已闭环**（原标^[ambiguous]现获文档级佐证）：64MB默认池/2KB单slot/128 slots区间，base_confidence 0.55→0.58
+- **DMA 内存分类：教材三类 vs x86 两类** ^[ambiguous]：野火教材分一致性/流式/散射聚集，x86 资料分 Coherent/Streaming（SG 是 Streaming 的 `dma_map_sg` 变体）——已在 [[concepts/linux-dma-mapping]] 并列对照标注
+- **Deadline 调度器读 FIFO 超时 500ms vs 5ms** ^[ambiguous]：不同来源数值相差 100 倍，两处并存标注
+- **sendfile 提升 50% 吞吐** ^[ambiguous]：源文自述"未亲测"，仅作量级参考
+- **Page Cache 组织结构 radix tree vs xarray** ^[ambiguous]：内核版本口径差异（4.x 起 xarray 替代 radix tree）

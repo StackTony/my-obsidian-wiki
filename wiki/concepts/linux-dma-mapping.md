@@ -14,22 +14,23 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-iommu-subsystem]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 设备驱动管理/Linux IOMMU
+source_dir: Linux 操作系统/Linux 驱动管理/Linux IOMMU
 source_files:
   - Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
   - Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md
-  - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md"
+  - Linux IOMMU、SMMU(ARM)技术图解.md
+  - Linux DMA和IOMMU.md
 summary: Linux DMA映射两类：Coherent（一致性，长期映射，大buffer）和Streaming（流式，按需map/unmap，可触发SWIOTLB bounce）。Intel IOMMU启用后DMA地址为IOVA，经IOMMU页表翻译为PA；IOMMU还可把分散物理页聚合映射为连续IOVA。
 provenance:
-  extracted: 0.66
-  inferred: 0.31
+  extracted: 0.68
+  inferred: 0.29
   ambiguous: 0.03
 base_confidence: 0.78
 lifecycle: draft
 lifecycle_changed: 2026-11-10
 tier: supporting
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Linux DMA映射类型：Coherent与Streaming
@@ -60,6 +61,27 @@ map函数（`dma_map_single`、`dma_map_sg`等）的核心流程：
    - `swiotlb=force`→即使设备能寻址也强制映射
 
 函数调用路径：`dma_map_single`/`dma_map_sg` → `dma_map_page_attrs` → `dma_direct_map_page` → `swiotlb_map` → `swiotlb_tbl_map_single` → `swiotlb_bounce` → `memcpy`
+
+### 三种 DMA 内存（SoC 教材口径与 x86 口径的对齐）
+
+野火 SoC 教材把 DMA 分为"一致性 / 流式 / 散射聚集"三类，与本节的两类划分看似矛盾，实际是不同切面：^[inferred]
+
+| 教材口径 | 对应本页哪一类 | 真正的差异点 |
+|---|---|---|
+| 一致性 DMA（Coherent） | Coherent | 物理连续 + 硬件自动缓存一致 |
+| 流式 DMA（Streaming） | Streaming | 临时 map/unmap，需手动同步缓存 |
+| 散射聚集 DMA（S-G） | Streaming 的 SG 变体（`dma_map_sg`） | 物理不连续，一次提交多段，依赖硬件 SG 能力 |
+
+- 一致性 DMA 的代价：需预留对齐与冗余内存、易碎片化、不适合大块传输——所以只用于控制块、协议头、中断状态这类小数据。
+- 流式 DMA 的风险：缓存同步错误会直接导致数据错乱，必须严格按传输方向做 sync。
+- S-G 的价值：无需连续大块物理内存，配合 IOMMU 可把零散页聚合为连续 IOVA。详见 [[summaries/linux-dma-iommu-subsystem]]。
+
+### DMA 四步工作流
+
+1. **CPU 初始化配置**（仅一次）：设 DMA 掩码、分配对应类型内存、申请通道、配方向与长度、写控制器寄存器。
+2. **硬件自动搬运**：CPU 不参与，控制器抢占总线完成数据传输。
+3. **中断收尾**：完成或异常触发中断，CPU 校验数据、清中断标志、复位通道。
+4. **资源释放**：关通道、释放 DMA 内存、归还通道、注销中断。
 
 ### IOVA——IOMMU启用后的DMA地址
 
@@ -131,6 +153,6 @@ SWIOTLB的 `IO_TLB_SEGSIZE=128` 限制了单次DMA Streaming Mapping最大申请
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — Coherent与Streaming映射的区别、Linux 4.0分界、map函数行为、SWIOTLB触发条件
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md` — intel_dma_ops、iommu_need_mapping分流、IOVA、IOMMU页表、__intel_map_single映射过程
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — IOMMU三大作用（32位设备扩容/scatter-gather聚合/地址保护）
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — Coherent与Streaming映射的区别、Linux 4.0分界、map函数行为、SWIOTLB触发条件
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md` — intel_dma_ops、iommu_need_mapping分流、IOVA、IOMMU页表、__intel_map_single映射过程
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — IOMMU三大作用（32位设备扩容/scatter-gather聚合/地址保护）

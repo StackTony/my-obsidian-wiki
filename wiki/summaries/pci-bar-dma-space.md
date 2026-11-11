@@ -10,8 +10,8 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-interrupt-system]]"
     type: uses
-source_dir: Linux 操作系统/Linux 设备驱动管理
-source_files: [1 Linux PCI Bar空间和DMA空间.md, Linux BAR空间资源映射.md]
+source_dir: Linux 操作系统/Linux 驱动管理/Linux PCI 系统
+source_files: [Linux PCI Bar空间和DMA空间.md, Linux BAR空间资源映射.md]
 summary: PCIe驱动四大支柱：设备枚举（BIOS扫描配置空间）、BAR空间映射（ioremap）、DMA传输、MSI-X中断。BAR大小靠写全1读回探测、按对齐分配；BAR配错是驱动故障最常见根因。
 provenance:
   extracted: 0.74
@@ -106,5 +106,5 @@ BAR映射成功但寄存器读写异常或机器死机时，排查方向：
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/1 Linux PCI Bar空间和DMA空间.md` — PCIe驱动开发框架、BAR映射、DMA传输、中断处理、常见问题排查表
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux BAR空间资源映射.md` — BAR枚举四步流程（写全1探测大小、最低非零位定大小、对齐分配、基址写回）、4KB NP-MMIO 示例、注意事项（原文 https://comate.baidu.com/zh/page/4Nj8lQXsol ）
+- `raw/sources/Linux 操作系统/Linux 驱动管理/1 Linux PCI Bar空间和DMA空间.md` — PCIe驱动开发框架、BAR映射、DMA传输、中断处理、常见问题排查表
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux BAR空间资源映射.md` — BAR枚举四步流程（写全1探测大小、最低非零位定大小、对齐分配、基址写回）、4KB NP-MMIO 示例、注意事项（原文 https://comate.baidu.com/zh/page/4Nj8lQXsol ）

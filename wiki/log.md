@@ -716,3 +716,23 @@ title: Wiki Log
 - 交叉引用：新技能页 ↔ 项目枢纽页、SMMU 图解摘要页；index 新增「Skills (知识管理与维护)」分区
 - 维护记录（本同步期间完成，raw 侧）：437 处追踪链接清洗（14 文件）+ manifest 18 键迁移与哈希同步；详见 [[skills/raw-source-link-sanitization]]
 - 跳过项：obsidian-wiki CLI 不可用，manifest/index/log/hot 手工更新；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新；Step 3b code-understand 不适用（纯 markdown vault，无代码）
+
+## [2026-11-11] INGEST | Linux 操作系统 · Linux 驱动管理五大子系统文档（append delta）
+
+- [2026-11-11T18:10] INGEST mode=append source_dir="Linux 操作系统" delta=new:10 modified:10(cosmetic) unchanged:41 zero:7 created:6 updated:5
+- 新建页面（6个）：
+  - summaries/linux-pci-subsystem — 242KB 源：PCIe 四层架构、pci_dev/pci_driver/pci_bus/pci_device_id/pci_ops、配置空间 256B→4096B、6 BAR、MSI 32 vs MSI-X 2048、ASPM/CLKREQ/DBI/TLP/AER、Root Complex 拓扑
+  - summaries/linux-scsi-subsystem — 139KB 源：三层架构（较高/中间/较低层）、Initiator-Target-LUN、CDB 6/10/16 字节命令族与操作码表、scsi_cmnd/scsi_host_template
+  - summaries/linux-block-subsystem — 54KB 源：扇区/块/bio/request/调度器五概念、blk-mq 软队列(每CPU)+硬队列双层、gendisk/blk_mq_tag_set/queue_rq/bio_vec 结构体链
+  - summaries/linux-network-device-subsystem — 231KB 源：net_device/net_device_ops/napi_struct、sk_buff/sk_buff_head 内存布局、NAPI API 组、MAC-PHY 与 DTS
+  - summaries/linux-dma-iommu-subsystem — 52KB 源：三类 DMA 内存+三类传输+四步工作流、IOMMU 五功能与裸 DMA 四缺陷、iommu_domain/map/attach/flush API、RK3588 实验
+  - concepts/linux-driver-model — 驱动域总纲：三类设备访问模型、LDM bus-device-driver、六大总线框架、DTS 与六大基础设施、devm 范式、上下文约束
+- 已有页面更新（5个）：
+  - concepts/linux-io-stack — 新增 blk-mq 双层队列、SCSI 中间层定位、文件一致性三系统调用（fsync/fdatasync/sync）与 Dirty page；source_files +3
+  - concepts/linux-dma-mapping — 新增"三种 DMA 内存口径对齐"（教材三类 vs x86 两类）与四步工作流；source_files +1；source_dir 修正为 `Linux 驱动管理/Linux IOMMU`
+  - concepts/linux-iommu-subsystem — 新增"抽象层具体 API 面"（iommu_domain_alloc/map/attach/flush）；source_files +1
+  - concepts/linux-network-stack — 新增"设备抽象层：net_device 与驱动 API"；source_files +1
+  - concepts/linux-io-models — 新增"三者各自的为什么"（内核缓冲动机、Direct IO+异步搭配、mmap 取消 IO 操作）；source_files 陈旧项替换为新文件
+- 来源路径修复：`Linux 设备驱动管理` → `Linux 驱动管理` 全量替换（11 个 wiki 页面：summaries ×5、concepts ×5、skills ×1）；log 历史条目按约定不回改
+- Manifest：新增 10 条（含哈希/页产出）、10 条 cosmetic 变更同步哈希（仅格式/标题/空行，未重新蒸馏）、残留 0 字节条目登记 4 条；清理 1 条（`设备驱动管理/Linux DMA传输.md` 0 字节空条目）；total_sources_ingested 964→974、total_pages 197→203、total_summaries 47→52、total_concepts 90→91
+- 跳过项：7 个 0 字节占位（MMU/页表管理/页面置换算法/异步AIO/用户态驱动IO/NAT/PCIe枚举）；`Linux 学习大纲.md` 仅 1 行课程链接，不建页只登记；obsidian-wiki CLI 不可用，delta 由手工 SHA-256 比对得出；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新

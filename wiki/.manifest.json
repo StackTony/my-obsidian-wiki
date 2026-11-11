@@ -11674,7 +11674,7 @@
     "my-obsidian-wiki": {
       "source_repo": "github.com/StackTony/my-obsidian-wiki",
       "last_synced": "2026-11-11",
-      "last_commit_synced": "54665cf9ea13bbecbba2e78ca6ad3e4487d600df",
+      "last_commit_synced": "3f8a01c4dfb9abdf41b4cb913f5f1816030edf66",
       "pages_in_vault": [
         "projects/my-obsidian-wiki.md",
         "skills/raw-source-link-sanitization.md"

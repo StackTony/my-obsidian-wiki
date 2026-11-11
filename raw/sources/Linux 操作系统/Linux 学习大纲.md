@@ -1,1 +1,0 @@
-https://www.0voice.com/uiwebsite/html/courses/kernel.html

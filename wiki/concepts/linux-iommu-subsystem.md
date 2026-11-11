@@ -14,8 +14,8 @@ relationships:
     type: related_to
   - target: "[[summaries/linux-smmu-io-bypass]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 设备驱动管理/Linux IOMMU
-source_files: [Linux IOMMU、SMMU(ARM)技术图解.md, Linux SMMU的IO Bypass.md]
+source_dir: Linux 操作系统/Linux 驱动管理/Linux IOMMU
+source_files: [Linux IOMMU、SMMU(ARM)技术图解.md, Linux SMMU的IO Bypass.md, Linux DMA和IOMMU.md]
 summary: Linux内核抽象统一IOMMU层，屏蔽Intel VT-d/AMD/ARM SMMU硬件差异；五层框架：DMA-MAP API、IOVA分配(RCACHE)、IO页表、驱动回调、VFIO接口。SVA共享页表；SMMU可STE级bypass直通PA。
 provenance:
   extracted: 0.55
@@ -76,6 +76,22 @@ IO Bypass 常被误读为"关闭 SMMU"。实际上 SMMU 硬件照常上电工作
 - 抽象层的收益在虚拟化场景放大：VMM只需面对统一IOMMU API即可管理任意平台的设备直通，见[[concepts/linux-device-passthrough]]
 - Group/Domain模型同样定义在统一抽象之上，与具体硬件无关，见[[concepts/iommu-group-domain-isolation]]
 
+### 抽象层的具体 API 面（SoC 教材补充）
+
+野火 SoC 教材给出了"其它API接口"层的可用面，与五层框架的底部两层对得上：
+
+| 对象 | API | 语义 |
+|---|---|---|
+| 硬件操作集 | `iommu_ops` | 各厂商 SMMU/IOMMU 驱动注册的回调集合 |
+| 地址域 | `iommu_domain`、`iommu_domain_geometry` | 一个可被多个设备共享的地址空间；geometry 描述域孔径 |
+| 域生命周期 | `iommu_domain_alloc` / `iommu_domain_free` | 分配/释放域 |
+| 映射 | `iommu_map` / `iommu_unmap` / `iommu_map_sg` | 单页映射、解映射、SG 批量映射 |
+| 生效前提 | `iommu_attach_device` | 设备绑定到域后，映射才对它可见 |
+| 异常 | `iommu_set_fault_handler` | 设备越权/翻译失败时回调 |
+| 缓存 | `iommu_flush_iotlb_all` | 刷 IOTLB，改完映射必须做 |
+
+驱动的典型顺序：`iommu_domain_alloc` → `iommu_map` → `iommu_attach_device` → 把 IOVA 交给设备 → 解绑/释放。^[inferred] 完整 API 表见 [[summaries/linux-dma-iommu-subsystem]]。
+
 ## 未解问题
 
 - SMMUv3的命令队列、event queue等具体机制？
@@ -84,5 +100,6 @@ IO Bypass 常被误读为"关闭 SMMU"。实际上 SMMU 硬件照常上电工作
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — 内核IOMMU框架分层、多厂商抽象、SMMU位置、SVA
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md` — STE Bypass 机制（不经 S1/S2、不查 IOTLB、不查权限）、bypass 与 BIOS 关闭的区别、内核控制参数、三模式对比
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — 内核IOMMU框架分层、多厂商抽象、SMMU位置、SVA
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md` — STE Bypass 机制（不经 S1/S2、不查 IOTLB、不查权限）、bypass 与 BIOS 关闭的区别、内核控制参数、三模式对比
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux DMA和IOMMU.md` — IOMMU 五大功能、iommu_domain/ops 结构体与 map/attach/flush API、RK3588 实验

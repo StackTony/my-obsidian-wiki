@@ -4,7 +4,7 @@ category: concepts
 tags: [linux, IO, epoll, 多路复用, 缓存IO]
 aliases: [Linux IO模型, IO多路复用, select poll epoll, 缓存IO与直接IO]
 source_dir: Linux 操作系统/Linux 内核 IO 栈
-source_files: [1 Linux IO类型.md, Linux 缓存IO和直接IO.md, "==Linux IO技术==/1 Linux IO多路复用（select、poll、epoll）技术.md"]
+source_files: [1 Linux IO类型.md, Linux IO分类汇总/Linux 直接IO、缓存IO、内存映射mmap.md, "==Linux IO技术==/1 Linux IO多路复用（select、poll、epoll）技术.md"]
 summary: Linux IO模型体系：五种IO模型、select/poll/epoll对比（epoll红黑树+就绪链表实现O(1)）、缓存IO vs 直接IO（O_DIRECT绕过Page Cache），及Buffered IO/mmap/Direct IO在IO栈中的位置关系。
 provenance:
   extracted: 0.78
@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-11-10
 tier: supporting
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 relationships:
   - target: "[[concepts/linux-io-stack]]"
     type: related_to
@@ -141,6 +141,12 @@ sys_read() → generic_file_read()              # 检查 f_flags & O_DIRECT
 | Direct IO | 用户空间→Block层（跳过Page Cache） | 1次DMA | 自管理缓存，需对齐 |
 
 从冷文件读取的完整路径：`open()` → `read()` → 文件系统层发现Page Cache未命中 → 创建Page Cache关联扇区 → 请求进入块设备层IO队列 → 调度后到设备驱动层 → DMA读取磁盘扇区到Page Cache → CPU拷贝到用户Buffer。mmap省掉最后一步CPU拷贝（用户指针直接指向页缓存），Direct IO省掉Page Cache层（DMA直接在用户空间与磁盘间传输）。
+
+### 补充：三者各自的"为什么"
+
+- **内核缓冲区存在的理由**：读时若数据已在缓冲则免去一次磁盘访问；写时只写缓冲即返回成功，落盘由策略延时完成——这正是它快的来源，也是断电丢数据的来源。
+- **Direct IO 的代价与搭配**：数据不在应用缓存时每次都直接读盘，缓慢；因此实践中常与异步 IO 结合（发起请求后线程继续做别的事，不阻塞等待）。数据库是典型用户——它要自己实现缓存与写延迟策略以配合查询优化，同时省掉内核缓冲区占用的系统内存。
+- **mmap 的本质是"取消 IO 操作"**：文件位置与进程地址空间的一段一一对应后，读写内存即读写文件，不再需要"申请缓冲 → 读入 → 回写 → 释放"四步；大量数据传输时效率显著。代价是缺页与 SIGBUS 的处理要应用自己兜住。 ^[inferred]
 
 ### I/O Buffering层次
 

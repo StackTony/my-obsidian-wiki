@@ -17,18 +17,18 @@ relationships:
   - target: "[[concepts/linux-io-models]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 内核 IO 栈
-source_files: [Linux IO全景介绍.html, Linux IO栈介绍.md, Linux IO下发流程.md, "==Linux IO调度算法==/Linux 内核的 4 大 IO 调度算法.md", "物理硬件/磁盘/TRIM擦除指令.md", "物理硬件/PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md"]
+source_files: [Linux IO全景介绍.html, Linux IO栈介绍.md, Linux IO下发流程.md, "==Linux IO调度算法==/Linux 内核的 4 大 IO 调度算法.md", "Linux IO技术/Linux 文件一致性问题&Dirty概念&解决方案.md", "Linux 操作系统/Linux 驱动管理/Linux Block块设备 系统/Linux内核块设备.md", "Linux 操作系统/Linux 驱动管理/Linux SCSI 系统/Linux内核SCSI子系统.md", "物理硬件/磁盘/TRIM擦除指令.md", "物理硬件/PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md"]
 summary: Linux IO栈分层架构：VFS→Block层→SCSI/NVMe→驱动→硬件。Block层bio/request_queue/调度器协作；4大IO调度器对比（Noop/CFQ/Deadline/Anticipatory）；设备发现从pci_device_probe到add_disk；hctx tags busy确认IO阻塞；cache_type决定write through/back。
 provenance:
   extracted: 0.82
-  inferred: 0.14
-  ambiguous: 0.04
+  inferred: 0.15
+  ambiguous: 0.03
 base_confidence: 0.72
 lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Linux IO栈
@@ -80,6 +80,18 @@ IO栈最底层L5并非黑盒：NAND闪存读/写以page为单位、擦除以bloc
 - 前向合并（forward merge）— 新请求接在已有请求后面
 - 后向合并（backward merge）— 新请求插在已有请求前面
 - 合并条件：连续扇区、相同方向、未超过最大段数限制
+
+**blk-mq 双层队列**（4.x 后期起的默认架构，取代 `queue_lock` 保护的全局单队列）：
+- 软件队列 `mq_ctx` — 每个 CPU 一个私有队列，入队无跨核锁竞争
+- 硬件队列 `hw_ctx` — 数量通常等于 CPU 核数或硬件通道数，负责汇总下发
+- 标签集 `blk_mq_tag_set` 统一配置队列数、深度、超时、NUMA 节点；驱动唯一必需的 `blk_mq_ops.queue_rq` 取 request 操作硬件
+- 完成侧统一走 `blk_mq_end_request`，漏调即 IO 挂死
+
+详见 [[summaries/linux-block-subsystem]]。^[inferred]
+
+### SCSI 中间层在栈中的位置
+
+L3 的 SCSI 不是单一驱动，而是三层：**较高层**（块请求 → SCSI 命令、设备枚举与节点创建）→ **中间层**（主机适配器管理、命令队列调度、Sense 解析、SG 拷贝）→ **较低层**（厂商 HBA 驱动）。命令单位是 CDB（6/10/16 字节，现代默认 `READ_10` 0x28 / `WRITE_10` 0x2A），失败以 Sense Data 回报。详见 [[summaries/linux-scsi-subsystem]]。
 
 ### IO下发流程
 
@@ -193,13 +205,23 @@ IO栈与 [[concepts/linux-memory-management]] 的 Page Cache 紧密交互，Writ
 
 存储侧同样存在此区分：阵列卡 cache_type（`cat /sys/class/scsi_disk/0:2:0:0/cache_type`）决定写路径——write through 不利用阵列Cache直接与磁盘交互；write back 以阵列Cache为二传手（系统→Cache→磁盘）。
 
+**文件一致性由两种方式落地**：Write Through 由应用主动调接口保证；Write Back 由内核线程周期性回写（Linux 默认）。两种方式最终都收敛到三个系统调用：
+
+| 调用 | 范围 |
+|---|---|
+| `fsync(fd)` | 该文件的脏数据 + 脏元数据全部落盘 |
+| `fdatasync(fd)` | 该文件的脏数据 + 必要元数据（不必刷所有元数据） |
+| `sync()` | 系统内所有脏数据与脏元数据 |
+
+写操作命中 Page Cache 时数据先写内存，未回写前该 page 即 **Dirty page**——此时内存数据领先于磁盘，断电即丢。^[inferred]
+
 ### IO阻塞确认
 
 判断IO是否卡在块层等待硬件返回：读 `/sys/kernel/debug/block/sdX/hctx0/tags`，busy 值非0代表存在等待IO返回的请求，即可能存在IO阻塞。实操细节见 [[skills/linux-io-debugging|IO调试实操]]。
 
 ## 未解问题
 
-- NVMe多队列调度器（blk-mq）与传统单队列调度器的完整对比仍缺少源文件支撑。 ^[inferred]
+- NVMe多队列调度器（blk-mq）与传统单队列调度器的完整对比：blk-mq 的软/硬队列与 tag 机制已由野火教材补全，但调度器本身（`none`/`mq-deadline`/`bfq`/`kyber`）的来源仍缺。 ^[inferred]
 - io_uring 对传统IO栈路径的绕过程度——是否完全跳过Block层调度？ ^[ambiguous]
 
 ## 延伸阅读

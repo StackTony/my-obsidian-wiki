@@ -15,7 +15,7 @@ relationships:
   - target: "[[concepts/linux-io-models]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 网络
-source_files: [Linux TCP - IP协议.md, 1 Linux 常见的网络协议.md, Linux 网络三张表：ARP表, MAC表, 路由表.md, Linux 网络协议栈.md]
+source_files: [Linux TCP - IP协议.md, 1 Linux 常见的网络协议.md, Linux 网络三张表：ARP表, MAC表, 路由表.md, Linux 网络协议栈.md, "Linux 操作系统/Linux 驱动管理/Linux 网络设备 系统/Linux内核网络子系统.md"]
 summary: Linux网络协议栈：TCP/IP四层模型简化OSI七层、三张核心表(ARP/MAC/路由)、sk_buff零拷贝数据结构、NAPI中断+轮询混合接收、数据传输中IP不变MAC逐跳变、TCP三次握手四次挥手、数据封装与分用。
 provenance:
   extracted: 0.78
@@ -26,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Linux网络协议栈
@@ -207,6 +207,19 @@ NAPI（New API）是 Linux 网络设备驱动的中断+轮询混合模式：
 **优势**：低流量保持低延迟（中断），高流量避免中断风暴（轮询），自动切换无需手动调优。
 
 这与 [[concepts/linux-interrupt-system]] 中的 softirq 机制紧密关联，NET_RX_SOFTIRQ 是 NAPI 触发 softirq 的入口。NAPI的接收模型与 [[concepts/linux-io-models]] 中的I/O模型理念相通。 ^[inferred]
+
+### 设备抽象层：net_device 与驱动 API
+
+协议栈与硬件之间还有一层"网络设备抽象"，是网卡驱动实际面对的对象（详见 [[summaries/linux-network-device-subsystem]]）：
+
+| 对象 | 作用 |
+|---|---|
+| `net_device` | 所有网卡（物理/虚拟/lo）的统一抽象：名称、MAC、MTU、链路状态、统计 |
+| `net_device_ops` | 硬件操作回调集，发包入口是 `ndo_start_xmit` |
+| `napi_struct` | NAPI 实例（轮询回调 + budget） |
+| `sk_buff_head` | skb 双向链表头，与 sk_buff 前两成员对齐，`qlen` + 自旋锁 |
+
+驱动侧 API 分四组：分配注册（`alloc_etherdev`/`register_netdev`）、队列与链路（`netif_start_queue`/`netif_carrier_on`）、NAPI（`netif_napi_add`/`napi_schedule`/`napi_complete_done`）、收包交栈（`eth_type_trans` → `netif_receive_skb`）。四层架构（用户态接口 / 协议栈 / 设备抽象 / 硬件适配）即由此层划分。^[inferred]
 
 ### 内核发送与接收路径
 

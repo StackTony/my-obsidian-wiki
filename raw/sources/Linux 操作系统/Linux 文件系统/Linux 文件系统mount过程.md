@@ -90,12 +90,12 @@ struct mount {
 
 mount结构体实例在内核中组成父子的层次结构，同时由全局散列表管理，结构体中主要成员简介如下：
 
-- **mnt_hash： 散列链表节点成员，将实例添加到全局散列表mount_hashtable**
-- **mnt_mountpoint：指向挂载点dentry实例**
-- **mnt_instance：双链表节点成员，将Mount实例链入超级块的双链表，链表头为sb→s_mounts**
-- **mnt_mp：挂载点mountpoint实例**
-- **mnt_mp_list：散列链表节点成员，将实例链接到挂载点mountpoint实例的mount实例链表**
-- **mnt_list：双链表节点成员，将mount实例链接到挂载命名空间mnt_namespace实例中的双链表**
+- mnt_hash： 散列链表节点成员，将实例添加到全局散列表mount_hashtable
+- mnt_mountpoint：指向挂载点dentry实例
+- mnt_instance：双链表节点成员，将Mount实例链入超级块的双链表，链表头为sb→s_mounts
+- mnt_mp：挂载点mountpoint实例
+- mnt_mp_list：散列链表节点成员，将实例链接到挂载点mountpoint实例的mount实例链表
+- mnt_list：双链表节点成员，将mount实例链接到挂载命名空间mnt_namespace实例中的双链表
 - mnt：vfsmount结构体成员，用于建立Mount实例与挂载文件系统的关联
 
 vfsmount结构体成员，用于建立mount实例与挂载文件系统之间的关联，结构体定义在头文件include/linux/mount.h：

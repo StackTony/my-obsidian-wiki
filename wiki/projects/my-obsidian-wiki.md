@@ -4,7 +4,7 @@ category: projects
 tags: [obsidian, wiki, 知识管理, llm]
 aliases: [本vault, my-obsidian-wiki]
 sources: [projects/my-obsidian-wiki]
-summary: 本 vault 自身的项目知识枢纽：Karpathy 式 LLM wiki（raw/wiki/schema 三层），2026-06-01 经 wiki-setup 诞生，11 个知识域、964 来源、196 内容页；架构决策索引、运营模式、raw 维护流程与待办债务。
+summary: 本 vault 自身的项目知识枢纽：Karpathy 式 LLM wiki（raw/wiki/schema 三层），2026-06-01 经 wiki-setup 诞生，11 个知识域、974 来源、203 内容页；架构决策索引、运营模式、raw 维护流程与待办债务。
 provenance:
   extracted: 0.70
   inferred: 0.27
@@ -28,7 +28,7 @@ relationships:
 
 - **定位**：基于 obsidian-wiki 框架的 Karpathy 式 LLM wiki，老板的知识第二大脑——LLM 负责所有整理维护（写 `wiki/`），人类是产品经理和审核者。
 - **诞生**：2026-06-01 经 `/wiki-setup` 初始化（首日即执行过 rebuild，快照存于 `wiki/_archives/2026-06-01-rebuild/`）。
-- **规模快照**（2026-11-11）：11 个知识域、964 个已 ingest 来源、196 个内容页（concepts 90 / summaries 47 / entities 20 / skills 17 / synthesis 7 / recommendations 14 / projects 1）、76 个 git 提交。
+- **规模快照**（2026-11-11）：11 个知识域、974 个已 ingest 来源、203 个内容页（concepts 91 / summaries 52 / entities 20 / skills 18 / synthesis 7 / recommendations 14 / projects 1）、76 个 git 提交。
 - **仓库**：GitHub `StackTony/my-obsidian-wiki`；工作流为定期"vault backup"全量提交 + remote 推送。
 - **双重身份**：既是知识库，又是 Obsidian 沉浸式主页——根目录 `dashboard.md` 定义沉浸式面板（快捷操作/天气/倒数日/音乐卡片），`.dashboard-backup/` 存面板配置备份。
 
@@ -55,20 +55,22 @@ relationships:
 - **raw 目录重排会打断 manifest 键**：manifest 以"vault 相对路径"为键，源文件移动后哈希不变但旧键指向不存在的路径，delta 检测会报 missing。正确做法是**迁移键**（保留 hash/pages/ingested_at）并同步改 wiki 页面里的 `source_files`/来源路径，而不是重新 ingest；`log.md` 历史条目保持原样不回改。2026-11-11 一次批量对账迁移了 18 个键（内存管理 4 个重命名、`设备驱动管理/`→`驱动管理/` 8 个、PCI/IO 目录归属 6 个），迁移依据是「git 明确重命名」或「旧记录哈希与磁盘文件逐一比对命中」，不靠文件名猜测。 ^[inferred]
 - **导入源追踪链接清洗**：知乎/腾讯云文章复制进 raw 后，正文术语被包成 `[文字](zhida.zhihu.com/search?zd_token=...)`、外链被 `cloud.tencent.com/developer/tools/blog-entry?target=` 或 `link.zhihu.com/?target=` 包裹。2026-11-11 清洗 14 个文件、437 处，只保留链接文字；文首 `原文：` 裸 URL 保留。因文字语义未变，**只同步 manifest 哈希，不重新蒸馏**。完整流程见 [[skills/raw-source-link-sanitization]]。
 - **raw 目录按内核子系统重组**：`Linux 设备驱动管理/` 更名 `Linux 驱动管理/`，下分 PCI 系统 / SCSI 系统 / Block 块设备 / 字符设备 / 网络设备 / IOMMU 子目录，配套新增五大源文档（PCI 子系统 242KB、网络子系统 231KB、SCSI 子系统 139KB、块设备 54KB、DMA 与 IOMMU 52KB）。知识域正从"主题文集"向"子系统手册"演化。 ^[inferred]
+- **子系统手册入库补齐了驱动域骨架**：五大文档蒸馏为 5 篇摘要（`linux-pci-subsystem`/`linux-scsi-subsystem`/`linux-block-subsystem`/`linux-network-device-subsystem`/`linux-dma-iommu-subsystem`）+ 1 篇总纲概念页（`linux-driver-model`）。四篇子系统的结构体/API 命名高度同构，说明内核"框架层+驱动实现层"是横跨所有总线的统一范式，不是各子系统各自发明。 ^[inferred]
 
 ## 待办
 
 - **manifest vault_path 过期**：顶层 `vault_path` 仍是旧机器路径（`C:\Users\23363\Data\code\...`），实际在 `D:\lkj_Data\`——多次上报，待老板决策修复。
 - **draft 页面待人工审核**：几乎全部页面 `lifecycle: draft`；CLAUDE.md 未来候选已记录 `--consolidate` 自动提升模式（30天+confidence>0.7），引入时机待定。
 - **CLAUDE.md 已记录的未来候选**：QMD 语义检索（vault>100 页后）、projects 子目录结构（≥3 活跃项目时）、`_raw/` 暂存区模式、跨项目 wiki-update。
-- **待 ingest 积压（14 个）**：`Linux 驱动管理/` 新增五大子系统文档（PCI 242KB / 网络 231KB / SCSI 139KB / 块设备 54KB / DMA 与 IOMMU 52KB）+ 驱动架构 9KB、DMA 介绍 5KB、直接IO与缓存IO 4.5KB、文件一致性 1.4KB、学习大纲 57B；另有 4 个 0 字节占位（页面置换算法、异步AIO、用户态驱动IO、NAT协议）。这批未进 manifest，`/wiki-ingest` 时按新来源处理。
-- **wiki 来源路径过期**：raw 重命名后，wiki 页面 frontmatter 里的 `source_dir`/`source_files` 仍指旧名——`Linux 设备驱动管理` 11 处、`Linux 内存与CPU之间的关系.md` 4 处、内存屏障/页缓存/多路复用各 1 处，待批量替换新路径（不影响图谱，影响 lint 来源追溯）。
-- **manifest 残留 3 条未对账**：`Linux 缓存IO和直接IO.md`（现存 `Linux 直接IO、缓存IO、内存映射mmap.md` 内容已重写，非改名）、`设备驱动管理/Linux DMA传输.md`（原为 0 字节条目，现存 `Linux DMA介绍.md` 是另一篇）、`Self learn/cpp_blog/【NO.358】ClickHouse...`（已删除）。需人工确认对应关系再迁键。
-- **空占位来源**：`Linux MMU（内存管理单元）.md`、`Linux 页表管理.md`、`Linux PCI 系统/Linux PCIe设备枚举.md` 为 0 字节新建占位，补内容后需 ingest。
+- **待 ingest 积压（0 个非空）**：2026-11-11 一次 append ingest 消化了 `Linux 驱动管理/` 全部 10 个非空新来源（五大子系统文档 242/231/139/54/52KB、驱动架构、DMA 介绍、直接IO/mmap、文件一致性、学习大纲），Linux 操作系统目录已无未入库的非空文件。
+- **空占位来源（7 个 0 字节）**：`Linux 内存管理/Linux MMU（内存管理单元）.md`、`Linux 内存管理/Linux 页表管理.md`、`Linux 内存管理/Linux 页面置换算法.md`、`Linux 内核 IO 栈/Linux IO分类汇总/Linux 异步AIO libaio、io_uring.md`、`同一目录/Linux 用户态驱动IO（SPDK、DPDK）.md`、`Linux 网络/Linux NAT协议.md`、`Linux 驱动管理/Linux PCI 系统/Linux PCIe设备枚举.md`。补内容后再 ingest；0 字节文件的 SHA-256 相同（`e3b0c442...`），不能作为改名判据。
+- **manifest 残留 2 条未对账**：`Linux 缓存IO和直接IO.md`（内容已由 `Linux 直接IO、缓存IO、内存映射mmap.md` 取代，本次按新来源登记、旧键保留待人工确认）、`Self learn/cpp_blog/【NO.358】ClickHouse...`（源已删除，无产出页）。`设备驱动管理/Linux DMA传输.md` 的 0 字节条目已随目录重组清理。
+- **来源路径已对齐**：`Linux 设备驱动管理` → `Linux 驱动管理` 在 wiki 页面中的 `source_dir`/`source_files` 已全量替换（11 页）；`log.md` 历史条目按约定不回改。
 
 ## 相关概念
 
 - [[concepts/linux-os-virtualization-landscape]] — Linux OS/虚拟化知识域导航页（最大知识域的入口）
+- [[concepts/linux-driver-model]] — 驱动域总纲（三大设备类型 + LDM + 总线框架），PCI/Block/网络/SCSI 四篇摘要的上游
 - [[synthesis/linux-kernel-subsystem-interactions]] — 内核子系统交互综合页（tier: core 的跨领域枢纽）
 - [[skills/raw-source-link-sanitization]] — raw 导入源的追踪链接清洗流程（本 vault 维护技能）
 - 基础设施文件（纯文本路径）：`wiki/index.md`（内容目录）、`wiki/hot.md`（近期快照）、`wiki/.manifest.json`（来源账本）、`wiki/log.md`（操作日志）、`CLAUDE.md`（schema 权威）

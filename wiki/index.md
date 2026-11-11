@@ -5,7 +5,7 @@ updated: 2026-11-11
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-11 (WIKI_UPDATE：项目枢纽页同步 3 个提交 delta，新增 raw 源追踪链接清洗技能页)*
+*自动维护。上次更新：2026-11-11 (INGEST：Linux 驱动管理五大子系统文档入库，新增 PCI/SCSI/Block/网络设备/DMA-IOMMU 五篇摘要 + 驱动模型概念页)*
 
 ## Summaries (数据结构与算法)
 
@@ -43,6 +43,11 @@ updated: 2026-11-11
 - [linux-iommu-deep-dive](summaries/linux-iommu-deep-dive.md) — IOMMU六部曲：SWIOTLB软件bounce(memcpy)与Intel VT-d硬件I/O页表重映射互斥、初始化流程、DMA Coherent Mapping实践(Linux 5.5.4/x86-64) — `linux` `iommu` `vt-d` `swiotlb` `dma`
 - [linux-iommu-smmu-illustrated](summaries/linux-iommu-smmu-illustrated.md) — IOMMU/SMMU图解综述：IOMMU与MMU对偶、内核框架五层、ARM SMMU、SVA共享页表、Group/Domain、VFIO MAP_DMA、GPA/HVA/HPA地址链与透传一致性 — `linux` `IOMMU` `SMMU` `虚拟化` `ARM`
 - [linux-smmu-io-bypass](summaries/linux-smmu-io-bypass.md) — SMMU的STE级旁路：硬件照常开启，仅该SID的DMA直通PA(不经S1/S2、不查IOTLB、不查权限)；与BIOS关闭SMMU的区别、三模式对比、iommu.passthrough/smmu.bypassdev/disable_bypass — `linux` `smmu` `iommu` `arm` `dma`
+- [linux-pci-subsystem](summaries/linux-pci-subsystem.md) — PCIe子系统四层架构(硬件适配/总线核心/驱动适配/用户交互)与pci_dev/pci_driver/pci_bus三结构体；配置空间256B→4096B、6个BAR、MSI 32 vs MSI-X 2048、ASPM/CLKREQ/DBI/AER/TLP与Root Complex拓扑 — `linux` `pcie` `内核` `驱动` `总线`
+- [linux-scsi-subsystem](summaries/linux-scsi-subsystem.md) — SCSI三层架构(较高层/中间层/较低层)与Initiator-Target-LUN模型；CDB 6/10/16字节命令族及READ_10(0x28)/WRITE_10(0x2A)/SYNCHRONIZE_CACHE(0x35)等操作码 — `linux` `scsi` `内核` `存储` `驱动`
+- [linux-block-subsystem](summaries/linux-block-subsystem.md) — 块设备子系统：扇区/块/bio/request/调度器五概念、blk-mq软队列(每CPU)+硬队列双层模型、gendisk/blk_mq_ops.queue_rq/bio_vec结构体链与submit_bio到blk_mq_end_request骨架 — `linux` `block` `内核` `blk-mq` `存储`
+- [linux-network-device-subsystem](summaries/linux-network-device-subsystem.md) — 网卡驱动视角的网络子系统：net_device/net_device_ops/napi_struct设备抽象层、sk_buff与sk_buff_head内存布局、NAPI API组、MAC-PHY分层与DTS解析 — `linux` `网络` `网卡驱动` `NAPI` `sk_buff`
+- [linux-dma-iommu-subsystem](summaries/linux-dma-iommu-subsystem.md) — SoC驱动视角的DMA/IOMMU：三类DMA内存+三类传输方向+四步工作流；IOMMU五大功能与裸DMA四缺陷；dma_alloc_coherent/iommu_map/iommu_attach_device API与RK3588实验 — `linux` `dma` `iommu` `驱动` `SoC`
 
 ## Entities (Linux)
 
@@ -76,6 +81,7 @@ updated: 2026-11-11
 - [page-cache-vs-buffer-cache](concepts/page-cache-vs-buffer-cache.md) — Page Cache(页/逻辑层)与Buffer Cache(块/物理层)：2.4前双重缓存问题、统一后buffer_head的b_page指向Page Cache页、Buffer Cache成为子集 — `linux` `page-cache` `buffer-cache` `缓存` `内核`
 - [linux-dma-mapping](concepts/linux-dma-mapping.md) — DMA映射两类：Coherent(一致性/长期映射)与Streaming(流式/按需map，可触发SWIOTLB bounce)；Intel IOMMU启用后DMA地址为IOVA经I/O页表翻译；IOMMU可把分散物理页聚合为连续IOVA — `linux` `dma` `iommu` `iova` `内存`
 - [linux-iommu-subsystem](concepts/linux-iommu-subsystem.md) — Linux内核统一IOMMU抽象层：屏蔽Intel VT-d/AMD/ARM SMMU差异；框架五层(DMA-MAP API/IOVA+RCACHE/IO页表/驱动回调/VFIO接口)；SVA让CPU与设备共享页表 — `linux` `IOMMU` `SMMU` `ARM` `内核`
+- [linux-driver-model](concepts/linux-driver-model.md) — Linux驱动总纲：字符/块/网络三类访问模型、LDM的bus-device-driver三角与probe匹配、platform/PCI/I2C/SPI/USB/AMBA总线框架、DTS与六大基础设施、devm托管范式 — `linux` `内核` `驱动` `设备模型` `设备树`
 
 ## Concepts (Linux 虚拟化)
 
