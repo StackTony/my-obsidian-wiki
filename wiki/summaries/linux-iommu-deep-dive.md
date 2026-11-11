@@ -26,7 +26,7 @@ source_files:
   - Linux x86-64 IOMMU详解（4）——启用Intel IOMMU的配置_bios iommu.md
   - Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md
   - Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md
-  - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md"
+  - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md"
 summary: IOMMU是DMA地址翻译环节：SWIOTLB用memcpy做bounce（软件），Intel VT-d用I/O页表重映射（硬件）。两者不可共存，Intel IOMMU初始化后释放SWIOTLB buffer。适用Linux 5.5.4/x86-64。
 provenance:
   extracted: 0.72
@@ -158,4 +158,4 @@ IO_TLB_SEGSIZE=128由x86 PCIe规范决定（每次DMA有效数据≤128字节）
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（4）——启用Intel IOMMU的配置_bios iommu.md` — BIOS/.config/启动参数配置
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md` — pci_iommu_alloc/init调用树、二虎相争时序、swiotlb_exit释放
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md` — intel_dma_ops、iommu_need_mapping分流、IOVA/IOMMU页表、__intel_map_single
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md` — 多厂商IOMMU统一抽象层背景（本页引言补充）
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — 多厂商IOMMU统一抽象层背景（本页引言补充）

@@ -688,3 +688,19 @@ title: Wiki Log
 - Manifest：+1内容条目（pages_created=4/pages_updated=3）；total_sources_ingested 962→963、total_pages 176→180、total_concepts 87→90、total_summaries 45→46；JSON经node验证合法
 - 协调记录：与并行会话8b（同日目录重组ingest）互认写入范围，无页面冲突；追踪文件重读后增量追加，未覆盖其条目
 - 跳过项：QMD_WIKI_COLLECTION 未设置，按 GUARD 跳过 QMD 刷新；obsidian-wiki CLI 不可用，追踪文件手工更新
+
+## [2026-11-11] INGEST | 设备驱动管理目录增量（1新来源 + 1修改 + 1重命名 → 1新页面 + 3更新）
+
+- [2026-11-11T10:20] INGEST mode=append source_dir="Linux 操作系统/Linux 设备驱动管理" delta=new:1 modified:1 renamed:1 unchanged:8
+- 新来源：`Linux IOMMU/Linux SMMU的IO Bypass.md`（1425B，SHA-256=811f82fa...）——SMMU STE=Bypass 机制、与 BIOS 关闭 SMMU 的区别、内核参数（iommu.passthrough=1 / smmu.bypassdev=BDF / disable_bypass）、三模式对比
+- 修改来源：`Linux BAR空间资源映射.md`（0B占位→2753B，SHA-256=dcd56b3e...）——PCIe BAR 枚举四步（写全1读回探大小、最低非零位定 size、对齐分配、基址写回高位）、4KB NP-MMIO 示例、注意事项
+- 重命名来源：`Linux IOMMU、SMMU(ARM)技术图解.md` 移入 `Linux IOMMU/` 子目录（内容哈希未变 b323f6f2...），manifest 键与 7 个 wiki 页面的 source_files/来源路径同步迁移；log 历史条目不回改
+- 新建页面（1个）：
+  - summaries/linux-smmu-io-bypass — IO Bypass≠关闭SMMU：STE=Bypass 使该SID直通PA（不经S1/S2、不查IOTLB、不查页表权限）；BIOS关闭=整个硬件不工作；三模式对比表；bypass跳过权限检查的安全含义
+- 已有页面更新（3个）：
+  - concepts/linux-iommu-subsystem — 新增"SMMU IO Bypass：STE级别的翻译旁路"小节（三模式/三参数/安全含义），source_files +1，provenance 0.50/0.45/0.05→0.55/0.40/0.05，base_confidence 0.44→0.61（2来源重算）
+  - summaries/pci-bar-dma-space — 新增"BAR大小探测与地址分配流程"（四步+4KB示例+注意事项），source_files +1，provenance 0.75/0.20/0.05→0.74/0.22/0.04，base_confidence 0.44→0.61（2来源重算）
+  - skills/swiotlb-troubleshooting — 进阶用法新增"先分清三种模式再动手"（正常翻译/STE=Bypass直通/BIOS关闭走SWIOTLB），解释"iommu=pt 直通模式问题依旧"；source_files +1
+- 交叉引用：新摘要页 ↔ IOMMU子系统、Group/Domain隔离、DMA映射、SWIOTLB排查三向互链；bypass页标 relationships extends→linux-iommu-subsystem
+- Manifest：键迁移1（SMMU图解文→Linux IOMMU/子目录）、更新1（BAR：2753B/dcd56b3e...）、新增1（IO Bypass：1425B/811f82fa...）；total_sources_ingested 963→964、total_pages 180→181、total_summaries 46→47；JSON经node验证合法（964键）
+- 跳过项：同目录 8 个未变文件（含2个0字节占位：PCIe设备枚举、DMA传输）按 hash 跳过；obsidian-wiki CLI 不可用，delta 由手工 SHA-256 比对得出；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新

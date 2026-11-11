@@ -14,7 +14,8 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-device-passthrough]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 设备驱动管理
+source_dir: Linux 操作系统/Linux 设备驱动管理/Linux IOMMU
+
 source_files: [Linux IOMMU、SMMU(ARM)技术图解.md]
 summary: 知乎图解文蒸馏：IOMMU与MMU对偶、内核IOMMU框架五层、ARM SMMU、SVA共享页表、Group/Domain隔离、VFIO Group/Container与MAP_DMA流程、GPA/HVA/HPA地址链与设备透传映射一致性(HPA1==HPA2)。
 provenance:
@@ -121,4 +122,4 @@ Linux内核将IOMMU分为五层（详见[[concepts/linux-iommu-subsystem]]）：
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md` — 知乎图解文（原文链接 https://zhuanlan.zhihu.com/p/1940345916113548209 ），IOMMU/SMMU/VFIO/虚拟化地址转换全景
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — 知乎图解文（原文链接 https://zhuanlan.zhihu.com/p/1940345916113548209 ），IOMMU/SMMU/VFIO/虚拟化地址转换全景

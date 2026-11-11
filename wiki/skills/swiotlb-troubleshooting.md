@@ -12,11 +12,14 @@ relationships:
     type: derived_from
   - target: "[[concepts/linux-dma-mapping]]"
     type: related_to
+  - target: "[[summaries/linux-smmu-io-bypass]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
 source_files:
   - Linux meminfo参数详细解释.md
   - Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
   - Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md
+  - Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md
 sources:
   - conversation:2026-11-09
 summary: 无IOMMU环境swiotlb buffer is full四步排查：dmesg确认池大小→slots统计分流根因（泄漏/单映射超限/容量不足）→定位guest或宿主机与设备→修复矩阵：扩池/q35机型/驱动升级/dma_debug查泄漏/max_sectors_kb限请求。
@@ -29,7 +32,7 @@ lifecycle: draft
 lifecycle_changed: 2026-11-09
 tier: supporting
 created: 2026-11-09
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # swiotlb buffer is full 排查实操手册
@@ -111,6 +114,7 @@ dmesg | grep -i swiotlb
 - **池的内存代价**：swiotlb 从启动早期 memblock 分配器预留（`memblock_alloc_low` 强制低地址），扩到 1GB 意味着业务可用内存直接少 1GB；扩池值应基于实测的峰值在途 bounce 量而非拍脑袋 ^[inferred]
 - **Coherent Mapping不走swiotlb**：Linux 4.0+ 仅 DMA Streaming Mapping 触发 SWIOTLB，DMA Coherent Mapping 与之无关——排查时若报错伴随大buffer分配，方向应转向 coherent 内存不足而非 swiotlb 池。见[[concepts/linux-dma-mapping]] ^[inferred]
 - **Intel IOMMU启用后swiotlb会被释放**：`intel_iommu_init()` 将 `swiotlb=0` 后 `swiotlb_exit()` 释放整个池——启用IOMMU的环境本不应出现swiotlb buffer full，若出现需检查IOMMU是否真正生效（`dmesg | grep DMAR`）或设备走了identity mapping旁路。见[[summaries/linux-iommu-deep-dive]] ^[inferred]
+- **先分清三种模式再动手**：①正常翻译（设备见 IOVA，内核维护映射）②SMMU 开启 + 该设备 STE=Bypass（设备直接用 PA，硬件直通、不产生拷贝）③BIOS 关闭 SMMU（设备用 PA，内核走 SWIOTLB bounce）。修复矩阵里"`iommu=pt` 直通模式问题依旧"正是②的近亲——**旁路不解决 32 位设备够不到高内存**，设备 dma_mask 不够时内核仍会走 bounce。ARM 平台对应参数为 `iommu.passthrough=1` / `smmu.bypassdev=<BDF>` / `disable_bypass`。见[[summaries/linux-smmu-io-bypass]] ^[inferred]
 - **Bounce 字段可作为压力观测指标**：`/proc/meminfo` 的 Bounce 字段反映 bounce 池占用的低端内存大小，纳入周期监控可提前发现 swiotlb 压力趋势（字段详解见 [[summaries/linux-meminfo-params]]）
 - **DMA 与 CPU 缓存一致性**：设备 DMA 绕过 CPU cache 直接访问内存，CPU 写入的数据可能仍在 Store Buffer/Cache 中未刷回——内核用 `dma_wmb()` 等屏障原语保证数据对设备可见，屏障语义见 [[concepts/memory-barriers]]、[[concepts/cpu-cache-coherence]] ^[inferred]
 
@@ -120,6 +124,7 @@ dmesg | grep -i swiotlb
 - `raw/sources/Linux 操作系统/Linux 内存管理/Linux meminfo参数详细解释.md` — Bounce 字段一节（bounce buffering 概念与内核内存统计公式）
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — 文档级佐证：SWIOTLB Buffer默认64MB、slab粒度2KB、IO_TLB_SEGSIZE=128、io_tlb_list管理结构、map函数三种行为、swiotlb_bounce→memcpy
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md` — 文档级佐证：物理内存>4GB触发SWIOTLB初始化、Intel IOMMU初始化后swiotlb=0、swiotlb_exit释放池
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md` — 三种模式对比（正常翻译 / STE=Bypass 直通 / BIOS 关闭走 SWIOTLB）、bypass 内核参数
 - [[summaries/linux-iommu-deep-dive]] — IOMMU六部曲系列摘要（SWIOTLB原理+Intel VT-d初始化竞争时序）
 - [[concepts/linux-dma-mapping]] — DMA Coherent vs Streaming映射类型、IOVA/IOMMU页表
 - [[concepts/linux-device-passthrough]] — IOMMU 的 DMA 翻译与隔离

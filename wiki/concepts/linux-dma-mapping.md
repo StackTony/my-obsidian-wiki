@@ -18,7 +18,7 @@ source_dir: Linux 操作系统/Linux 设备驱动管理/Linux IOMMU
 source_files:
   - Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
   - Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md
-  - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md"
+  - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md"
 summary: Linux DMA映射两类：Coherent（一致性，长期映射，大buffer）和Streaming（流式，按需map/unmap，可触发SWIOTLB bounce）。Intel IOMMU启用后DMA地址为IOVA，经IOMMU页表翻译为PA；IOMMU还可把分散物理页聚合映射为连续IOVA。
 provenance:
   extracted: 0.66
@@ -133,4 +133,4 @@ SWIOTLB的 `IO_TLB_SEGSIZE=128` 限制了单次DMA Streaming Mapping最大申请
 
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — Coherent与Streaming映射的区别、Linux 4.0分界、map函数行为、SWIOTLB触发条件
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md` — intel_dma_ops、iommu_need_mapping分流、IOVA、IOMMU页表、__intel_map_single映射过程
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md` — IOMMU三大作用（32位设备扩容/scatter-gather聚合/地址保护）
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — IOMMU三大作用（32位设备扩容/scatter-gather聚合/地址保护）

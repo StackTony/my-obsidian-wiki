@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-10 (Ingest：Linux IOMMU、SMMU(ARM)技术图解——新增IOMMU子系统/SMMU、Group-Domain隔离、VM地址转换链、图解综述4页，更新直通/DMA映射/IOMMU六部曲3页)*
+*自动维护。上次更新：2026-11-11 (Ingest：设备驱动管理目录增量——新增SMMU IO Bypass摘要1页，更新IOMMU子系统/SWIOTLB排查，BAR映射细节并入PCI BAR摘要；迁移SMMU图解文路径至Linux IOMMU子目录)*
 
 ## Summaries (数据结构与算法)
 
@@ -39,9 +39,10 @@ updated: 2026-11-10
 - [linux-zero-copy-impl](summaries/linux-zero-copy-impl.md) — 零拷贝机制推导：CPU COPY vs DMA COPY分工、read+send四次拷贝/四次上下文切换、sendfile(2.1)三次拷贝、sendfile+SG-DMA(2.4)零CPU拷贝 — `linux` `零拷贝` `sendfile` `DMA` `性能优化`
 - [linux-cfs-scheduler-impl](summaries/linux-cfs-scheduler-impl.md) — CFS实现细节：vruntime换算公式、调度周期/粒度(6ms与0.75ms、多核×(1+log2(ncpus)))、rq/cfs_rq/sched_entity结构、五个调度类优先级与六种策略枚举 — `linux` `内核` `调度器` `CFS` `vruntime`
 - [kernel-devmem-register-access](summaries/kernel-devmem-register-access.md) — devmem命令用法与/dev/mem依赖、内核配置项、open+mmap映射物理地址的实现原理——无需写驱动即可验证寄存器行为 — `linux` `内核调试` `devmem` `寄存器` `物理地址`
-- [pci-bar-dma-space](summaries/pci-bar-dma-space.md) — PCIe驱动四大支柱：设备枚举(BIOS扫描配置空间)、BAR空间映射(ioremap)、DMA传输、MSI-X中断；BAR配置错误是驱动故障最常见根因 — `linux` `pcie` `bar` `dma` `驱动`
+- [pci-bar-dma-space](summaries/pci-bar-dma-space.md) — PCIe驱动四大支柱：设备枚举(BIOS扫描配置空间)、BAR空间映射(ioremap)、DMA传输、MSI-X中断；BAR大小写全1读回探测+对齐分配，BAR配错是驱动故障最常见根因 — `linux` `pcie` `bar` `dma` `驱动`
 - [linux-iommu-deep-dive](summaries/linux-iommu-deep-dive.md) — IOMMU六部曲：SWIOTLB软件bounce(memcpy)与Intel VT-d硬件I/O页表重映射互斥、初始化流程、DMA Coherent Mapping实践(Linux 5.5.4/x86-64) — `linux` `iommu` `vt-d` `swiotlb` `dma`
 - [linux-iommu-smmu-illustrated](summaries/linux-iommu-smmu-illustrated.md) — IOMMU/SMMU图解综述：IOMMU与MMU对偶、内核框架五层、ARM SMMU、SVA共享页表、Group/Domain、VFIO MAP_DMA、GPA/HVA/HPA地址链与透传一致性 — `linux` `IOMMU` `SMMU` `虚拟化` `ARM`
+- [linux-smmu-io-bypass](summaries/linux-smmu-io-bypass.md) — SMMU的STE级旁路：硬件照常开启，仅该SID的DMA直通PA(不经S1/S2、不查IOTLB、不查权限)；与BIOS关闭SMMU的区别、三模式对比、iommu.passthrough/smmu.bypassdev/disable_bypass — `linux` `smmu` `iommu` `arm` `dma`
 
 ## Entities (Linux)
 

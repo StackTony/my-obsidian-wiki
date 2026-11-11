@@ -26,7 +26,7 @@ source_files:
   - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（1）——IOMMU简介.md"
   - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（3）——Intel IOMMU（硬件IOMMU）的功能与基本原理.md"
   - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md"
-  - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md"
+  - "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md"
 summary: 设备直通将物理设备直接分配给VM使用，跳过软件模拟层。IOMMU提供DMA地址翻译和安全隔离（以Group为隔离粒度），SR-IOV虚拟出多个VF，VFIO是用户态驱动框架。x86平台Intel VT-d通过I/O页表实现DMA/中断重映射。
 provenance:
   extracted: 0.60
@@ -120,4 +120,4 @@ vDPA架构试图融合两者优势——保留virtio标准接口的同时获得�
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（1）——IOMMU简介.md` — IOMMU动机、DMA地址翻译、bounce/sync概念
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（3）——Intel IOMMU（硬件IOMMU）的功能与基本原理.md` — VT-d重映射、DMA/中断重映射、I/O页表（Root/Context/Second-Level）
 - `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md` — SWIOTLB与Intel IOMMU初始化竞争时序、swiotlb_exit释放
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md` — BDF设备级隔离、PCIe TLP标记、VFIO Group/Container、透通映射一致性(HPA1==HPA2)
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — BDF设备级隔离、PCIe TLP标记、VFIO Group/Container、透通映射一致性(HPA1==HPA2)

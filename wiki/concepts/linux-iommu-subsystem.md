@@ -12,19 +12,21 @@ relationships:
     type: extends
   - target: "[[concepts/iommu-group-domain-isolation]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 设备驱动管理
-source_files: [Linux IOMMU、SMMU(ARM)技术图解.md]
-summary: Linux内核抽象统一IOMMU层，屏蔽Intel VT-d/AMD/ARM SMMU硬件差异；框架五层：DMA-MAP API、IOVA分配(RCACHE)、IO页表、驱动回调、VFIO接口。SVA让CPU与设备共享页表。
+  - target: "[[summaries/linux-smmu-io-bypass]]"
+    type: related_to
+source_dir: Linux 操作系统/Linux 设备驱动管理/Linux IOMMU
+source_files: [Linux IOMMU、SMMU(ARM)技术图解.md, Linux SMMU的IO Bypass.md]
+summary: Linux内核抽象统一IOMMU层，屏蔽Intel VT-d/AMD/ARM SMMU硬件差异；五层框架：DMA-MAP API、IOVA分配(RCACHE)、IO页表、驱动回调、VFIO接口。SVA共享页表；SMMU可STE级bypass直通PA。
 provenance:
-  extracted: 0.50
-  inferred: 0.45
+  extracted: 0.55
+  inferred: 0.40
   ambiguous: 0.05
-base_confidence: 0.44
+base_confidence: 0.61
 lifecycle: draft
 lifecycle_changed: 2026-11-10
 tier: supporting
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # Linux IOMMU子系统与ARM SMMU
@@ -58,6 +60,16 @@ IOMMU框架自上而下分为五层：
 
 SVA（Share Virtual Addressing）：CPU和Device**共享同一份页表**。设备DMA不再使用独立的IOVA空间，而是直接用与CPU相同的虚拟地址——省去两套地址空间之间的映射与同步 ^[inferred]。这是IOMMU能力从"隔离与重映射"向"地址空间统一"的延伸方向 ^[inferred]。具体实现（共享页表的缺页处理、权限模型）本来源未展开。
 
+### SMMU IO Bypass：STE级别的翻译旁路
+
+IO Bypass 常被误读为"关闭 SMMU"。实际上 SMMU 硬件照常上电工作，只是把特定设备 SID 对应的 **STE（Stream Table Entry）配置成 Bypass 模式**：该设备的 DMA 流量直接透传物理地址，不经过 Stage1/Stage2 翻译、不做 IOTLB 查找、不做页表权限检查。这与 BIOS 关闭 SMMU（整个硬件不工作）是两回事。
+
+- 三种模式并存：正常翻译（设备见 IOVA）/ SMMU 开启+bypass（设备见 PA，硬件直通）/ BIOS 关闭 SMMU（设备见 PA，内核用 SWIOTLB bounce 兜底）
+- 控制参数：`iommu.passthrough=1`（全局默认 bypass）、`smmu.bypassdev=<BDF>`（仅指定设备，最常用）、`disable_bypass`（禁用旁路能力，强制所有 SID 走翻译）
+- bypass 跳过页表权限检查，等于对该设备开放全部物理内存——安全敏感场景应选 `disable_bypass` ^[inferred]
+
+完整机制、参数与模式对比见[[summaries/linux-smmu-io-bypass]]；"bypass 用 PA 不拷贝"与"BIOS 关闭后 SWIOTLB 拷贝"在排查时极易混淆，见[[skills/swiotlb-troubleshooting]]。
+
 ## 关键细节
 
 - RCACHE缓存机制位于IOVA层：IOVA的分配/释放走缓存池以降低开销 ^[inferred]（本来源仅提及名称，细节待补）
@@ -72,4 +84,5 @@ SVA（Share Virtual Addressing）：CPU和Device**共享同一份页表**。设�
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md` — 内核IOMMU框架分层、多厂商抽象、SMMU位置、SVA
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — 内核IOMMU框架分层、多厂商抽象、SMMU位置、SVA
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md` — STE Bypass 机制（不经 S1/S2、不查 IOTLB、不查权限）、bypass 与 BIOS 关闭的区别、内核控制参数、三模式对比

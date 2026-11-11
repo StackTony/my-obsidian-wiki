@@ -12,7 +12,8 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-interrupt-virtualization]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 设备驱动管理
+source_dir: Linux 操作系统/Linux 设备驱动管理/Linux IOMMU
+
 source_files: [Linux IOMMU、SMMU(ARM)技术图解.md]
 summary: 虚拟化四层地址空间：GVA→GPA由虚机页表完成（页表本身存于HPA，遍历需经EPT），GPA→HPA由EPT硬件完成。HVA由Qemu mmap+KVM_SET_USER_MEMORY_REGION桥接。设备透传要求EPT与IOMMU两条映射路径汇于同一HPA。
 provenance:
@@ -87,4 +88,4 @@ HVA --(VMM页表)--> HPA                 ← Qemu/KVM所在路径
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md` — GVA/GPA/HPA映射链、HVA的两个作用、KVM_SET_USER_MEMORY_REGION、透传一致性(HPA1==HPA2)
+- `raw/sources/Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — GVA/GPA/HPA映射链、HVA的两个作用、KVM_SET_USER_MEMORY_REGION、透传一致性(HPA1==HPA2)

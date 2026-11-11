@@ -11572,8 +11572,8 @@
       ],
       "pages_updated": []
     },
-    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU、SMMU(ARM)技术图解.md": {
-      "ingested_at": "2026-11-10",
+    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md": {
+      "ingested_at": "2026-11-11",
       "size_bytes": 30763,
       "content_hash": "sha256:b323f6f29629205fcecb6a69d2d0b97d2952138075eb1d95fb2dd0534523961c",
       "source_type": "document",
@@ -11588,6 +11588,20 @@
         "concepts/linux-device-passthrough.md",
         "concepts/linux-dma-mapping.md",
         "summaries/linux-iommu-deep-dive.md"
+      ]
+    },
+    "Linux 操作系统/Linux 设备驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md": {
+      "ingested_at": "2026-11-11",
+      "size_bytes": 1425,
+      "content_hash": "sha256:811f82fa3e7fbece15b991a552552c8156361794f8b1f8023ef4d6db070908ff",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-smmu-io-bypass.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-iommu-subsystem.md",
+        "skills/swiotlb-troubleshooting.md"
       ]
     },
     "Linux 操作系统/Linux 内存管理/Linux MMU.md": {
@@ -11618,13 +11632,15 @@
       "pages_updated": []
     },
     "Linux 操作系统/Linux 设备驱动管理/Linux BAR空间资源映射.md": {
-      "ingested_at": "2026-11-10",
-      "size_bytes": 0,
-      "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ingested_at": "2026-11-11",
+      "size_bytes": 2753,
+      "content_hash": "sha256:dcd56b3e8ac414834b12fe0ed95ac45f2ef337c69c095d513332527a9ddd1edb",
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": []
+      "pages_updated": [
+        "summaries/pci-bar-dma-space.md"
+      ]
     },
     "Linux 操作系统/Linux 设备驱动管理/Linux DMA传输.md": {
       "ingested_at": "2026-11-10",
@@ -11639,23 +11655,23 @@
   "projects": {
     "my-obsidian-wiki": {
       "source_repo": "github.com/StackTony/my-obsidian-wiki",
-      "last_synced": "2026-11-09",
-      "last_commit_synced": "1565714fdc7401009f50f04c3f820c7bd7daa912",
+      "last_synced": "2026-11-11",
+      "last_commit_synced": "95831c7f7555b394f399458d40a5583f29dc3715",
       "pages_in_vault": [
         "projects/my-obsidian-wiki.md"
       ]
     }
   },
-  "last_ingest": "2026-11-10",
+  "last_ingest": "2026-11-11",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 963,
-    "total_pages": 180,
+    "total_sources_ingested": 964,
+    "total_pages": 181,
     "total_concepts": 90,
-    "total_summaries": 46,
+    "total_summaries": 47,
     "total_entities": 20,
     "total_skills": 17,
     "total_synthesis": 7,
-    "last_updated": "2026-11-10"
+    "last_updated": "2026-11-11"
   }
 }
