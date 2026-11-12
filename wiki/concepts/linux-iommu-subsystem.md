@@ -14,7 +14,7 @@ relationships:
     type: related_to
   - target: "[[summaries/linux-smmu-io-bypass]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 驱动管理/Linux IOMMU
+source_dir: Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU
 source_files: [Linux IOMMU、SMMU(ARM)技术图解.md, Linux SMMU的IO Bypass.md, Linux DMA和IOMMU.md]
 summary: Linux内核抽象统一IOMMU层，屏蔽Intel VT-d/AMD/ARM SMMU硬件差异；五层框架：DMA-MAP API、IOVA分配(RCACHE)、IO页表、驱动回调、VFIO接口。SVA共享页表；SMMU可STE级bypass直通PA。
 provenance:
@@ -100,6 +100,6 @@ IO Bypass 常被误读为"关闭 SMMU"。实际上 SMMU 硬件照常上电工作
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — 内核IOMMU框架分层、多厂商抽象、SMMU位置、SVA
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md` — STE Bypass 机制（不经 S1/S2、不查 IOTLB、不查权限）、bypass 与 BIOS 关闭的区别、内核控制参数、三模式对比
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux DMA和IOMMU.md` — IOMMU 五大功能、iommu_domain/ops 结构体与 map/attach/flush API、RK3588 实验
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — 内核IOMMU框架分层、多厂商抽象、SMMU位置、SVA
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux SMMU的IO Bypass.md` — STE Bypass 机制（不经 S1/S2、不查 IOTLB、不查权限）、bypass 与 BIOS 关闭的区别、内核控制参数、三模式对比
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux DMA和IOMMU.md` — IOMMU 五大功能、iommu_domain/ops 结构体与 map/attach/flush API、RK3588 实验

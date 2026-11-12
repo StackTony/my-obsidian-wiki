@@ -12,7 +12,7 @@ relationships:
     type: related_to
   - target: "[[skills/swiotlb-troubleshooting]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 驱动管理/Linux IOMMU
+source_dir: Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU
 source_files: [Linux SMMU的IO Bypass.md]
 summary: SMMU上电即工作；把设备对应STE配成Bypass，该SID的DMA即直通物理地址，不经S1/S2翻译、不查IOTLB、不做页表权限检查。含三模式对比与iommu.passthrough/smmu.bypassdev/disable_bypass参数。
 provenance:
@@ -74,4 +74,4 @@ updated: 2026-11-11
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md` — STE Bypass 机制、BIOS 关闭与 bypass 的区别、内核参数（iommu.passthrough / smmu.bypassdev / disable_bypass）、三模式对比
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux SMMU的IO Bypass.md` — STE Bypass 机制、BIOS 关闭与 bypass 的区别、内核参数（iommu.passthrough / smmu.bypassdev / disable_bypass）、三模式对比

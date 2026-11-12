@@ -14,12 +14,13 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-iommu-subsystem]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 驱动管理/Linux IOMMU
+source_dir: Linux 操作系统
 source_files:
-  - Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
-  - Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md
-  - Linux IOMMU、SMMU(ARM)技术图解.md
-  - Linux DMA和IOMMU.md
+  - Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
+  - Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md
+  - Linux 内核 IO 栈/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md
+  - Linux 内核 IO 栈/Linux IOMMU/Linux DMA和IOMMU.md
+  - Linux 内核 IO 栈/Linux IO技术/Linux DMA 技术.md
 summary: Linux DMA映射两类：Coherent（一致性，长期映射，大buffer）和Streaming（流式，按需map/unmap，可触发SWIOTLB bounce）。Intel IOMMU启用后DMA地址为IOVA，经IOMMU页表翻译为PA；IOMMU还可把分散物理页聚合映射为连续IOVA。
 provenance:
   extracted: 0.68
@@ -82,6 +83,21 @@ map函数（`dma_map_single`、`dma_map_sg`等）的核心流程：
 2. **硬件自动搬运**：CPU 不参与，控制器抢占总线完成数据传输。
 3. **中断收尾**：完成或异常触发中断，CPU 校验数据、清中断标志、复位通道。
 4. **资源释放**：关通道、释放 DMA 内存、归还通道、注销中断。
+
+### DMAC 内部与总线握手（通用视角）
+
+DMA 控制器（DMAC）本质是"外设与系统总线之间的接口电路"——在中断接口基础上加 DMA 机构。内部六个部件各司其职：内存地址计数器（存要交换的内存地址）、字计数器（记录传送块长度）、数据缓冲寄存器（暂存每个字）、DMA 请求标志（外设就绪即置位）、控制/状态逻辑（改计数器、定方向、协调请求与响应）、中断机构（字计数器溢出即一组数据完毕，向 CPU 报中断）。
+
+一次传输的握手是**四段信号链**：
+
+```
+外设 → DREQ（DMA 请求）→ DMAC → HRQ（总线请求）→ CPU
+CPU  → HLDA（DMA 响应，同时释放总线，控制/数据/地址线置高阻）
+DMAC → 获总线控制权 → DACK（应答外设）→ 发地址与读/写控制信号 → 搬数据
+结束 → DMAC 撤销 HOLD → CPU 收回总线
+```
+
+这套握手解释了 DMA 的代价：传送期间 CPU 被挂起、部分失去总线控制，实时系统中会造成中断响应延迟过长；硬件复杂度与成本也上升。所以在低速、小数据量的场景反而不该用 DMA。^[inferred] 现代 SoC 的 DMA 引擎（含描述符链、scatter-gather、channel 复用）已是这套机制的扩展，握手细节由总线矩阵代劳。^[inferred]
 
 ### IOVA——IOMMU启用后的DMA地址
 
@@ -153,6 +169,7 @@ SWIOTLB的 `IO_TLB_SEGSIZE=128` 限制了单次DMA Streaming Mapping最大申请
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — Coherent与Streaming映射的区别、Linux 4.0分界、map函数行为、SWIOTLB触发条件
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md` — intel_dma_ops、iommu_need_mapping分流、IOVA、IOMMU页表、__intel_map_single映射过程
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — IOMMU三大作用（32位设备扩容/scatter-gather聚合/地址保护）
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — Coherent与Streaming映射的区别、Linux 4.0分界、map函数行为、SWIOTLB触发条件
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（6）——Intel IOMMU参与下的DMA Coherent Mapping.md` — intel_dma_ops、iommu_need_mapping分流、IOVA、IOMMU页表、__intel_map_single映射过程
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — IOMMU三大作用（32位设备扩容/scatter-gather聚合/地址保护）
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IO技术/Linux DMA 技术.md` — 通用视角：DMA 定义/适用场景、DMAC 六大内部部件、DREQ→HRQ→HLDA→DACK 总线握手、DMA 的两大弊端（CPU 挂起、硬件复杂）

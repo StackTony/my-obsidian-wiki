@@ -717,22 +717,30 @@ title: Wiki Log
 - 维护记录（本同步期间完成，raw 侧）：437 处追踪链接清洗（14 文件）+ manifest 18 键迁移与哈希同步；详见 [[skills/raw-source-link-sanitization]]
 - 跳过项：obsidian-wiki CLI 不可用，manifest/index/log/hot 手工更新；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新；Step 3b code-understand 不适用（纯 markdown vault，无代码）
 
-## [2026-11-11] INGEST | Linux 操作系统 · Linux 驱动管理五大子系统文档（append delta）
 
-- [2026-11-11T18:10] INGEST mode=append source_dir="Linux 操作系统" delta=new:10 modified:10(cosmetic) unchanged:41 zero:7 created:6 updated:5
-- 新建页面（6个）：
+## [2026-11-11] INGEST | Linux 操作系统 · 驱动域子系统手册（append delta）
+
+- [2026-11-11T18:10] INGEST mode=append source_dir="Linux 操作系统" delta=new_nonempty:11 zero_placeholders:11 hash_resync:10 unchanged:42 created:7 updated:7
+- 新建页面（7个）：
   - summaries/linux-pci-subsystem — 242KB 源：PCIe 四层架构、pci_dev/pci_driver/pci_bus/pci_device_id/pci_ops、配置空间 256B→4096B、6 BAR、MSI 32 vs MSI-X 2048、ASPM/CLKREQ/DBI/TLP/AER、Root Complex 拓扑
   - summaries/linux-scsi-subsystem — 139KB 源：三层架构（较高/中间/较低层）、Initiator-Target-LUN、CDB 6/10/16 字节命令族与操作码表、scsi_cmnd/scsi_host_template
   - summaries/linux-block-subsystem — 54KB 源：扇区/块/bio/request/调度器五概念、blk-mq 软队列(每CPU)+硬队列双层、gendisk/blk_mq_tag_set/queue_rq/bio_vec 结构体链
   - summaries/linux-network-device-subsystem — 231KB 源：net_device/net_device_ops/napi_struct、sk_buff/sk_buff_head 内存布局、NAPI API 组、MAC-PHY 与 DTS
   - summaries/linux-dma-iommu-subsystem — 52KB 源：三类 DMA 内存+三类传输+四步工作流、IOMMU 五功能与裸 DMA 四缺陷、iommu_domain/map/attach/flush API、RK3588 实验
-  - concepts/linux-driver-model — 驱动域总纲：三类设备访问模型、LDM bus-device-driver、六大总线框架、DTS 与六大基础设施、devm 范式、上下文约束
-- 已有页面更新（5个）：
+  - summaries/linux-usb-subsystem — 95KB 源：主从拓扑(≤127设备)/端点/管道/四种传输、三层架构(HCD/USB Core/设备驱动)、7 结构体与 URB API、HID 引导协议键鼠 8/4 字节报文与差分判释放
+  - concepts/linux-driver-model — 驱动域总纲：三类设备访问模型、LDM bus-device-driver、六大总线框架（含 USB 接口级匹配特殊性）、DTS 与六大基础设施、devm 范式、上下文约束
+- 已有页面更新（7个）：
   - concepts/linux-io-stack — 新增 blk-mq 双层队列、SCSI 中间层定位、文件一致性三系统调用（fsync/fdatasync/sync）与 Dirty page；source_files +3
-  - concepts/linux-dma-mapping — 新增"三种 DMA 内存口径对齐"（教材三类 vs x86 两类）与四步工作流；source_files +1；source_dir 修正为 `Linux 驱动管理/Linux IOMMU`
+  - concepts/linux-dma-mapping — 新增"三种 DMA 内存口径对齐"（教材三类 vs x86 两类）、四步工作流、DMAC 六部件与 DREQ→HRQ→HLDA→DACK 总线握手；source_files +2
   - concepts/linux-iommu-subsystem — 新增"抽象层具体 API 面"（iommu_domain_alloc/map/attach/flush）；source_files +1
   - concepts/linux-network-stack — 新增"设备抽象层：net_device 与驱动 API"；source_files +1
   - concepts/linux-io-models — 新增"三者各自的为什么"（内核缓冲动机、Direct IO+异步搭配、mmap 取消 IO 操作）；source_files 陈旧项替换为新文件
-- 来源路径修复：`Linux 设备驱动管理` → `Linux 驱动管理` 全量替换（11 个 wiki 页面：summaries ×5、concepts ×5、skills ×1）；log 历史条目按约定不回改
-- Manifest：新增 10 条（含哈希/页产出）、10 条 cosmetic 变更同步哈希（仅格式/标题/空行，未重新蒸馏）、残留 0 字节条目登记 4 条；清理 1 条（`设备驱动管理/Linux DMA传输.md` 0 字节空条目）；total_sources_ingested 964→974、total_pages 197→203、total_summaries 47→52、total_concepts 90→91
-- 跳过项：7 个 0 字节占位（MMU/页表管理/页面置换算法/异步AIO/用户态驱动IO/NAT/PCIe枚举）；`Linux 学习大纲.md` 仅 1 行课程链接，不建页只登记；obsidian-wiki CLI 不可用，delta 由手工 SHA-256 比对得出；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新
+  - concepts/linux-fs-mount — 新增"VFS 四大核心对象"（super_block/mount/inode/dentry）并与挂载流程落点对齐；source_files +1
+  - summaries/pci-bar-dma-space — source_dir 校正、源文件按用户重命名同步（`1 Linux PCI Bar空间和DMA空间.md` → `Linux PCI Bar空间和DMA空间.md`）
+- 来源路径修复（本会话内 raw 目录持续重组，两次对齐）：
+  - `Linux 设备驱动管理` → `Linux 驱动管理`（11 页）
+  - `Linux 驱动管理/Linux IOMMU` → `Linux 内核 IO 栈/Linux IOMMU`（10 页，用户于 ingest 过程中移动该目录；manifest 8 个键按 basename 唯一匹配迁移）
+  - `log.md` 历史条目按约定不回改
+- Manifest：新增 11 条非空 + 登记 11 条 0 字节占位；10 条格式变更同步哈希（3f8a01c「更新文档格式」= 追踪链接去 URL + 图片改链接/嵌入，行数几乎不变但字节数大降，语义未变，未重新蒸馏）；迁移 8 个 IOMMU 键；清理 2 条 0 字节陈旧键（`内存管理/Linux 页表管理.md`、`设备驱动管理/Linux DMA传输.md`）；total_sources_ingested 964→984、total_pages 197→204、total_summaries 47→53、total_concepts 90→91
+- 跳过项：11 个 0 字节占位未蒸馏；`Linux VFS 虚拟文件系统.md` 仅 180 字节目录框架、`Linux 学习大纲.md` 仅一行课程链接，均只登记不建独立页；obsidian-wiki CLI 不可用，delta 由手工 SHA-256 比对得出；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新
+- 遗留待确认：manifest 仍有 2 条无文件的旧键（`Linux 内核 IO 栈/Linux IO全景介绍.html` 源已被用户删除、`Linux 内核 IO 栈/Linux 缓存IO和直接IO.md` 内容已被 `Linux 直接IO、缓存IO、内存映射mmap.md` 取代），按「需用户确认才清理」保留

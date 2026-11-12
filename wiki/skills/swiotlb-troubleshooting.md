@@ -17,9 +17,9 @@ relationships:
 source_dir: Linux 操作系统/Linux 内存管理
 source_files:
   - Linux meminfo参数详细解释.md
-  - Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
-  - Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md
-  - Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md
+  - Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md
+  - Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md
+  - Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux SMMU的IO Bypass.md
 sources:
   - conversation:2026-11-09
 summary: 无IOMMU环境swiotlb buffer is full四步排查：dmesg确认池大小→slots统计分流根因（泄漏/单映射超限/容量不足）→定位guest或宿主机与设备→修复矩阵：扩池/q35机型/驱动升级/dma_debug查泄漏/max_sectors_kb限请求。
@@ -122,9 +122,9 @@ dmesg | grep -i swiotlb
 
 - conversation:2026-11-09 — 现网"不使用 IOMMU + swiotlb buffer is full"排查咨询（LLM 领域知识综合，版本相关细节已作存疑标注）
 - `raw/sources/Linux 操作系统/Linux 内存管理/Linux meminfo参数详细解释.md` — Bounce 字段一节（bounce buffering 概念与内核内存统计公式）
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — 文档级佐证：SWIOTLB Buffer默认64MB、slab粒度2KB、IO_TLB_SEGSIZE=128、io_tlb_list管理结构、map函数三种行为、swiotlb_bounce→memcpy
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md` — 文档级佐证：物理内存>4GB触发SWIOTLB初始化、Intel IOMMU初始化后swiotlb=0、swiotlb_exit释放池
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux SMMU的IO Bypass.md` — 三种模式对比（正常翻译 / STE=Bypass 直通 / BIOS 关闭走 SWIOTLB）、bypass 内核参数
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（2）——SWIOTLB（软件IOMMU）.md` — 文档级佐证：SWIOTLB Buffer默认64MB、slab粒度2KB、IO_TLB_SEGSIZE=128、io_tlb_list管理结构、map函数三种行为、swiotlb_bounce→memcpy
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux x86-64 IOMMU详解（5）——Intel IOMMU初始化流程_noiommu.md` — 文档级佐证：物理内存>4GB触发SWIOTLB初始化、Intel IOMMU初始化后swiotlb=0、swiotlb_exit释放池
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux SMMU的IO Bypass.md` — 三种模式对比（正常翻译 / STE=Bypass 直通 / BIOS 关闭走 SWIOTLB）、bypass 内核参数
 - [[summaries/linux-iommu-deep-dive]] — IOMMU六部曲系列摘要（SWIOTLB原理+Intel VT-d初始化竞争时序）
 - [[concepts/linux-dma-mapping]] — DMA Coherent vs Streaming映射类型、IOVA/IOMMU页表
 - [[concepts/linux-device-passthrough]] — IOMMU 的 DMA 翻译与隔离

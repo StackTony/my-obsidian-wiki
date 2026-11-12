@@ -11,7 +11,7 @@ relationships:
   - target: "[[concepts/linux-namespace-cgroups]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 文件系统
-source_files: [Linux 文件系统mount过程.md]
+source_files: [Linux 文件系统mount过程.md, Linux VFS 虚拟文件系统.md]
 summary: VFS挂载三大数据结构(mount/mountpoint/vfsmount)+mount系统调用五分支流程+do_new_mount两步挂载(内核挂载vfs_kern_mount+关联挂载点do_add_mount)。
 provenance:
   extracted: 0.85
@@ -22,7 +22,7 @@ lifecycle: draft
 lifecycle_changed: 2026-09-15
 tier: supporting
 created: 2026-09-15
-updated: 2026-09-15
+updated: 2026-11-11
 ---
 
 # Linux文件系统与Mount机制
@@ -30,6 +30,19 @@ updated: 2026-09-15
 文件系统挂载是磁盘分区文件系统接入内核根文件系统的过程：将磁盘分区（如sda1）的文件系统根目录与根文件系统中的某个目录项（挂载点）建立关联。挂载点可以同时挂载多个文件系统——后挂载的可见，先挂载的被隐藏；卸载上层后下层自动可见。
 
 ## 核心观点
+
+### VFS 的四大核心对象
+
+VFS 用四个结构体把"任意文件系统"抽象成同一套接口，挂载机制只是把它们串起来：^[inferred]
+
+| 对象 | 结构体 | 抽象的是什么 |
+|---|---|---|
+| 超级块 | `super_block` | 一个**已挂载**的文件系统实例（设备 + 布局 + 操作集） |
+| 挂载描述符 | `mount` 结构体 | 一次挂载动作，把文件系统根接到某个挂载点 |
+| 索引结点 | `inode` | 一个文件/目录的元数据与数据块定位信息 |
+| 目录项 | `dentry` | 路径中的一个名字节点；由 dcache 缓存，加速路径解析 |
+
+前三者在本页的挂载流程里各有落点：`sget()` 造 `super_block`、`fill_super` 造根 `inode`、`d_make_root()` 造根 `dentry`、`graft_tree()` 造 `mount`/`mountpoint`。dentry 缓存（dcache）与挂载点标记（`DCACHE_MOUNTED`）共同决定了路径解析时"何时跨进另一个文件系统"。^[inferred]
 
 ### 三大数据结构
 
@@ -107,3 +120,4 @@ sys_mount() → do_mount()
 ## 来源
 
 - [[summaries/linux-fs-mount-process]] — 原文：Linux 文件系统mount过程（知乎 zhuanlan.zhihu.com/p/606596107）
+- `raw/sources/Linux 操作系统/Linux 文件系统/Linux VFS 虚拟文件系统.md` — VFS 四大数据结构清单（super_block / mount / inode / dentry），本次仅取目录框架，细节待补

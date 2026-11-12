@@ -10,6 +10,8 @@ relationships:
     type: implements
   - target: "[[summaries/linux-network-device-subsystem]]"
     type: implements
+  - target: "[[summaries/linux-usb-subsystem]]"
+    type: implements
   - target: "[[concepts/linux-interrupt-system]]"
     type: uses
   - target: "[[concepts/linux-dma-mapping]]"
@@ -91,6 +93,10 @@ regmap / gpiod / pinctrl / clkdev / reset / PHY    ← 公共抽象
 
 platform 的链路最典型：`DTS → platform_device → platform_driver → probe`。
 
+### USB 总线的特殊性
+
+USB 是这批总线里唯一"设备发现不靠地址、不靠枚举表，而靠描述符"的，也是唯一**以接口（`usb_interface`）为驱动匹配粒度**的：一个物理设备可拆给多个驱动管。数据传输还多了一层 URB 抽象——不是直接读写寄存器，而是把请求封装成块提交给核心层。详见 [[summaries/linux-usb-subsystem]]。
+
 ### 六大核心基础设施
 
 - **设备树 DTS**：硬件描述语言，把寄存器地址、中断号、时钟、电源、引脚从驱动代码剥离；`.dts` 板级、`.dtsi` SOC 公共；启动时解析生成各类 device，驱动在 probe 里用 `of_*` 读资源。
@@ -126,4 +132,4 @@ platform 的链路最典型：`DTS → platform_device → platform_driver → p
 ## 来源
 
 - `raw/sources/Linux 操作系统/Linux 驱动管理/1 Linux 驱动架构.md` — 驱动架构总览：三类设备、LDM、总线框架、六大基础设施、sysfs/udev、两种写法、上下文约束、学习路线
-- 交叉：[[summaries/linux-pci-subsystem]]、[[summaries/linux-block-subsystem]]、[[summaries/linux-network-device-subsystem]]、[[summaries/linux-scsi-subsystem]]（四个子系统的具体实现）
+- 交叉：[[summaries/linux-pci-subsystem]]、[[summaries/linux-block-subsystem]]、[[summaries/linux-network-device-subsystem]]、[[summaries/linux-scsi-subsystem]]、[[summaries/linux-usb-subsystem]]（五个子系统的具体实现）

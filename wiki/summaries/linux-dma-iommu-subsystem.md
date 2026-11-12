@@ -12,7 +12,7 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-driver-model]]"
     type: implements
-source_dir: Linux 操作系统/Linux 驱动管理/Linux IOMMU
+source_dir: Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU
 source_files: [Linux DMA和IOMMU.md]
 summary: SoC 驱动视角的 DMA/IOMMU：三类 DMA 内存（一致性/流式/散射聚集）+三段传输类型 + 四步工作流；IOMMU 五大功能与传统裸 DMA 四缺陷；dma_alloc_coherent/iommu_map/iommu_attach_device 等 API 与 RK3588 实验。
 provenance:
@@ -98,5 +98,5 @@ RK3588（LubanCat）平台：设备树插件声明 reserved-memory 与 DMA 节�
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux DMA和IOMMU.md` — 野火 RK356x 驱动教程第 1 章：DMA/IOMMU 概念、核心结构体与函数、RK3588 一致性 DMA 实验
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux DMA和IOMMU.md` — 野火 RK356x 驱动教程第 1 章：DMA/IOMMU 概念、核心结构体与函数、RK3588 一致性 DMA 实验
 - 交叉：[[concepts/linux-dma-mapping]]、[[concepts/linux-iommu-subsystem]]

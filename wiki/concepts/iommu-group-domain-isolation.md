@@ -12,7 +12,7 @@ relationships:
     type: related_to
   - target: "[[concepts/vm-address-translation-chain]]"
     type: related_to
-source_dir: Linux 操作系统/Linux 驱动管理/Linux IOMMU
+source_dir: Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU
 
 source_files: [Linux IOMMU、SMMU(ARM)技术图解.md]
 summary: IOMMU Group是DMA隔离最小硬件单元：同组设备共享domain页表PGD，必须整体直通给同一VM。PCIe TLP的BDF标记区分每设备DMA请求；PCIe-PCI桥下游设备共享Source Identifier被迫同组。VFIO Container聚合多个Group。
@@ -92,4 +92,4 @@ PCIe-PCI桥下的两个设备发送DMA请求时，桥会为下游设备**代为�
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — Group/Domain关系、BDF标记、PCIe-PCI桥案例、VFIO Group/Container、VFIO_IOMMU_MAP_DMA流程
+- `raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` — Group/Domain关系、BDF标记、PCIe-PCI桥案例、VFIO Group/Container、VFIO_IOMMU_MAP_DMA流程

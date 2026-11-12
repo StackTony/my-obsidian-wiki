@@ -5,7 +5,7 @@ updated: 2026-11-11
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-11 (INGEST：Linux 驱动管理五大子系统文档入库，新增 PCI/SCSI/Block/网络设备/DMA-IOMMU 五篇摘要 + 驱动模型概念页)*
+*自动维护。上次更新：2026-11-11 (INGEST：Linux 驱动域六大子系统文档入库，新增 PCI/SCSI/Block/USB/网络设备/DMA-IOMMU 六篇摘要 + 驱动模型概念页；raw 目录同期重组，来源路径二次对齐)*
 
 ## Summaries (数据结构与算法)
 
@@ -48,6 +48,7 @@ updated: 2026-11-11
 - [linux-block-subsystem](summaries/linux-block-subsystem.md) — 块设备子系统：扇区/块/bio/request/调度器五概念、blk-mq软队列(每CPU)+硬队列双层模型、gendisk/blk_mq_ops.queue_rq/bio_vec结构体链与submit_bio到blk_mq_end_request骨架 — `linux` `block` `内核` `blk-mq` `存储`
 - [linux-network-device-subsystem](summaries/linux-network-device-subsystem.md) — 网卡驱动视角的网络子系统：net_device/net_device_ops/napi_struct设备抽象层、sk_buff与sk_buff_head内存布局、NAPI API组、MAC-PHY分层与DTS解析 — `linux` `网络` `网卡驱动` `NAPI` `sk_buff`
 - [linux-dma-iommu-subsystem](summaries/linux-dma-iommu-subsystem.md) — SoC驱动视角的DMA/IOMMU：三类DMA内存+三类传输方向+四步工作流；IOMMU五大功能与裸DMA四缺陷；dma_alloc_coherent/iommu_map/iommu_attach_device API与RK3588实验 — `linux` `dma` `iommu` `驱动` `SoC`
+- [linux-usb-subsystem](summaries/linux-usb-subsystem.md) — USB子系统：主从拓扑(≤127设备)/端点/管道/四种传输模式、三层架构(HCD/USB Core/设备驱动)、usb_driver/usb_device/usb_interface/urb结构体与URB API、HID引导协议键鼠8/4字节报文 — `linux` `usb` `内核` `驱动` `HID`
 
 ## Entities (Linux)
 
