@@ -15,7 +15,7 @@ relationships:
   - target: "[[summaries/linux-interrupt-classification]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 中断系统
-source_files: ["Linux 中断分类表.md", "Linux中断所有知识点.md", "Linux 硬中断 irq + 软中断 softirq原理.md", "Linux 软中断 softirq.md", "Linux 软中断内核线程 ksoftirqd详解.md", "Linux IPI 核间中断.md", "物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md"]
+source_files: ["1 Linux 中断分类表.md", "Linux中断所有知识点.md", "Linux 硬中断 irq + 软中断 softirq原理.md", "Linux 软中断 softirq.md", "Linux 软中断内核线程 ksoftirqd详解.md", "Linux IPI 核间中断.md", "物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md"]
 summary: Linux中断全景：同步/异步四维分类框架、上下半部两阶段设计、preempt_count上下文跟踪、三种延迟机制、GIC类型与irq_domain映射、ksoftirqd兜底。
 provenance:
   extracted: 0.75
@@ -26,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-09
+updated: 2026-11-12
 ---
 
 # Linux中断系统

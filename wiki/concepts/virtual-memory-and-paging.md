@@ -12,9 +12,11 @@ relationships:
     type: related_to
   - target: "[[concepts/linux-os-virtualization-landscape]]"
     type: related_to
+  - target: "[[concepts/copy-on-write]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux 内存与CPU之间的关系.md, Linux TLB（页表项Cahce）.md]
-summary: 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(含软件TLB管理/PCID/ASID与TLB shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优)、工作集与颠簸。
+source_files: [Linux 内存与CPU之间的关系.md, Linux TLB（页表项Cahce）.md, Linux Coye On Write（写时复制）.md]
+summary: 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(含软件TLB管理/PCID/ASID与TLB shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优)、工作集与颠簸；含写保护缺页/写时复制(COW)。
 provenance:
   extracted: 0.85
   inferred: 0.12
@@ -24,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-10-21
 tier: supporting
 created: 2026-10-21
-updated: 2026-11-10
+updated: 2026-11-12
 ---
 
 # 虚拟内存与分页
@@ -63,6 +65,16 @@ updated: 2026-11-10
 页表项通常包含：**页框号**、**在/不在位**、**保护位**、**修改位（脏位）**、**访问位（引用位）**、**禁用缓存位**。
 
 **缺页处理流程**：MMU 发现"在/不在位"= 0 → CPU 陷入内核 → 选择牺牲页（脏页先写回）→ 调入缺失页并更新页表 → **重新执行触发缺页的那条指令**。最后一步是虚拟内存可以"透明"的原因——指令无需修改即可重试。 ^[inferred]
+
+### 写保护缺页：写时复制（COW）
+
+缺页不只有"页不在内存"一种：页在内存但**权限不满足**（例如写一个只读页）同样会触发保护性缺页。fork 正是利用这一点实现写时复制。
+
+- **fork 只复制页表，不复制物理页**：`copy_page_range` 遍历父进程页表，把私有可写 VMA 的 PTE 在父子两侧都置为只读，两边指向同一物理页框。
+- **写方触发保护缺页**：写只读 PTE → `do_wp_page`。若页确实被多方共享，`wp_page_copy` 分配新页并拷贝内容，写方此后拥有私有副本；若实际只有自己映射（`reuse_swap_page` 判定独占），`wp_page_reuse` 直接恢复可写，无需复制。
+- **语义结果**：父子虚拟地址相同，物理页在首次写之后才分离；没有被写的页继续共享。
+
+这条路径把"页表项的保护位"变成了延迟复制的开关——完整机制（`is_cow_mapping`、`do_wp_page` 分流、四步流程）见 [[concepts/copy-on-write]]，来源蒸馏见 [[summaries/linux-copy-on-write]]。
 
 ### TLB 与硬件细节
 
@@ -118,6 +130,7 @@ TLB 缓存的失败分两类：页在内存但 TLB 未命中（**软失效**）�
 | 页 / 页框 | 4KB 基础页、THP 2MB 大页、hugetlb |
 | 多级页表 | x86_64 四级页表（pgd→pud→pmd→pte），见 [[summaries/linux-task-struct-mm-struct]] |
 | 页表项状态位 | 由 PTE 位 + 页表遍历（page table walk）维护，脏位/访问位由硬件置位 |
+| 写时复制 | fork 共享页表 + 写保护 PTE + `do_wp_page`/`wp_page_copy` |
 | 时钟/工作集置换 | 内核的 Active/Inactive 双 LRU 链表 + kswapd 回收 |
 | TLB 刷新 | `flush_tlb_*` 系列 + PCID；跨核靠 IPI |
 | 地址空间 | `mm_struct` + `vm_area_struct` |
@@ -134,6 +147,8 @@ TLB 缓存的失败分两类：页在内存但 TLB 未命中（**软失效**）�
 - [[summaries/linux-memory-cpu-relationship]] — 教材视角的虚拟内存原理
 - [[summaries/linux-tlb-management]] — TLB 硬件与内核实现细节
 - [[concepts/linux-memory-management]] — Linux 内存管理具体机制
+- [[summaries/linux-buddy-slab-allocator]] — 页框分配：伙伴系统与 SLAB 两级分工
+- [[summaries/linux-memory-reclaim-triggers]] — 页框回收的三条触发路径与执行器
 - [[concepts/linux-vmcore-analysis]] — 页表结构在崩溃分析中的应用
 - [[concepts/linux-process-scheduling]] — 上下文切换中的地址空间切换
 - `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存与CPU之间的关系.md`（原文：zhuanlan.zhihu.com/p/450505454）

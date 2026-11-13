@@ -16,8 +16,8 @@
     },
     "Linux 虚拟化/IO虚拟化/2）消息通知机制（ioeventfd和irqfd）.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 19712,
-      "content_hash": "sha256:0adbf03564ee9cff193b7cbbc3704f5ec9dd82b6472ea76ae2d2b1524593d4fc",
+      "size_bytes": 19108,
+      "content_hash": "sha256:eedc1eee3dd9b034199825d38d3f496b8d845fe2d71a8edd24fdf7041e086d87",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -227,8 +227,8 @@
     },
     "Linux 操作系统/Linux 系统启动关闭/Linux 关机流程深度解析：从内核机制到硬件控制的完整理论框架.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 8207,
-      "content_hash": "sha256:252c8685b1896ef371eb2cf8f1873ae06888afb7ee771aa0883ab1312b170d89",
+      "size_bytes": 8011,
+      "content_hash": "sha256:7486eba47ee80619a6105144ce9e569d031df5605f5c05fa7c97b3548bda7d46",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -238,8 +238,8 @@
     },
     "Linux 操作系统/Linux 系统启动关闭/Linux 启动详细过程（开机启动顺序）.md": {
       "ingested_at": "2026-06-01",
-      "size_bytes": 4455,
-      "content_hash": "sha256:fd800e7ba2367f1161435106c3c67070ffe7cc2e151a934085f2e9979c55389c",
+      "size_bytes": 4405,
+      "content_hash": "sha256:e7ef419125fcd305a9816a735ebee570250c26d6c550f91113af414ba662f67f",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -970,8 +970,8 @@
     },
     "AI 人工智能/AI Agent/Agent架构设计/Agent 系统架构设计：从执行循环到智能协作.md": {
       "ingested_at": "2026-06-29",
-      "size_bytes": 17247,
-      "content_hash": "sha256:513ea190d0e4eff3a3290b77ab5ad6bde9ac5d87e80fcc96b5ee5deadf50bba5",
+      "size_bytes": 17793,
+      "content_hash": "sha256:7cb44e8f8519d2c20664127864ad3ee6635a276089bc7a7053ef0dfcffd4f241",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1118,8 +1118,8 @@
     },
     "AI 人工智能/AI infra/大模型基础设施工程系列/【大模型基础设施工程】12：PagedAttention 与 Continuous Batching.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 46994,
-      "content_hash": "sha256:59c0c11b5c83c539763a08588cccc1fd7d6dbdfa38733b074d42b620c4694462",
+      "size_bytes": 46151,
+      "content_hash": "sha256:db7785c81534ab03c91da0aea498a4ac04503167f192131d1b897e85649784da",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1385,8 +1385,8 @@
     },
     "消息队列/深入解读基于 Kafka 和 ZooKeeper 的分布式消息队列原理.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 43683,
-      "content_hash": "sha256:f8d5998965808f5e1cfd323fab93c1d9e9af21966819dd812bc22a95266024f7",
+      "size_bytes": 44142,
+      "content_hash": "sha256:69b68c55c2edf7c71c67d4f0d3821c2616ece06fe1fdbab7192de6bbda4e2252",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1410,8 +1410,8 @@
     },
     "云原生/Kubernetes（K8s）/1-K8s 核心术语速查表.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 17766,
-      "content_hash": "sha256:606ed610c5c79367d25e7615cb61117671c259452efe9665a5d107f58f1b5d5b",
+      "size_bytes": 18037,
+      "content_hash": "sha256:9bd1410ff66bd151021d42b1a47bd052bbf2c8bfa5937bb2c4f803361652120f",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1425,8 +1425,8 @@
     },
     "云原生/Kubernetes（K8s）/K8s云原生-官方文档-K8s架构.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 14836,
-      "content_hash": "sha256:11e8332bd032d3835156c03df9911f413f46a2323074d2f64257e46574aefa79",
+      "size_bytes": 14649,
+      "content_hash": "sha256:87bfbd395139bf3679be261e77ac02f7fc28d2e4db40a7cbfc6392c3346b420b",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1439,8 +1439,8 @@
     },
     "云原生/Kubernetes（K8s）/K8s云原生-阿里云-K8S技术原理.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 37283,
-      "content_hash": "sha256:cfe51d636c84b8879a492f9c0471620f74707da28f9082f361563951bb5dfc1c",
+      "size_bytes": 36822,
+      "content_hash": "sha256:c326a169f476ff2d868a012bcc6ecca2b4f4b95998de96d5e01273b47f3673d0",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1454,8 +1454,8 @@
     },
     "云原生/Kubernetes（K8s）/K8s安全加固完全指南.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 4901,
-      "content_hash": "sha256:c49d273559ccc5053c04a49383ade4826b803b9f6f5fd8c83623dadec75f0b3b",
+      "size_bytes": 4667,
+      "content_hash": "sha256:bf225dd77adde605577e0b5a6b29b48f500254466c64d03a494d9febf7085d0a",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -1481,8 +1481,8 @@
     },
     "云原生/Kubernetes（K8s）/Kubernetes（K8s）全面解析：核心概念、架构与实践.md": {
       "ingested_at": "2026-06-02",
-      "size_bytes": 15361,
-      "content_hash": "sha256:eb96a41bfbf43eb3851cea6c96c9942438e34ead20136a2afe9a773b977ce2e0",
+      "size_bytes": 15015,
+      "content_hash": "sha256:3deba9f9fef5c12939dd126f0b8f25ff1a8ebd32a3567f123be7c1bf355eec87",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -2171,8 +2171,8 @@
     },
     "AI 人工智能/AI Agent/Multi-Agent协同/Multi-Agent 框架终极对比：LangGraph、CrewAI、AutoGen.md": {
       "ingested_at": "2026-06-13",
-      "size_bytes": 10072,
-      "content_hash": "sha256:8c5194c41abad4fe3cb57c3a4ab1b9c810318d5274c5d203ce104523c3e2335d",
+      "size_bytes": 10296,
+      "content_hash": "sha256:c82292c24c322fb3c9ccca363fc39aa5444bf90b3769d0089fdf20c9eac852ca",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2184,9 +2184,9 @@
     },
     "AI 人工智能/AI Agent/Multi-Agent协同/多Agent协同：Oh My OpenCode 深度架构分析报告.md": {
       "ingested_at": "2026-06-27",
-      "size_bytes": 61172,
+      "size_bytes": 61901,
       "modified_at": "2026-06-27",
-      "content_hash": "sha256:03126df7bdecf0231ffdb62829afa72c157cad32a276f9cdb2b075597460fd65",
+      "content_hash": "sha256:f4585d7187dee4c6083b6cc1b18179262fb002edc82779f7f08b0eed8a1a887c",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2216,8 +2216,8 @@
     },
     "AI 人工智能/AI Agent/Agent架构设计/Agent 系统架构设计：消息总线如何驱动多渠道智能体.md": {
       "ingested_at": "2026-08-03",
-      "size_bytes": 12207,
-      "content_hash": "sha256:06a58f109183a692e7f619ac23148e7dbfa9b6a29b08ddda2fcd0772140a9eb5",
+      "size_bytes": 12382,
+      "content_hash": "sha256:b893a3df5ace57e64e02fed546b9c4242e96f1eb143c7cc9863bb6ea3efe13d9",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2253,9 +2253,9 @@
     },
     "AI 人工智能/AI Agent/Multi-Agent协同/多 Agent 协作 github项目示例.md": {
       "ingested_at": "2026-09-15",
-      "size_bytes": 95,
+      "size_bytes": 101,
       "modified_at": "2026-08-18T09:47",
-      "content_hash": "sha256:3f02ef04ad318a0ef1abee3df0ceeaa336580236027ab61112cf4606c2682a63",
+      "content_hash": "sha256:ded9aa93cf967c778abe85861a4715e47fd91591f902fe2db32d0381298b1ce4",
       "source_type": "sparse",
       "project": null,
       "pages_created": [],
@@ -2318,9 +2318,9 @@
     },
     "AI 人工智能/AI Agent/各种协议/ACP/ACP协议实战指南：从零构建你的AI智能体团队（下篇）.md": {
       "ingested_at": "2026-08-03",
-      "size_bytes": 17326,
+      "size_bytes": 17766,
       "modified_at": "2026-08-03",
-      "content_hash": "sha256:0989a21e5b8bf7a30df6ede039614f259bcfa885fff476d0110386f9fea919bf",
+      "content_hash": "sha256:9073e2e0140b727ca85d0ff40ac73079854431df0c7079a11a912db151b1a947",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2333,9 +2333,9 @@
     },
     "AI 人工智能/AI Agent/各种协议/ACP/ACP协议让AI团队协作成为现实（上篇）.md": {
       "ingested_at": "2026-08-03",
-      "size_bytes": 23699,
+      "size_bytes": 23809,
       "modified_at": "2026-08-03",
-      "content_hash": "sha256:cedd2fe410aa1b99a40f0ad6e4dd7014c1955507e6a637b8f64e2b002c15280d",
+      "content_hash": "sha256:9fe8e17365017ce966a603557735b8e4bac779f114bd3ab92ebebabff05e2bf0",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2358,9 +2358,9 @@
     },
     "AI 人工智能/AI Agent/Deepseek Harness/DSH几个插件推荐.md": {
       "ingested_at": "2026-09-15",
-      "size_bytes": 5677,
+      "size_bytes": 5842,
       "modified_at": "2026-08-15T19:44",
-      "content_hash": "sha256:f20763aa39b036c0964eb9fcf9d1dc032b2eaad5dbf5faf2ecd52ddeadc2c68b",
+      "content_hash": "sha256:650f35abee0a9aad4fbaa102113b86d3055ffd358c50c14236c58bffecf39415",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -2417,9 +2417,9 @@
     },
     "Obsidian使用/Skill和MCP/obsidian相关skill和mcp.md": {
       "ingested_at": "2026-09-15",
-      "size_bytes": 896,
+      "size_bytes": 1000,
       "modified_at": "2026-07-20T15:48",
-      "content_hash": "sha256:4514c68f5ad1fa6a8159e7f420e303f71e1b20e543023806218d549537ee8fa4",
+      "content_hash": "sha256:19754a5a52b9dc406ebedf2511412ff14f5a9f8972857398d55ce3e147450455",
       "source_type": "document",
       "pages_created": [
         "concepts/obsidian-ai-toolchain.md"
@@ -2451,9 +2451,9 @@
     },
     "Obsidian使用/插件/Claudian 插件.md": {
       "ingested_at": "2026-09-15",
-      "size_bytes": 544,
+      "size_bytes": 561,
       "modified_at": "2026-07-28T15:20",
-      "content_hash": "sha256:47ec931854a6043e4d8729a018ccdb1e231ef9ef52df83e62c1d1a39df335400",
+      "content_hash": "sha256:caa1a62c5fbba3ef1ad4dbd9a834eb71cb4f8fc7658035c631e668208a650fba",
       "source_type": "sparse",
       "pages_created": [],
       "pages_updated": [
@@ -2475,9 +2475,9 @@
     },
     "Obsidian使用/插件/插件记录.md": {
       "ingested_at": "2026-09-15",
-      "size_bytes": 469,
+      "size_bytes": 484,
       "modified_at": "2026-08-28T09:50",
-      "content_hash": "sha256:6bda6a0f6e1cece77eba7e745513b03753cb6dd5ecf7aafcf095ea5799e6fbf9",
+      "content_hash": "sha256:4d3bdc0c9b36d71af1ccec61ca39f6d3c3b7864cd109d833471f6754a9061645",
       "source_type": "document",
       "pages_created": [],
       "pages_updated": [
@@ -3031,8 +3031,8 @@
     },
     "Self learn/K8s和容器/K8s安全加固完全指南-掘金.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 4929,
-      "content_hash": "sha256:da7423bc7fdb734d966479d4500d9d06e510b10fbd54625a5cbe3e1ca85b8503",
+      "size_bytes": 4692,
+      "content_hash": "sha256:608e499da885c167dd863c7f2b6a5cc56071f824a659178ef61588498edeca7c",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -4543,8 +4543,8 @@
     },
     "Self learn/cpp_blog/【NO.1】【数据结构】史上最好理解的红黑树讲解，让你彻底搞懂红黑树.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 40376,
-      "content_hash": "sha256:7a56a149b000b82dc68a87a3f81f02501da195d340015937db23335fcf5e9db7",
+      "size_bytes": 41009,
+      "content_hash": "sha256:587d3d589f427ea2d4c585585c82cd85e91950e7a7ba5aface06e140500db978",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -5875,8 +5875,8 @@
     },
     "Self learn/cpp_blog/【NO.2】红黑树(一)之 原理和算法详细介绍.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 44599,
-      "content_hash": "sha256:585b7c391097756f83a58a1c8e5203581be224f46244c77418347143d76412e0",
+      "size_bytes": 45034,
+      "content_hash": "sha256:c5a79163e1dbc982a3d51c486a27856a553c9a3e530b888a95e6c7c97ade3f8a",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -6415,8 +6415,8 @@
     },
     "Self learn/cpp_blog/【NO.34】深入linux操作系统-malloc到底如何分配内存？.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 13696,
-      "content_hash": "sha256:c0c52d385ae0582801f8fe9c6edef186654b7f22fa702e5d1329d2308f2acaec",
+      "size_bytes": 13893,
+      "content_hash": "sha256:0bd7b173f589a71d72e7bca28584ebae41131b94769d29ec3e4e28bd422efcc0",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -7087,8 +7087,8 @@
     },
     "Self learn/cpp_blog/【NO.3】红黑树(二)之 C语言的实现.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 24322,
-      "content_hash": "sha256:1d2b7d43d24d558933fcb2add89dda8da32c6939ff079ce2f783a46bf566e3da",
+      "size_bytes": 24928,
+      "content_hash": "sha256:a3ec4de592d212ff7a517c6e84a6210dcbd2ac73fd7d2251efd60948033fd402",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -7567,8 +7567,8 @@
     },
     "Self learn/cpp_blog/【NO.436】深入理解 Linux 的 epoll 机制及epoll原理.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 17977,
-      "content_hash": "sha256:1eecf1b127dfb6eba4eb46e42c3bbe3d5d33b5d29477e9a5ed68df805de53ca4",
+      "size_bytes": 18301,
+      "content_hash": "sha256:8acb34d5f92353fb21ac7604559284626295da3ce108bfb5177ec36aa74f293f",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -9739,8 +9739,8 @@
     },
     "Self learn/cpp_blog/【NO.59】深入学习IO多路复用 selectpollepoll 实现原理.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 29289,
-      "content_hash": "sha256:d269f679f70299257bd4446762a9abec50e4de745de242b4e75c922c6e261123",
+      "size_bytes": 29615,
+      "content_hash": "sha256:717f37b2fad6c9233efa8ff755fa5380c63c8a8dfd8770ef12bfa8b1b55ee115",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -10591,8 +10591,8 @@
     },
     "Self learn/cpp_blog/【NO.9】TCPIP 介绍.md": {
       "ingested_at": "2026-09-16",
-      "size_bytes": 2742,
-      "content_hash": "sha256:8dc429a96bb59be618a51f45ab6dc00d43aba96a2d1476b54aa929e7436c4a7c",
+      "size_bytes": 2808,
+      "content_hash": "sha256:ea91408907ec97818253e7c031aea1d8dda64974c081ac561bf66cafa305955f",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -11087,8 +11087,8 @@
     },
     "Linux 操作系统/Linux 进程调度/Linux 完全公平调度器CFS.md": {
       "ingested_at": "2026-11-10",
-      "size_bytes": 17472,
-      "content_hash": "sha256:0bccdcda3902dd662725d2fab40ceecbdee91c83feba986a12366ea90f63c2ce",
+      "size_bytes": 17062,
+      "content_hash": "sha256:8e450fa2681c830ecc4145c18668e32167db236f70ea6197e9406ab947e05e16",
       "source_type": "document",
       "project": null,
       "pages_created": [],
@@ -11099,8 +11099,8 @@
     },
     "Obsidian使用/claude的json备份.md": {
       "ingested_at": "2026-10-21",
-      "size_bytes": 882,
-      "content_hash": "sha256:d252458b74f4a60b0057041e45dbd108cf2af57e10c6c6063d0b02ffbe799fa0",
+      "size_bytes": 913,
+      "content_hash": "sha256:97ecf3ce2327dfbe709ac31a0d0c047c998e675b681df6d649e061c47b61be04",
       "source_type": "config",
       "project": null,
       "pages_created": [],
@@ -11110,8 +11110,8 @@
     },
     "Obsidian使用/opencode的json备份.md": {
       "ingested_at": "2026-10-21",
-      "size_bytes": 861,
-      "content_hash": "sha256:ae0a893d4503c02459d94a07efe52fbb91c6ab04578dc60bce2bbbc4dd194094",
+      "size_bytes": 895,
+      "content_hash": "sha256:be0e983ce07913e8846cff776448ade9bc1b5cf69163705953afd7d50b3300ee",
       "source_type": "config",
       "project": null,
       "pages_created": [],
@@ -11260,9 +11260,9 @@
       "modified_at": "2026-11-05T15:30"
     },
     "Linux 操作系统/Linux 中断系统/1 Linux 中断分类表.md": {
-      "ingested_at": "2026-11-09",
-      "size_bytes": 20680,
-      "content_hash": "sha256:8c8e4ef346fed4f3df8873fdbe0da216b80210900bdd72f76fe3b8008cc8e77a",
+      "ingested_at": "2026-11-12",
+      "size_bytes": 22343,
+      "content_hash": "sha256:4575a7477f0e72d7f093b879371256bd3121b393e972c5d4661a75b556743cd2",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11521,13 +11521,17 @@
       "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux PCIe设备枚举.md": {
-      "ingested_at": "2026-11-10",
-      "size_bytes": 0,
-      "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ingested_at": "2026-11-12",
+      "size_bytes": 6497,
+      "content_hash": "sha256:655f292bd501ed4a46e22977291c526c3812539861a31e6ce829b27769879fab",
       "source_type": "document",
       "project": null,
-      "pages_created": [],
-      "pages_updated": [],
+      "pages_created": [
+        "summaries/linux-pci-subsystem.md"
+      ],
+      "pages_updated": [
+        "summaries/linux-pci-subsystem.md"
+      ],
       "note": "2026-11-11 键名随用户重命名同步，哈希同步"
     },
     "Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux BAR空间资源映射.md": {
@@ -11626,8 +11630,8 @@
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md": {
       "ingested_at": "2026-11-11",
-      "size_bytes": 20982,
-      "content_hash": "sha256:dd902be27389b65024c20d004cbbd64b0dca5124d3ed6d9ea49a69d95f200b2a",
+      "size_bytes": 12650,
+      "content_hash": "sha256:13977bf569d577c78a55cf96958485588a8140f7f0a6717f5475db2c1ae1ea35",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11641,7 +11645,7 @@
         "concepts/linux-dma-mapping.md",
         "summaries/linux-iommu-deep-dive.md"
       ],
-      "note": "2026-11-11 键名随用户重命名同步，哈希同步; 2026-11-11 键名随用户目录重组迁移（basename 唯一匹配）"
+      "note": "2026-11-12 去除 19 处 zhida.zhihu.com 追踪链接（仅还原方括号文字），语义未变，未重新蒸馏"
     },
     "Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux SMMU的IO Bypass.md": {
       "ingested_at": "2026-11-11",
@@ -11770,8 +11774,8 @@
     },
     "Linux 操作系统/Linux 驱动管理/Linux USB 系统/Linux内核USB子系统.md": {
       "ingested_at": "2026-11-11",
-      "size_bytes": 94692,
-      "content_hash": "sha256:cc126b61d2c04454d7d9f90b00ba0563d9b099b4de868ef7befe724fade7715e",
+      "size_bytes": 88525,
+      "content_hash": "sha256:b2ced9579c993a5b5e07a8a1edba78474ee723e3a43a7d9651bd19e050f48a5e",
       "source_type": "document",
       "project": null,
       "pages_created": [
@@ -11795,16 +11799,6 @@
         "concepts/linux-driver-model.md"
       ]
     },
-    "Linux 操作系统/Linux 内存管理/Linux 伙伴分配器.md": {
-      "ingested_at": "2026-11-11",
-      "size_bytes": 0,
-      "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [],
-      "pages_updated": [],
-      "note": "0 字节占位文件，未产生页面；空文件 SHA-256 固定，不可用作改名判据；待补内容后 ingest"
-    },
     "Linux 操作系统/Linux 内存管理/Linux 缺页异常.md": {
       "ingested_at": "2026-11-11",
       "size_bytes": 0,
@@ -11816,16 +11810,6 @@
       "note": "0 字节占位文件，未产生页面；空文件 SHA-256 固定，不可用作改名判据；待补内容后 ingest"
     },
     "Linux 操作系统/Linux 内存管理/Linux 虚拟地址和物理地址.md": {
-      "ingested_at": "2026-11-11",
-      "size_bytes": 0,
-      "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "source_type": "document",
-      "project": null,
-      "pages_created": [],
-      "pages_updated": [],
-      "note": "0 字节占位文件，未产生页面；空文件 SHA-256 固定，不可用作改名判据；待补内容后 ingest"
-    },
-    "Linux 操作系统/Linux 内存管理/Linux 页回收机制.md": {
       "ingested_at": "2026-11-11",
       "size_bytes": 0,
       "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -11895,15 +11879,131 @@
       "pages_updated": [],
       "note": "0 字节占位文件，未产生页面；空文件 SHA-256 固定，不可用作改名判据；待补内容后 ingest"
     },
-    "Linux 操作系统/Linux 驱动管理/Linux 系统总线 (PCI、ISA、SCSI、USB 等).md": {
-      "ingested_at": "2026-11-11",
-      "size_bytes": 0,
-      "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "Linux 操作系统/Linux 内存管理/Linux Coye On Write（写时复制）.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 9506,
+      "content_hash": "sha256:349052acc515ff04f037e5dd6684ab1a9b44383678e8ccb42955d8c58ef8b7f0",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-copy-on-write.md",
+        "concepts/copy-on-write.md"
+      ],
+      "pages_updated": [
+        "concepts/virtual-memory-and-paging.md",
+        "concepts/linux-memory-management.md",
+        "summaries/linux-page-cache.md",
+        "concepts/overlayfs-container-images.md",
+        "concepts/zero-copy-memory-mapping.md"
+      ]
+    },
+    "Linux 操作系统/Linux 驱动管理/Linux 字符设备 系统/Linux字符设备驱动.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 78644,
+      "content_hash": "sha256:f113e9ff32c591dec1272ee4d6dddd1256847c1650bacd2fa0ba221052dec03d",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-char-device-driver.md",
+        "skills/linux-char-device-driver-template.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-driver-model.md"
+      ]
+    },
+    "Linux 操作系统/Linux 驱动管理/Linux 系统总线 (PCIe、ISA、SCSI、USB等).md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 41983,
+      "content_hash": "sha256:e124824eafdfdb40590c41e03a78b6ebba3c54a3b0e0cdcadf0923a5b47be186",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-system-bus.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-driver-model.md"
+      ]
+    },
+    "Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux PCI设备BDF号.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 1989,
+      "content_hash": "sha256:81abcdb05b2e6b6c9d61c9f0abc2bba2d0fc3f560f8cce309d2235993d8ab820",
       "source_type": "document",
       "project": null,
       "pages_created": [],
-      "pages_updated": [],
-      "note": "0 字节占位文件，未产生页面；空文件 SHA-256 固定，不可用作改名判据；待补内容后 ingest"
+      "pages_updated": [
+        "summaries/linux-pci-subsystem.md"
+      ]
+    },
+    "物理硬件/磁盘/磁盘上报识别流程.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 797,
+      "content_hash": "sha256:68a522eefa4d1f14c4142193a12fc8b68a79a37c4de87a40d0b3e7821dfebf98",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "concepts/linux-io-stack.md"
+      ]
+    },
+    "Self learn/面试经验/DeepSeek.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 410,
+      "content_hash": "sha256:efa32e3d4ed1e761acc24433fcb2b5492776c8c24808739e324d4e42f1972ea5",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "skills/sre-interview-question-map.md"
+      ],
+      "pages_updated": []
+    },
+    "Self learn/面试经验/佳琪投资.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 181,
+      "content_hash": "sha256:e2fd04c9d2e7254cf04d855fa8f146cb8d239abd8d34836f98fb0690c9d3ac58",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "skills/sre-interview-question-map.md"
+      ],
+      "pages_updated": []
+    },
+    "Self learn/面试经验/阿里云.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 15,
+      "content_hash": "sha256:bc1d85c1ae9cc5ffe9343855aa38d36a45db8bc9e1a826e48cd1a4579628c25e",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "skills/sre-interview-question-map.md"
+      ],
+      "pages_updated": []
+    },
+    "Linux 操作系统/Linux 内存管理/Linux 伙伴分配器与 SLAB 分配器.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 16164,
+      "content_hash": "sha256:6986a9d4fe76995bdb8aed31bc4ea0099e3fcf9e2077240f91e44e86f50633d3",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-buddy-slab-allocator.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-memory-management.md"
+      ]
+    },
+    "Linux 操作系统/Linux 内存管理/Linux 内存回收机制.md": {
+      "ingested_at": "2026-11-12",
+      "size_bytes": 36,
+      "content_hash": "sha256:db0d874faf0a3cbebf2fc49a7ef8ced1d46df2bfb3eac0e90596dece7ace03de",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-memory-reclaim-triggers.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-memory-management.md"
+      ]
     }
   },
   "projects": {
@@ -11917,16 +12017,16 @@
       ]
     }
   },
-  "last_ingest": "2026-11-11",
+  "last_ingest": "2026-11-12",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 984,
-    "total_pages": 204,
-    "total_concepts": 91,
-    "total_summaries": 53,
+    "total_sources_ingested": 991,
+    "total_pages": 212,
+    "total_concepts": 92,
+    "total_summaries": 58,
     "total_entities": 20,
-    "total_skills": 18,
+    "total_skills": 20,
     "total_synthesis": 7,
-    "last_updated": "2026-11-11"
+    "last_updated": "2026-11-12"
   }
 }

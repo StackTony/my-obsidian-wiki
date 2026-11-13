@@ -10,19 +10,21 @@ relationships:
     type: uses
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
+  - target: "[[concepts/copy-on-write]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
-source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md, Linux 内存与CPU之间的关系.md, Linux TLB（页表项Cahce）.md]
-summary: Linux内存管理：meminfo参数体系(含Bounce/DirectMap)、Page Cache架构(基数树+预读)、内存黑洞(alloc_pages不可追踪)、LRU分类与Write策略，向下承接虚拟内存/分页与TLB的原理基础。
+source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md, Linux 内存与CPU之间的关系.md, Linux TLB（页表项Cahce）.md, Linux Coye On Write（写时复制）.md, Linux 伙伴分配器与 SLAB 分配器.md, Linux 内存回收机制.md]
+summary: Linux内存管理：meminfo参数体系(含Bounce/DirectMap)、Page Cache架构(基数树+预读)、内存黑洞、伙伴系统/SLAB两级分配、三条回收触发路径(紧缺/kswapd/drop_caches)、LRU分类与Write策略、写时复制(COW)，向下承接虚拟内存/分页与TLB原理。
 provenance:
-  extracted: 0.82
-  inferred: 0.13
+  extracted: 0.80
+  inferred: 0.15
   ambiguous: 0.05
-base_confidence: 0.78
+base_confidence: 0.80
 lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-10
+updated: 2026-11-12
 ---
 
 # Linux内存管理
@@ -46,6 +48,7 @@ Linux内存管理是内核最复杂的子系统之一，涵盖物理内存分配
 - **分页**：虚拟地址空间切为固定大小的**页**，物理内存切为同样大小的**页框**，由 MMU 通过页表映射。
 - **页表项**：包含页框号、在/不在位、保护位、修改位（脏页需写回）、访问位（LRU/置换算法的输入信号）。**Linux 的 Active/Inactive 移动与页面回收，正是在消费硬件的访问位。**
 - **缺页中断**：MMU 发现页不在内存 → 陷入内核 → 换出牺牲页（脏页先写回）→ 调入缺失页 → 重新执行原指令。
+- **写时复制（COW）**：fork 不复制物理页，只复制页表并把私有可写 PTE 在父子两侧置只读；任一方写触发保护性缺页，由 `do_wp_page` 决定复用独占页（`wp_page_reuse`）还是复制新页（`wp_page_copy`）。详见 [[concepts/copy-on-write]]。
 - **TLB**：MMU 内缓存页表项的硬件，每核私有。进程切换时若不刷新会读到错误映射，全量刷新又导致 cold TLB；**PCID/ASID** 通过给地址翻译加上进程上下文 ID 来消除这一成本（Linux 4.15 全面启用 PCID）。
 - **页面置换算法的工程结论**：LRU 效果好但难以低成本实现，**老化算法（aging）与 WSClock 是最优近似**——Linux 用 Active/Inactive 双链表 + kswapd 实现同类的近似。
 
@@ -103,6 +106,28 @@ Page Cache 的核心数据结构：
 
 这导致 MemTotal - (MemFree + 所有已用字段) 之间存在难以解释的差额，这就是"内存黑洞"。 ^[inferred] 典型的黑洞消费者包括：内核栈、per-cpu数据、某些直接分配的内核结构。
 
+### 页框分配：伙伴系统与 SLAB 两级分工
+
+物理内存分配分两层，理解它才能读懂 `MemFree` 与 `Slab` 字段：
+
+- **伙伴系统（Buddy Allocator）**：以 `2^n` 页的"阶"管理页框。分配时向上取整到阶、目标阶空则从更高阶逐级分裂；释放时用 `伙伴地址 = 块地址 ^ (1 << (order + PAGE_SHIFT))` 找伙伴，空闲则递归合并。它擅长对抗**外部碎片**，代价是内部碎片（3 页请求分 4 页，浪费 25%）。
+- **SLAB/SLUB**：从伙伴系统取整页，切成固定大小的对象缓存（`kmem_cache`），服务 `task_struct`、`inode`、`dentry` 这类小对象。它擅长对抗**内部碎片**，分配释放 O(1)。
+- **观测**：`/proc/buddyinfo` 看各阶空闲块（高阶长期为 0 = 外部碎片严重）；`/proc/pagetypeinfo` 按迁移类型看碎片结构；`/proc/slabinfo` 看对象利用率。
+
+完整流程、手算示例与三张观测表见 [[summaries/linux-buddy-slab-allocator]]。
+
+### 内存回收的三条触发路径
+
+回收不是单一入口，按压力来源分三条：
+
+| 路径 | 入口 | 主链路 | 特点 |
+|---|---|---|---|
+| 紧缺回收 | `__alloc_pages` 失败 | `__alloc_pages_slowpath → __alloc_pages_direct_reclaim → try_to_free_pages → shrink_zone/shrink_slab` | 分配者上下文同步执行，失败进 OOM |
+| 周期性回收 | zone 低于水位 | `kswapd → balance_pgdat → kswapd_shrink_zone → shrink_zone/shrink_slab` | 后台异步，NUMA node 各一线程 |
+| 用户触发 | `drop_caches` | `drop_slab → shrink_slab`、`drop_pagecache_sb` | 手动清干净页，生产慎用 |
+
+所有路径最终落到两个执行器：**`shrink_zone` 回收页框**（消费 LRU 与 PTE 访问位），**`shrink_slab` 回收可回收 slab 对象**。调用图与箭头解读见 [[summaries/linux-memory-reclaim-triggers]]。
+
 ### LRU 回收算法
 
 Linux 使用双链表 LRU 实现：
@@ -149,5 +174,7 @@ Linux默认使用 Write Back 策略，通过 pdflush/kworker 线程定期将脏�
 - [[summaries/linux-page-cache]] — Page Cache架构与预读机制
 - [[summaries/linux-memory-cpu-relationship]] — 虚拟内存与页面置换算法原理
 - [[summaries/linux-tlb-management]] — TLB 硬件细节与 PCID
+- [[summaries/linux-buddy-slab-allocator]] — 伙伴系统与 SLAB 的分配/释放流程、观测接口
+- [[summaries/linux-memory-reclaim-triggers]] — 紧缺/周期性/用户触发三条回收路径与两个执行器
 - `raw/sources/Linux 操作系统/Linux 内存管理/Linux 内存与CPU之间的关系.md`（原文：zhuanlan.zhihu.com/p/450505454）
 - `raw/sources/Linux 操作系统/Linux 内存管理/Linux TLB（页表项Cahce）.md`（原文：developer.aliyun.com/article/1479067）

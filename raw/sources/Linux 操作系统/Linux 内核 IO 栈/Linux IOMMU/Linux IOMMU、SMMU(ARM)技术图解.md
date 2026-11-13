@@ -11,22 +11,22 @@ MMU是将CPU虚拟地址转换为内存物理地址的硬件单元。类似地�
 
 IOMMU的引入背景：
 
-- 一方面，随着[计算机技术](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLorqHnrpfmnLrmioDmnK8iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Vw0XV9XXOoTfKI2cdKgLAKLiy0vDjVWOas6lZ_FFiJs&zhida_source=entity)的发展，内存容量不断增大，而一些老设备的[寻址能力](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E5%AF%BB%E5%9D%80%E8%83%BD%E5%8A%9B&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLlr7vlnYDog73lipsiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.GDUIOb6ZmVTviGXQOVrFxsSmGKrKiubo0tJJglRcNtY&zhida_source=entity)却十分有限，像 32 位的设备就无法访问高于 4GB 的内存空间。要是系统为其分配了[高端内存](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E9%AB%98%E7%AB%AF%E5%86%85%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLpq5jnq6_lhoXlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.h973agOXkGPE8S_wZBTJ8-0EpypUn6vvuCHLwzSAupw&zhida_source=entity)，这些设备便只能望洋兴叹，无法进行 [DMA](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=DMA&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJETUEiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.lAyxWSl_QtluBaHpAdcRwWS6mvTGbftP5cNr24KFt28&zhida_source=entity) 操作。
-- 另一方面传统的 DMA 操作对于内存的连续性要求很高。在实际应用中，要为设备分配大量连续的[物理内存](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLniannkIblhoXlrZgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.jtpNVosSShs1zeAH2zhYnFS0Fv1Efk__MkUyuuudKZM&zhida_source=entity)，难度极大，这就限制了设备的 DMA 操作效率。
-- 此外，设备直接访问[物理地址](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=3&q=%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLniannkIblnLDlnYAiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MywiemRfdG9rZW4iOm51bGx9.pppWKtwR6CF4BmypQ-Feqc9akDfRucFrAAjto5g--W4&zhida_source=entity)，大大增加了设备进行[DMA攻击](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=DMA%E6%94%BB%E5%87%BB&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJETUHmlLvlh7siLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.uzXKc_JFcCXGb6ehmdTtLtKegEJdMAZaP_neQcZUFw8&zhida_source=entity)的风险。
+- 一方面，随着计算机技术的发展，内存容量不断增大，而一些老设备的寻址能力却十分有限，像 32 位的设备就无法访问高于 4GB 的内存空间。要是系统为其分配了高端内存，这些设备便只能望洋兴叹，无法进行 DMA 操作。
+- 另一方面传统的 DMA 操作对于内存的连续性要求很高。在实际应用中，要为设备分配大量连续的物理内存，难度极大，这就限制了设备的 DMA 操作效率。
+- 此外，设备直接访问物理地址，大大增加了设备进行DMA攻击的风险。
 
 没有IOMMU之前：
 
-为了解决老设备在大内存系统中的使用问题，曾经采用过一种名为 “bounce buffers” 的方案。简单来说，就是在物理内存底端（32 位设备能访问到的地方）设置[缓冲区](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E7%BC%93%E5%86%B2%E5%8C%BA&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLnvJPlhrLljLoiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.pex6hXMs0CIaDPADOiVuBsFdNsR846T0EQ6moBqTkJQ&zhida_source=entity)。当设备需要访问高端内存时，操作系统先将高端内存的数据拷贝到 “bounce buffers”，设备再从这里读取数据；写入数据时则反之。不难想象，这种[数据拷贝](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=2&q=%E6%95%B0%E6%8D%AE%E6%8B%B7%E8%B4%9D&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLmlbDmja7mi7fotJ0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MiwiemRfdG9rZW4iOm51bGx9.h-0x6LDM4z2hY2btj5yoqlaq1Khm4w42b5VKfjmK2FA&zhida_source=entity)操作会极大地降低系统性能，尤其是在数据量较大的情况下。
+为了解决老设备在大内存系统中的使用问题，曾经采用过一种名为 “bounce buffers” 的方案。简单来说，就是在物理内存底端（32 位设备能访问到的地方）设置缓冲区。当设备需要访问高端内存时，操作系统先将高端内存的数据拷贝到 “bounce buffers”，设备再从这里读取数据；写入数据时则反之。不难想象，这种数据拷贝操作会极大地降低系统性能，尤其是在数据量较大的情况下。
 
 ![](https://pic2.zhimg.com/v2-021bbd7be0739135f654a9a4f4ddae57_1440w.jpg)
 
 ## 4 IOMMU的作用
 
-在虚拟化出现之前， iommu硬件主要功能就是将iova转换成[hpa](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=hpa&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJocGEiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.AeDdLs24Pp73GIHnG7-xgCD5HP2KXPXxWh53G27DhFM&zhida_source=entity)，主要作用如下：
+在虚拟化出现之前， iommu硬件主要功能就是将iova转换成hpa，主要作用如下：
 
-- 一个是**让只有32位DMA能力的设备能够访问大于4G以上的内存[地址空间](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLlnLDlnYDnqbrpl7QiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.bcpj3U4z6Uwl-LE6VdwlnH2oF04CjAujJ57XvArv3cE&zhida_source=entity)；**
-- 另外一个收益就是可以把**多个分散的[dma](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=dma&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJkbWEiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.KJo_obExmM3H987t9lN_nREMYGBSuYwSu_sUTeclA6M&zhida_source=entity)操作聚合成一个连续的DMA操作**。
+- 一个是**让只有32位DMA能力的设备能够访问大于4G以上的内存地址空间；**
+- 另外一个收益就是可以把**多个分散的dma操作聚合成一个连续的DMA操作**。
 - 屏蔽物理地址，起到保护作用。
 
 无IOMMU的访问路径：
@@ -39,7 +39,7 @@ IOMMU的引入背景：
 
 ![](https://picx.zhimg.com/v2-d6142b4a9ae869be1cd50a9cee8d1837_1440w.jpg)
 
-## 4 IOMMU的[底层原理](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLlupXlsYLljp_nkIYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.60wPMXxzBsSNMYpYuGyJZMacom2JpeYRUF_THuCXDws&zhida_source=entity)
+## 4 IOMMU的底层原理
 
 ![](https://pic2.zhimg.com/v2-4702ca4f3f810b796db222df08a4543f_1440w.jpg)
 
@@ -49,9 +49,9 @@ IOMMU框架可分为如下层次：
 
 - DMA-MAP层：提供对其他驱动DMA MAP/UNMAP的API接口；
 - IOVA层：提供IOVA的分配与释放，并提供RCACHE缓存机制；
-- IO[页表](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E9%A1%B5%E8%A1%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLpobXooagiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.oYoFPuCp8QcoiMP8jxKmMPdFIQPSNQ4yZLLp-XU_RKA&zhida_source=entity)层：提供对IO设备页表的操作；
-- SMMU/IOMMU驱动层：提供SMMU/IOMMU驱动初始化，提供IOMMU对应的[回调函数](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiLlm57osIPlh73mlbAiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNjE4MjcxMDQsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.NNqaX05McKu9ujyK6t1hCKRpWK-MOQeoCRbNagQy5mM&zhida_source=entity)
-- 其它API接口：可提供对[VFIO](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=VFIO&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJWRklPIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjYxODI3MTA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.r6EN_qek_FIeaEQBfeTy0svshy7n7dWL3dl5WSXyokA&zhida_source=entity)等API接口；
+- IO页表层：提供对IO设备页表的操作；
+- SMMU/IOMMU驱动层：提供SMMU/IOMMU驱动初始化，提供IOMMU对应的回调函数
+- 其它API接口：可提供对VFIO等API接口；
 
 ## 5 SVA(Share Virtual Address)：CPU和Device共享页表
 
@@ -71,13 +71,13 @@ SMMU的位置
 
 ## 7 IOMMU与SMMU的关系
 
-在我们的硬件体系中，能够有能力完成设备[iova](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=2&q=iova&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJpb3ZhIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjYxODI3MTA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjIsInpkX3Rva2VuIjpudWxsfQ.bxoS-xvFykkAYlHdQT4YuWLWD542q-pj1uQRwT2PLmU&zhida_source=entity)到pa转换的有很多，例如有intel的iommu,amd的iommu和arm的[smmu](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=1&q=smmu&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJzbW11IiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjYxODI3MTA0LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.KEvowgC0yGf1-cAV7xt6ynZQj5cDvj5Bgnn-QEh8YnA&zhida_source=entity)等等，那这些不同的硬件架构不会都作为一个独立的子系统，所以，在linux 内核中 抽象了一层iommu层由iommu层给各个外部设备驱动提供结构，隐藏底层的不同的架构;
+在我们的硬件体系中，能够有能力完成设备iova到pa转换的有很多，例如有intel的iommu,amd的iommu和arm的smmu等等，那这些不同的硬件架构不会都作为一个独立的子系统，所以，在linux 内核中 抽象了一层iommu层由iommu层给各个外部设备驱动提供结构，隐藏底层的不同的架构;
 
 ![](https://pic2.zhimg.com/v2-a42ec5aae4747e1f67def50348f9bdcd_1440w.jpg)
 
 ## 8 IOMMU Domain与Group的关系
 
-IOMMU GROUP和IOMMU是对应的,相同IOMMU GROUP的设备指向相同的iommu domain，而每个iommu domain分配对应一个页表PGD，所以，同一个IOMMU GROUP内的设备，是可以互相访问彼此的IOMMU 映射的。一个struct iommu_group下面可以对应多个或者一个硬件设备,一个struct iommu_domain里面可以有多个[iommu_group](https://zhida.zhihu.com/search?content_id=261827104&content_type=Article&match_order=2&q=iommu_group&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3OTQ0NTE5NDYsInEiOiJpb21tdV9ncm91cCIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjI2MTgyNzEwNCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoyLCJ6ZF90b2tlbiI6bnVsbH0.2bg9-0w0pUJ-hkRYCrA5RwLUbivDfdyfK4_77DLEJaE&zhida_source=entity)，然后每个iommu_group通过iommu_domain最终找到dmar_domain进行转换。
+IOMMU GROUP和IOMMU是对应的,相同IOMMU GROUP的设备指向相同的iommu domain，而每个iommu domain分配对应一个页表PGD，所以，同一个IOMMU GROUP内的设备，是可以互相访问彼此的IOMMU 映射的。一个struct iommu_group下面可以对应多个或者一个硬件设备,一个struct iommu_domain里面可以有多个iommu_group，然后每个iommu_group通过iommu_domain最终找到dmar_domain进行转换。
 
 ![](https://pic4.zhimg.com/v2-63bb0756e61385b40dd082e994ace2fb_1440w.jpg)
 

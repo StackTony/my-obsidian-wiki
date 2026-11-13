@@ -15,18 +15,18 @@ relationships:
   - target: "[[summaries/linux-block-subsystem]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 驱动管理/Linux PCI 系统
-source_files: [Linux内核PCI子系统.md]
-summary: PCIe 子系统四层架构（硬件适配/总线核心/驱动适配/用户交互）与 pci_dev/pci_driver/pci_bus 三结构体；配置空间 256B→4096B、6个BAR、MSI 32 vs MSI-X 2048、ASPM/CLKREQ/DBI/AER 与 TLP、Root Complex 拓扑。
+source_files: [Linux内核PCI子系统.md, Linux PCI设备BDF号.md, Linux PCIe设备枚举.md]
+summary: PCIe 子系统四层架构（硬件适配/总线核心/驱动适配/用户交互）与 pci_dev/pci_driver/pci_bus 三结构体；BDF 三元组寻址、ACPI 根节点匹配与 pci_scan_child_bus 递归枚举、配置空间 256B→4096B、6个BAR、MSI/MSI-X、ASPM/AER/TLP 与 Root Complex 拓扑。
 provenance:
-  extracted: 0.82
-  inferred: 0.15
+  extracted: 0.84
+  inferred: 0.13
   ambiguous: 0.03
-base_confidence: 0.59
+base_confidence: 0.82
 lifecycle: draft
 lifecycle_changed: 2026-11-11
 tier: supporting
 created: 2026-11-11
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 
 # Linux PCI 子系统
@@ -73,6 +73,30 @@ PCIe 不是"更好的 PCI"，而是换了物理层语义：并行共享总线（
 - **Endpoint**：叶子节点（GPU、NVMe SSD、网卡、USB 控制器）。
 - **Link**：点对点、全双工、独立带宽。
 
+### BDF 三元组：配置空间的全局地址
+
+PCI/PCIe 用 **BDF（Bus–Device–Function）** 唯一标识一个功能：
+
+| 字段 | 位宽 | 范围 | 含义 |
+|---|---|---|---|
+| Bus | 8 bit | 0–255 | Bus 0 通常是 Root Complex 出来的第一根总线；每个桥下游分配新 Bus 号 |
+| Device | 5 bit | 0–31 | 每根总线最多 32 个设备插槽；PCIe 中一个端口就是一个设备 |
+| Function | 3 bit | 0–7 | 每个设备最多 8 个功能；Function 0 为主功能，1–7 可为多功能（显卡+音频、网卡+iSCSI Offload） |
+
+- 每个 Function 有 4KB 配置空间（PCIe），前 256B 是 PCI 兼容头。
+- 硬件访问用 Configuration TLP（`CfgRd`/`CfgWr`）；Linux 映射为 `/sys/bus/pci/devices/0000:02:00.0/` 与 `/proc/bus/pci/`。
+- `lspci` 按 BDF 列出设备，`setpci` 按 BDF 精确读写配置寄存器；驱动用 `pci_device_id` 匹配 Vendor/Device ID，同时依赖 BDF 定位设备。
+
+### 枚举流程：从 ACPI 根节点到递归扫描
+
+1. **注册根节点处理器**：ACPI 初始化时把 `pci_root_handler`（匹配 `PNP0A03`）挂到 `acpi_scan_handlers_list`。
+2. **创建根设备并匹配**：`acpi_bus_scan()` 创建 ACPI 设备，`acpi_scan_match_handler()` 用 `device->pnp.ids` 匹配到 `pci_root_handler`，回调 `acpi_pci_root_add`。
+3. **创建根总线**：`pci_acpi_scan_root()` → `acpi_pci_root_create()` → `pci_create_root_bus()` 创建 Host Bridge 与第一根总线（bus0）。
+4. **扫描总线**：`pci_scan_child_bus()` → `pci_scan_child_bus_extend()` → `pci_scan_slot()` 遍历 32 个 Device；每个 Device 内 `pci_scan_single_device()` 遍历 8 个 Function。
+5. **扫描单个功能**：`pci_scan_device()` 先读厂商号判断设备是否存在（`pci_bus_read_dev_vendor_id`），再 `pci_alloc_dev()` 分配 `pci_dev`，`pci_setup_device()` 判定 EP/桥并读 BAR（`pci_read_bases`，即"BAR 写全 1 读回大小"的实现）。
+6. **注册设备**：`pci_device_add()` 初始化 ACS 等能力、把设备挂到 `bus->devices`、`device_add()` 注册到驱动模型等待匹配。
+7. **桥与子总线**：`pci_scan_bridge_extend()` 遍历总线上的设备，识别桥后读取上游/下游总线号，`pci_add_new_bus()` 建立子总线并递归 `pci_scan_child_bus()`；若由 OS 分配总线号，则先清配置空间再重新分配并写回。
+
 ### 四层软件架构
 
 1. **硬件适配层** — 对接具体 PCI 控制器：物理扫描、配置空间原生读写、控制器初始化、中断路由、DMA 通道、总线资源区间注册。
@@ -115,4 +139,6 @@ PCIe 不是"更好的 PCI"，而是换了物理层语义：并行共享总线（
 ## 来源
 
 - `raw/sources/Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux内核PCI子系统.md` — 野火 RK356x 驱动教程第 8 章：PCI/PCIe 基础、四层架构、核心结构体与函数、PCIe 网卡驱动源码解析、PCI Explorer/DMA/IRQ 三个实验
-- 交叉：[[summaries/pci-bar-dma-space]]（BAR 探测与枚举实践）、[[concepts/linux-driver-model]]（LDM 与总线框架）
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux PCI设备BDF号.md` — BDF 三元组、配置空间寻址与 lspci/setpci 实践
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux PCIe设备枚举.md` — ACPI 根节点匹配、pci_scan_child_bus 递归扫描、pci_scan_device/pci_device_add、桥与子总线建立
+- 交叉：[[summaries/pci-bar-dma-space]]（BAR 探测与枚举实践）、[[concepts/linux-driver-model]]（LDM 与总线框架）、[[summaries/linux-system-bus]]（总线标准演进）

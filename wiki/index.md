@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-11 (INGEST：Linux 驱动域六大子系统文档入库，新增 PCI/SCSI/Block/USB/网络设备/DMA-IOMMU 六篇摘要 + 驱动模型概念页；raw 目录同期重组，来源路径二次对齐)*
+*自动维护。上次更新：2026-11-12 (INGEST：字符设备驱动全链路、系统总线标准、PCI BDF/PCIe 枚举、伙伴/SLAB 两级分配与内存回收触发路径入库；中断分类表补充典型例子与 10 种 softirq；新增字符设备驱动骨架与面试问题地图)*
 
 ## Summaries (数据结构与算法)
 
@@ -27,7 +27,7 @@ updated: 2026-11-11
 - [crash-vmcore-analysis](summaries/crash-vmcore-analysis.md) — crash工具分析vmcore的基本操作：bt/struct/dis/rd/kmem常用命令、时间戳转换 — `linux` `vmcore` `crash` `崩溃分析`
 - [crash-register-address](summaries/crash-register-address.md) — x86_64和ARM64寄存器体系、函数调用约定、栈回溯原理、常见崩溃场景分析 — `linux` `寄存器` `x86` `ARM64` `崩溃分析` `调用约定`
 - [linux-interrupt-monitoring-script](summaries/linux-interrupt-monitoring-script.md) — 不依赖额外模块的bash脚本：基于/proc/interrupts两次采样的每秒中断增量观测 — `linux` `中断` `监控脚本` `/proc/interrupts`
-- [linux-interrupt-classification](summaries/linux-interrupt-classification.md) — 中断分类四维框架：同步/异步主轴、"软中断"歧义、上下半部阶段、功能×机制映射；SPI/PPI/LPI/MSI-X/IPI/NMI/LVT与Fault/Trap/Abort术语速查 — `linux` `中断` `分类` `IRQ` `架构`
+- [linux-interrupt-classification](summaries/linux-interrupt-classification.md) — 中断分类四维框架：同步/异步主轴、"软中断"歧义、上下半部阶段、功能×机制映射；SPI/PPI/LPI/MSI-X/IPI/NMI/LVT与Fault/Trap/Abort术语速查、典型例子速查表与10种softirq清单 — `linux` `中断` `分类` `IRQ` `架构`
 - [linux-interrupt-lifecycle](summaries/linux-interrupt-lifecycle.md) — ARM GICv3中断全链路：三组件分工、中断号段、irq_domain映射hwirq→virq、request_irq注册与线程化中断、ARM64异常向量处理、workqueue五元组 — `linux` `中断` `GIC` `ARM` `irq_domain`
 - [linux-ftrace-kprobe-overview](summaries/linux-ftrace-kprobe-overview.md) — ftrace(静态/开销大) vs kprobe(动态/灵活) vs bpftrace(eBPF)三大追踪框架概览 — `linux` `tracing` `ftrace` `kprobe` `bpftrace`
 - [kernel-bonding-debug-log](summaries/kernel-bonding-debug-log.md) — 内核网络Bonding调试日志开启：printk级别调整+dynamic debug开启bond_3ad/bond_main源码打印 — `linux` `内核` `网络` `bonding` `dynamic-debug`
@@ -43,12 +43,17 @@ updated: 2026-11-11
 - [linux-iommu-deep-dive](summaries/linux-iommu-deep-dive.md) — IOMMU六部曲：SWIOTLB软件bounce(memcpy)与Intel VT-d硬件I/O页表重映射互斥、初始化流程、DMA Coherent Mapping实践(Linux 5.5.4/x86-64) — `linux` `iommu` `vt-d` `swiotlb` `dma`
 - [linux-iommu-smmu-illustrated](summaries/linux-iommu-smmu-illustrated.md) — IOMMU/SMMU图解综述：IOMMU与MMU对偶、内核框架五层、ARM SMMU、SVA共享页表、Group/Domain、VFIO MAP_DMA、GPA/HVA/HPA地址链与透传一致性 — `linux` `IOMMU` `SMMU` `虚拟化` `ARM`
 - [linux-smmu-io-bypass](summaries/linux-smmu-io-bypass.md) — SMMU的STE级旁路：硬件照常开启，仅该SID的DMA直通PA(不经S1/S2、不查IOTLB、不查权限)；与BIOS关闭SMMU的区别、三模式对比、iommu.passthrough/smmu.bypassdev/disable_bypass — `linux` `smmu` `iommu` `arm` `dma`
-- [linux-pci-subsystem](summaries/linux-pci-subsystem.md) — PCIe子系统四层架构(硬件适配/总线核心/驱动适配/用户交互)与pci_dev/pci_driver/pci_bus三结构体；配置空间256B→4096B、6个BAR、MSI 32 vs MSI-X 2048、ASPM/CLKREQ/DBI/AER/TLP与Root Complex拓扑 — `linux` `pcie` `内核` `驱动` `总线`
+- [linux-pci-subsystem](summaries/linux-pci-subsystem.md) — PCIe子系统四层架构与pci_dev/pci_driver/pci_bus三结构体；BDF三元组寻址、ACPI根节点→pci_scan_child_bus递归枚举、配置空间256B→4096B、6个BAR、MSI 32 vs MSI-X 2048、ASPM/CLKREQ/DBI/AER/TLP与Root Complex拓扑 — `linux` `pcie` `内核` `驱动` `总线`
 - [linux-scsi-subsystem](summaries/linux-scsi-subsystem.md) — SCSI三层架构(较高层/中间层/较低层)与Initiator-Target-LUN模型；CDB 6/10/16字节命令族及READ_10(0x28)/WRITE_10(0x2A)/SYNCHRONIZE_CACHE(0x35)等操作码 — `linux` `scsi` `内核` `存储` `驱动`
 - [linux-block-subsystem](summaries/linux-block-subsystem.md) — 块设备子系统：扇区/块/bio/request/调度器五概念、blk-mq软队列(每CPU)+硬队列双层模型、gendisk/blk_mq_ops.queue_rq/bio_vec结构体链与submit_bio到blk_mq_end_request骨架 — `linux` `block` `内核` `blk-mq` `存储`
 - [linux-network-device-subsystem](summaries/linux-network-device-subsystem.md) — 网卡驱动视角的网络子系统：net_device/net_device_ops/napi_struct设备抽象层、sk_buff与sk_buff_head内存布局、NAPI API组、MAC-PHY分层与DTS解析 — `linux` `网络` `网卡驱动` `NAPI` `sk_buff`
 - [linux-dma-iommu-subsystem](summaries/linux-dma-iommu-subsystem.md) — SoC驱动视角的DMA/IOMMU：三类DMA内存+三类传输方向+四步工作流；IOMMU五大功能与裸DMA四缺陷；dma_alloc_coherent/iommu_map/iommu_attach_device API与RK3588实验 — `linux` `dma` `iommu` `驱动` `SoC`
 - [linux-usb-subsystem](summaries/linux-usb-subsystem.md) — USB子系统：主从拓扑(≤127设备)/端点/管道/四种传输模式、三层架构(HCD/USB Core/设备驱动)、usb_driver/usb_device/usb_interface/urb结构体与URB API、HID引导协议键鼠8/4字节报文 — `linux` `usb` `内核` `驱动` `HID`
+- [linux-char-device-driver](summaries/linux-char-device-driver.md) — 字符设备驱动全链路：dev_t 12+20位设备号、cdev/cdev_map(major%255)散列表、file_operations-file-inode三角、设备号申请→cdev_init→cdev_add→device_create五步框架与open→def_chr_fops→chrdev_open→replace_fops路径 — `linux` `内核` `驱动` `字符设备` `cdev`
+- [linux-system-bus](summaries/linux-system-bus.md) — 系统总线全景：主板/芯片组与南北桥、按位置/用途/传输方式/位宽四维分类、带宽=频率×位宽/8、ISA→PCI→AGP→PCIe标准演进与历代带宽数字、规范三类(电气/机械/协议) — `硬件` `总线` `pcie` `主板` `接口`
+- [linux-copy-on-write](summaries/linux-copy-on-write.md) — fork写时复制内核实现：copy_page_range复制页表并把父子私有可写PTE置只读、handle_pte_fault写保护缺页、do_wp_page复用/复制分流与四步流程 — `linux` `内核` `内存` `COW` `fork`
+- [linux-buddy-slab-allocator](summaries/linux-buddy-slab-allocator.md) — 物理内存两级分配：伙伴系统按2^n页管理、分裂/合并与伙伴地址异或公式、内部碎片量化；SLAB从伙伴取页切对象、kmem_cache工作流与buddyinfo/pagetypeinfo/slabinfo读法 — `linux` `内核` `内存` `伙伴系统` `slab`
+- [linux-memory-reclaim-triggers](summaries/linux-memory-reclaim-triggers.md) — 内存回收三条入口：分配慢路径的紧缺回收(→try_to_free_pages→shrink_zone/shrink_slab→OOM)、kswapd周期性回收(balance_pgdat→kswapd_shrink_zone)、用户drop_caches；两个执行器分工 — `linux` `内核` `内存` `回收` `kswapd`
 
 ## Entities (Linux)
 
@@ -62,8 +67,8 @@ updated: 2026-11-11
 
 - [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
 - [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断全景：同步/异步四维分类、IRQ/softirq两阶段设计、三种延迟机制、GIC组件与irq_domain映射、ksoftirqd、SMP IRQ Affinity — `linux` `kernel` `interrupt` `irq` `softirq`
-- [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、LRU与Write策略，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
-- [virtual-memory-and-paging](concepts/virtual-memory-and-paging.md) — 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(PCID/ASID与shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优) — `linux` `内存` `虚拟内存` `分页` `页面置换`
+- [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、伙伴系统/SLAB两级分配、三条内存回收触发路径、LRU与Write策略、写时复制COW，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
+- [virtual-memory-and-paging](concepts/virtual-memory-and-paging.md) — 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(PCID/ASID与shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优)→写保护缺页/COW — `linux` `内存` `虚拟内存` `分页` `页面置换`
 - [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈全景：VFS→Block→SCSI五层架构、IO生命周期与下发流程、四大IO调度器、Page/Buffer Cache缓存层次、hctx tags busy阻塞确认，向下衔接SSD介质语义与PCIe链路 — `linux` `kernel` `io` `block` `scheduler`
 - [linux-fs-mount](concepts/linux-fs-mount.md) — 文件系统与Mount机制：mount/mountpoint/vfsmount三大结构+sys_mount五分支+do_new_mount两步挂载+lookup_mnt穿越挂载点 — `linux` `内核` `mount` `VFS` `文件系统`
 - [linux-boot-shutdown](concepts/linux-boot-shutdown.md) — Linux启动与关机：10步启动流程、关机多子系统协调、systemd与架构差异 — `linux` `kernel` `boot` `shutdown` `systemd`
@@ -83,6 +88,7 @@ updated: 2026-11-11
 - [linux-dma-mapping](concepts/linux-dma-mapping.md) — DMA映射两类：Coherent(一致性/长期映射)与Streaming(流式/按需map，可触发SWIOTLB bounce)；Intel IOMMU启用后DMA地址为IOVA经I/O页表翻译；IOMMU可把分散物理页聚合为连续IOVA — `linux` `dma` `iommu` `iova` `内存`
 - [linux-iommu-subsystem](concepts/linux-iommu-subsystem.md) — Linux内核统一IOMMU抽象层：屏蔽Intel VT-d/AMD/ARM SMMU差异；框架五层(DMA-MAP API/IOVA+RCACHE/IO页表/驱动回调/VFIO接口)；SVA让CPU与设备共享页表 — `linux` `IOMMU` `SMMU` `ARM` `内核`
 - [linux-driver-model](concepts/linux-driver-model.md) — Linux驱动总纲：字符/块/网络三类访问模型、LDM的bus-device-driver三角与probe匹配、platform/PCI/I2C/SPI/USB/AMBA总线框架、DTS与六大基础设施、devm托管范式 — `linux` `内核` `驱动` `设备模型` `设备树`
+- [copy-on-write](concepts/copy-on-write.md) — COW延迟复制策略：fork页级共享+写保护缺页、do_wp_page复用/复制判定，以及与mmap私有映射/OverlayFS copy-up的粒度差异 — `linux` `内存` `COW` `fork` `虚拟内存`
 
 ## Concepts (Linux 虚拟化)
 
@@ -103,6 +109,8 @@ updated: 2026-11-11
 - [linux-io-debugging](skills/linux-io-debugging.md) — IO性能排查与压测实操：iostat→fio→dd→blktrace→block_dump四步流程+SSD TRIM确认+IO调度器查看切换 — `linux` `io` `iostat` `fio` `blktrace` `dd` `性能分析`
 - [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包+iperf打流+Bonding调试日志+ARP/路由三张表排查 — `linux` `网络` `tcpdump` `iperf` `bonding`
 - [gdb-debugging-guide](skills/gdb-debugging-guide.md) — GDB调试实操速查：断点/观察点/执行控制/内存查看/多线程/多进程/Core Dump/QEMU调试 — `linux` `gdb` `调试` `QEMU` `断点` `观察点`
+- [linux-char-device-driver-template](skills/linux-char-device-driver-template.md) — 字符设备驱动六步骨架：定义dev_t/cdev→alloc_chrdev_region申请设备号→实现file_operations→cdev_init/cdev_add→class_create/device_create或mknod→逆序注销，含读写回调与注册注销代码片段 — `linux` `驱动` `字符设备` `内核模块` `实操`
+- [sre-interview-question-map](skills/sre-interview-question-map.md) — 三份面试记录的问题地图：按虚拟化/文件系统/网络/内存/调度分组，逐题标注 wiki 已有覆盖页与补源缺口 — `面试` `SRE` `运维` `知识地图` `复盘`
 
 ## Skills (Linux 虚拟化)
 
@@ -320,6 +328,7 @@ updated: 2026-11-11
 
 ## Recommendations (学习推荐)
 
+- [2026-11-12](recommendations/2026-11-12.md) — Harness + ACP 学习推荐：8篇官方文档下载+8项深度推荐+协议术语表；关键纠偏：IBM ACP 已并入 A2A，Zed ACP 是编辑器↔Agent 的另一个协议 — `Harness` `ACP协议` `Agent协议` `可观测性` `评测`
 - [2026-06-25](recommendations/2026-06-25.md) — Loop Engineering 学习推荐：12篇深度推荐+3篇博客下载+五要素/四代演进/Loopcraft/Salty Lesson/验证器瓶颈/Hill Climbing Loop — `Loop Engineering` `循环工程` `Agent架构` `验证器瓶颈` `Loopcraft`
 - [2026-06-15](recommendations/2026-06-15.md) — Harness Engineering 第二次推荐：9篇新博客+Meta-Harness/Loop Engineering/CDLC/Context Flywheel/Ralph Loop实践 — `Harness Engineering` `Agent架构` `Meta-Harness` `Loop Engineering` `上下文工程`
 - [2026-06-13](recommendations/2026-06-13.md) — Harness Engineering 首次推荐：15篇博客+9章节报告+核心术语表 — `Harness Engineering` `Agent架构` `约束系统` `反馈回路` `可靠性`

@@ -14,13 +14,15 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: core
 created: 2026-06-02
-updated: 2026-11-10
+updated: 2026-11-12
 relationships:
   - target: "[[concepts/kafka-architecture]]"
     type: uses
   - target: "[[concepts/linux-io-stack]]"
     type: related_to
   - target: "[[concepts/linux-memory-management]]"
+    type: related_to
+  - target: "[[concepts/copy-on-write]]"
     type: related_to
 ---
 
@@ -132,6 +134,8 @@ mmap 采用请求页面机制实现延迟加载：
 2. 应用程序访问映射地址时虚实映射尚未建立 → 触发**缺页中断**
 3. 内核通过 VMA 判断为文件映射 → 调用具体文件系统接口读入 Page Cache 项 → 填写虚实映射表
 4. 此后应用程序正常访问该内存区域
+
+若是 `MAP_PRIVATE` 私有映射，写入会先触发 [[concepts/copy-on-write]]：内核为写方复制一个匿名页再改，只读页仍共享 Page Cache。这与零拷贝"消除复制"的目标相反——COW 只是把复制推迟到真正需要时。 ^[inferred]
 
 ### mmap()优势
 1. 随机访问高效（指针偏移即可，无需lseek+read）

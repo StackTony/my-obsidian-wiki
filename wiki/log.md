@@ -744,3 +744,57 @@ title: Wiki Log
 - Manifest：新增 11 条非空 + 登记 11 条 0 字节占位；10 条格式变更同步哈希（3f8a01c「更新文档格式」= 追踪链接去 URL + 图片改链接/嵌入，行数几乎不变但字节数大降，语义未变，未重新蒸馏）；迁移 8 个 IOMMU 键；清理 2 条 0 字节陈旧键（`内存管理/Linux 页表管理.md`、`设备驱动管理/Linux DMA传输.md`）；total_sources_ingested 964→984、total_pages 197→204、total_summaries 47→53、total_concepts 90→91
 - 跳过项：11 个 0 字节占位未蒸馏；`Linux VFS 虚拟文件系统.md` 仅 180 字节目录框架、`Linux 学习大纲.md` 仅一行课程链接，均只登记不建独立页；obsidian-wiki CLI 不可用，delta 由手工 SHA-256 比对得出；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新
 - 遗留待确认：manifest 仍有 2 条无文件的旧键（`Linux 内核 IO 栈/Linux IO全景介绍.html` 源已被用户删除、`Linux 内核 IO 栈/Linux 缓存IO和直接IO.md` 内容已被 `Linux 直接IO、缓存IO、内存映射mmap.md` 取代），按「需用户确认才清理」保留
+
+## [2026-11-12] MAINTAIN | 去除文档冗余链接（zhida 追踪链）
+
+- [2026-11-12T17:25] SANITIZE file="Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md" pattern=zhida.zhihu.com links_removed=19 size=20982->12650 manifest_hash_synced=true re_distill=false
+- [2026-11-12T17:25] SKILL 沉淀 [[skills/raw-source-link-sanitization]]：改名为「去除文档冗余链接（追踪链接还原）」，补单文件最小操作三段命令、冗余链接判定标准（/search?、tools/blog-entry?target=、?target= 为冗余）与体积骤降的正常性说明
+- 剩余未清洗：raw 下另有 9 个文件 106 处 zhida 链接（AI Agent 平台 32 / ACP 上篇 23 / Kafka 17 / COW 10 / A2A 9 / ACP 下篇 5 / 精确率召回率 4 / devmem 3 / Graphify 3），待用户确认后批量处理
+- [2026-11-12T17:36] SANITIZE file="Linux 操作系统/Linux 内存管理/Linux Coye On Write（写时复制）.md" pattern=zhida.zhihu.com links_removed=17 size=17125->9498 re_distill=false manifest=未登记（源尚未 ingest，保持 new 状态待下次蒸馏）
+
+## [2026-11-12] INGEST | Linux 写时复制（COW）单来源
+
+- [2026-11-12T19:06] INGEST source="Linux 操作系统/Linux 内存管理/Linux Coye On Write（写时复制）.md" pages_created=2 pages_updated=5
+- 新建：summaries/linux-copy-on-write（主页面：fork 三代价、copy_page_range/copy_pud/pmd/pte_range、is_cow_mapping、handle_pte_fault 写保护分支、do_wp_page 四路分流、四步总结、fork 改变量实例）；concepts/copy-on-write（跨层概念页：延迟复制不变量、三阶段、判定速查表、mmap/OverlayFS/零拷贝边界）
+- 更新：concepts/virtual-memory-and-paging（新增"写保护缺页：写时复制"小节 + 实现对应表加 COW 行）；concepts/linux-memory-management（分页/TLB 基础列表加 COW 项）；summaries/linux-page-cache（mmap 四类映射表后补私有映射 COW 说明）；concepts/overlayfs-container-images（copy-up 与页级 COW 的粒度差异）；concepts/zero-copy-memory-mapping（mmap 私有映射与"消除复制 vs 推迟复制"对比）
+- 溯源：单来源（知乎专栏 https://zhuanlan.zhihu.com/p/579491341，blog 质量 0.55），base_confidence = 1/3×0.5 + 0.55×0.5 ≈ 0.44；provenance 摘要页 0.85/0.10/0.05、概念页 0.72/0.23/0.05
+- 标注：现代内核 `struct fault_env`→`struct vm_fault`、内核版本推断、THP 下 COW 粒度、KSM 交互均标 ^[inferred]/^[ambiguous]
+- Manifest：新增 1 条来源键；total_sources_ingested 984→985、total_pages 204→206、total_summaries 53→54、total_concepts 91→92
+- 备注：源文件此前已做过 zhida 追踪链接清洗（17 处，17125→9498 字节），本次按清洗后内容蒸馏；原文标题拼写为 "Coye"，文件名沿用未改
+- 跳过项：obsidian-wiki CLI 不可用（manifest/index/log/hot 手工维护）；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新
+
+## [2026-11-12] INGEST | Linux 驱动域 + 内存分配/回收增量：字符设备 / 系统总线 / PCI BDF 与枚举 / 中断分类表 / 伙伴与 SLAB / 内存回收
+
+- [2026-11-12T20:10] INGEST source="Linux 操作系统/Linux 驱动管理/Linux 字符设备 系统/Linux字符设备驱动.md" pages_created=2 pages_updated=1
+- 新建 summaries/linux-char-device-driver：dev_t 12+20 位设备号、cdev 与 cdev_map（major%255 散列）、file_operations-file-inode 三角、设备号申请→cdev_init→cdev_add→device_create 五步、open 经 def_chr_fops→chrdev_open→replace_fops 绑定驱动、copy_to/from_user 数据面
+- 新建 skills/linux-char-device-driver-template：六步骨架（dev_t/cdev 定义→alloc_chrdev_region→fops→cdev_init/cdev_add→class_create/device_create 或 mknod→逆序注销），含 read/write 与注册注销代码片段
+- 更新 concepts/linux-driver-model：新增「字符设备：从设备号到 open」小节，summary/source_files 扩充，base_confidence 0.59→0.76
+- [2026-11-12T20:15] INGEST source="Linux 操作系统/Linux 驱动管理/Linux 系统总线 (PCIe、ISA、SCSI、USB等).md" pages_created=1 pages_updated=1
+- 新建 summaries/linux-system-bus：主板/芯片组与南北桥、按位置/用途/传输方式/位宽四维分类、带宽=频率×位宽/8、ISA→PCI→AGP→PCIe 演进与历代带宽、规范三类（电气/机械/协议）；旧键 `(PCI、ISA、SCSI、USB 等).md` 迁移至新键
+- [2026-11-12T20:18] INGEST source="Linux 操作系统/Linux 驱动管理/Linux PCI 系统/Linux PCI设备BDF号.md" + "Linux PCIe设备枚举.md" pages_updated=1
+- 更新 summaries/linux-pci-subsystem：新增「BDF 三元组：配置空间的全局地址」（Bus 8/Device 5/Function 3 位）与「枚举流程：从 ACPI 根节点到递归扫描」（pci_root_handler/PNP0A03→acpi_pci_root_add→pci_create_root_bus→pci_scan_child_bus→pci_scan_slot→pci_scan_device→pci_device_add→桥递归）；0 字节占位 `Linux PCIe设备枚举.md` 已补齐并重新蒸馏，base_confidence 0.59→0.82
+- [2026-11-12T20:22] INGEST source="Linux 操作系统/Linux 中断系统/1 Linux 中断分类表.md"（修改 +1663B）pages_updated=2
+- 更新 summaries/linux-interrupt-classification：新增「典型例子速查」表（SPI/PPI/LPI/MSI-X/IPI/LVT/NMI）与「Linux 预定义 Softirq（10 种）」清单；concepts/linux-interrupt-system 的 source_files 同步为改名后的 `1 Linux 中断分类表.md`
+- 新建 skills/sre-interview-question-map：三份面试记录（DeepSeek / 佳琪投资 / 阿里云）问题按虚拟化、文件系统、网络、内存、调度与中断分组，标注 wiki 覆盖页与补源缺口；已修正 `[[concepts/linux-scheduler]]` 断链为 `[[concepts/linux-process-scheduling]]`
+- [2026-11-12T20:24] INGEST source="物理硬件/磁盘/磁盘上报识别流程.md" pages_updated=1
+- 更新 concepts/linux-io-stack：source_files +1；内容已与既有设备发现链路一致，未重复蒸馏
+- [2026-11-12T20:30] INGEST source="Linux 操作系统/Linux 内存管理/Linux 伙伴分配器与 SLAB 分配器.md" pages_created=1 pages_updated=1
+- 新建 summaries/linux-buddy-slab-allocator：阶/页块/伙伴定义、分配向上取整+逐级分裂、释放查伙伴+递归合并、伙伴地址异或公式、16 页手算例、内部碎片量化、buddyinfo/pagetypeinfo/slabinfo 读法、SLAB 四级 API 与两者对比
+- [2026-11-12T20:31] INGEST source="Linux 操作系统/Linux 内存管理/Linux 内存回收机制.md"（36B，仅一张回收调用图）pages_created=1 pages_updated=1
+- 新建 summaries/linux-memory-reclaim-triggers：三条入口（紧缺回收 __alloc_pages_slowpath→direct_reclaim→try_to_free_pages→shrink_zone/shrink_slab→OOM；kswapd→balance_pgdat→kswapd_shrink_zone；drop_caches→drop_slab/drop_pagecache_sb）与两个执行器分工；图为提取、箭头解读为推断
+- 更新 concepts/linux-memory-management：新增「页框分配：伙伴系统与 SLAB 两级分工」「内存回收的三条触发路径」两节，summary/source_files 扩充，base_confidence 0.78→0.80
+- 溯源：字符设备来源为官方/教程文档（质量 0.85），base_confidence 0.59；系统总线为博客（0.55）→0.44；面试记录为会话笔记（0.5）→0.75（内容可信度低，tier=peripheral）
+- 未重新蒸馏（仅哈希同步）：36 个修改文件中其余为 zhida 追踪链接清洗、表格重排等非语义变更（USB -6167B、CFS、K8s 术语/安全、PagedAttention、ACP/AI Agent、cpp_blog 等），按 git 历史逐项确认
+- 跳过项：3 个 PPT（软件工程/设计原则、设计框架、设计模式）为二进制且提取乱码，未入库；4 个 Obsidian 脚本/JSON 资源（insert-tavily-search.sh、scheduled_tasks.json、install.ps1 等）跳过；obsidian-wiki CLI 不可用，delta 由手工 SHA-256 比对得出；QMD_WIKI_COLLECTION 未设置，跳过 QMD 刷新
+- Manifest：新增 9 条来源键（字符设备、系统总线、PCI BDF、磁盘上报、3 份面试记录、伙伴/SLAB、内存回收）+ 迁移 1 个系统总线旧键 + 清理 2 个已改名的 0 字节旧键（`Linux 伙伴分配器.md`、`Linux 页回收机制.md`）；同步 36 个修改文件哈希；total_sources_ingested 985→991、total_pages 206→212、total_summaries 54→58（按实际文件数校正）、total_skills 18→20
+
+## [2026-11-12] LEARN | Harness + ACP 协议学习推荐
+
+- [2026-11-12T21:49] LEARN topic="Harness / ACP协议" category=原理介绍/技术分析/架构图
+- 主题确认：`recommendations/1-Day learn` 优先了解章节指定 Harness 与 ACP协议，要求整理核心术语表
+- 已有覆盖核查：concepts/harness-engineering（core，四支柱+三范式+失败模式）、concepts/loop-engineering、concepts/agent-framework-engineering、concepts/agent-communication-protocols、summaries/acp-protocol、summaries/a2a-protocol、concepts/tool-calling-mcp、concepts/llm-observability
+- 识别缺口：①Harness 无可观测性/评测专节（无 trajectory、离线/在线评测、指标与失败分类）；②ACP 缩写二义（IBM Agent Communication Protocol vs Zed Agent Client Protocol）；③IBM ACP 官网已宣布并入 A2A，现有协议栈页面事实过时；④A2A 技能与 MCP 资源的互操作边界未覆盖
+- 推荐报告：wiki/recommendations/2026-11-12.md，含 2 个延伸方向（Harness 可观测性与评测、ACP 语义分叉与协议收敛）、8 篇深度推荐、学习路径、知识图谱建议、核心术语表（Harness 14 项/评测 13 项/协议 16 项）
+- 下载 8 篇官方一手文档至 `raw/sources/Self learn/Harness Engineering/`（Databricks Harness、Agent Evaluation）与 `raw/sources/Self learn/ACP协议/`（Zed ACP 首页与协议概览、IBM ACP、A2A 是什么、A2A vs MCP、MCP 入门），均标记 `credibility: low`
+- 检索方式：tavily-search MCP 本会话不可用，按 CLAUDE.md 降级为 Defuddle 直取官方页面；ACP 目录为新建，无历史重复下载
+- 纠偏信号：`summaries/acp-protocol` 与 `concepts/agent-communication-protocols` 需在下次 ingest 时更新（ACP 已并入 A2A；新增编辑器↔Agent 客户端协议层），本次仅记录于推荐报告，未改写既有页面

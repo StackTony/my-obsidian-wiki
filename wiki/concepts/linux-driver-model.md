@@ -19,18 +19,18 @@ relationships:
   - target: "[[synthesis/linux-kernel-subsystem-interactions]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 驱动管理
-source_files: [1 Linux 驱动架构.md]
-summary: Linux 驱动器总纲：字符/块/网络三类设备访问模型、LDM 的 bus-device-driver 三角与 probe 匹配、platform/PCI/I2C/SPI/USB/AMBA 总线框架、DTS 与中断/时钟/PM/DMA/GPIO/regmap 六大基础设施、devm 托管范式。
+source_files: [1 Linux 驱动架构.md, Linux 字符设备 系统/Linux字符设备驱动.md]
+summary: Linux 驱动总纲：字符/块/网络三类设备访问模型、LDM 的 bus-device-driver 三角与 probe 匹配、platform/PCI/I2C/SPI/USB/AMBA 总线框架、DTS 与中断/时钟/PM/DMA/GPIO/regmap 六大基础设施、devm 托管范式，以及字符设备 dev_t/cdev/fops 的注册与 open 路径。
 provenance:
-  extracted: 0.78
-  inferred: 0.20
+  extracted: 0.80
+  inferred: 0.18
   ambiguous: 0.02
-base_confidence: 0.59
+base_confidence: 0.76
 lifecycle: draft
 lifecycle_changed: 2026-11-11
 tier: supporting
 created: 2026-11-11
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 
 # Linux 驱动模型与三大设备类型
@@ -80,6 +80,18 @@ regmap / gpiod / pinctrl / clkdev / reset / PHY    ← 公共抽象
 | 块设备 | 扇区、随机、可缓存 | `block_device`、`gendisk`、`bio`、request 队列 | SSD、HDD、eMMC、SD | 是（有缓存与合并） |
 | 网络设备 | 包、收发队列 | `net_device`、`sk_buff`、`ndo_start_xmit` | 网卡、WiFi、tap/veth | 否（socket 直达） |
 
+### 字符设备：从设备号到 open
+
+字符设备是三类设备中最基础的一类，其完整链路可作为理解"VFS 如何找到驱动"的样板：
+
+- **设备号 `dev_t`**：32 位，高 12 位主设备号、低 20 位次设备号；`MAJOR/MINOR/MKDEV` 做位运算。主设备号标识驱动，次设备号标识实例。
+- **`struct cdev`**：字符设备对象，内嵌 `kobject`、持有 `file_operations *ops` 与 `dev_t`；内核用 `cdev_map` 散列表（`major % 255`）按设备号管理所有 `cdev`。
+- **`file_operations`**：`open/read/write/release/unlocked_ioctl/llseek` 等函数指针，是系统调用与驱动的桥梁。
+- **注册五步**：申请设备号 → `cdev_init()` → `cdev_add()` → `device_create()`（或 `mknod`）→ 退出时逆序注销。
+- **open 的关键一跳**：inode 初始只挂通用 `def_chr_fops`；`chrdev_open()` 用 `inode->i_rdev` 在 `cdev_map` 中查出 `cdev`，`replace_fops()` 把 `file->f_op` 换成驱动 fops，再回调驱动 `open()`。
+
+数据面必须用 `copy_to_user()` / `copy_from_user()` 跨越用户/内核边界，不能直接解引用用户指针。完整展开见 [[summaries/linux-char-device-driver]]，可照抄的代码骨架见 [[skills/linux-char-device-driver-template]]。
+
 ### 重点总线框架
 
 | 总线 | 适用 | 设备来源 |
@@ -91,7 +103,7 @@ regmap / gpiod / pinctrl / clkdev / reset / PHY    ← 公共抽象
 | USB | 外设 | host/device/gadget 三层，支持热插拔 |
 | AMBA（ARM） | AHB/APB 内置外设 | DTS |
 
-platform 的链路最典型：`DTS → platform_device → platform_driver → probe`。
+platform 的链路最典型：`DTS → platform_device → platform_driver → probe`。物理层的总线分类、带宽公式与 ISA→PCI→AGP→PCIe 演进见 [[summaries/linux-system-bus]]。
 
 ### USB 总线的特殊性
 
@@ -132,4 +144,5 @@ USB 是这批总线里唯一"设备发现不靠地址、不靠枚举表，而靠
 ## 来源
 
 - `raw/sources/Linux 操作系统/Linux 驱动管理/1 Linux 驱动架构.md` — 驱动架构总览：三类设备、LDM、总线框架、六大基础设施、sysfs/udev、两种写法、上下文约束、学习路线
-- 交叉：[[summaries/linux-pci-subsystem]]、[[summaries/linux-block-subsystem]]、[[summaries/linux-network-device-subsystem]]、[[summaries/linux-scsi-subsystem]]、[[summaries/linux-usb-subsystem]]（五个子系统的具体实现）
+- `raw/sources/Linux 操作系统/Linux 驱动管理/Linux 字符设备 系统/Linux字符设备驱动.md` — 字符设备抽象、设备号/cdev/fops/file/inode、注册五步与 open 路径
+- 交叉：[[summaries/linux-pci-subsystem]]、[[summaries/linux-block-subsystem]]、[[summaries/linux-network-device-subsystem]]、[[summaries/linux-scsi-subsystem]]、[[summaries/linux-usb-subsystem]]（五个子系统的具体实现）、[[summaries/linux-system-bus]]（物理总线标准）

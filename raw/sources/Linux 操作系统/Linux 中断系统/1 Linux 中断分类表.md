@@ -1,19 +1,18 @@
 ## 一、中断分类汇总与对比
 
 ### 1.1 中断术语汇总表
-
-| 中断术语                     | 英文全称                                                             | 所属大类        | 触发驱动来源                             | 管理/规范体系             | 是否可被软件屏蔽   |
-| ------------------------ | ---------------------------------------------------------------- | ----------- | ---------------------------------- | ------------------- | ---------- |
-| **SPI**                  | Shared Peripheral Interrupt                                      | 异步硬中断       | 外部物理硬件外设（如串口、老的网卡）                 | ARM GIC 体系          | 是          |
-| **PPI**                  | Private Peripheral Interrupt                                     | 异步硬中断       | CPU 核心私有硬件（如 Local Timer）          | ARM GIC 体系          | 是          |
-| **LPI**                  | Locality-specific Peripheral Interrupt                           | 异步硬中断       | PCIe 等设备基于内存写入的硬件消息                | ARM GICv3/v4（ITS）   | 是          |
-| **MSI / MSI-X**          | Message Signaled Interrupt / Message Signaled Interrupt eXtended | 异步硬中断       | PCIe 总线报文消息（网卡、nvme磁盘）             | PCI/PCIe 局部总线标准     | 是          |
-| **IPI（x86）/ SGI（ARM）**   | Inter-Processor Interrupt / Software Generated Interrupt         | 异步硬中断       | 另一个 CPU 核心发出                       | x86 APIC / ARM GIC  | 是          |
-| **本地中断（x86 LVT）**        | Local Interrupt（Local Vector Table）                              | 异步硬中断       | CPU 核心内部本地资源（定时器、性能计数器、温控、APIC 错误） | x86 Local APIC（LVT） | 是          |
-| **NMI**                  | Non-Maskable Interrupt                                           | 异步硬中断       | 硬件灾难性故障信号/高级硬件采样                   | x86 / 各种 CPU 架构     | **否**      |
-| **INT n / SVC（软中断指令）**   | Interrupt Instruction / Supervisor Call                          | 同步中断（陷阱）    | 软件代码明确编写的系统调用指令                    | CPU 指令集架构           | 否（直接陷入）    |
-| **Fault / Trap / Abort** | ——（本身即英文全称）                                                      | 同步中断（异常）    | 指令执行错误或主动调试/检测点                    | CPU 指令集架构           | 否（同步，不可屏蔽） |
-| **Softirq**              | Software Interrupt                                               | 内核机制（非硬件中断） | Linux 内核为缓解硬中断压力的软件延时机制            | Linux 操作系统          | ——         |
+| 中断术语                     | 英文全称                                                             | 所属大类        | 触发驱动来源                             | 管理 / 规范体系           | 是否可被软件屏蔽   | 典型举例                                                                                           |
+| ------------------------ | ---------------------------------------------------------------- | ----------- | ---------------------------------- | ------------------- | ---------- | ---------------------------------------------------------------------------------------------- |
+| **SPI**                  | Shared Peripheral Interrupt                                      | 异步硬中断       | 外部物理硬件外设（如串口、老的网卡）                 | ARM GIC 体系          | 是          | UART 串口、GPIO 按键、I2C/SPI 外设、SATA 控制器、传统有线网卡                                                     |
+| **PPI**                  | Private Peripheral Interrupt                                     | 异步硬中断       | CPU 核心私有硬件（如 Local Timer）          | ARM GIC 体系          | 是          | ARM Generic Timer（核本地定时器）、Per-core PMU 性能计数器溢出、单核心独立看门狗、VGIC 维护中断、vtimer中断                     |
+| **LPI**                  | Locality-specific Peripheral Interrupt                           | 异步硬中断       | PCIe 等设备基于内存写入的硬件消息                | ARM GICv3/v4（ITS）   | 是          | NVMe SSD MSI-X 队列中断、25G/100G 网卡 RSS 多队列中断、PCIe GPU、Virtio-PCI 设备 MSI-X、PCIe FPGA、VFIO和Virtio中断 |
+| **MSI / MSI-X**          | Message Signaled Interrupt / Message Signaled Interrupt eXtended | 异步硬中断       | PCIe 总线报文消息（网卡、nvme 磁盘）            | PCI/PCIe 局部总线标准     | 是          | 同 LPI 场景：NVMe IO 队列、高速网卡多队列、RAID 卡；x86 下直接由 APIC 接收，ARM 下经 ITS 转 LPI                           |
+| **IPI（x86）/ SGI（ARM）**   | Inter-Processor Interrupt / Software Generated Interrupt         | 异步硬中断       | 另一个 CPU 核心发出                       | x86 APIC / ARM GIC  | 是          | 跨核 TLB 刷新、smp_call_function 跨核执行函数、调度抢占 reschedule IPI、核间中断 停机 / 唤醒、cache 同步                   |
+| **本地中断（x86 LVT）**        | Local Interrupt（Local Vector Table）                              | 异步硬中断       | CPU 核心内部本地资源（定时器、性能计数器、温控、APIC 错误） | x86 Local APIC（LVT） | 是          | APIC 本地定时器、LAPIC 性能监控中断、温度告警、APIC 内部错误中断                                                       |
+| **NMI**                  | Non-Maskable Interrupt                                           | 异步硬中断       | 硬件灾难性故障信号 / 高级硬件采样                 | x86 / 各种 CPU 架构     | 否          | 内存 ECC 严重错误、硬件看门狗超时、PCIe 致命错误、内核 panic 前硬件 NMI 捕获                                              |
+| **INT n / SVC（软中断指令）**   | Interrupt Instruction / Supervisor Call                          | 同步中断（陷阱）    | 软件代码明确编写的系统调用指令                    | CPU 指令集架构           | 否（直接陷入）    | x86 `int 0x80`、ARM64 `svc #0` 系统调用、调试断点指令                                                      |
+| **Fault / Trap / Abort** | ——（本身即英文全称）                                                      | 同步中断（异常）    | 指令执行错误或主动调试 / 检测点                  | CPU 指令集架构           | 否（同步，不可屏蔽） | 缺页异常（Fault）、断点调试（Trap）、未定义指令、总线错误、对齐异常（Abort）                                                  |
+| **Softirq**              | Software Interrupt                                               | 内核机制（非硬件中断） | Linux 内核为缓解硬中断压力的软件延时机制            | Linux 操作系统          | ——         | 网络收包（NET_RX）、tasklet 底层载体、块设备刷盘、定时器下半部                                                         |
 
 ### 1.2 同步异常 vs 异步中断核心对比
 

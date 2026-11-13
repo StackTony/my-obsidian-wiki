@@ -17,7 +17,7 @@ relationships:
   - target: "[[concepts/linux-io-models]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 内核 IO 栈
-source_files: [Linux IO全景介绍.html, Linux IO栈介绍.md, Linux IO下发流程.md, "==Linux IO调度算法==/Linux 内核的 4 大 IO 调度算法.md", "Linux IO技术/Linux 文件一致性问题&Dirty概念&解决方案.md", "Linux 操作系统/Linux 驱动管理/Linux Block块设备 系统/Linux内核块设备.md", "Linux 操作系统/Linux 驱动管理/Linux SCSI 系统/Linux内核SCSI子系统.md", "物理硬件/磁盘/TRIM擦除指令.md", "物理硬件/PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md"]
+source_files: [Linux IO全景介绍.html, Linux IO栈介绍.md, Linux IO下发流程.md, "==Linux IO调度算法==/Linux 内核的 4 大 IO 调度算法.md", "Linux IO技术/Linux 文件一致性问题&Dirty概念&解决方案.md", "Linux 操作系统/Linux 驱动管理/Linux Block块设备 系统/Linux内核块设备.md", "Linux 操作系统/Linux 驱动管理/Linux SCSI 系统/Linux内核SCSI子系统.md", "物理硬件/磁盘/TRIM擦除指令.md", "物理硬件/PCIe/PCIE错误类型与NVMe掉盘根因诊断指南.md", "物理硬件/磁盘/磁盘上报识别流程.md"]
 summary: Linux IO栈分层架构：VFS→Block层→SCSI/NVMe→驱动→硬件。Block层bio/request_queue/调度器协作；4大IO调度器对比（Noop/CFQ/Deadline/Anticipatory）；设备发现从pci_device_probe到add_disk；hctx tags busy确认IO阻塞；cache_type决定write through/back。
 provenance:
   extracted: 0.82
@@ -28,7 +28,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 
 # Linux IO栈
@@ -237,3 +237,4 @@ IO栈与 [[concepts/linux-memory-management]] 的 Page Cache 紧密交互，Writ
 - [[summaries/linux-page-cache]] — Page Cache与IO路径的交互
 - [[summaries/linux-meminfo-params]] — 内存统计中与IO相关的Buffers/Cached字段
 - [[concepts/linux-io-models]] — IO模型与缓存IO/直接IO
+- `raw/sources/物理硬件/磁盘/磁盘上报识别流程.md` — 磁盘设备从 PCI probe 到 `/dev/sda` 的识别流程图（与"设备发现流程"小节一致，作交叉印证）

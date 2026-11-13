@@ -10,6 +10,8 @@ relationships:
     type: uses
   - target: "[[concepts/linux-memory-management]]"
     type: uses
+  - target: "[[concepts/copy-on-write]]"
+    type: related_to
 source_dir: 云原生/容器运行时/从零造容器系列
 source_files: [【从零造容器】5 OverlayFS：一层一层像洋葱.md]
 summary: OverlayFS联合挂载四目录(lowerdir+upperdir+workdir+merged)；Copy-on-Write首次写100MB文件慢263倍(47.32ms vs 0.18ms)；overlay2是Docker默认驱动；数据库文件必须放在volume上
@@ -22,7 +24,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-02
 tier: supporting
 created: 2026-06-02
-updated: 2026-06-13
+updated: 2026-11-12
 ---
 
 # OverlayFS 与容器镜像分层
@@ -54,6 +56,8 @@ merged (合并视图，用户看到的)
 3. merged视图呈现修改后的版本
 
 **性能代价**：首次写100MB文件 47.32ms（copy-up）vs 第二次0.18ms（只写upperdir已有副本）。263倍差距。
+
+注意与内存层的 COW 区分：OverlayFS 的复制单位是**整个文件**（copy-up），而 [[concepts/copy-on-write]] 的单位是 4KB 物理页——前者改 1 字节可能复制 100MB，后者只复制一页。粒度差异是这条性能差距的根源。 ^[inferred]
 
 ### Whiteout 删除机制
 

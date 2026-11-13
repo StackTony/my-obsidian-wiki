@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-11-10
+updated: 2026-11-12
 relationships:
   - target: "[[concepts/linux-memory-management]]"
     type: related_to
@@ -26,6 +26,8 @@ relationships:
   - target: "[[concepts/virtual-memory-and-paging]]"
     type: related_to
   - target: "[[concepts/page-cache-vs-buffer-cache]]"
+    type: related_to
+  - target: "[[concepts/copy-on-write]]"
     type: related_to
 ---
 
@@ -110,6 +112,8 @@ Linux采用per存储设备的刷新线程模型（类似Lighttpd架构）：
 | 私有文件 | `MAP_FILE\|MAP_PRIVATE` | 只读页=Page Cache；写时复制副本=AnonPages | 只读页共享，写触发COW |
 | 共享文件 | `MAP_FILE\|MAP_SHARED` | Page Cache | 读写在同一物理页 |
 | 共享匿名 | `MAP_ANON\|MAP_SHARED` | Shmem（Page Cache） | 借助虚拟文件系统实现共享内存 |
+
+其中"私有文件"这一行的写分支就是写时复制：只读访问时进程 PTE 指向 Page Cache 页，首次写触发保护性缺页，内核为该进程复制一个匿名页（计入 AnonPages）并改映射，此后该页与文件脱钩、也不再回写文件。机制细节见 [[concepts/copy-on-write]]。
 
 ### 反向映射（Reverse Mapping）
 

@@ -1,31 +1,34 @@
 ---
-title: 导入源追踪链接清洗（中文技术站）
+title: 去除文档冗余链接（追踪链接还原）
 category: skills
 tags: [obsidian, wiki, 维护, 正则, 来源清洗]
-aliases: [追踪链接清洗, zhida链接清理, 知乎链接还原]
+aliases: [追踪链接清洗, zhida链接清理, 知乎链接还原, 去除文档冗余链接, 冗余链接清洗, doc-link-sanitization]
 relationships:
   - target: "[[projects/my-obsidian-wiki]]"
     type: related_to
   - target: "[[summaries/linux-iommu-smmu-illustrated]]"
     type: related_to
-summary: 把知乎/腾讯云等中文技术站的跳转链 `[文字](https://zhida.zhihu.com/...)` 还原为纯文本的实操流程：三类形态识别、正则替换、数量闭合验证、manifest 哈希同步（不重新蒸馏）与单文件回滚。
+summary: 把知乎/腾讯云等中文技术站的跳转链 `[文字](https://zhida.zhihu.com/...)` 还原为纯文本的能力：三类形态识别、一行命令替换、数量闭合验证、manifest 哈希同步（不重新蒸馏）与单文件回滚。
 provenance:
-  extracted: 0.60
-  inferred: 0.35
+  extracted: 0.62
+  inferred: 0.33
   ambiguous: 0.05
 base_confidence: 0.42
 lifecycle: draft
 lifecycle_changed: 2026-11-11
 tier: supporting
 created: 2026-11-11
-updated: 2026-11-11
+updated: 2026-11-12
 sources:
   - conversation:2026-11-11
+  - conversation:2026-11-12
 ---
 
-# 导入源追踪链接清洗（中文技术站）
+# 去除文档冗余链接（追踪链接还原）
 
-从知乎、腾讯云开发者社区复制的文章，正文术语常被自动包成带追踪参数的跳转链接。本页记录一次完整清洗（437 处、14 个 raw 源文件）验证过的流程，供后续其他目录复用。
+**能力定义**：把「**链接文字被第三方追踪 URL 包裹**」的冗余标记还原为纯文本，只保留方括号里的原始文字。典型输入 `[计算机技术](https://zhida.zhihu.com/search?...zd_token=...)`，输出 `计算机技术`。
+
+从知乎、腾讯云开发者社区复制的文章，正文术语常被自动包成带追踪参数的跳转链接。本页记录两次实操验证过的流程（2026-11-11 批量 437 处 / 14 个文件；2026-11-12 单文件 19 处），供后续任意目录复用。
 
 ## 概述
 
@@ -38,6 +41,24 @@ sources:
 | 知乎外链 | `link.zhihu.com/?target=<原URL>` 包裹外链 | `[fs/mount.h](https://link.zhihu.com/?target=...)` |
 
 处理目标：只保留方括号内的链接文字，丢掉整个 URL。追踪参数里的 `zd_token` 会过期，且属于第三方追踪标识。
+
+判断标准只有一条：**URL 是"跳转/搜索"性质的中间层，而非原文真实指向**。真实外链（如 `[RFC 2119](https://www.rfc-editor.org/rfc/rfc2119)`）必须保留——去掉就丢了引用价值。
+
+## 最小操作（单文件）
+
+```bash
+# 1) 先看清形态：域名总次数 vs markdown 链接数，相等才能一把梭
+grep -c "zhida\.zhihu\.com" "<file>"
+
+# 2) 替换：只保留方括号文字
+perl -i -pe 's/\[([^\]]*)\]\(https?:\/\/zhida\.zhihu\.com\/[^)]*\)/$1/g' "<file>"
+
+# 3) 验证闭合：应为 0；再 diff 确认只动了目标行
+grep -c "zhida\.zhihu\.com" "<file>"; git diff --stat -- "<file>"
+```
+
+批量版把 `<file>` 换成 `grep -rl ... | while IFS= read -r f`。三个域名（`zhida.zhihu.com` / `cloud.tencent.com/developer/tools/blog-entry` / `link.zhihu.com`）各自一条正则，不要合并——合并后容易把真实外链一起吃掉。
+
 
 ## 前置条件
 
@@ -88,6 +109,8 @@ sources:
 | git 报 `LF will be replaced by CRLF` | 既有 autocrlf 配置的提示，不代表本次改动损坏行尾；用 `git diff --stat` 确认只改目标行 |
 | 文件名含空格/中文 | 批量循环用 `find -print0` + `IFS= read -r -d ''`，不要 `for f in $(...)` |
 | 0 字节文件哈希相同（`e3b0c442...`） | 是空文件 SHA-256 碰撞，不能当作改名依据 |
+| 清洗后文件体积骤降 40%+ | 正常：zhida 的 `zd_token` 是 JWT，单条 URL 常达 400~500 字节；按体积累计 −8KB / 19 处 |
+| 不确定某条链接是不是冗余 | 看 URL 是否指向 `/search?`、`tools/blog-entry?target=`、`?target=`——是则冗余；指向域名+路径的正文页则保留 |
 
 ## 进阶用法
 
@@ -98,4 +121,5 @@ sources:
 ## 来源
 
 - 2026-11-11 会话操作记录：`raw/sources/Linux 操作系统/` 下 14 个文件、437 处链接（zhida 321 / cloud.tencent 104 / link.zhihu 12），manifest 18 个键迁移 + 哈希同步。
+- 2026-11-12 单文件操作记录：`raw/sources/Linux 操作系统/Linux 内核 IO 栈/Linux IOMMU/Linux IOMMU、SMMU(ARM)技术图解.md` 19 处 zhida 链接，文件 20982 → 12650 字节（URL 几乎全为追踪参数，单处约 440 字节），manifest 哈希同步、未重新蒸馏。
 - [[projects/my-obsidian-wiki]] — 本 vault 的运营模式索引。

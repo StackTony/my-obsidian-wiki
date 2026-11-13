@@ -6,18 +6,18 @@ relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 中断系统
-source_files: [Linux 中断分类表.md]
-summary: 中断分类四维度框架：同步/异步是主轴，"软/硬"是通俗叫法，上/下半部是处理阶段，功能视角与机制正交。含SPI/PPI/LPI/MSI-X/IPI/NMI/LVT与Fault/Trap/Abort术语速查表。
+source_files: [1 Linux 中断分类表.md]
+summary: 中断分类四维度框架：同步/异步是主轴，"软/硬"是通俗叫法，上/下半部是处理阶段，功能视角与机制正交。含SPI/PPI/LPI/MSI-X/IPI/NMI/LVT与Fault/Trap/Abort术语速查表、典型例子与10种Softirq清单。
 provenance:
-  extracted: 0.85
+  extracted: 0.86
   inferred: 0.10
-  ambiguous: 0.05
+  ambiguous: 0.04
 base_confidence: 0.6
 lifecycle: draft
 lifecycle_changed: 2026-11-09
 tier: supporting
 created: 2026-11-09
-updated: 2026-11-09
+updated: 2026-11-12
 ---
 
 # Linux中断分类总览
@@ -95,6 +95,18 @@ updated: 2026-11-09
 4. **不可屏蔽中断（NMI）**：最高优先级的硬件中断，`cli` 关不掉。硬件故障类（看门狗超时、不可纠正 ECC）通常直接崩溃；调试监控类（NMI Watchdog 死锁检测、perf 硬件采样）利用不可屏蔽性在关中断场景采集 CPU 状态。
 5. **本地中断（x86 LVT）**：CPU 核内本地资源产生、每核私有，经本地 APIC 的 LVT 直接投递本核、不经 IOAPIC。来源含本地定时器（tick/高精度，支持 TSC-deadline）、性能计数器溢出（perf 采样）、温度传感器、APIC 错误/CMCI。概念上与 ARM 的 PPI 对应。
 
+**典型例子速查（源文 2026-11 版补充）**：
+
+| 机制 | 典型例子 |
+|---|---|
+| SPI | UART 串口、GPIO 按键、I2C/SPI 外设、SATA 控制器、传统有线网卡 |
+| PPI | ARM Generic Timer、每核 PMU 溢出、单核独立看门狗、VGIC 维护中断、vtimer |
+| LPI | NVMe SSD MSI-X 队列、25G/100G 网卡 RSS 多队列、PCIe GPU、Virtio-PCI MSI-X、VFIO/Virtio 中断 |
+| MSI / MSI-X | NVMe IO 队列、高速网卡多队列、RAID 卡；x86 由 APIC 直接接收，ARM 经 ITS 转 LPI |
+| IPI / SGI | 跨核 TLB 刷新、`smp_call_function`、调度抢占 resched IPI、核间停机/唤醒、缓存同步 |
+| x86 LVT | LAPIC 本地定时器、性能监控中断、温度告警、APIC 内部错误中断 |
+| NMI | 不可纠正 ECC、硬件看门狗超时、PCIe 致命错误、panic 前硬件捕获 |
+
 ### 同步异常三类（要点）
 
 1. **故障 Fault**（被动、可恢复）：PC 指向**当前指令**，处理后重新执行。缺页（含按需调页/COW 正常场景与 SIGSEGV 场景）、#GP、#DE、#UD。
@@ -114,6 +126,10 @@ updated: 2026-11-09
 3. **功能叫法与机制类别不在同一层级**：现代网卡 IRQ 的机制实现是 MSI-X，ARM 定时器中断的机制实现是 PPI，x86 本地定时器的机制实现是 LAPIC LVT。跨层混比会产生"网卡中断和 MSI-X 谁包含谁"这类无意义问题。
 4. **ARM 上 MSI/MSI-X 与 LPI 的关系**：GICv3+ 平台上，设备发出的 MSI/MSI-X 写请求由 GIC 的 ITS（中断翻译服务）翻译成 LPI，再经 Redistributor 投递到目标 CPU 核——**MSI/MSI-X 是设备侧的"发出形式"（PCIe 总线协议层），LPI 是 GIC 侧的"接收类型"（中断控制器层）**，不是两种并列的中断；x86 上同样的 MSI/MSI-X 写直接落入 Local APIC，没有 LPI 这个中间类型。
 
+### Linux 预定义 Softirq（10 种）
+
+`HI_SOFTIRQ`（高优先级）、`TIMER_SOFTIRQ`（内核定时器）、`NET_TX_SOFTIRQ` / `NET_RX_SOFTIRQ`（网络收发包，最常用）、`BLOCK_SOFTIRQ`（块设备 IO）、`IRQ_POLL_SOFTIRQ`（IO 轮询）、`TASKLET_SOFTIRQ`（Tasklet 的底层载体）、`SCHED_SOFTIRQ`（多核调度负载均衡）、`HRTIMER_SOFTIRQ`（高精度定时器）、`RCU_SOFTIRQ`（RCU 回收）。
+
 ## 未解问题
 
 - LPI 中断号范围（8192-MAX）的实际上限取决于 GIC 实现与 ITS 配置，不同 SoC 差异待补充。 ^[inferred]
@@ -121,7 +137,7 @@ updated: 2026-11-09
 
 ## 来源
 
-- `raw/sources/Linux 操作系统/Linux 中断系统/Linux 中断分类表.md` — 原始文章
+- `raw/sources/Linux 操作系统/Linux 中断系统/1 Linux 中断分类表.md` — 原始文章（2026-11 版补充典型例子与 Softirq 清单）
 - [[concepts/linux-interrupt-system]] — 中断系统整体框架（上下半部、softirq 机制）
 - [[summaries/linux-softirq-detail]] — Linux 内核 Softirq 实现细节
 - [[summaries/linux-interrupt-lifecycle]] — GIC 硬件到软件注册的全链路
