@@ -25,7 +25,7 @@
 
 内核定义了一个mountpoint 结构体表示根文件系统中的挂载点，挂载点对应到跟文件系统中的一个dentry实例，定义了一个mount结构体表示一次挂载操作。定义如下(fs/mount.h):
 
-```
+```c
 struct mountpoint {
 	struct hlist_node m_hash;    //散列链表节点成员,将实例链接到全局散列链表
 	struct dentry *m_dentry;     // 指向挂载点 dentry 实例(根文件系统中目录项)
@@ -43,7 +43,7 @@ mountpoint 结构体成员简介如下,定义如下(fs/mount.h):
 
 mount结构体表示一次挂载操作，结构体定义在/fs/mount.h头文件：
 
-```
+```c
 struct mount {
 	struct hlist_node mnt_hash;             //散列链表节点成员，将实例链入全局散列表
 	struct mount *mnt_parent;               //父mount实例
@@ -100,7 +100,7 @@ mount结构体实例在内核中组成父子的层次结构，同时由全局散
 
 vfsmount结构体成员，用于建立mount实例与挂载文件系统之间的关联，结构体定义在头文件include/linux/mount.h：
 
-```
+```c
 struct vfsmount {
 	struct dentry *mnt_root;	     //指向挂载文件系统根目录项dentry实例
 	struct super_block *mnt_sb;	   //指向文件系统超级块实例
@@ -130,7 +130,7 @@ mount("/dev/loop0", "/mnt/foobar", "xfs", MS_MGC_VAL|MS_NODEV, "noquota") = 0
 
 用户进程通过mount()系统调用挂载具体文件系统，内核mount函数入口为sys_mount()，实现在fs/namespace.c中。其中dev_name定义了块设备路径；di_name定义了挂载点目录；type定义了文件系统类型；flags挂载标志，data定义了一些挂载选项
 
-```
+```c
 SYSCALL_DEFINE5(mount, char __user *, dev_name, char __user *, dir_name,
 		char __user *, type, unsigned long, flags, void __user *, data)
 {
@@ -168,7 +168,7 @@ out_type:
 
 在学习do_mount之前，先了解path结构体的定义，用于后面的挂载，结构体定义在include/linux/path头文件内
 
-```
+```c
 struct path {
   /* 指向vfsmount实例，mount.mnt成员（挂载点所在文件系统的挂载信息） */
 	struct vfsmount *mnt;
@@ -179,7 +179,7 @@ struct path {
 
 do_mount函数在fs/namespace.c文件内实现，其实现代码如下：
 
-```
+```c
 long do_mount(const char *dev_name, const char __user *dir_name,
 		const char *type_page, unsigned long flags, void *data_page)
 {
@@ -273,7 +273,7 @@ dput_out:
 
 这里我们以执行新的挂载操作do_new_mount()函数为例，介绍挂载操作的实现。do_new_mount()函数定义在fs/namespace.c文件内，代码如下：
 
-```
+```c
 static int do_new_mount(struct path *path, const char *fstype, int flags,
 			int mnt_flags, const char *name, void *data)
 {
@@ -317,7 +317,7 @@ do_new_mount()函数主要完成以下工作
 
 下文将详细介绍内核挂载函数和关联挂载点函数的实现如下
 
-```
+```c
 struct vfsmount *
 vfs_kern_mount(struct file_system_type *type, int flags, const char *name, void *data)
 {
@@ -359,7 +359,7 @@ vfs_kern_mount()函数创建的数据结构实例组织关系如下图所示：
 
 vfs_kern_mount()函数内调用mount_fs()函数，此函数又调用文件系统类型定义的mount()函数，创建文件系统超级块super_block、根目录项dentry和inode结构体实例，返回挂载文件系统根目录项dentry实例指针。函数定义如下（fs/super.c）
 
-```
+```c
 struct dentry *
 mount_fs(struct file_system_type *type, int flags, const char *name, void *data)
 {
@@ -416,7 +416,7 @@ out:
 
 例如，ext4文件系统类型实例定义如下（/fs/ext2/super.c）：
 
-```
+```c
 static struct file_system_type ext4_fs_type = {
 	.owner		= THIS_MODULE,
 	.name		= "ext4",
@@ -429,7 +429,7 @@ MODULE_ALIAS_FS("ext4");
 
 文件系统类型挂载函数ext4_mount()调用了通用的mount_bdev()函数，定义如下（/fs/ext4/super.c）：
 
-```
+```c
 static struct dentry *ext4_mount(struct file_system_type *fs_type, int flags,
 		       const char *dev_name, void *data)
 {
@@ -444,7 +444,7 @@ static struct dentry *ext4_mount(struct file_system_type *fs_type, int flags,
 
 我们来看下mount_bdev的实现，它执行完成之后会创建vfs的三大数据结构 super_block、根inode和根dentry
 
-```
+```c
 struct dentry *mount_bdev(struct file_system_type *fs_type,
 	int flags, const char *dev_name, void *data,
 	int (*fill_super)(struct super_block *, void *, int))
@@ -539,7 +539,7 @@ error:
 
 接下来的工作就是通过mount实例建立挂载点dentry实例与挂载文件系统根目录项dentry实例之间的关联，并将mount实例添加到全局散列链表头部。以便将挂载的文件系统导入内核根文件系统，使之对用户进程可见。
 
-```
+```c
 static int do_add_mount(struct mount *newmnt, struct path *path, int mnt_flags)
 {
 	struct mountpoint *mp;
@@ -594,7 +594,7 @@ do_add_mount()函数创建的数据结构实例及组织关系如下图所示：
 
 ![](https://pic3.zhimg.com/v2-409b70b046d97e9fad0614b4954e8dd2_1440w.jpg)
 
-```
+```c
 SYSCALL_DEFINE5(mount...)    //namespace.c
     do_mount()
         user_path()

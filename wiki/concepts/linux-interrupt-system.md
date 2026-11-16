@@ -12,6 +12,8 @@ relationships:
     type: uses
   - target: "[[concepts/linux-interrupt-virtualization]]"
     type: extends
+  - target: "[[concepts/kernel-lockup-detection]]"
+    type: related_to
   - target: "[[summaries/linux-interrupt-classification]]"
     type: related_to
 source_dir: Linux 操作系统/Linux 中断系统
@@ -26,7 +28,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # Linux中断系统
@@ -132,6 +134,13 @@ IPI（Inter-Processor Interrupt）是跨核通信机制：
 - 经验法则：一般负载交给irqbalance省心；大量小包系统上irqbalance几乎无效且造成CPU消耗分配不均，应停掉改手动绑定；数据库服务器可"磁盘控制器绑一个CPU、网卡绑另一个CPU"降低响应时间；多网卡多硬盘的网络存储服务器是手动绑定的典型场景。
 
 触发来源：物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md（2026-11-06 ingest）。完整蒸馏见 [[summaries/nic-smp-irq-affinity]]；中断增量观测脚本见 [[summaries/linux-interrupt-monitoring-script]]。
+
+### NMI 与硬死锁检测
+
+- NMI（Non-Maskable Interrupt）是不可屏蔽中断，`local_irq_disable()` 无法屏蔽；x86 上由 PMU 硬件计数器周期性触发，部分虚拟机与部分 ARM 平台不提供 NMI watchdog。
+- 在 lockup 检测中，NMI handler 的任务是检查时钟中断（tick）是否仍在推进：若连续 `watchdog_thresh`（默认 10s）tick 计数不增长，说明本地 IRQ 通路已经失效，判定 hard lockup 并打印栈回溯。NMI 本身是共享入口，perf 等其他子系统也会注册 NMI handler。 ^[inferred]
+- 判定对象是全局 tick 计数，不是 hrtimer 计数器；这与 soft lockup 由 tick 中断检查 watchdog 线程时间戳的路径互补——中断能进时用软锁检测，中断进不来时只能靠 NMI。 ^[inferred]
+- 完整检测框架与调参见 [[concepts/kernel-lockup-detection]]。
 
 ## 未解问题
 

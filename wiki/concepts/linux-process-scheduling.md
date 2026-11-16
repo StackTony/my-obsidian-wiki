@@ -12,6 +12,8 @@ relationships:
     type: related_to
   - target: "[[concepts/red-black-tree]]"
     type: uses
+  - target: "[[concepts/kernel-lockup-detection]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 进程调度
 source_files: [Linux 进程调度器.md, Linux 进程调度策略.md, Linux CFS调度器.md, Linux 完全公平调度器CFS.md]
 summary: Linux内核进程调度：CFS用红黑树按vruntime选下一个进程，五个调度类(stop>dl>rt>fair>idle)决定优先级层级，实时进程绝对优先于普通进程，六种调度策略覆盖不同场景。
@@ -24,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-10
+updated: 2026-11-13
 ---
 
 # Linux进程调度
@@ -177,6 +179,13 @@ Linux的优先级体系：
 - **关键规则**：只要存在可运行的实时进程（优先级<100），调度器绝不会选择普通进程运行 ^[inferred]
 
 这意味着一个SCHED_FIFO优先级1的进程，即使nice=-20的普通进程也无法与之竞争CPU。
+
+### watchdog 线程与软死锁
+
+- 每个 CPU 启动一个 watchdog 内核线程，以 SCHED_FIFO 最高优先级运行：调用 `touch_softlockup_watchdog()` 更新本 CPU 时间戳后睡眠（线程名通常为 `watchdog/N` ^[inferred]）。
+- 若当前 CPU 长时间在内核态且抢占关闭（自旋锁长持、死循环），调度器没有机会切到 watchdog 线程，时间戳停止更新；tick 中断发现超过 `2×watchdog_thresh`（默认 10s → 20s）未更新，打印 soft lockup 栈回溯。
+- 关键点：唤醒 watchdog 线程的是调度器，不是 hrtimer；tick 只负责检查。这正是"中断能进、调度切不动"仍可被检测到的原因。
+- 硬锁（关中断）场景下 tick 也停了，改由 NMI watchdog 检测，见 [[concepts/kernel-lockup-detection]]。
 
 ### 进程状态
 

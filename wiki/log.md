@@ -798,3 +798,28 @@ title: Wiki Log
 - 下载 8 篇官方一手文档至 `raw/sources/Self learn/Harness Engineering/`（Databricks Harness、Agent Evaluation）与 `raw/sources/Self learn/ACP协议/`（Zed ACP 首页与协议概览、IBM ACP、A2A 是什么、A2A vs MCP、MCP 入门），均标记 `credibility: low`
 - 检索方式：tavily-search MCP 本会话不可用，按 CLAUDE.md 降级为 Defuddle 直取官方页面；ACP 目录为新建，无历史重复下载
 - 纠偏信号：`summaries/acp-protocol` 与 `concepts/agent-communication-protocols` 需在下次 ingest 时更新（ACP 已并入 A2A；新增编辑器↔Agent 客户端协议层），本次仅记录于推荐报告，未改写既有页面
+
+## [2026-11-13] INGEST | Linux 内存回收机制全文重蒸馏（1 重写 + 3 新建 + 3 更新）
+
+- [2026-11-13T10:25] INGEST mode=append source="Linux 操作系统/Linux 内存管理/Linux 内存回收机制.md" pages_created=3 pages_updated=3
+- 来源状态：manifest 原记录为 36B（仅一张回收调用图），现文件为 125,882B 完整正文；按"修改来源"分支重新蒸馏，未做 diff 比对。本次同时清除了 27 处知乎站内搜索追踪链接（纯格式变更，正文语义不变）
+- 重写 summaries/linux-memory-reclaim-triggers：zone 三水位与分配慢路径、回收对象（干净/脏文件页、匿名页、页表、zswap/zram、OOM）、PG 标志与 `page->_count` 记账、swap 换出 8 步/换入 6 步、`scan_control` 字段、`shrink_zone→shrink_lruvec→shrink_list→shrink_active_list/shrink_inactive_list→shrink_page_list` 执行链、快速/直接/kswapd 三表对比、swappiness/zone_reclaim_mode/min_free_kbytes/oom 调参
+- 新建 concepts/zone-watermark（水位判定与 min_free_kbytes 推导）、concepts/lru-page-reclaim（五链表、升降级、_count==2 判定、priority/swappiness）、concepts/swap-cache-mechanism（页槽、swap cache、换入换出、page cache 对偶）
+- 更新 concepts/linux-memory-management（回收节扩写并链接三个新页）、concepts/virtual-memory-and-paging（实现对应表新增 LRU/swap/水位三行）、concepts/page-cache-vs-buffer-cache（补 swap cache 同构链接）
+- 标记歧义：原文 1.1 节把用户态 free/GC 与内核直接内存回收混用；swappiness 存在 0–100（sysctl）与 0–200（memcg 语义）两种口径
+- Manifest：来源键 content_hash 最终为 `sha256:cfc717bd…`、size_bytes=125903、ingested_at=2026-11-13、modified_at=2026-11-13T10:28；stats total_pages 212→215、total_concepts 92→95、last_updated=2026-11-13
+- 哈希刷新：蒸馏后源文件被外部工具（Obsidian 格式化）重存一次，仅标题编号空格与 `[]` 转义等格式变更（diff 14 增 17 删，无语义变化），未重新蒸馏，只校正 manifest 哈希
+- 工具降级：`obsidian-wiki` CLI 与 QMD 均不可用，index/log/hot/manifest 手工同步；未启用 staged writes
+
+## [2026-11-13] INGEST | 软锁 Softlockup / 硬锁 Hardlockup 区别（1 摘要 + 1 概念 + 4 更新）
+
+- [2026-11-13T11:22] INGEST mode=append source="Linux 操作系统/Linux 进程调度/Linux 软锁Softlockup和硬锁Hardlockup区别.md" pages_created=2 pages_updated=4
+- 来源状态：新增 5,041B 技术笔记，manifest 无记录 → 按"新增来源"处理；内容为软/硬锁对比表 + 两条检测链路
+- 新建 summaries/linux-softlockup-hardlockup：七维对比表（根因/中断状态/检测主体/检测逻辑/默认阈值/严重度/典型场景）、soft lockup「watchdog 线程 + tick 检查」、hard lockup「PMU→NMI 查 tick」、`watchdog_thresh=10` 下 2×/1× 阈值、`softlockup_panic`/`hardlockup_panic`
+- 新建 concepts/kernel-lockup-detection：两类检测判定条件、watchdog 线程被饿死的原因、NMI 为何能穿透 `local_irq_disable`、阈值与追踪旋钮表、与 hung_task/RCU stall 的边界、dmesg 特征串
+- 更新 concepts/linux-interrupt-system（新增「NMI 与硬死锁检测」小节）、concepts/linux-process-scheduling（新增「watchdog 线程与软死锁」小节）、concepts/linux-lock-mechanisms（新增「持锁过久与 lockup」小节）、skills/linux-kernel-debugging（新增第 8 步 lockup 排查与命令）
+- 标记推断：线程名 `watchdog/N`、`watchdog_cpumask`/`nmi_watchdog`/`*_all_cpu_backtrace` 等补充旋钮、hung_task/RCU stall 边界、排查命令均为通用知识补充，已标 `^[inferred]`
+- 标记歧义：`watchdog_thresh=0` 的语义（关闭检测 vs 关闭线程）不同版本文档口径不一
+- Manifest：新增来源键 content_hash=`sha256:ba01b30a…`、size_bytes=5041、ingested_at=2026-11-13；stats total_sources_ingested 991→992、total_pages 215→217、total_concepts 95→96、total_summaries 58→59、last_updated=2026-11-13
+- 工具降级：`obsidian-wiki` CLI 与 QMD 均不可用，index/log/hot/manifest 手工同步；未启用 staged writes
+- 哈希校验：ingest 期间 Obsidian 编辑器对源文件有多次自动重存（大小在 5041↔5063B 间抖动），复核内容一致；最终哈希 `sha256:ba01b30a…` 与 manifest 记录一致，无需修正

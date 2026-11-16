@@ -16,6 +16,8 @@ relationships:
     type: uses
   - target: "[[concepts/cpu-cache-coherence]]"
     type: related_to
+  - target: "[[concepts/kernel-lockup-detection]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 锁机制
 source_files: ["1 Linux 锁机制全景介绍.md", Linux SpinLock锁.md, Linux Mutex锁.md, Linux RCU锁.md]
 summary: Linux内核同步机制完整框架：从Spinlock到RCU的演进与选择指南。Spinlock忙等(微秒级/qspinlock+MCS队列)、Mutex睡眠锁(乐观自旋+PI/owner编码)、RWLock/Seqlock读写分离、RCU读零开销(宽限期机制)、WW Mutex/Local Lock/Bit Spinlock等扩展。决策树指导锁选择。
@@ -28,7 +30,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-10
+updated: 2026-11-13
 ---
 
 # Linux锁机制全景
@@ -222,6 +224,13 @@ RCU（Read-Copy-Update）是读侧零开销的同步机制：
 **持锁时间 vs 锁选择**：`<100 cycles` → atomic/无锁；`<1μs` → spinlock；`>1μs` → 考虑mutex；`>10μs` → 必须mutex；`>1ms` → mutex或semaphore。
 
 > 注：实际性能取决于硬件、竞争程度、持锁时间。有竞争时spinlock持续消耗CPU，mutex短暂自旋+上下文切换，semaphore直接上下文切换。
+
+### 持锁过久与 lockup
+
+- Spinlock 持有时间过长会把"性能问题"升级为"可用性问题"：关闭抢占期间调度器无法切换，watchdog 线程饿死，超过 `2×watchdog_thresh`（默认 20s）触发 soft lockup。
+- 若用 `spin_lock_irqsave` / `local_irq_disable` 关闭本地中断后再长时间循环，连 tick 都进不来，只能由 PMU 触发的 NMI 判定 hard lockup。
+- 因此"临界区只做最小工作"不仅是延迟问题，也是避免 lockup 告警的硬约束。 ^[inferred]
+- 检测机制与阈值见 [[concepts/kernel-lockup-detection]]。
 
 ## 未解问题
 

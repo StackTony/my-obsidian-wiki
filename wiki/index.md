@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-12 (INGEST：字符设备驱动全链路、系统总线标准、PCI BDF/PCIe 枚举、伙伴/SLAB 两级分配与内存回收触发路径入库；中断分类表补充典型例子与 10 种 softirq；新增字符设备驱动骨架与面试问题地图)*
+*自动维护。上次更新：2026-11-13 (INGEST：软锁 Softlockup / 硬锁 Hardlockup 对比与检测链路；新增 kernel-lockup-detection 概念页与同名摘要)*
 
 ## Summaries (数据结构与算法)
 
@@ -53,7 +53,8 @@ updated: 2026-11-12
 - [linux-system-bus](summaries/linux-system-bus.md) — 系统总线全景：主板/芯片组与南北桥、按位置/用途/传输方式/位宽四维分类、带宽=频率×位宽/8、ISA→PCI→AGP→PCIe标准演进与历代带宽数字、规范三类(电气/机械/协议) — `硬件` `总线` `pcie` `主板` `接口`
 - [linux-copy-on-write](summaries/linux-copy-on-write.md) — fork写时复制内核实现：copy_page_range复制页表并把父子私有可写PTE置只读、handle_pte_fault写保护缺页、do_wp_page复用/复制分流与四步流程 — `linux` `内核` `内存` `COW` `fork`
 - [linux-buddy-slab-allocator](summaries/linux-buddy-slab-allocator.md) — 物理内存两级分配：伙伴系统按2^n页管理、分裂/合并与伙伴地址异或公式、内部碎片量化；SLAB从伙伴取页切对象、kmem_cache工作流与buddyinfo/pagetypeinfo/slabinfo读法 — `linux` `内核` `内存` `伙伴系统` `slab`
-- [linux-memory-reclaim-triggers](summaries/linux-memory-reclaim-triggers.md) — 内存回收三条入口：分配慢路径的紧缺回收(→try_to_free_pages→shrink_zone/shrink_slab→OOM)、kswapd周期性回收(balance_pgdat→kswapd_shrink_zone)、用户drop_caches；两个执行器分工 — `linux` `内核` `内存` `回收` `kswapd`
+- [linux-memory-reclaim-triggers](summaries/linux-memory-reclaim-triggers.md) — 内存回收全景：zone 三水位与分配慢路径、文件页/匿名页/页表回收、swap cache 与 page cache 对偶、shrink_zone→lruvec→list→page_list 执行链，以及快速/直接/kswapd 三种回收差异与 swappiness/zone_reclaim_mode 调参 — `linux` `内核` `内存` `回收` `kswapd`
+- [linux-softlockup-hardlockup](summaries/linux-softlockup-hardlockup.md) — 软锁与硬锁对比：软锁=中断可响应但调度器切不走（watchdog 线程 + tick，2×watchdog_thresh=20s）、硬锁=关中断死循环只有 NMI 能探（watchdog_thresh=10s）、检测链路与 panic 旋钮 — `linux` `内核` `死锁` `watchdog` `NMI`
 
 ## Entities (Linux)
 
@@ -66,8 +67,12 @@ updated: 2026-11-12
 ## Concepts (Linux 操作系统)
 
 - [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
-- [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断全景：同步/异步四维分类、IRQ/softirq两阶段设计、三种延迟机制、GIC组件与irq_domain映射、ksoftirqd、SMP IRQ Affinity — `linux` `kernel` `interrupt` `irq` `softirq`
-- [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、伙伴系统/SLAB两级分配、三条内存回收触发路径、LRU与Write策略、写时复制COW，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
+- [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断全景：同步/异步四维分类、IRQ/softirq两阶段设计、三种延迟机制、GIC组件与irq_domain映射、ksoftirqd、SMP IRQ Affinity、NMI 硬死锁检测 — `linux` `kernel` `interrupt` `irq` `softirq`
+- [kernel-lockup-detection](concepts/kernel-lockup-detection.md) — 内核 lockup 检测：softlockup 靠 per-CPU watchdog 线程 + tick（2×watchdog_thresh=20s）、hardlockup 靠 PMU 触发 NMI 查 tick（10s），含阈值/panic/追踪旋钮与 hung_task、RCU stall 的边界 — `linux` `内核` `死锁` `watchdog` `NMI`
+- [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、伙伴系统/SLAB两级分配、zone三水位与三种回收、LRU双链表与swap cache、写时复制COW，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
+- [zone-watermark](concepts/zone-watermark.md) — zone 三水位(min/low/high)：各自触发动作、分配后剩余>水位+保留页框的判定、min_free_kbytes 推导 low/high、快速/直接/kswapd 的水位差异 — `linux` `内核` `内存` `水位线` `watermark`
+- [lru-page-reclaim](concepts/lru-page-reclaim.md) — LRU 双链表回收：五个链表只回收非活动页、PTE Accessed 与 PG_referenced 决定升降级、page->_count 归零与 _count==2 判定、priority/swappiness 扫描预算 — `linux` `内核` `内存` `LRU` `页面回收`
+- [swap-cache-mechanism](concepts/swap-cache-mechanism.md) — swap 分区页槽与 swap cache(address_space)：匿名页换出8步/换入6步、PTE 改写为 swap 页表项、与 page cache 的对偶及5点差异 — `linux` `内核` `内存` `swap` `匿名页`
 - [virtual-memory-and-paging](concepts/virtual-memory-and-paging.md) — 虚拟内存的抽象与实现链：地址空间→分页与页表项→TLB(PCID/ASID与shootdown)→多级/倒排页表→九种页面置换算法(WSClock与老化最优)→写保护缺页/COW — `linux` `内存` `虚拟内存` `分页` `页面置换`
 - [linux-io-stack](concepts/linux-io-stack.md) — Linux IO栈全景：VFS→Block→SCSI五层架构、IO生命周期与下发流程、四大IO调度器、Page/Buffer Cache缓存层次、hctx tags busy阻塞确认，向下衔接SSD介质语义与PCIe链路 — `linux` `kernel` `io` `block` `scheduler`
 - [linux-fs-mount](concepts/linux-fs-mount.md) — 文件系统与Mount机制：mount/mountpoint/vfsmount三大结构+sys_mount五分支+do_new_mount两步挂载+lookup_mnt穿越挂载点 — `linux` `内核` `mount` `VFS` `文件系统`

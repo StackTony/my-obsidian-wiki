@@ -11097,6 +11097,23 @@
       ],
       "note": "2026-11-11 格式规范化（追踪链接去 URL、图片改链接/嵌入）后同步哈希，语义未变，未重新蒸馏"
     },
+    "Linux 操作系统/Linux 进程调度/Linux 软锁Softlockup和硬锁Hardlockup区别.md": {
+      "ingested_at": "2026-11-13",
+      "size_bytes": 5041,
+      "content_hash": "sha256:ba01b30acde3385cdca358f98de84d1d6241172fddb911b7a84c1ce29ca92884",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-softlockup-hardlockup.md",
+        "concepts/kernel-lockup-detection.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-interrupt-system.md",
+        "concepts/linux-process-scheduling.md",
+        "concepts/linux-lock-mechanisms.md",
+        "skills/linux-kernel-debugging.md"
+      ]
+    },
     "Obsidian使用/claude的json备份.md": {
       "ingested_at": "2026-10-21",
       "size_bytes": 913,
@@ -11993,16 +12010,22 @@
       ]
     },
     "Linux 操作系统/Linux 内存管理/Linux 内存回收机制.md": {
-      "ingested_at": "2026-11-12",
-      "size_bytes": 36,
-      "content_hash": "sha256:db0d874faf0a3cbebf2fc49a7ef8ced1d46df2bfb3eac0e90596dece7ace03de",
+      "ingested_at": "2026-11-13",
+      "size_bytes": 125903,
+      "content_hash": "sha256:cfc717bd8aca99d6a6e3da9cec5adb315bbdfcdbf05bfa17da3264474d3c43b4",
+      "modified_at": "2026-11-13T10:28",
       "source_type": "document",
       "project": null,
       "pages_created": [
-        "summaries/linux-memory-reclaim-triggers.md"
+        "summaries/linux-memory-reclaim-triggers.md",
+        "concepts/zone-watermark.md",
+        "concepts/lru-page-reclaim.md",
+        "concepts/swap-cache-mechanism.md"
       ],
       "pages_updated": [
-        "concepts/linux-memory-management.md"
+        "concepts/linux-memory-management.md",
+        "concepts/virtual-memory-and-paging.md",
+        "concepts/page-cache-vs-buffer-cache.md"
       ]
     }
   },
@@ -12020,13 +12043,13 @@
   "last_ingest": "2026-11-12",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 991,
-    "total_pages": 212,
-    "total_concepts": 92,
-    "total_summaries": 58,
+    "total_sources_ingested": 992,
+    "total_pages": 217,
+    "total_concepts": 96,
+    "total_summaries": 59,
     "total_entities": 20,
     "total_skills": 20,
     "total_synthesis": 7,
-    "last_updated": "2026-11-12"
+    "last_updated": "2026-11-13"
   }
 }

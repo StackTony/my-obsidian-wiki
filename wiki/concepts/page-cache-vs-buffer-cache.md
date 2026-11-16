@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-11-10
 tier: supporting
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-13
 relationships:
   - target: "[[summaries/linux-page-cache]]"
     type: extends
@@ -62,6 +62,8 @@ Page Cache与Buffer Cache是Linux内核两大缓存机制。它们在历史演�
 若磁盘块大小为1KB，则每个4KB的Page Cache页对应4个磁盘块的Buffer Cache。每个Buffer Cache通过`buffer_head`描述符管理，记录对应缓冲区映射的磁盘块物理位置。`buffer_head->b_page`指向所属的Page Cache页。
 
 数据写入流程：通过`inode->i_mapping`找到Page Cache页 → 写入数据并标记脏页 → 同步更新关联磁盘块的`buffer_head`脏标记。
+
+匿名页侧存在同构的 `address_space` 结构，见 [[concepts/swap-cache-mechanism]]。
 
 ### 二者协同工作
 

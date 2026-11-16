@@ -26,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-10-21
 tier: supporting
 created: 2026-10-21
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # 虚拟内存与分页
@@ -131,7 +131,9 @@ TLB 缓存的失败分两类：页在内存但 TLB 未命中（**软失效**）�
 | 多级页表 | x86_64 四级页表（pgd→pud→pmd→pte），见 [[summaries/linux-task-struct-mm-struct]] |
 | 页表项状态位 | 由 PTE 位 + 页表遍历（page table walk）维护，脏位/访问位由硬件置位 |
 | 写时复制 | fork 共享页表 + 写保护 PTE + `do_wp_page`/`wp_page_copy` |
-| 时钟/工作集置换 | 内核的 Active/Inactive 双 LRU 链表 + kswapd 回收 |
+| 时钟/工作集置换 | Active/Inactive 双 LRU 链表 + 访问位 + kswapd，见 [[concepts/lru-page-reclaim]] |
+| 交换空间 | 匿名页写入 swap 分区，PTE 改写为 swap 页表项，见 [[concepts/swap-cache-mechanism]] |
+| 回收触发 | zone 的 min/low/high 水位线，见 [[concepts/zone-watermark]] |
 | TLB 刷新 | `flush_tlb_*` 系列 + PCID；跨核靠 IPI |
 | 地址空间 | `mm_struct` + `vm_area_struct` |
 

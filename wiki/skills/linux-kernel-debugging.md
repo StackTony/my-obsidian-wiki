@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: supporting
 created: 2026-06-01
-updated: 2026-06-15
+updated: 2026-11-13
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: uses
@@ -25,6 +25,8 @@ relationships:
   - target: "[[concepts/linux-tracing-frameworks]]"
     type: uses
   - target: "[[concepts/linux-vmcore-analysis]]"
+    type: related_to
+  - target: "[[concepts/kernel-lockup-detection]]"
     type: related_to
 ---
 
@@ -161,6 +163,35 @@ sudo nsenter -t <PID> -i       # 进入目标进程的 IPC namespace
 - `ipcs -s` — 查看信号量
 - `ipcrm -s <semid>` — 删除信号量集合
 
+### 8. Lockup（软锁 / 硬锁）排查
+
+以下命令与日志特征串来自通用内核排查经验，原文只给机制、未给命令。 ^[inferred]
+
+**先看内核日志的特征串：**
+
+```bash
+dmesg -T | grep -Ei "soft lockup|hard LOCKUP|watchdog"
+```
+
+- `watchdog: BUG: soft lockup - CPU#N stuck for Xs` — 中断仍在进，但该核调度器切不走当前上下文（抢占关闭 / 死循环 / 长持 spinlock）。
+- `Watchdog detected hard LOCKUP on cpu N` / `NMI watchdog: ...` — 本地 IRQ 被关、tick 已停，由 PMU 触发的 NMI 抓出。
+
+**确认检测器状态：**
+
+```bash
+cat /proc/sys/kernel/watchdog_thresh   # 默认 10；软锁阈值 = 2×，硬锁阈值 = 1×
+cat /proc/sys/kernel/nmi_watchdog      # x86：0 表示 NMI watchdog 未启用（虚拟机常见）
+ps -eLo pid,tid,cls,rtprio,comm | grep watchdog   # 每 CPU 一个 watchdog/N，SCHED_FIFO
+```
+
+**处置建议：**
+
+- 定位卡住的栈：优先看 lockup 打印的调用栈里的 spinlock/循环位置；开启 `kernel.softlockup_all_cpu_backtrace` 可抓全核栈。 ^[inferred]
+- 确认是否为预期长临界区：结合 lockdep / `/proc/lock_stat`（见进阶用法）检查 spinlock 持有时间。 ^[inferred]
+- 需要重启定位时设置 `kernel.softlockup_panic=1` / `kernel.hardlockup_panic=1`，让内核直接 panic 产出 vmcore（见 [[concepts/linux-vmcore-analysis]]）。 ^[inferred]
+
+机制细节见 [[concepts/kernel-lockup-detection]]、[[summaries/linux-softlockup-hardlockup]]。
+
 ## 常见问题
 
 | 问题 | 原因 | 解决 |
@@ -188,6 +219,7 @@ sudo nsenter -t <PID> -i       # 进入目标进程的 IPC namespace
 - [[concepts/linux-io-stack]] — IO栈与设备调试
 - [[concepts/linux-boot-shutdown]] — 关机故障排查
 - [[concepts/linux-namespace-cgroups]] — Cgroup 资源限制
+- [[summaries/linux-softlockup-hardlockup]] — lockup 排查特征串与阈值（2026-11-13 ingest）
 - [[concepts/linux-lock-mechanisms]] — Lockdep/Lock统计
 - [[summaries/linux-softirq-detail]] — ksoftirqd 与软中断预算机制
 - [[summaries/linux-meminfo-params]] — meminfo 字段详解与公式

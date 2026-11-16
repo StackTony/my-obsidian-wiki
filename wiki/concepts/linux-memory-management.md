@@ -12,19 +12,25 @@ relationships:
     type: related_to
   - target: "[[concepts/copy-on-write]]"
     type: related_to
+  - target: "[[concepts/zone-watermark]]"
+    type: related_to
+  - target: "[[concepts/lru-page-reclaim]]"
+    type: related_to
+  - target: "[[concepts/swap-cache-mechanism]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 内存管理
 source_files: [Linux meminfo参数详细解释.md, Linux 页缓存 Page Cache.md, Linux 内存与CPU之间的关系.md, Linux TLB（页表项Cahce）.md, Linux Coye On Write（写时复制）.md, Linux 伙伴分配器与 SLAB 分配器.md, Linux 内存回收机制.md]
-summary: Linux内存管理：meminfo参数体系(含Bounce/DirectMap)、Page Cache架构(基数树+预读)、内存黑洞、伙伴系统/SLAB两级分配、三条回收触发路径(紧缺/kswapd/drop_caches)、LRU分类与Write策略、写时复制(COW)，向下承接虚拟内存/分页与TLB原理。
+summary: Linux内存管理：meminfo参数体系(含Bounce/DirectMap)、Page Cache架构(基数树+预读)、内存黑洞、伙伴系统/SLAB两级分配、zone三水位与三条回收路径(快速/直接/kswapd)、LRU双链表与swap cache、写时复制(COW)，向下承接虚拟内存/分页与TLB原理。
 provenance:
-  extracted: 0.80
-  inferred: 0.15
-  ambiguous: 0.05
+  extracted: 0.82
+  inferred: 0.14
+  ambiguous: 0.04
 base_confidence: 0.80
 lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # Linux内存管理
@@ -116,30 +122,36 @@ Page Cache 的核心数据结构：
 
 完整流程、手算示例与三张观测表见 [[summaries/linux-buddy-slab-allocator]]。
 
-### 内存回收的三条触发路径
+### 回收的触发：水位线与三种回收
 
-回收不是单一入口，按压力来源分三条：
+回收不是单一入口。每个 zone 先划定 min/low/high 三条水位线（`watermark[NR_WMARK]`），按空闲页框落在哪一段决定动作；详见 [[concepts/zone-watermark]]。
 
 | 路径 | 入口 | 主链路 | 特点 |
 |---|---|---|---|
-| 紧缺回收 | `__alloc_pages` 失败 | `__alloc_pages_slowpath → __alloc_pages_direct_reclaim → try_to_free_pages → shrink_zone/shrink_slab` | 分配者上下文同步执行，失败进 OOM |
-| 周期性回收 | zone 低于水位 | `kswapd → balance_pgdat → kswapd_shrink_zone → shrink_zone/shrink_slab` | 后台异步，NUMA node 各一线程 |
-| 用户触发 | `drop_caches` | `drop_slab → shrink_slab`、`drop_pagecache_sb` | 手动清干净页，生产慎用 |
+| 快速回收 | `get_page_from_freelist()` 判定"分配后剩余 < 水位 + 保留页框" | `zone_reclaim → __zone_reclaim → shrink_zone/shrink_slab` | 优先级 4、最多 4 轮；脏文件页不回写，是否回写匿名页/解映射由 `zone_reclaim_mode` 决定 |
+| 直接回收 | 慢路径所有 zone 连 min 水位都拿不到页框 | `__alloc_pages_slowpath → __alloc_pages_direct_reclaim → try_to_free_pages → shrink_zones → shrink_zone` | 分配者上下文同步执行，默认优先级 12、目标约 32 页；失败进 OOM |
+| kswapd 回收 | 分配拿不到 low 水位页框时唤醒 | `kswapd → balance_pgdat → kswapd_shrink_zone → shrink_zone/shrink_slab` | 每 NUMA node 一线程；逐 zone 拉回 high 水位；可回写脏文件页与匿名页 |
+| 用户触发 | `drop_caches` | `drop_slab → shrink_slab`、`drop_pagecache_sb` | 手动清干净页，生产慎用 ^[inferred] |
 
-所有路径最终落到两个执行器：**`shrink_zone` 回收页框**（消费 LRU 与 PTE 访问位），**`shrink_slab` 回收可回收 slab 对象**。调用图与箭头解读见 [[summaries/linux-memory-reclaim-triggers]]。
+三种回收的执行代码相同，区别只在进入条件与 `struct scan_control` 的初始化（`priority`、`may_writepage`、`may_unmap`、`may_swap`）。所有路径最终落到两个执行器：**`shrink_zone` 回收页框**（消费 LRU 与 PTE 访问位），**`shrink_slab` 回收可回收 slab 对象**。
+
+执行链为 `shrink_zone → 遍历 memcg → shrink_lruvec → shrink_list → shrink_active_list / shrink_inactive_list → shrink_page_list`。回收的本质是把页的 `page->_count` 降到 0：隔离、解映射、回写、从 `address_space` 摘除，最后把页框交还伙伴系统。完整流程与 `_count == 2` 判定见 [[summaries/linux-memory-reclaim-triggers]]。
 
 ### LRU 回收算法
 
-Linux 使用双链表 LRU 实现：
-- **Active LRU**：最近被访问过的页面，不易被回收
-- **Inactive LRU**：较长时间未访问的页面，回收候选
+Linux 用 **Active / Inactive 双链表 + 访问位** 近似 LRU，匿名页与文件页各一套：
 
-页面在两个链表之间移动：
-- 新页面进入 Inactive 链表头
-- Inactive 链表中的页面被再次访问 → 提升到 Active 链表
-- Active 链表中的页面逐渐老化 → 降级到 Inactive 链表尾
+- **Active LRU**：最近被访问过的页，暂不回收；**Inactive LRU**：回收候选，扫描从尾部开始。
+- 新页通常进入 Inactive 链表头；被再次访问后升级到 Active；Active 链表尾部长期未访问的页被 `shrink_active_list()` 降级回 Inactive 链表头。
+- 匿名页只要任一映射 PTE 的 Accessed 置位就升级；文件页还要看 `PG_referenced` 与访问进程数，最近访问过的可执行文件页会留在 Active。
+- 共 5 个链表：Active/Inactive 匿名页、Active/Inactive 文件页、`LRU_UNEVICTABLE`；回收只处理前四个，且只有非活动链表上的页会被真正回收。
+- 扫描预算由 `sc->priority`（默认 12，越小扫越多）与 `swappiness`（匿名页/文件页比例）共同决定，每轮每链表最多扫描 32 个页框。
 
-匿名页（anon）和文件页（file）分别有独立的 Active/Inactive 链表，共4个LRU链表。这套双链表近似的是**工作集/老化类置换算法**——见 [[concepts/virtual-memory-and-paging]] 中九种算法的对比。 ^[inferred]
+机制细节（页标志、`page->_count` 记账、升降级规则）见 [[concepts/lru-page-reclaim]]。这套双链表近似的是**工作集/老化类置换算法**——见 [[concepts/virtual-memory-and-paging]] 中九种算法的对比。 ^[inferred]
+
+### 匿名页的后备存储：swap 与 swap cache
+
+匿名页没有磁盘文件作载体，回收时先加入 **swap cache**（swap 分区的 `address_space`），再按页槽编号回写到 swap 分区，并把进程页表项改写成 swap 类型页表项。换入时按页槽查 swap cache：命中说明页仍在内存，直接映射；未命中才读盘。文件页则是同构的另一半——回写到文件的 page cache，页表项直接清空。两套 `address_space` 的对偶关系、换出/换入步骤与差异表见 [[concepts/swap-cache-mechanism]]。
 
 ### Write Through vs Write Back
 
@@ -154,7 +166,8 @@ Linux默认使用 Write Back 策略，通过 pdflush/kworker 线程定期将脏�
 
 - 内存黑洞的精确量化仍然困难，不同内核版本和配置下黑洞大小差异显著。 ^[ambiguous]
 - THP（透明大页）在数据库等应用场景中的性能争议——有的场景显著提升，有的场景因内存碎片反而下降。 ^[ambiguous]
-- 教材视角的页面置换算法（OPT/NRU/老化/WSClock）与 Linux 实际的 Active/Inactive 双链表 + kswapd 之间，还缺少一份"从算法到实现"的对应推导。 ^[inferred]
+- 教材视角的页面置换算法（OPT/NRU/老化/WSClock）与 Linux 实际的 Active/Inactive 双链表 + kswapd 之间，已由 [[concepts/lru-page-reclaim]] 补齐"访问位/升降级"层面的对应，但 OPT/WSClock 与 MGLRU 的定量对照仍缺。 ^[inferred]
+- 水位公式与 `swappiness` 的取值范围在不同内核版本间有差异（原文的水位与 0–200 口径偏旧），现代语义需要新来源校准。 ^[ambiguous]
 - TLB shootdown 在高核数场景下的实际开销没有量化数据。 ^[ambiguous]
 
 

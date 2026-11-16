@@ -1,3 +1,21 @@
+## 0. ==🔴dsh-our-free-model==（最重要的一个！！！）
+装上即用，无需 API Key、无需注册账号，免费调用 DeepSeek V4.1 Flash、Kimi K3 等主流模型。
+仓库：
+https://github.com/Ebony-Vinyl/dsh-our-free-model
+
+EAC-Desktop — 基于 DeepSeek Harness 的开源桌面工作台：Tauri 原生窗口、随包 Node 运行时，双击即进入工作，项目、会话、插件与皮肤市场都在一处。
+EAC-Pack — 揽尽万象：让数百个 DSH 插件和谐共存的插件套件。
+EAC-design-world — 在本地把视频和设计做完：多轨剪辑、模板与设计体系、原生预览画布和真实文件导出，不把素材交给任何人。
+
+
+精选插件索引：
+[https://awesome-dsh-plugin.com/zh/](https://awesome-dsh-plugin.com/zh/)
+
+## billion-context
+
+
+## dsh-windows-mcp
+
 
 ## 1. dsh-web-ui ⭐1312
 Web 界面增强全家桶，一次补齐官方最大的短板
@@ -78,7 +96,8 @@ https://github.com/Small-tailqwq/dsh-deep-whale
 安装：dsh plugin --profile web add
 github:Small-tailqwq/dsh-deep-whale
 
-6. dsh-vision-toolkit ⭐267
+
+## 6. dsh-vision-toolkit ⭐267
 ️ 视觉任务增强包，在 modlens 之上更进一步
 
 如果说 modlens 是「通用看图」，那这个工具箱更偏向开发 / 测试场景：带意图的图片问答、长截图 OCR、UI 界面还原，甚至能做像素级对比，形成「参考图 → 写页面 → 截图 → 对比 → 再改」的前端闭环。
