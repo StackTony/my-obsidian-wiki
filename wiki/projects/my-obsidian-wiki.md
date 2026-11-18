@@ -4,7 +4,7 @@ category: projects
 tags: [obsidian, wiki, 知识管理, llm]
 aliases: [本vault, my-obsidian-wiki]
 sources: [projects/my-obsidian-wiki]
-summary: 本 vault 自身的项目知识枢纽：Karpathy 式 LLM wiki（raw/wiki/schema 三层），2026-06-01 经 wiki-setup 诞生，11 个知识域、984 来源、204 内容页；架构决策索引、运营模式、raw 维护流程与待办债务。
+summary: 本 vault 自身的项目知识枢纽：Karpathy 式 LLM wiki（raw/wiki/schema 三层），2026-06-01 经 wiki-setup 诞生，11 个知识域、993 来源、224 内容页；架构决策索引、运营模式、ingest 对账教训与待办债务。
 provenance:
   extracted: 0.70
   inferred: 0.27
@@ -14,7 +14,7 @@ lifecycle: draft
 lifecycle_changed: 2026-11-09
 tier: supporting
 created: 2026-11-09
-updated: 2026-11-11
+updated: 2026-11-17
 relationships:
   - target: "[[concepts/linux-os-virtualization-landscape]]"
     type: related_to
@@ -28,7 +28,7 @@ relationships:
 
 - **定位**：基于 obsidian-wiki 框架的 Karpathy 式 LLM wiki，老板的知识第二大脑——LLM 负责所有整理维护（写 `wiki/`），人类是产品经理和审核者。
 - **诞生**：2026-06-01 经 `/wiki-setup` 初始化（首日即执行过 rebuild，快照存于 `wiki/_archives/2026-06-01-rebuild/`）。
-- **规模快照**（2026-11-11）：11 个知识域、984 个已 ingest 来源、204 个内容页（concepts 91 / summaries 53 / entities 20 / skills 18 / synthesis 7 / recommendations 14 / projects 1）、76 个 git 提交。
+- **规模快照**（2026-11-17）：11 个知识域、993 个已 ingest 来源、224 个内容页（concepts 99 / summaries 60 / entities 20 / skills 22 / synthesis 7 / recommendations 15 / projects 1）、83 个 git 提交；另有 14 个非空源未入库（见待办）。
 - **仓库**：GitHub `StackTony/my-obsidian-wiki`；工作流为定期"vault backup"全量提交 + remote 推送。
 - **双重身份**：既是知识库，又是 Obsidian 沉浸式主页——根目录 `dashboard.md` 定义沉浸式面板（快捷操作/天气/倒数日/音乐卡片），`.dashboard-backup/` 存面板配置备份。
 
@@ -46,7 +46,7 @@ relationships:
 
 ## 关键模式（运营中沉淀）
 
-- **知识域扩张路线**：Linux 基础（6月）→ 虚拟化 → AI Agent 协议（8月）→ skill 化运维（9月）→ IO/面板（10月）→ 物理硬件层（11月）——从软件栈逐层向下打通到物理世界。 ^[inferred]（读自 git log 提交序列的归纳）
+- **知识域扩张路线**：Linux 基础（6月）→ 虚拟化 → AI Agent 协议（8月）→ skill 化运维（9月）→ IO/面板（10月）→ 物理硬件层（11月上旬）→ 内核子系统纵深（11月中：驱动六子系统、内存分配与回收闭环、lockup 检测）——先横向铺满软件栈，再回头把每个子系统打穿上中下三层。 ^[inferred]（读自 git log 提交序列与 ingest 日志的归纳）
 - **重叠来源合并**：多篇讲同一主题的来源合并为一个 summary、source_files 双列（如 PCIe 错误双文、softirq 三件套）。
 - **稀薄笔记折叠**：<1KB 的来源不建独立页，并入相关页面并在 manifest 登记产出（如芯片功耗 280B、ECC 792B）。
 - **vault backup 自动提交**：git 定期全量提交（"vault backup: <时间戳>"），配合 GitHub remote 双端保存。
@@ -57,21 +57,27 @@ relationships:
 - **raw 目录按内核子系统重组**：`Linux 设备驱动管理/` 更名 `Linux 驱动管理/`，下分 PCI / SCSI / Block / 字符设备 / USB / 网络设备 子目录；IOMMU 后续独立迁入 `Linux 内核 IO 栈/Linux IOMMU/`。配套新增六份子系统手册（PCI 242KB、网络 231KB、SCSI 139KB、USB 95KB、块设备 54KB、DMA 与 IOMMU 52KB）。知识域正从"主题文集"向"子系统手册"演化。 ^[inferred]
 - **子系统手册入库补齐了驱动域骨架**：六篇文档蒸馏为 6 篇摘要（`linux-pci-subsystem`/`linux-scsi-subsystem`/`linux-block-subsystem`/`linux-usb-subsystem`/`linux-network-device-subsystem`/`linux-dma-iommu-subsystem`）+ 1 篇总纲概念页（`linux-driver-model`）。六个子系统的结构体/API 命名高度同构，说明内核"框架层+驱动实现层"是横跨所有总线的统一范式，不是各子系统各自发明。 ^[inferred]
 - **ingest 期间 raw 目录可能被并发重组**：2026-11-11 这次 ingest 全程 raw 树在变（IOMMU 目录迁位、文件改名、新手册陆续落入）。教训是 delta 结果只是"某一时刻的快照"——写 manifest 前必须重新扫盘并按 basename/哈希做键迁移，否则会写出指向不存在路径的键。 ^[inferred]
+- **小体积不是"已入库"的证据**：2026-11-13 发现 `Linux 内存回收机制.md` 在 manifest 里只有 **36 B**（原文仅一张回收调用图），磁盘上已是 125 KB 全文，此前摘要蒸馏自那张图。判据是**磁盘体积 / 账本体积** 的比值而非哈希匹配：放大十倍以上应按"新增来源"全文重蒸馏。流程见 [[skills/ingest-integrity-verification]]。
+- **Obsidian 会在 ingest 期间改写 raw 文件**：同一天源文件被编辑器自动重存两次（125,882→125,903 B、5,041↔5,063 B），diff 只有标题编号空格与 `[NR_WMARK]`→`\[NR_WMARK\]` 转义。教训：ingest 时不要在该笔记上操作，蒸馏后重算哈希，只校正账本、不重蒸馏，并把"格式变更 vs 内容变更"写进 log。 ^[inferred]
 
 ## 待办
 
 - **manifest vault_path 过期**：顶层 `vault_path` 仍是旧机器路径（`C:\Users\23363\Data\code\...`），实际在 `D:\lkj_Data\`——多次上报，待老板决策修复。
 - **draft 页面待人工审核**：几乎全部页面 `lifecycle: draft`；CLAUDE.md 未来候选已记录 `--consolidate` 自动提升模式（30天+confidence>0.7），引入时机待定。
 - **CLAUDE.md 已记录的未来候选**：QMD 语义检索（vault>100 页后）、projects 子目录结构（≥3 活跃项目时）、`_raw/` 暂存区模式、跨项目 wiki-update。
-- **待 ingest 积压（0 个非空）**：2026-11-11 一次 append ingest 消化了 `Linux 驱动管理/` 全部 10 个非空新来源（五大子系统文档 242/231/139/54/52KB、驱动架构、DMA 介绍、直接IO/mmap、文件一致性、学习大纲），Linux 操作系统目录已无未入库的非空文件。
-- **空占位来源（11 个 0 字节）**：内存管理域 6 个（MMU / 页表管理 / 页面置换算法 / 伙伴分配器 / 缺页异常 / 虚拟地址和物理地址 / 页回收机制）、IO 栈 2 个（异步AIO libaio、io_uring；用户态驱动IO SPDK、DPDK）、文件系统 3 个（ext4 / proc / sysfs）、网络 1 个（NAT协议）、驱动管理 2 个（系统总线总览 / PCIe设备枚举）。补内容后再 ingest；0 字节文件的 SHA-256 相同（`e3b0c442...`），不能作为改名判据。
-- **manifest 残留旧键（待确认）**：`Linux 内核 IO 栈/Linux IO全景介绍.html`（源已被用户删除，产出页仍在）、`Linux 内核 IO 栈/Linux 缓存IO和直接IO.md`（内容已由 `Linux 直接IO、缓存IO、内存映射mmap.md` 取代）、`Self learn/cpp_blog/【NO.358】ClickHouse...`（源已删除，无产出页）。0 字节陈旧键已在 2026-11-11 清理（`页表管理.md`、`设备驱动管理/Linux DMA传输.md`）。
-- **来源路径已对齐**：`Linux 设备驱动管理` → `Linux 驱动管理`（11 页）、`Linux 驱动管理/Linux IOMMU` → `Linux 内核 IO 栈/Linux IOMMU`（10 页，manifest 8 键按 basename 迁移）；`log.md` 历史条目按约定不回改。**raw 目录 2026-11-11 全天在重组**，ingest 前需重新扫盘。
+- **待 ingest 积压（14 个未登账非空 + 1 个 180 B 存根，2026-11-17 扫盘）**：`Self learn/Harness Engineering/` 2 篇（30.2 / 18.5 KB）、`Self learn/ACP协议/` 6 篇（12.0 / 6.9 / 5.6 / 5.4 / 2.7 / 2.2 KB）、`AI Agent/逆向+反代工程/` 3 篇（15.9 / 9.0 / 0.7 KB）、`物理硬件/磁盘/Raid卡缓存策略.md`（2.6 KB）、`Self learn/AIGC/` 2 篇（0.1 KB / 72 B）；另 `Linux VFS 虚拟文件系统.md` 已登账但只有 180 B，等同未入库。最大缺口 `Linux 时钟系统/Linux 内核 tick 定时器.md`（50.9 KB）已于 2026-11-17 入库。Self learn 两批为 2026-11-12 Learn 流程下载，`credibility: low`。批量扫描脚本见 [[skills/ingest-integrity-verification]]。
+- **空占位来源（12 个 0 字节）**：内存管理 3（MMU / 缺页异常 / 虚拟地址和物理地址）、IO 栈 2（异步AIO、用户态驱动IO）、文件系统 3（ext4 / proc / sysfs）、网络 1（NAT协议）、AI 2（ACL访问控制 / Ollama 本地运行）、数据结构 1（有向无环图）。补内容后再 ingest；0 字节文件 SHA-256 相同（`e3b0c442…`），不能作改名判据。
+- **ACP 事实漂移待纠偏**：`summaries/acp-protocol` 与 `concepts/agent-communication-protocols` 仍把 ACP 写成独立的三方协议，而 IBM ACP 已并入 A2A、Zed ACP 是编辑器↔Agent 的另一条线（2026-11-12 Learn 流程发现，报告在 `recommendations/2026-11-12.md`）。下次碰到 A2A/ACP 源时优先改这两页，不要只加新页。
+- **manifest 残留旧键（2 条）**：`Linux 内核 IO 栈/Linux 缓存IO和直接IO.md`（内容已由 `Linux 直接IO、缓存IO、内存映射mmap.md` 取代，键仍挂着 `concepts/linux-io-models`）、`Self learn/cpp_blog/【NO.358】ClickHouse 查询优化详细介绍.md`（源已删、无产出页）。需人工确认后迁移或清理。
+- **来源路径已对齐**：`Linux 设备驱动管理` → `Linux 驱动管理`（11 页）、`Linux 驱动管理/Linux IOMMU` → `Linux 内核 IO 栈/Linux IOMMU`（10 页，manifest 8 键按 basename 迁移）；`log.md` 历史条目按约定不回改。**raw 目录仍在被重组**，ingest 前需重新扫盘。
+- **断链实为 0**：2026-11-17 复核全库 222 页、约 1,750 条 wikilink，脚本报的 2 条全是假阳性（`[:space:]` POSIX 字符类撞 wikilink 语法、log 里带反引号的历史修复记录）——不必再当遗留债务追。
 
 ## 相关概念
 
 - [[concepts/linux-os-virtualization-landscape]] — Linux OS/虚拟化知识域导航页（最大知识域的入口）
 - [[concepts/linux-driver-model]] — 驱动域总纲（三大设备类型 + LDM + 总线框架），PCI/Block/网络/SCSI 四篇摘要的上游
+- [[concepts/linux-memory-management]] — 内存域入口（分配 / 回收 / Page Cache 的整合页）
 - [[synthesis/linux-kernel-subsystem-interactions]] — 内核子系统交互综合页（tier: core 的跨领域枢纽）
 - [[skills/raw-source-link-sanitization]] — raw 导入源的追踪链接清洗流程（本 vault 维护技能）
+- [[skills/ingest-integrity-verification]] — 源文件对账流程（小体积陷阱、哈希抖动、积压扫描）
 - 基础设施文件（纯文本路径）：`wiki/index.md`（内容目录）、`wiki/hot.md`（近期快照）、`wiki/.manifest.json`（来源账本）、`wiki/log.md`（操作日志）、`CLAUDE.md`（schema 权威）

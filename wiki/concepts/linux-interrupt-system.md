@@ -16,6 +16,8 @@ relationships:
     type: related_to
   - target: "[[summaries/linux-interrupt-classification]]"
     type: related_to
+  - target: "[[concepts/kernel-timer-wheel]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 中断系统
 source_files: ["1 Linux 中断分类表.md", "Linux中断所有知识点.md", "Linux 硬中断 irq + 软中断 softirq原理.md", "Linux 软中断 softirq.md", "Linux 软中断内核线程 ksoftirqd详解.md", "Linux IPI 核间中断.md", "物理硬件/网卡/网卡中断绑定 smp irq affinity介绍.md"]
 summary: Linux中断全景：同步/异步四维分类框架、上下半部两阶段设计、preempt_count上下文跟踪、三种延迟机制、GIC类型与irq_domain映射、ksoftirqd兜底。
@@ -28,7 +30,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-13
+updated: 2026-11-17
 ---
 
 # Linux中断系统
@@ -99,7 +101,7 @@ Linux中断系统是内核响应硬件事件的核心机制，采用上下半部
 内核定义了 10 种静态 softirq（5.10 内核 enum，NR_SOFTIRQS=10；部分文献沿用旧内核的 9 种计数，以 enum 列表为准）^[ambiguous]，优先级从高到低：
 
 1. HI_SOFTIRQ — 高优先级tasklet
-2. TIMER_SOFTIRQ — 定时器
+2. TIMER_SOFTIRQ — 定时器（`timer_list` 到期扫描，见 [[concepts/kernel-timer-wheel]]）
 3. NET_TX_SOFTIRQ — 网络发送
 4. NET_RX_SOFTIRQ — 网络接收
 5. BLOCK_SOFTIRQ — 块设备

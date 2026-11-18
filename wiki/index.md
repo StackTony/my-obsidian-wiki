@@ -1,11 +1,11 @@
 ---
 title: Wiki Index
-updated: 2026-11-13
+updated: 2026-11-17
 ---
 
 # Wiki Index
 
-*自动维护。上次更新：2026-11-13 (INGEST：软锁 Softlockup / 硬锁 Hardlockup 对比与检测链路；新增 kernel-lockup-detection 概念页与同名摘要)*
+*自动维护。上次更新：2026-11-17 (INGEST：Linux 内核 tick 定时器 50.9KB —— 新建 tick/HZ、clocksource/clockevent、timer_list 时间轮三概念页与定时器模块模板；lockup/调度/中断三页补 tick 链路)*
 
 ## Summaries (数据结构与算法)
 
@@ -55,6 +55,7 @@ updated: 2026-11-13
 - [linux-buddy-slab-allocator](summaries/linux-buddy-slab-allocator.md) — 物理内存两级分配：伙伴系统按2^n页管理、分裂/合并与伙伴地址异或公式、内部碎片量化；SLAB从伙伴取页切对象、kmem_cache工作流与buddyinfo/pagetypeinfo/slabinfo读法 — `linux` `内核` `内存` `伙伴系统` `slab`
 - [linux-memory-reclaim-triggers](summaries/linux-memory-reclaim-triggers.md) — 内存回收全景：zone 三水位与分配慢路径、文件页/匿名页/页表回收、swap cache 与 page cache 对偶、shrink_zone→lruvec→list→page_list 执行链，以及快速/直接/kswapd 三种回收差异与 swappiness/zone_reclaim_mode 调参 — `linux` `内核` `内存` `回收` `kswapd`
 - [linux-softlockup-hardlockup](summaries/linux-softlockup-hardlockup.md) — 软锁与硬锁对比：软锁=中断可响应但调度器切不走（watchdog 线程 + tick，2×watchdog_thresh=20s）、硬锁=关中断死循环只有 NMI 能探（watchdog_thresh=10s）、检测链路与 panic 旋钮 — `linux` `内核` `死锁` `watchdog` `NMI`
+- [linux-tick-timer](summaries/linux-tick-timer.md) — tick 定时器全景：HZ/节拍定义、tick 与用户态定时器的边界、clocksource/clockevent 硬件抽象与 rating 选型、timer_list 五级时间轮注册-触发-销毁链路、NO_HZ 与 HZ 取舍 — `linux` `内核` `定时器` `tick` `中断`
 
 ## Entities (Linux)
 
@@ -66,9 +67,12 @@ updated: 2026-11-13
 
 ## Concepts (Linux 操作系统)
 
-- [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
+- [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：11个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾 — `linux` `虚拟化` `全景图` `内核` `DFX`
 - [linux-interrupt-system](concepts/linux-interrupt-system.md) — Linux中断全景：同步/异步四维分类、IRQ/softirq两阶段设计、三种延迟机制、GIC组件与irq_domain映射、ksoftirqd、SMP IRQ Affinity、NMI 硬死锁检测 — `linux` `kernel` `interrupt` `irq` `softirq`
 - [kernel-lockup-detection](concepts/kernel-lockup-detection.md) — 内核 lockup 检测：softlockup 靠 per-CPU watchdog 线程 + tick（2×watchdog_thresh=20s）、hardlockup 靠 PMU 触发 NMI 查 tick（10s），含阈值/panic/追踪旋钮与 hung_task、RCU stall 的边界 — `linux` `内核` `死锁` `watchdog` `NMI`
+- [linux-tick-and-hz](concepts/linux-tick-and-hz.md) — tick 与 HZ：jiffies 计数、tick 承担调度/时间/定时三职责、HZ 取值与代价、NO_HZ_IDLE/FULL 的 tickless 形态、getconf CLK_TCK≠CONFIG_HZ 的常见混淆 — `linux` `内核` `定时器` `tick` `hz`
+- [clocksource-and-clockevent](concepts/clocksource-and-clockevent.md) — 硬件定时器的两分抽象：clocksource 读计数算时间、clockevent 到点产生中断，rating 择优 + tick_device 每CPU包装，ARM Generic/Global/Local 定时器家族 — `linux` `内核` `定时器` `clocksource` `clockevent`
+- [kernel-timer-wheel](concepts/kernel-timer-wheel.md) — timer_list 时间轮：per-CPU 五级分槽按 expires-jiffies 入链、TIMER_SOFTIRQ 中 __run_timers→expire_timers 执行、del_timer_sync 的进程上下文与不可持锁约束、4.15 后 8 级 timer_base 演进 — `linux` `内核` `定时器` `softirq` `时间轮`
 - [linux-memory-management](concepts/linux-memory-management.md) — Linux内存管理：meminfo参数、Page Cache架构、内存黑洞、伙伴系统/SLAB两级分配、zone三水位与三种回收、LRU双链表与swap cache、写时复制COW，并向下承接分页/页表/TLB原理基础 — `linux` `kernel` `memory` `meminfo` `page-cache` `lru`
 - [zone-watermark](concepts/zone-watermark.md) — zone 三水位(min/low/high)：各自触发动作、分配后剩余>水位+保留页框的判定、min_free_kbytes 推导 low/high、快速/直接/kswapd 的水位差异 — `linux` `内核` `内存` `水位线` `watermark`
 - [lru-page-reclaim](concepts/lru-page-reclaim.md) — LRU 双链表回收：五个链表只回收非活动页、PTE Accessed 与 PG_referenced 决定升降级、page->_count 归零与 _count==2 判定、priority/swappiness 扫描预算 — `linux` `内核` `内存` `LRU` `页面回收`
@@ -115,6 +119,7 @@ updated: 2026-11-13
 - [linux-network-debugging](skills/linux-network-debugging.md) — 网络调试实操：tcpdump抓包+iperf打流+Bonding调试日志+ARP/路由三张表排查 — `linux` `网络` `tcpdump` `iperf` `bonding`
 - [gdb-debugging-guide](skills/gdb-debugging-guide.md) — GDB调试实操速查：断点/观察点/执行控制/内存查看/多线程/多进程/Core Dump/QEMU调试 — `linux` `gdb` `调试` `QEMU` `断点` `观察点`
 - [linux-char-device-driver-template](skills/linux-char-device-driver-template.md) — 字符设备驱动六步骨架：定义dev_t/cdev→alloc_chrdev_region申请设备号→实现file_operations→cdev_init/cdev_add→class_create/device_create或mknod→逆序注销，含读写回调与注册注销代码片段 — `linux` `驱动` `字符设备` `内核模块` `实操`
+- [linux-kernel-timer-template](skills/linux-kernel-timer-template.md) — 内核定时器模块六步骨架：timer_setup/setup_timer→mod_timer注册→回调里续期→del_timer_sync注销，附卸载竞态、软中断上下文、jiffies回绕等六个高频坑 — `linux` `内核` `定时器` `模块` `实操`
 - [sre-interview-question-map](skills/sre-interview-question-map.md) — 三份面试记录的问题地图：按虚拟化/文件系统/网络/内存/调度分组，逐题标注 wiki 已有覆盖页与补源缺口 — `面试` `SRE` `运维` `知识地图` `复盘`
 
 ## Skills (Linux 虚拟化)
@@ -125,10 +130,11 @@ updated: 2026-11-13
 ## Skills (知识管理与维护)
 
 - [raw-source-link-sanitization](skills/raw-source-link-sanitization.md) — 中文技术站导入源追踪链接清洗：三类跳转链识别、perl正则替换、计数闭合验证、manifest哈希同步（不重蒸馏）、单文件回滚 — `obsidian` `wiki` `维护` `正则` `来源清洗`
+- [ingest-integrity-verification](skills/ingest-integrity-verification.md) — ingest前后源文件对账三步法：磁盘大小+SHA-256 vs manifest账本，识别伪已入库、0字节占位、编辑器并发重存、目录重组四类症状 — `obsidian` `wiki` `维护` `manifest` `校验`
 
 ## Synthesis (Linux)
 
-- [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：7个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾（同时在Concepts中索引） — `linux` `虚拟化` `全景图` `内核` `DFX`
+- [linux-os-virtualization-landscape](concepts/linux-os-virtualization-landscape.md) — OS+虚拟化+DFX导航枢纽：11个OS子领域+4个虚拟化子领域+7条OS→虚拟化映射+4个核心矛盾（同时在Concepts中索引） — `linux` `虚拟化` `全景图` `内核` `DFX`
 - [linux-kernel-subsystem-interactions](synthesis/linux-kernel-subsystem-interactions.md) — Linux内核六大子系统交互机制：preempt_count统一上下文追踪、softirq跨子系统分发、Page Cache交汇点、锁跨上下文协调 — `linux` `内核` `子系统交互` `preempt_count` `softirq` `page-cache` `锁`
 - [linux-dfx-tool-landscape](synthesis/linux-dfx-tool-landscape.md) — DFX调试工具全景图：六大领域(CPU/IO/内存/网络/追踪/vmcore)+代码调试+硬件层×三种模式(监控/追踪/事后)的工具矩阵与互补关系 — `linux` `DFX` `调试` `工具全景` `性能分析`
 - [virtio-architecture-evolution](synthesis/virtio-architecture-evolution.md) — Virtio四种架构演进分析：数据面从软件模拟到硬件直通，性能与灵活性的核心矛盾 — `linux` `虚拟化` `virtio` `vhost` `DPDK` `vDPA`
@@ -350,6 +356,6 @@ updated: 2026-11-13
 
 ## Projects
 
-- [my-obsidian-wiki](projects/my-obsidian-wiki.md) — 本 vault 自身的项目知识枢纽：三层架构、架构决策索引、运营模式（重叠合并/稀薄折叠/backup 流/链接清洗/键迁移）、知识域扩张史与待办债务 — `obsidian` `wiki` `知识管理` `llm`
+- [my-obsidian-wiki](projects/my-obsidian-wiki.md) — 本 vault 自身的项目知识枢纽：三层架构、架构决策索引、运营模式（重叠合并/稀薄折叠/backup 流/链接清洗/键迁移/源文件对账）、992来源219页快照、知识域扩张史与待办 — `obsidian` `wiki` `知识管理` `llm`
 
 ## Journal

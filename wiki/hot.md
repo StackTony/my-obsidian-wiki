@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-11-13
+updated: 2026-11-17
 ---
 
 # Hot Cache
@@ -9,6 +9,8 @@ updated: 2026-11-13
 
 ## Recent Activity
 
+- [2026-11-17] INGEST — Linux 内核 tick 定时器（5 新建 / 4 更新）：新建 [[summaries/linux-tick-timer]]（HZ 与三层结构、clocksource/clockevent、timer_list 三段生命周期、NO_HZ）、[[concepts/linux-tick-and-hz]]（jiffies、tick 三职责、tickless 三形态、USER_HZ 混淆）、[[concepts/clocksource-and-clockevent]]（读计数 vs 生中断、rating 选型、ARM 定时器家族）、[[concepts/kernel-timer-wheel]]（五级时间轮、TIMER_SOFTIRQ 执行链、del_timer_sync 约束）、[[skills/linux-kernel-timer-template]]（六步骨架 + 六个坑）；更新 [[concepts/linux-process-scheduling]]（调度决策挂 tick）、[[concepts/kernel-lockup-detection]]（tick 从哪来）、[[concepts/linux-interrupt-system]]（TIMER_SOFTIRQ 链接）、[[concepts/linux-os-virtualization-landscape]]（导航树加时钟分支、修重复节点）。manifest 992→993 来源、219→224 页
+- [2026-11-17] WIKI_UPDATE — 项目页同步（1 新建 / 3 更新）：新建 [[skills/ingest-integrity-verification]]（源文件对账三步法 + 五类判定 + 四类症状）；更新 [[projects/my-obsidian-wiki]]（992 来源 / 218 页 / 83 提交，两条 ingest 运维教训，待办按扫盘重写）。扫盘发现 15 个非空源未入库（最大 50.9KB 内核 tick 定时器）、12 个 0 字节占位、2 条 manifest 残留键、真实断链 0
 - [2026-11-13] INGEST — 软锁/硬锁对比（2 新建 / 4 更新）：新建 [[summaries/linux-softlockup-hardlockup]]（七维对比、watchdog 线程 + tick、PMU→NMI 查 tick、2×/1× 阈值）与 [[concepts/kernel-lockup-detection]]（判定条件、阈值旋钮、hung_task/RCU stall 边界、dmesg 特征串）；更新 [[concepts/linux-interrupt-system]]（NMI 硬死锁小节）、[[concepts/linux-process-scheduling]]（watchdog 线程小节）、[[concepts/linux-lock-mechanisms]]（长持锁与 lockup）、[[skills/linux-kernel-debugging]]（第 8 步 lockup 排查）。manifest total_pages 215→217
 - [2026-11-13] INGEST — 内存回收机制**全文重蒸馏**（3 新建 / 3 更新）：来源从 36B 占位图补全为 125KB 正文后，重写 [[summaries/linux-memory-reclaim-triggers]]（三水位、页标志与 _count 记账、swap 换入换出、shrink_zone→lruvec→list→page_list 执行链、快速/直接/kswapd 对比、swappiness/zone_reclaim_mode 调参）；新建 [[concepts/zone-watermark]]、[[concepts/lru-page-reclaim]]、[[concepts/swap-cache-mechanism]]；更新 [[concepts/linux-memory-management]]（回收节扩写）、[[concepts/virtual-memory-and-paging]]（实现对应表补三行）、[[concepts/page-cache-vs-buffer-cache]]（swap cache 同构链接）。manifest total_pages 212→215
 - [2026-11-12] INGEST — Linux 驱动域 + 内存增量（6 新建 / 6 更新）：新建 [[summaries/linux-char-device-driver]]（dev_t 12+20 位、cdev_map `major%255`、五步注册、open→def_chr_fops→chrdev_open→replace_fops）、[[skills/linux-char-device-driver-template]]（六步可照抄骨架）、[[summaries/linux-system-bus]]（总线四维分类、带宽=频率×位宽/8、ISA→PCI→AGP→PCIe 演进）、[[skills/sre-interview-question-map]]（三份面试题覆盖地图）、[[summaries/linux-buddy-slab-allocator]]（阶/分裂合并/伙伴地址异或/SLAB 对象缓存）、[[summaries/linux-memory-reclaim-triggers]]（紧缺/kswapd/drop_caches 三入口）；更新 [[summaries/linux-pci-subsystem]]（BDF 8/5/3 位、ACPI 根节点→pci_scan_child_bus 递归枚举）、[[summaries/linux-interrupt-classification]]（典型例子速查表 + 10 种 softirq）、[[concepts/linux-memory-management]]（伙伴/SLAB 与回收两节）、[[concepts/linux-driver-model]]（字符设备小节）、[[concepts/linux-interrupt-system]]（源文件改名同步）、[[concepts/linux-io-stack]]（磁盘上报识别流程）。manifest 985→991，total_pages 206→212
@@ -26,12 +28,18 @@ updated: 2026-11-13
 - **内存管理上下层已接通**：上层 meminfo/Page Cache/LRU 与下层分页/TLB 之间，分配侧（[[summaries/linux-buddy-slab-allocator]]）与回收侧（[[summaries/linux-memory-reclaim-triggers]]，2026-11-13 已补全正文）均已成篇，回收的触发（[[concepts/zone-watermark]]）、执行（[[concepts/lru-page-reclaim]]）、落地（[[concepts/swap-cache-mechanism]]）三层齐备，形成"分配→使用→回收"闭环；仍缺口：MMU、缺页异常、虚拟地址与物理地址三篇 0 字节源
 - **raw 目录仍在被用户重组**（2026-11-11 全会话）：`Linux IOMMU/` 已从 `Linux 驱动管理/` 迁至 `Linux 内核 IO 栈/`，文件系统、内存、IO 栈三个目录陆续建/改名。ingest 前务必重新扫盘，不能沿用会话早期的路径快照
 - **空占位补齐进度**：本轮补上 `Linux 系统总线`、`Linux PCIe设备枚举`、`Linux 伙伴分配器与 SLAB 分配器`、`Linux 内存回收机制` 四个原 0 字节/占位来源；当前仍有 12 个 0 字节 .md：内存管理（MMU / 缺页异常 / 虚拟地址和物理地址）、IO 栈（异步AIO libaio、io_uring / 用户态驱动IO SPDK、DPDK）、文件系统（ext4 / proc / sysfs）、网络（NAT协议）、AI（ACL访问控制 / Ollama）、数据结构（有向无环图）。0 字节文件 SHA-256 相同，不可作改名判据
+- **时钟与定时器域已成篇** ^[inferred]：[[concepts/linux-tick-and-hz]] 讲 HZ/jiffies 与 tickless，[[concepts/clocksource-and-clockevent]] 讲硬件抽象，[[concepts/kernel-timer-wheel]] 讲 timer_list 执行链，向上接调度（[[concepts/linux-process-scheduling]]）与 lockup 检测（[[concepts/kernel-lockup-detection]]），向下接中断（[[concepts/linux-interrupt-system]] 的 TIMER_SOFTIRQ）。仍缺口：hrtimer 专题、timekeeping/timekeeper、jiffies 回绕、broadcast 与虚拟化时钟
+- **待入库积压 14 个非空源**（2026-11-17 扫盘，tick 定时器已入库）：11-12 Learn 流程下载的 Harness / ACP 8 篇（`credibility: low`）、`逆向+反代工程/` 3 篇、`Raid卡缓存策略`、AIGC 2 篇；`Linux VFS 虚拟文件系统.md` 仅 180 B 存根，等同未入库。清单与扫描法见 [[projects/my-obsidian-wiki]]、[[skills/ingest-integrity-verification]]
 - **子系统解析下一步缺口**：SCSI 的 ULD（sd/sr/st）与 LLD 具体驱动、Block 的 io_uring 直通路径（当前源仅讲 bio/blk-mq 与 libaio）、网络 NAPI 与 XDP 的分界、DTS 中断/clk/reset 属性全集
 - **DMA/IOMMU 域双轴完备**：x86 轴（SWIOTLB 软件 bounce vs Intel VT-d 硬件 I/O 页表，互斥）+ ARM/框架轴（统一抽象层、Group/Domain 隔离、SVA、STE 级 bypass）
 - **待人工审核**：几乎全库 `lifecycle: draft`；manifest 顶层 `vault_path` 仍为旧机器路径（`C:\Users\23363\Data\code\...`），实际在 `D:\lkj_Data\`——多次上报待老板决策；manifest 残留 2 条（`Linux 缓存IO和直接IO.md` 旧键、ClickHouse 源已删）
 
 ## Key Takeaways
 
+- **tick 是三个子系统的公共分母**：调度靠 `scheduler_tick()` 拿检查点，时间靠 jiffies 推进，定时器靠 `run_local_timers()` 扫到期；HZ 决定这个分母的粒度（100Hz=10ms），tickless 只决定它什么时候停
+- **clocksource 报数、clockevent 报时**：前者提供自由运行计数换算时间，后者编程中断产生 tick；两者常由同一颗硬件定时器兼任，按 rating 择优——没有 clockevent 就没有 tick，clockevent 坏了 lockup 检测会一起哑
+- **timer_list 不是 tick，执行在软中断里**：tick 只负责 `raise_softirq(TIMER_SOFTIRQ)`，回调在 `call_timer_fn` 中运行，所以不能睡眠；`del_timer` 只摘链，`del_timer_sync` 才等回调退出，且必须进程上下文、不能持自旋锁
+- **HZ 与定时精度已解耦**：`timer_list` 受 jiffy 粒度限制，但亚毫秒需求走 hrtimer；`getconf CLK_TCK` 返回的是用户态 USER_HZ（固定 100），不是 `CONFIG_HZ`
 - **字符设备 open 是"两段式"绑定**：inode 起初只挂通用 `def_chr_fops`，`chrdev_open()` 用 `inode->i_rdev` 在 `cdev_map`（`major % 255` 散列）中查出 `cdev`，`replace_fops()` 把 `file->f_op` 换成驱动 fops，再回调驱动 `open()`；设备号 `dev_t` 高 12 位主、低 20 位次，主号标识驱动、次号标识实例
 - **系统总线带宽的口径**：带宽 = 频率 × 位宽 / 8（单沿），DDR 乘 2；PCI 32bit/33MHz≈133MB/s、AGP 8x≈2.1GB/s、PCIe 3.0 x16≈15.75GB/s（编码开销前）；ISA→PCI→AGP→PCIe 的演进主线是"并行共享 → 串行点对点"
 - **BDF 是配置空间的全局地址**：Bus 8 位（0–255）、Device 5 位（0–31）、Function 3 位（0–7），每 Function 4KB 配置空间（前 256B 兼容 PCI）；枚举从 ACPI `PNP0A03` 根节点开始，`pci_scan_child_bus` 遍历 32 Device × 8 Function，遇桥再建子总线递归
@@ -57,6 +65,8 @@ updated: 2026-11-13
 
 ## Flagged Contradictions
 
+- **NO_HZ 配置名与启动参数** ^[ambiguous]：源文写 `NO_HZ_MODE_LOWRES/HIGHRES` 与 `nohz=on`，真实内核配置是 `CONFIG_NO_HZ_IDLE` / `CONFIG_NO_HZ_FULL`、启动参数 `nohz_full=<cpulist>`，见 [[concepts/linux-tick-and-hz]]
+- **`scheduler_tick` 示例的调度器代际** ^[ambiguous]：源文用 `time_slice` 递减（O(1) 调度器时代），同一节又讲 CFS 的 vruntime，两者不是同一版本，见 [[summaries/linux-tick-timer]]
 - **`watchdog_thresh=0` 语义** ^[ambiguous]：是关闭检测、关闭 watchdog 线程还是回落默认值，不同内核版本文档说法不一，见 [[concepts/kernel-lockup-detection]]
 
 - **swappiness 取值口径 0–100 vs 0–200** ^[ambiguous]：sysctl 文档口径为 0–100，`shrink_zone` 内 memcg 的 swappiness 语义为 0–200（100 为平衡点），同一来源两处并存，见 [[summaries/linux-memory-reclaim-triggers]]

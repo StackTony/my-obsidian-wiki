@@ -11114,6 +11114,27 @@
         "skills/linux-kernel-debugging.md"
       ]
     },
+    "Linux 操作系统/Linux 时钟系统/Linux 内核 tick 定时器.md": {
+      "ingested_at": "2026-11-17",
+      "size_bytes": 52153,
+      "content_hash": "sha256:c9bd7b3cc67c0aa1dcd3590645743e8b140dbbd6c69a03bbd423e90014dc3448",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "summaries/linux-tick-timer.md",
+        "concepts/linux-tick-and-hz.md",
+        "concepts/clocksource-and-clockevent.md",
+        "concepts/kernel-timer-wheel.md",
+        "skills/linux-kernel-timer-template.md"
+      ],
+      "pages_updated": [
+        "concepts/linux-process-scheduling.md",
+        "concepts/kernel-lockup-detection.md",
+        "concepts/linux-interrupt-system.md",
+        "concepts/linux-os-virtualization-landscape.md"
+      ],
+      "modified_at": "2026-11-13T11:40"
+    },
     "Obsidian使用/claude的json备份.md": {
       "ingested_at": "2026-10-21",
       "size_bytes": 913,
@@ -12032,24 +12053,25 @@
   "projects": {
     "my-obsidian-wiki": {
       "source_repo": "github.com/StackTony/my-obsidian-wiki",
-      "last_synced": "2026-11-11",
-      "last_commit_synced": "3f8a01c4dfb9abdf41b4cb913f5f1816030edf66",
+      "last_synced": "2026-11-17",
+      "last_commit_synced": "c17eaefbcf163b177881c01074c5fb620a46ad5c",
       "pages_in_vault": [
         "projects/my-obsidian-wiki.md",
-        "skills/raw-source-link-sanitization.md"
+        "skills/raw-source-link-sanitization.md",
+        "skills/ingest-integrity-verification.md"
       ]
     }
   },
-  "last_ingest": "2026-11-12",
+  "last_ingest": "2026-11-17",
   "created": "2026-06-01",
   "stats": {
-    "total_sources_ingested": 992,
-    "total_pages": 217,
-    "total_concepts": 96,
-    "total_summaries": 59,
+    "total_sources_ingested": 993,
+    "total_pages": 224,
+    "total_concepts": 99,
+    "total_summaries": 60,
     "total_entities": 20,
-    "total_skills": 20,
+    "total_skills": 22,
     "total_synthesis": 7,
-    "last_updated": "2026-11-13"
+    "last_updated": "2026-11-17"
   }
 }

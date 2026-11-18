@@ -620,7 +620,7 @@ title: Wiki Log
 - [2026-11-09T20:04] LINT issues_found=244 orphans=6 broken_links=0 stale=117 contradictions=0 prov_issues=72 missing_summary=1 fragmented_clusters=4 visibility_issues=1 promotion_candidates=36 synthesis_gaps=7 relationship_issues=0 temporal_issues=0 lifecycle_issues=0 oversized=0
 - 附加计数：tags_over5=50（软）；uncovered_sources=739（rebuild 时代 manifest 批量登记未回填 pages 数组，201/940 有记录）；hash_mismatch=27（其中 16 条影响产出页）；dead_manifest_keys=5（raw 侧重命名/删除）；pending_raw=17（下次 ingest 输入，lint 运行期间 16→17 仍在实时增长）
 - 真孤儿 6 页（正文 wikilink 与 frontmatter 关系边均零入链）：concepts/helm-package-management、concepts/obsidian-ai-toolchain、concepts/ood-principles-and-patterns、entities/dsh-plugin-ecosystem、entities/headroom-tool、summaries/bmc-intro；另有 7 页仅靠 relationships 边连通（正文零链接，cross-linker 候选）；projects/my-obsidian-wiki 仅 hot.md 单链
-- 断链 0：两条疑似均为假阳性已排除——log.md:401 行内反引号内的历史修复记录（展示旧链接本身）、linux-interrupt-monitoring-script 的 `[[:space:]]` POSIX 字符类撞 wikilink 语法；另 8 条为 recommendations 外网 .md 结尾 URL
+- 断链 0：两条疑似均为假阳性已排除——log.md:401 行内反引号内的历史修复记录（展示旧链接本身）、linux-interrupt-monitoring-script 的 `[:space:]` POSIX 字符类撞 wikilink 语法；另 8 条为 recommendations 外网 .md 结尾 URL
 - 方法修正：关系边入链未计入曾致 7 页误报孤儿（kafka-architecture/binary-tree-basics/b-tree-bplus-tree/graph-algorithms/mq-selection-comparison/speculative-decoding-mtp/llm-training-pipeline），复核后剔除
 - Schema 完整性零缺陷：必填 8 字段 0 缺失、lifecycle/tier 枚举 0 越界、base_confidence 全 [0,1]、summaries/entities/concepts 的 source_dir/source_files 0 缺失、supersession 0、链接隔离 0 违规
 - 过期 117 页全部 lifecycle=draft（无 verified+stale 高危）；来源漂移 16 条影响页：linux-lock-mechanisms/linux-lock-selection/linux-kernel-subsystem-interactions（锁机制全景，06-01 ingest 后源被改）、virtio-io-notification-mechanism/linux-virtio-architecture（ioeventfd）、linux-io-stack/linux-io-debugging（IO全景）、OMO 8 页、ACP 3 页、obsidian-ai-toolchain 3 页、kafka-architecture、agent-system-architecture 4 页等
@@ -823,3 +823,29 @@ title: Wiki Log
 - Manifest：新增来源键 content_hash=`sha256:ba01b30a…`、size_bytes=5041、ingested_at=2026-11-13；stats total_sources_ingested 991→992、total_pages 215→217、total_concepts 95→96、total_summaries 58→59、last_updated=2026-11-13
 - 工具降级：`obsidian-wiki` CLI 与 QMD 均不可用，index/log/hot/manifest 手工同步；未启用 staged writes
 - 哈希校验：ingest 期间 Obsidian 编辑器对源文件有多次自动重存（大小在 5041↔5063B 间抖动），复核内容一致；最终哈希 `sha256:ba01b30a…` 与 manifest 记录一致，无需修正
+
+## [2026-11-17] WIKI_UPDATE | my-obsidian-wiki 项目页同步（3f8a01c..c17eaef，6 提交）
+
+- [2026-11-17T11:33] WIKI_UPDATE project=my-obsidian-wiki pages_created=1 pages_updated=3 source_repo=github.com/StackTony/my-obsidian-wiki
+- delta 校验：`git merge-base --is-ancestor 3f8a01c HEAD` 通过（非 rebase/force-push），6 个提交 = 11-12 驱动域+COW+内存增量 3 个、11-13 内存回收重蒸馏与 lockup 2 个、11-16 两次 vault backup
+- 项目页更新：规模快照 984→992 来源、204→218 页（concepts 96 / summaries 59 / entities 20 / skills 20 / synthesis 7 / recommendations 15 / projects 1）、76→83 提交；知识域路线补"内核子系统纵深"（11月中）；新增两条运维教训（36B 占位陷阱、Obsidian 并发改写源文件）；待办按当日扫盘重写
+- 扫盘结论（raw/sources 共 1004 个 .md）：12 个 0 字节占位；15 个非空源未入库，最大缺口 `Linux 时钟系统/Linux 内核 tick 定时器.md`（50.9 KB）；`Linux VFS 虚拟文件系统.md` 已登账但仅 180 B 存根，实质等同未入库
+- 新建 skills/ingest-integrity-verification：三步对账（磁盘哈希/大小 vs 账本）、五类判定、四类症状（伪已入库 / 0 字节 / 编辑器重存 / 目录重组）、非空未入库扫描脚本与 0 字节巡检
+- 断链核验：221 页 1,738 条 wikilink，真实断链 0；脚本报的 3 条均为假阳性（`[:space:]` POSIX 字符类、log 内反引号历史记录），已从待办中撤下
+- Manifest：projects.my-obsidian-wiki last_synced=2026-11-17、last_commit_synced=c17eaef；last_ingest 2026-11-12→2026-11-13（此前漏更）；stats total_pages 217→219、total_skills 20→21、last_updated=2026-11-17（修正：217 漏计 `recommendations/2026-11-12.md` 一篇）
+- 工具降级：`obsidian-wiki` CLI 不可用，`code-understand` 与 `memory sync` 跳过，index/log/hot/manifest 手工同步；`QMD_WIKI_COLLECTION` 未配置，跳过索引刷新
+
+## [2026-11-17] INGEST | Linux 内核 tick 定时器（5 新建 + 4 更新）
+
+- [2026-11-17T12:05] INGEST mode=append source="Linux 操作系统/Linux 时钟系统/Linux 内核 tick 定时器.md" pages_created=5 pages_updated=4
+- 来源状态：52,153 B / 647 行，manifest 无记录 → 按新增来源处理；`sha256sum` 与写入值一致（`sha256:c9bd7b3c…`）
+- 新建 summaries/linux-tick-timer：tick 三层结构（硬件/抽象/使用者）、tick 与用户态定时器三维对比、clocksource/clockevent 分工与 rating 选型、ARM Generic/Global/Local/厂商定时器、timer_list 注册-触发-销毁三段、HZ 与 NO_HZ 旋钮
+- 新建 concepts/linux-tick-and-hz：HZ/jiffies/tick 三名一体、三个子系统公共时钟、精度边界（timer_list 受 jiffy 限制、hrtimer 解耦）、NO_HZ_IDLE/FULL、`getconf CLK_TCK`≠`CONFIG_HZ`
+- 新建 concepts/clocksource-and-clockevent：两类硬件抽象、结构体骨架、DTS→驱动注册→rating 选型→tick_setup_periodic 链路、ARM 定时器家族表
+- 新建 concepts/kernel-timer-wheel：per-CPU `tvec_bases`、五级分槽（tv1 0–255 / tv2 256–16383）、`__mod_timer` 入链、`TIMER_SOFTIRQ` → `run_timer_softirq` → `__run_timers` → `expire_timers` → `call_timer_fn`、`del_timer` vs `del_timer_sync` 约束、deferrable 与 4.15 后 8 级 timer_base
+- 新建 skills/linux-kernel-timer-template：六步骨架（定义→回调→timer_setup→mod_timer→回调续期→del_timer_sync）+ 六个高频坑（卸载 UAF、软中断上下文睡眠、jiffies 回绕、重复 add、精度预期、from_timer 传参）
+- 更新 concepts/linux-process-scheduling（调度决策后补"tick 就是那个时钟中断"，澄清 CFS 无固定时间片）、concepts/kernel-lockup-detection（新增「判定所依赖的 tick 从哪里来」两节，含 clockevent 故障与 hrtimer≠tick 两条排查含义）、concepts/linux-interrupt-system（TIMER_SOFTIRQ 行挂 timer wheel 链接）、concepts/linux-os-virtualization-landscape（导航树新增"时钟与定时器"分支；删除重复的网络栈节点；子领域计数 8→11）
+- 标记歧义：源文 `NO_HZ_MODE_LOWRES/HIGHRES` 与 `nohz=on` 命名与真实配置项（`CONFIG_NO_HZ_IDLE/FULL`、`nohz_full=`）不符；`scheduler_tick` 示例用 `time_slice` 属 O(1) 调度器时代，与同节 CFS vruntime 不同版本；`call_timer_fn` 的 bh 保护位置随版本调整
+- 标记推断：4.15 后 `timer_setup`/8 级 timer_base 演进、`getconf CLK_TCK` 为 USER_HZ、hrtimer 精度边界、deferrable 用途
+- Manifest：新增来源键 content_hash=`sha256:c9bd7b3c…`、size_bytes=52153、ingested_at=2026-11-17；stats total_sources_ingested 992→993、total_pages 219→224、total_concepts 96→99、total_summaries 59→60、total_skills 21→22、last_updated=2026-11-17
+- 工具降级：`obsidian-wiki` CLI 不可用（cache-check/ingest-guard/memory sync 跳过，改手工哈希比对）；QMD 未配置，跳过索引刷新

@@ -12,6 +12,8 @@ relationships:
     type: related_to
   - target: "[[summaries/linux-softlockup-hardlockup]]"
     type: related_to
+  - target: "[[concepts/linux-tick-and-hz]]"
+    type: related_to
 source_dir: Linux 操作系统/Linux 进程调度
 source_files: [Linux 软锁Softlockup和硬锁Hardlockup区别.md]
 summary: CPU 在内核态长时间不返回的两种检测：softlockup 靠 per-CPU watchdog 线程 + tick 检查（2×watchdog_thresh），hardlockup 靠 PMU 触发 NMI 检查 tick 是否推进（watchdog_thresh），阈值与 panic 行为均可调。
@@ -24,7 +26,7 @@ lifecycle: draft
 lifecycle_changed: 2026-11-13
 tier: supporting
 created: 2026-11-13
-updated: 2026-11-13
+updated: 2026-11-17
 ---
 
 # 内核 Lockup 检测（软锁与硬锁）
@@ -47,6 +49,15 @@ Lockup 指某个 CPU 在内核态长时间不返回调度器，导致该核上�
 |--------|-----------|----------|--------------|
 | softlockup | per-CPU watchdog 内核线程（SCHED_FIFO）+ tick 中断检查 | `now - watchdog_touch_ts > 2 × watchdog_thresh` | 20s |
 | hardlockup | per-CPU NMI handler（PMU 计数触发） | 连续 `watchdog_thresh` 时间内 tick 计数不增长 | 10s |
+
+### 判定所依赖的 tick 从哪里来
+
+两类检测的共同裁判是 **tick 是否推进**，所以先要清楚 tick 本身由什么驱动：`clock_event_device` 按 HZ 编程周期中断，每次中断在本地 CPU 上推进 jiffies，并顺带唤醒 watchdog 做检查。这条链路的细节见 [[concepts/linux-tick-and-hz]] 与 [[concepts/clocksource-and-clockevent]]。
+
+由此可以推出两条排查含义 ^[inferred]：
+
+- **clockevent 坏了，lockup 检测会一起哑**：如果时钟中断本身投递不到（不是被屏蔽，而是设备/路由问题），tick 停了，软锁检测拿不到"tick 在走"的证据，NMI 也会报 hardlockup——此时先查定时器与中断投递，而不是软件死锁。
+- **hrtimer 在跑 ≠ tick 在跑**：判定比较的是 jiffies/全局 tick，不是 hrtimer 队列是否推进；高精度定时器可以靠一次性事件维持，但周期 tick 已经停摆。
 
 ### 软锁：watchdog 线程为什么可能跑不到
 

@@ -3,7 +3,7 @@ title: Linux操作系统与虚拟化全景
 category: concepts
 tags: [linux, 虚拟化, 全景图, 内核, DFX]
 aliases: [Linux全景, OS+虚拟化导航, Linux Landscape]
-summary: Linux操作系统+虚拟化领域的统一导航枢纽：8个OS子领域+4个虚拟化子领域+DFX工具矩阵，7条OS→虚拟化核心映射关系，4个领域核心矛盾
+summary: Linux操作系统+虚拟化领域的统一导航枢纽：11个OS子领域+4个虚拟化子领域+DFX工具矩阵，7条OS→虚拟化核心映射关系，4个领域核心矛盾
 source_dir: Linux 操作系统
 source_files: []
 provenance:
@@ -15,7 +15,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-13
 tier: core
 created: 2026-06-13
-updated: 2026-09-15
+updated: 2026-11-17
 relationships:
   - target: "[[concepts/linux-interrupt-system]]"
     type: related_to
@@ -32,6 +32,8 @@ relationships:
   - target: "[[concepts/linux-namespace-cgroups]]"
     type: related_to
   - target: "[[concepts/linux-process-scheduling]]"
+    type: related_to
+  - target: "[[concepts/linux-tick-and-hz]]"
     type: related_to
   - target: "[[concepts/linux-virtio-architecture]]"
     type: related_to
@@ -57,17 +59,17 @@ Linux操作系统和虚拟化是**强关联**的两个领域——虚拟化建�
 
 ```
 Linux OS + 虚拟化 + DFX
-├── Linux操作系统（8个子领域）
+├── Linux操作系统（11个子领域）
 │   ├── 中断系统
 │   │   └── [[concepts/linux-interrupt-system|中断系统]]          — IRQ/softirq两阶段、preempt_count、ksoftirqd
+│   ├── 时钟与定时器
+│   │   └── [[concepts/linux-tick-and-hz|tick与HZ]]               — HZ/jiffies、clocksource/clockevent、timer_list时间轮、NO_HZ
 │   ├── 内存管理
 │   │   └── [[concepts/linux-memory-management|内存管理]]          — meminfo参数、Page Cache、LRU、Write策略
 │   ├── IO栈
 │   │   └── [[concepts/linux-io-stack|IO栈]]                      — 五层架构、IO调度器、gendisk、hctx busy
 │   ├── 文件系统与Mount
 │   │   └── [[concepts/linux-fs-mount|文件系统与Mount]]           — mount/mountpoint/vfsmount三结构+两步挂载
-│   ├── 网络栈
-│   │   └── [[concepts/linux-network-stack|网络栈]]               — TCP/IP四层、sk_buff零拷贝、NAPI
 │   ├── 网络栈
 │   │   └── [[concepts/linux-network-stack|网络栈]]               — TCP/IP四层、sk_buff零拷贝、NAPI
 │   ├── 锁机制

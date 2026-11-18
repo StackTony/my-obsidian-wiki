@@ -14,6 +14,8 @@ relationships:
     type: uses
   - target: "[[concepts/kernel-lockup-detection]]"
     type: related_to
+  - target: "[[concepts/linux-tick-and-hz]]"
+    type: uses
 source_dir: Linux 操作系统/Linux 进程调度
 source_files: [Linux 进程调度器.md, Linux 进程调度策略.md, Linux CFS调度器.md, Linux 完全公平调度器CFS.md]
 summary: Linux内核进程调度：CFS用红黑树按vruntime选下一个进程，五个调度类(stop>dl>rt>fair>idle)决定优先级层级，实时进程绝对优先于普通进程，六种调度策略覆盖不同场景。
@@ -26,7 +28,7 @@ lifecycle: draft
 lifecycle_changed: 2026-06-01
 tier: core
 created: 2026-06-01
-updated: 2026-11-13
+updated: 2026-11-17
 ---
 
 # Linux进程调度
@@ -67,6 +69,8 @@ Linux进程调度器决定哪个进程在何时获得CPU时间，是内核最核
 2. 更新当前进程的vruntime
 3. 如果当前进程的vruntime不再是红黑树中最小的，或已运行超过ideal_runtime
 4. 触发抢占：选择红黑树中vruntime最小的进程投入运行
+
+这里的"时钟中断"就是 **tick**：频率由 `HZ` 决定，检查点经 `scheduler_tick()` → 各调度类 `task_tick()` 落到具体策略。CFS 并没有固定时间片——`sched_slice` 是按权重和就绪任务数算出的目标运行时长，`ideal_runtime` 只作抢占比较的参考量；因此调低 HZ 只是让"发现该抢占"的粒度变粗，不改变公平性判据。tick 的来源、tickless 与 HZ 取舍见 [[concepts/linux-tick-and-hz]]，定时器与 tick 的分工见 [[concepts/kernel-timer-wheel]]。 ^[inferred]
 
 ### 主调度器与周期调度器
 
